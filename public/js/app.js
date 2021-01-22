@@ -65907,8 +65907,8 @@ if (document.getElementById('example')) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Apache24\htdocs\FixitJA\FixitJA-CBV-Test\FixitJA\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Apache24\htdocs\FixitJA\FixitJA-CBV-Test\FixitJA\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Apache24\htdocs\FixitJA\FixitJA-CBV-New\FixitJA\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Apache24\htdocs\FixitJA\FixitJA-CBV-New\FixitJA\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

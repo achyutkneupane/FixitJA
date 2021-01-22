@@ -39,8 +39,8 @@
                                                     @if(!is_null($documents->where('type','profile_picture')->first()))
                                                     {{ asset('storage/'.$documents->where('type','profile_picture')->first()->path)}}
                                                     @else
-                                                    {{asset('storage/unknown-avatar.png') }}
-                                                    @endif                                   
+                                                    {{asset('images/unknown-avatar.png') }}
+                                                    @endif
                                                 " alt="Admin" class="rounded-circle object-fit-scale-down" width="150" height="150">
                                                 <div class="mt-3">
                                                     <h4>{{ucwords($loggedUser->name)}}</h4>
