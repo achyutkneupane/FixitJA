@@ -17,7 +17,6 @@ class UserController extends Controller
 {
     public function update(User $user)
     {
-        dd(request('profile_image'));
         $user = new User();
         $user = Auth::user();
         if (request('password')) {
