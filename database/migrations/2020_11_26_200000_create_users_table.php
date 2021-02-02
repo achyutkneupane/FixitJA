@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('street_02')->nullable();
             $table->unsignedBigInteger('city_id')->nullable();
             $table->text('introduction')->nullable();
-            $table->string('areas_covering');
+            $table->string('areas_covering')->nullable();
             $table->boolean('is_police_record')->default('0');
             $table->boolean('is_travelling')->default('0');
             $table->integer('days')->nullable();
