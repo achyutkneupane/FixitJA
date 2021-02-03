@@ -1,6 +1,6 @@
 
 {{-- Extends layout --}}
-@extends('layout.default')
+@extends('demo1_layout.default')
 
 {{-- Content --}}
 @section('content')
