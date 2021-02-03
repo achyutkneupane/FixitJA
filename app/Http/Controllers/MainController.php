@@ -18,7 +18,10 @@ class MainController extends Controller
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
 
-            // dd($documents->where('type','profile_picture')->where('id','1')->first()->path);
+           // dd($documents->where('type','profile_picture')->where('id','1')->first()->path);
         return view('welcome', ['users' => $users, 'documents' => $documents]);
+
+        //return view('landingpage');
     }
+    
 }

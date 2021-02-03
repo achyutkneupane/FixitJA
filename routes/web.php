@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'index']);
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update']);
 

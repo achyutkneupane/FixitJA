@@ -2,8 +2,14 @@
 
 @section('content')
 <div class="container">
+
     <div class="row justify-content-center">
         <div class="col-md-8">
+        @if(session()->has('success'))
+                        <div class="alert-success">
+                            <h1> {!! session()->get('success') !!}</h1>
+                        </div>
+                    @endif
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 

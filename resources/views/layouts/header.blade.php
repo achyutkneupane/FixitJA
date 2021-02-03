@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/header.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom-css.css') }}" rel="stylesheet">
     @yield('modern-css')
 </head>
@@ -43,9 +43,11 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
+                    <li class="nav-item">
                                     <a class="nav-link" href="">{{ __('startProject') }}</a>
                                 </li>
                     </li>
+                    
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -79,6 +81,7 @@
                             </li>
                         @endguest
                     </ul>
+                    
                 </div>
             </div>
         </nav>

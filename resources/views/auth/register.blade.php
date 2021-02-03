@@ -20,8 +20,10 @@
                             </div>
                         @endif
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __(' Full Name') }}<p style="color:red;">*</p>
 
+
+</label>
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
@@ -34,7 +36,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}<p style="color:red;">*</p></label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -47,7 +49,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}<p style="color:red;">*</p></label>
 
                             <div class="col-md-6">
                                 <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone">
@@ -59,8 +61,84 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="select" class="col-md-4 col-form-label text-md-right">{{ __('Type') }}<p style="color:red;">*</p></label>
+
+                            <div class="col-md-6">
+                               <select id="user_type" name="user_type" class="form-control">
+                               <option value = "">Select</option>
+                                   <option value = "general_user" id="type1">General</option>
+                                   <option value = "Business" id="type2">Business</option>
+                                   <option value = "individual_contractor" id="type3">Independent</option>
+</select>
+
+                                @error('user_type')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                       
+
+                        <div class="form-group row" id="gender">
+                            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}<p style="color:red;">*</p></label>
+
+                            <div class="col-md-6">
+                                <input id="gender"  type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}" >
+
+                                @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row website" id="webs">
+                            <label for="website" class="col-md-4 col-form-label text-md-right">{{ __('Website(optional)') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="website" type="text" class="form-control @error('website') is-invalid @enderror" name="website" value="{{ old('website') }}">
+
+                                @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row company" id="company">
+                            <label for="company" class="col-md-4 col-form-label text-md-right">{{ __('Company') }}<p style="color:red;">*</p></label>
+
+                            <div class="col-md-6">
+                                <input id="company" type="company" class="form-control @error('company') is-invalid @enderror" name="companyname" value="{{ old('company') }}" >
+
+                                @error('companyname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row website" id="comweb">
+                            <label for="website" class="col-md-4 col-form-label text-md-right">{{ __('Website(optional)') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="website" type="website" class="form-control @error('website') is-invalid @enderror" name="comwebsite" value="{{ old('website') }}" >
+
+                                @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                    
+                        
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}<p style="color:red;">*</p></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -94,4 +172,15 @@
         </div>
     </div>
 </div>
+
+
+   <script type="text/javascript">
+     
+     document.getElementById("gender").style.display="none";
+     document.getElementById("webs").style.display="none";
+     document.getElementById("comweb").style.display="none";
+     document.getElementById("company").style.display="none";
+
+    
+   </script
 @endsection
