@@ -27,6 +27,6 @@ class HomeController extends Controller
     public function index()
     {
         $documents = Document::where('user_id', Auth::user()->id)->get();
-        return view('home', ['loggedUser' => Auth::user(), 'documents'=> $documents]);
+        return view('pages.home', ['loggedUser' => Auth::user(), 'documents'=> $documents]);
     }
 }

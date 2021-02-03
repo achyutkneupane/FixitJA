@@ -19,6 +19,6 @@ class MainController extends Controller
             ->get();
 
             // dd($documents->where('type','profile_picture')->where('id','1')->first()->path);
-        return view('welcome', ['users' => $users, 'documents' => $documents]);
+        return view('pages.welcome', ['users' => $users, 'documents' => $documents]);
     }
 }
