@@ -1,15 +1,14 @@
 <?php
 
-// @Author: Achyut Neupane
+// @Author Achyut Neupane
 
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
-use function PHPSTORM_META\map;
-
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +27,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.addCategory');
+        if (Category::all()->count() == 0) {
+            return redirect()->route('addCategory')->with('error', 'Create a category first.');
+        }
+        return view('admin.addSubCategory')->with('categories', Category::all());
     }
 
     /**
@@ -39,21 +41,22 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = $request->validate([
+        $sub = $request->validate([
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'category_id' => 'required'
         ]);
-        Category::create($category);
-        return redirect()->route('addCategory');
+        SubCategory::create($sub);
+        return redirect()->route('addSubCategory');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(SubCategory $subCategory)
     {
         //
     }
@@ -61,10 +64,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(SubCategory $subCategory)
     {
         //
     }
@@ -73,10 +76,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, SubCategory $subCategory)
     {
         //
     }
@@ -84,10 +87,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(SubCategory $subCategory)
     {
         //
     }
