@@ -114,7 +114,15 @@ class PagesController extends Controller
         $page_title = 'login1';
         $page_description = 'This is login1 test page';
 
-        return view('demo1_pages.login-1', compact('page_title', 'page_description'));
+        return view('demo1_pages.login-1', compact('page_title', 'page_description'),["show_sidebar" => false]);
+    }
+    //wizard1
+    public function wizard1()
+    {
+        $page_title = 'Wizard1';
+        $page_description = 'This is wizard1 test page';
+
+        return view('demo1_pages.wizard-1', compact('page_title', 'page_description'),["show_sidebar" => false]);
     }
     // Quicksearch Result
     public function quickSearch()

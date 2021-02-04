@@ -44,14 +44,14 @@ License: You must have a valid license purchased only from themeforest(the above
     </head>
 
     <body {{ Metronic::printAttrs('body') }} {{ Metronic::printClasses('body') }}>
-
-        @if (config('layout.page-loader.type') != '')
-            @include('demo1_layout.partials._page-loader')
+        @if(isset($show_sidebar) && !$show_sidebar)
+            @yield('content')
+        @else
+            @if (config('layout.page-loader.type') != '')
+                @include('demo1_layout.partials._page-loader')
+            @endif
+            @include('demo1_layout.base._layout')
         @endif
-
-        @include('demo1_layout.base._layout')
-
-        {{-- @yield('content') --}}
 
         <script>var HOST_URL = "{{ route('quick-search') }}";</script>
 
