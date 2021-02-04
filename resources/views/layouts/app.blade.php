@@ -36,13 +36,12 @@
 
     <script src="{{ asset('js/custom.js') }}" defer></script>
     <link href="{{ asset('css/custom-css.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/modern-business.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/modern-business.css') }}" rel="stylesheet"> -->
 </head>
 <body {{ Metronic::printAttrs('body') }} {{ Metronic::printClasses('body') }}>
     {{--@include('layouts.partials._navbar')
     @yield('content'))--}}
     @guest
-        @include('layouts.partials._navbar')
         @yield('content')
     @endguest
     @auth
