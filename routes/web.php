@@ -22,7 +22,9 @@ Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update'])
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('admin_panel');
+Route::get('/admin/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
 Route::get('/admin/add_category', [App\Http\Controllers\CategoryController::class, 'create'])->middleware('auth', 'checkIfAdmin')->name('addCategory');
+Route::get('/admin/sub_category', [App\Http\Controllers\SubCategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listSubCategory');
 Route::get('/admin/add_sub_category', [App\Http\Controllers\SubCategoryController::class, 'create'])->middleware('auth', 'checkIfAdmin')->name('addSubCategory');
 
 

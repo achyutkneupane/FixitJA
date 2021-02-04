@@ -17,7 +17,8 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $subcategories = SubCategory::with('category')->get();
+        return view('admin.listSubCategory', compact('subcategories'));
     }
 
     /**
@@ -30,7 +31,8 @@ class SubCategoryController extends Controller
         if (Category::all()->count() == 0) {
             return redirect()->route('addCategory')->with('error', 'Create a category first.');
         }
-        return view('admin.addSubCategory')->with('categories', Category::all());
+        $categories = Category::all();
+        return view('admin.addSubCategory', compact('categories'));
     }
 
     /**
@@ -47,7 +49,7 @@ class SubCategoryController extends Controller
             'category_id' => 'required'
         ]);
         SubCategory::create($sub);
-        return redirect()->route('addSubCategory');
+        return redirect()->route('listSubCategory');
     }
 
     /**

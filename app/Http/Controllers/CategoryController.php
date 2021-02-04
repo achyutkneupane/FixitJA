@@ -18,7 +18,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::with('sub_categories')->get();
+        return view('admin.listCategory', compact('categories'));
     }
 
     /**
@@ -44,7 +45,7 @@ class CategoryController extends Controller
             'description' => 'required'
         ]);
         Category::create($category);
-        return redirect()->route('addCategory');
+        return redirect()->route('listCategory');
     }
 
     /**
