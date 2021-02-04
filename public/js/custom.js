@@ -7,21 +7,25 @@ $(document).ready(function(){
     //alert("You have selected the country - " + selectedTYPE);
     if( selectedTYPE == "type1" || selectedTYPE == "type3")
     {
-      document.getElementById("gender").style.display="flex"; 
-      document.getElementById("webs").style.display="flex";
+      document.getElementById("genders").style.display="flex"; 
+      document.getElementById("webpersonal").style.display="flex";
 
-      document.getElementById("comweb").style.display="none";
-      document.getElementById("company").style.display="none";
+      document.getElementById("webcompany").style.display="none";
+      document.getElementById("companyname").style.display="none";
     }
     else if (selectedTYPE == "type2")   {
-      document.getElementById("comweb").style.display="flex";
-      document.getElementById("company").style.display="flex";
+      document.getElementById("webcompany").style.display="flex";
+      document.getElementById("companyname").style.display="flex";
 
-      document.getElementById("gender").style.display="none"; 
-      document.getElementById("webs").style.display="none";
+      document.getElementById("genders").style.display="none"; 
+      document.getElementById("webpersonal").style.display="none";
     }
     else {
-        //will never go here
+      document.getElementById("genders").style.display="none"; 
+      document.getElementById("webpersonal").style.display="none";
+      document.getElementById("webcompany").style.display="none";
+      document.getElementById("companyname").style.display="none";
+       
     }
 });
 })

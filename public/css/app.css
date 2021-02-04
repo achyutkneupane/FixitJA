@@ -50,6 +50,9 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+body {
+  background: #fff;;
+}
 
 article,
 aside,
@@ -10901,4 +10904,5 @@ a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+
 

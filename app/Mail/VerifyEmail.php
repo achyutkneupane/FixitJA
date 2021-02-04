@@ -24,6 +24,7 @@ class VerifyEmail extends Mailable
     public function __construct($data)
     {
         $this->email_data = $data;
+        
     }
 
     /**
@@ -33,6 +34,7 @@ class VerifyEmail extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_USERNAME'), 'FixitJA')->subject("Welcome to {{ config('app.name', 'FixitJA') }} !!!")->view('mail.verifyemail', ['email_data' => $this->email_data]);;
+        return $this->from(env('MAIL_USERNAME'), 'FixitJA')->subject("Welcome to FixitJA")->view('mail.verifyemail', ['email_data' => $this->email_data]);
+        
     }
 }

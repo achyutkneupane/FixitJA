@@ -63,8 +63,8 @@ class RegisterController extends Controller
             'user_type' => Rule::in(['individual_contractor', 'Business', 'general_user']), 
             'gender' => ['nullable','string'],
             'companyname' => ['nullable', 'string'],
-            'website' => ['nullable'],
-            'comwebsite' => ['nullable'],
+            'websitepersonal' => ['nullable'],
+            'websitecompany' => ['nullable'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -104,7 +104,8 @@ class RegisterController extends Controller
        $user->save();
 
        if($user != null){
-           MailController::sendverfiyEmail($user->name, $user->email, $user->verfication_code);
+           MailController::sendVerfiyEmail($user->name, $user->email, $user->verification_code);
+           //dd({{$user->verfication_code);
            return redirect()->back()->with(session()->flash('alert-success', 
            'Your account has been created. Please check email for verification link.'));
 

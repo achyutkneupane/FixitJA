@@ -1,10 +1,14 @@
-Hello {{$email_data['name']}}
+Hello ,{{$email_data['name']}}
+
 <br><br>
 Welcome to my  {{ config('app.name', 'FixitJA') }} Website!
 <br>
 Please click the below link to verify your email and activate your account!
 <br><br>
-<a href="http://localhost/my_tuts/send-emails/blog/public/verify?code={{$email_data['verfication_code']}}">Click Here!</a>
+
+<a href="http://localhost/verify/{{$email_data['verfication_code']}}"
+         style="background-color:#ffbe00; color:#000000; display:inline-block; padding:12px 40px 12px 40px; text-align:center; text-decoration:none;" 
+         target="_blank">Verify Email Now</a>
 
 <br><br>
 Thank you!
