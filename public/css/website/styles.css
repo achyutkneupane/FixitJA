@@ -2995,7 +2995,7 @@ textarea.form-control {
   background-color: transparent;
   border: 1px solid transparent;
   padding: 0.875rem 1.125rem;
-  font-size: 0.875rem;
+  font-size: 1.2rem;
   line-height: 1;
   border-radius: 0.35rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -5299,7 +5299,7 @@ input[type=button].btn-block {
   display: block;
   padding: 0.5rem 1.5rem;
   margin-bottom: 0;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: #69707a;
   white-space: nowrap;
 }
@@ -6410,7 +6410,7 @@ input[type=button].btn-block {
   color: #fff;
 }
 .navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 1);
 }
 .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
   color: rgba(255, 255, 255, 0.75);
@@ -18587,7 +18587,7 @@ body {
 
 .bg-gradient-primary-to-secondary {
   background-color: #0061f2;
-  background-image: linear-gradient(135deg, #0061f2 0%, rgba(105, 0, 199, 0.8) 100%);
+  background-image: linear-gradient(329deg, #d5b724 0%, rgb(30 143 17 / 80%) 100%)
 }
 
 .bg-gray-100 {
@@ -20505,7 +20505,7 @@ body {
   font-size: 0.9rem;
 }
 .navbar .dropdown-menu .dropdown-header {
-  font-size: 0.7rem;
+  font-size: 1.1rem;
   color: #a7aeb8;
 }
 
@@ -20646,10 +20646,11 @@ body {
   align-items: center;
 }
 .dropdown .dropdown-toggle .dropdown-arrow {
+  padding-top: 3px;
   margin-left: auto;
   margin-right: 1rem;
   transition: transform 0.1s ease-in-out;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
 }
 .dropdown.show .dropdown-toggle .dropdown-arrow {
   transform: rotate(90deg);
@@ -20673,9 +20674,9 @@ body {
   min-width: 13rem;
 }
 .dropdown-user .dropdown-menu .dropdown-header .dropdown-user-img {
-  height: 2.5rem;
-  width: 2.5rem;
-  margin-right: 1rem;
+  height: 2.7rem;
+  width: 2.7rem;
+  margin-right: 1.2rem;
 }
 .dropdown-user .dropdown-menu .dropdown-header .dropdown-user-details {
   font-weight: 400;
@@ -20683,7 +20684,7 @@ body {
 .dropdown-user .dropdown-menu .dropdown-header .dropdown-user-details .dropdown-user-details-name {
   color: #212832;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   max-width: 10rem;
   white-space: nowrap;
   overflow: hidden;
@@ -20691,7 +20692,7 @@ body {
 }
 .dropdown-user .dropdown-menu .dropdown-header .dropdown-user-details .dropdown-user-details-email {
   color: #69707a;
-  font-size: 0.75rem;
+  font-size: 1rem;
   max-width: 10rem;
   white-space: nowrap;
   overflow: hidden;
@@ -20854,7 +20855,7 @@ body {
   }
 
   .dropdown-xl .dropdown-menu {
-    min-width: 45rem;
+    min-width: 60rem;
   }
 }
 i-feather {
@@ -20879,7 +20880,7 @@ i-feather svg {
   border-radius: 100%;
   height: 2.5rem;
   width: 2.5rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   background-color: #f2f6fc;
 }
 .icon-stack svg {
@@ -20890,7 +20891,7 @@ i-feather svg {
 .icon-stack-lg {
   height: 4rem;
   width: 4rem;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 }
 .icon-stack-lg svg {
   height: 1.5rem;

@@ -20,7 +20,6 @@
 
     {{-- Fonts --}}
     {{ Metronic::getGoogleFontsInclude() }}
-
     {{-- Global Theme Styles (used by all pages) --}}
     @foreach(config('layout.resources.css') as $style)
         <link href="{{ config('layout.self.rtl') ? asset(Metronic::rtlCssPath($style)) : asset($style) }}" rel="stylesheet" type="text/css"/>
@@ -34,22 +33,33 @@
     {{-- Includable CSS --}}
     @yield('styles')
 
-    <script src="{{ asset('js/custom.js') }}" defer></script>
-    <link href="{{ asset('css/custom-css.css') }}" rel="stylesheet">
+    {{--Website template styles--}}
+    @if(isset($show_sidebar) && !$show_sidebar)
+        <link href="{{ asset('css/website/styles.css') }}" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+        <script src="{{ asset('js/custom.js') }}" defer></script>
+        <link href="{{ asset('css/custom-css.css') }}" rel="stylesheet">
+    @endif
     <!-- <link href="{{ asset('css/modern-business.css') }}" rel="stylesheet"> -->
 </head>
 <body {{ Metronic::printAttrs('body') }} {{ Metronic::printClasses('body') }}>
-    {{--@include('layouts.partials._navbar')
-    @yield('content'))--}}
-    @guest
-        @yield('content')
-    @endguest
-    @auth
-        @if (config('layout.page-loader.type') != '')
-            @include('demo1_layout.partials._page-loader')
-        @endif
-        @include('layouts.base._layout')
-    @endauth
+
+    @if(isset($show_sidebar) && !$show_sidebar)
+            @include('layouts.partials._navbar')
+            @yield('content')
+    @else
+        @guest
+            @include('layouts.partials._navbar')
+            @yield('content')
+        @endguest
+        @auth
+            @if (config('layout.page-loader.type') != '')
+                @include('demo1_layout.partials._page-loader')
+            @endif
+            @include('demo1_layout.base._layout')
+        @endauth
+    @endif
 
     <script>var HOST_URL = "{{ route('quick-search') }}";</script>
 
@@ -62,7 +72,21 @@
     @foreach(config('layout.resources.js') as $script)
         <script src="{{ asset($script) }}" type="text/javascript"></script>
     @endforeach
+    {{--Website Templates Scripts--}}
+    @if(isset($show_sidebar) && !$show_sidebar)
+        <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
 
+        <script src="{{ asset('js/website/scripts.js') }}" type="text/javascript"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                disable: 'mobile',
+                duration: 600,
+                once: true,
+            });
+        </script>
+    @endif
     {{-- Includable JS --}}
     @yield('scripts')
 </body>
