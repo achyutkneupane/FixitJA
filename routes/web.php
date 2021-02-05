@@ -16,11 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'index']);
 Auth::routes();
+Route::get('/verify', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
 
 Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/verify/{token}',[Auth\RegisterController::class, 'verifyUser'])->name('verify.user');
+
 
 
 

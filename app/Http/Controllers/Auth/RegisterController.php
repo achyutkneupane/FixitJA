@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\MailController;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -115,15 +116,20 @@ class RegisterController extends Controller
        
 
     }
-    public function verifyUser(Request $request){
+    public function verifyuser(Request $request){
         $verification_code = \Illuminate\Support\Facades\Request::get('code');
         $user = User::where(['verification_code' => $verification_code])->first();
 
+
         if($user !=null){
             $user->status = 'active';
+            $user->email_verified_at =  Carbon::now();
+            
             $user->save();
             return redirect()->route('login')->with(session()->flash('alert-success', 'Your account is verified. Please login!'));
         }
-        return redirect()->route('login')->with(session()->flash('alert-danger', 'Invalid verification code!'));
+    return redirect()->route('register')->with(session()->flash('alert-danger', 'Invalid verification code!'));
+
+        
     }
 }

@@ -3,6 +3,13 @@
 @section('content')
 <!--begin::Main-->
 <div class="d-flex flex-column flex-root">
+<div class="flash-message">
+                @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                    @if(Session::has('alert-' . $msg))
+                        <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                    @endif
+                @endforeach
+            </div>
 			<!--begin::Login-->
 			<div class="login login-4 login-signin-on d-flex flex-row-fluid" id="kt_login">
 				<div class="d-flex flex-center flex-row-fluid bgi-size-cover bgi-position-top bgi-no-repeat" style="background-image: url('assets/media/bg/bg-3.jpg');">
