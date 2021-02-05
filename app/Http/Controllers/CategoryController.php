@@ -80,7 +80,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $new = Category::find($id);
+        $category = $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+        $new->name = $request->name;
+        $new->description = $request->description;
+        $new->save();
+        return redirect()->route('listCategory');
     }
 
     /**
@@ -91,6 +99,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::find($id)->delete();
+        return redirect()->route('listCategory');
     }
 }
