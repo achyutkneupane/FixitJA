@@ -11,7 +11,25 @@ return [
             'page' => '/',
             'new-tab' => false,
         ],
-
+        //Admin Panel
+        // Custom
+        [
+            'section' => 'Admin Panel',
+        ],
+        [
+            'title' => 'Categories',
+            'root' => true,
+            'icon' => 'flaticon-list', // or can be 'flaticon-home' or any flaticon-*
+            'page' => '/admin/category',
+            'new-tab' => false,
+        ],
+        [
+            'title' => 'Sub Categories',
+            'root' => true,
+            'icon' => 'flaticon2-list-1', // or can be 'flaticon-home' or any flaticon-*
+            'page' => '/admin/sub_category',
+            'new-tab' => false,
+        ],
         // Custom
         [
             'section' => 'Custom',
