@@ -52,12 +52,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Document::class);
     }
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
-    public function subscription()
-    {
-        return $this->belongsTo(Subscription::class);
-    }
 }

@@ -13,28 +13,21 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        //Schema has been created according to ER diagram
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('phone')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
             $table->tinyInteger('experience')->nullable();
             $table->string('website')->nullable();
-            $table->string('phone')->unique();
-            $table->string('street_01')->nullable();
-            $table->string('street_02')->nullable();
+            $table->string('street')->nullable();
             $table->unsignedBigInteger('city_id')->nullable();
-            $table->text('introduction')->nullable();
-            $table->string('areas_covering')->nullable();
-            $table->boolean('is_police_record')->default('0');
+            $table->string('country')->nullable();
             $table->boolean('is_travelling')->default('0');
-            $table->integer('days')->nullable();
-            $table->integer('hours')->nullable();
-            $table->unsignedBigInteger('subscription_id')->nullable();
-            $table->enum('type', array('admin', 'individual_contractor', 'business', 'general_user'));
-            $table->enum('status', array('pending', 'active', 'suspended', 'blocked'))->nullable();
+            $table->boolean('is_police_record')->default('0');
+            $table->enum('status',array('pending', 'active', 'suspended', 'blocked'))->nullable;
             $table->rememberToken();
             $table->timestamps();
 

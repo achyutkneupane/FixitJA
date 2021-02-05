@@ -9,13 +9,8 @@ class Skill extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
     public function users()
     {
         return $this->belongsToMany(User::class);
-    }
-    public function sub_categories()
-    {
-        return $this->belongsToMany(SubCategory::class);
     }
 }
