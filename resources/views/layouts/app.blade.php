@@ -7,7 +7,6 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     {{-- Title Section --}}
         <title>{{ config('app.name') }} | @yield('title', $page_title ?? '')</title>
 

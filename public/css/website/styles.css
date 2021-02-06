@@ -3446,8 +3446,8 @@ fieldset:disabled a.btn {
 
 .btn-teal {
   color: #fff;
-  background-color: #00ba94;
-  border-color: #00ba94;
+  background-color: #0061f2;
+  border-color: #0061f2;
 }
 .btn-teal:hover {
   color: #fff;
@@ -21156,10 +21156,10 @@ section {
   padding-bottom: 8rem;
 }
 .page-header .page-header-content .page-header-title {
-  font-size: 2.5rem;
+  font-size: 3.8rem;
 }
 .page-header .page-header-content .page-header-text {
-  font-size: 1.15rem;
+  font-size: 1.5rem;
 }
 .page-header .page-header-content .page-header-text.small {
   font-size: 0.9rem;
