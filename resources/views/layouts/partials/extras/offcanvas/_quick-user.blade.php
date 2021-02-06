@@ -18,7 +18,11 @@
 		{{-- Header --}}
         <div class="d-flex align-items-center mt-5">
             <div class="symbol symbol-85 mr-5">
+                @if(!is_null(Auth::user()->documents->where('type', 'profile_picture')->first()))
                 <div class="symbol-label" style="background-image:url('{{ asset('storage/'. Auth::user()->documents->where('type', 'profile_picture')->first()->path) }}')"></div>
+                @else
+                <div class="symbol-label" style="background-image:url('{{ asset('images/unknown-avatar.png') }}')"></div>
+                @endif
 				<!--i class="symbol-badge bg-success"></i-->
             </div>
             <div class="d-flex flex-column">

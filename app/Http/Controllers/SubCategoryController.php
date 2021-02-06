@@ -49,7 +49,7 @@ class SubCategoryController extends Controller
             'category_id' => 'required'
         ]);
         SubCategory::create($sub);
-        return redirect()->route('listSubCategory');
+        return redirect()->route('listCategory');
     }
 
     /**
@@ -81,9 +81,17 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubCategory $subCategory)
+    public function update(Request $request, $id)
     {
-        //
+        $new = SubCategory::find($id);
+        $category = $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+        $new->name = $request->name;
+        $new->description = $request->description;
+        $new->save();
+        return redirect()->route('listCategory');
     }
 
     /**
@@ -92,8 +100,9 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategory $subCategory)
+    public function destroy($id)
     {
-        //
+        SubCategory::find($id)->delete();
+        return redirect()->route('listCategory');
     }
 }
