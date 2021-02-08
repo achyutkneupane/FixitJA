@@ -53,9 +53,9 @@
         @endguest
         @auth
             @if (config('layout.page-loader.type') != '')
-                @include('demo1_layout.partials._page-loader')
+                @include('layouts.partials._page-loader')
             @endif
-            @include('demo1_layout.base._layout')
+            @include('layouts.base._layout')
         @endauth
     @endif
 
