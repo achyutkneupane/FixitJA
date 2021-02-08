@@ -27,7 +27,7 @@ class CreateTasksTable extends Migration
             $table->string('working_location');
             $table->enum('is_client_on_site', array('1', '0'));
             $table->enum('is_repair_parts_provided', array('1', '0'));
-            $table->unsignedBigInteger('related_task_id');
+            $table->unsignedBigInteger('related_task_id')->nullable();
             $table->timestamps();
 
 

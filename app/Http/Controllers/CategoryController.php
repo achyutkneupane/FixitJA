@@ -20,7 +20,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::with('sub_categories')->get();
-        return view('admin.listCategory', compact('categories'));
+        return view('admin.category', compact('categories'));
     }
 
     /**

@@ -61,6 +61,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Subscription::class);
     }
+    public function tasks()
+    {
+        return $this->belongsToMany(Skill::class);
+    }
     public function first_name()
     {
         return strtok(Auth::user()->name,  ' ');
