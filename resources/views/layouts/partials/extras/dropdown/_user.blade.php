@@ -98,11 +98,11 @@
         </div>
     </a>
     {{-- Logout --}}
-    <a href="{{ route('logout') }} class="navi-item px-8" onclick="event.preventDefault();
+    <a href="{{ route('logout') }}" class="navi-item px-8" onclick="event.preventDefault();
          document.getElementById('logout-form').submit();">
         <div class="navi-link">
             <div class="navi-icon mr-2">
-                <i class="flaticon2-hourglass text-primary"></i>
+                <i class="flaticon2-logout text-primary"></i>
             </div>
             <div class="navi-text">
                 <div class="font-weight-bold">
