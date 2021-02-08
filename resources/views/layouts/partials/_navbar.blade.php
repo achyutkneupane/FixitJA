@@ -16,7 +16,7 @@
                                 <div class="d-flex h-100 w-100 align-items-center justify-content-center">
                                     <div class="text-white text-center z-1">
                                         <div class="mb-3">There are more categories for you.</div>
-                                        <a class="btn btn-white btn-sm text-primary font-weight-500" href="index.html">View All Categories</a>
+                                        <a class="btn-website btn-website-white btn-website-sm text-primary font-weight-500" href="index.html">View All Categories</a>
                                     </div>
                                 </div>
                             </div>
@@ -107,23 +107,33 @@
             </ul>
             @guest
                     @if (Route::has('login'))
-                    <a class="btn font-weight-500 ml-lg-4 btn-teal" href="/login">Login</a>
+                    <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/login">Login</a>
                     @endif
 
                     @if (Route::has('register'))
-                    <a class="btn font-weight-500 ml-lg-4 btn-teal" href="/register">Become a Fixician<i class="ml-2" data-feather="arrow-right"></i></a>
+                    <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/register">Sign Up<i class="ml-2" data-feather="arrow-right"></i></a>
                     @endif
                 @endguest
                 @auth
-                    <a class="btn font-weight-500 ml-lg-4 btn-teal" href="/home">Account</a>
-                    <a class="btn font-weight-500 ml-lg-4 btn-teal" href="{{ route('logout') }}"
+                    <!-- <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/home">Account</a>
+                    <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">Logout
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
-                    </form>
+                    </form> -->
+                    <div class="topbar-item">
+                        <div class="btn btn-icon w-auto d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
+                            <span class="font-weight-bold font-size-base d-none d-md-inline mr-1" style="color: #fff;">Hi,</span>
+                            <span class="font-weight-bolder font-size-base d-none d-md-inline mr-3" style="color: #fff;">Sean</span>
+                            <span class="symbol symbol-35 symbol-light-success">
+                                <span class="symbol-label font-size-h5 font-weight-bold">M</span>
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
                 @endauth
 

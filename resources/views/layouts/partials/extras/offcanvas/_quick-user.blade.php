@@ -2,7 +2,7 @@
 	$direction = config('layout.extras.user.offcanvas.direction', 'right');
 @endphp
  {{-- User Panel --}}
-<div id="kt_quick_user" class="offcanvas offcanvas-{{ $direction }} p-10">
+<div id="kt_quick_user" class="offcanvas offcanvas-{{ $direction }} p-10" style="z-index:9999;">
 	{{-- Header --}}
 	<div class="offcanvas-header d-flex align-items-center justify-content-between pb-5">
 		<h3 class="font-weight-bold m-0">
@@ -24,7 +24,9 @@
             </div>
             <div class="d-flex flex-column">
                 <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
+                @auth
                 {{ Auth::user()->name }}
+                @endauth
 				</a>
                 <div class="text-muted mt-1">
                     Application Developer

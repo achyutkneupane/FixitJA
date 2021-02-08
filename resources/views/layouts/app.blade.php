@@ -36,10 +36,9 @@
     @if(isset($show_sidebar) && !$show_sidebar)
         <link href="{{ asset('css/website/styles.css') }}" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-        <script src="{{ asset('js/custom.js') }}" defer></script>
-        <link href="{{ asset('css/custom-css.css') }}" rel="stylesheet">
     @endif
+    <script src="{{ asset('js/custom.js') }}" defer></script>
+    <link href="{{ asset('css/custom-css.css') }}" rel="stylesheet">
     <!-- <link href="{{ asset('css/modern-business.css') }}" rel="stylesheet"> -->
 </head>
 <body {{ Metronic::printAttrs('body') }} {{ Metronic::printClasses('body') }}>
