@@ -319,9 +319,11 @@
                 </div>
             </section>
             <hr class="m-0" />
-            @if (config('layout.extras.user.layout') == 'offcanvas')
-            @include('layouts.partials.extras.offcanvas._quick-user')
-            @endif
+            @auth
+                @if (config('layout.extras.user.layout') == 'offcanvas')
+                    @include('layouts.partials.extras.offcanvas._quick-user')
+                @endif
+            @endauth
             <!--begin::Scrolltop-->
             <div id="kt_scrolltop" class="scrolltop">
                 <span class="svg-icon">
