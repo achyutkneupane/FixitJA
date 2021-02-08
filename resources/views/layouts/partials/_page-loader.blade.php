@@ -11,7 +11,7 @@
 @if (config('layout.page-loader.type') == 'spinner-message')
     <div class="page-loader page-loader-base">
         <div class="blockui">
-            <span>Please wait...</span>
+            <span>Loading...</span>
             <span><div class="spinner spinner-primary"></div></span>
         </div>
     </div>
