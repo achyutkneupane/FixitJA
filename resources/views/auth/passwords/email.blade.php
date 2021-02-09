@@ -40,7 +40,7 @@
 								<!--begin::Form group-->
 								<div class="form-group d-flex flex-wrap">
 									<button type="submit" id="kt_login_forgot_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-4">Submit</button>
-									<a href="custom/pages/login/login-4/signin.html" id="kt_login_forgot_cancel" class="btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3">Cancel</a>
+									<a href="{{ route('login') }}" id="kt_login_forgot_cancel" class="btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3">Cancel</a>
 								</div>
 								<!--end::Form group-->
 							</form>
@@ -52,7 +52,7 @@
 				<!--begin::Content-->
 				<!--begin::Aside-->
 				<div class="login-aside order-1 order-lg-2 bgi-no-repeat bgi-position-x-right">
-					<div class="login-conteiner bgi-no-repeat bgi-position-x-right bgi-position-y-bottom" style="background-image: url(assets/media/svg/illustrations/login-visual-4.svg);">
+					<div class="login-conteiner bgi-no-repeat bgi-position-x-right bgi-position-y-bottom" style="background-image: url({{asset('media/svg/illustrations/login-visual-4.svg')}});">
 						<!--begin::Aside title-->
 						<h3 class="pt-lg-40 pl-lg-20 pb-lg-0 pl-10 py-20 m-0 d-flex justify-content-lg-start font-weight-boldest display5 display1-lg text-white">We Got
 						<br />A Surprise

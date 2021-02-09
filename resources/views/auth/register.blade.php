@@ -93,7 +93,7 @@
 										<!--begin::Form Group-->
 										<div class="form-group" id="webpersonal">
 										<label class="font-size-h6 font-weight-bolder text-dark">Website</label>
-										<input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitepersonal" placeholder="Website(Optional)" value="" />
+										<input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitepersonal" placeholder="Website (Optional)" value="" />
 									</div>
 									<!--end::Form Group-->
 										<!--end::Form Group-->
@@ -107,7 +107,7 @@
 										<!--begin::Form Group-->
 										<div class="form-group" id="webcompany">
 										<label class="font-size-h6 font-weight-bolder text-dark">Website</label>
-										<input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitecompany" placeholder="Website(Optional)" value="" />
+										<input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitecompany" placeholder="Website (Optional)" value="" />
 									</div>
 									<!--end::Form Group-->
 										<!--begin::Form Group-->

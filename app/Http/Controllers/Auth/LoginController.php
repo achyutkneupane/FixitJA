@@ -61,18 +61,18 @@ class LoginController extends Controller
                 }
                 elseif($type == 'general_user')
                 {
-                     return '/generaluser';
+                     return '/home';
                 }
                 elseif($type == 'business')
                 {
-                       return  '/business';
+                       return  '/home';
                 }
                 elseif($type == 'individual_contractor')
                 {
                         return  '/individualcontractor';
                 }
                 else{
-                    return '/login'; 
+                    return '/'; 
                 }
 
 
