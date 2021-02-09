@@ -1,28 +1,17 @@
-@extends('layouts.app')
+Welcome to my  {{ config('app.name', 'FixitJA') }} Website!
+<br>
+Please click the below link to verify your email and activate your account!
+<br><br>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
-
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
+               
+                @if (session('resent'))
+                         <div class="alert alert-success" role="alert">
                             {{ __('A fresh verification link has been sent to your email address.') }}
                         </div>
                     @endif
-
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
+                    <a href="http://127.0.0.1:8000/{{token}}/reset-password">Click Here</a>.
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+                <br><br>
+Thank you!
+<br>
+{{ config('app.name', 'FixitJA') }}

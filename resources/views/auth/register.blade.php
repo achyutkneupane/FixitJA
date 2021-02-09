@@ -4,6 +4,13 @@
 
 		<!--begin::Main-->
 		<div class="d-flex flex-column flex-root">
+		<div class="flash-message">
+                @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                    @if(Session::has('alert-' . $msg))
+                        <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                    @endif
+                @endforeach
+            </div>
 			<!--begin::Login-->
 			<div class="login login-4 wizard d-flex flex-column flex-lg-row flex-column-fluid wizard" id="kt_login">
 				<!--begin::Content-->
@@ -11,7 +18,7 @@
 					<!--begin::Container-->
 					<div class="login-content login-content-signup d-flex flex-column">
 						<!--begin::Aside Top-->
-						<div class="d-flex flex-column-auto flex-column px-10">
+						
 							<!--begin::Aside header-->
 							<a href="#" class="login-logo pb-lg-4 pb-10">
 								<img src="{{asset('media/logos/logo-4.png')}}" class="max-h-70px" alt="" />
@@ -57,7 +64,7 @@
 										<div class="form-group">
 										<label class="font-size-h6 font-weight-bolder text-dark">Type</label>
 										
-										<select class="form-control kt-select2 select2" id="user_type" name="user_type">
+										<select class="form-control" id="user_type" name="user_type">
 										<option value = "">Select</option>	
 										<option value = "general_user" id="type1">General</option>
 										<option value = "Business" id="type2">Business</option>
@@ -72,7 +79,7 @@
 									<div class="form-group" id="genders">
 										<label class="font-size-h6 font-weight-bolder text-dark">Gender</label>
 										
-										<select class="form-control kt-select2 select2"  name="gender">
+										<select class="form-control"  name="gender">
 										<option value = "Male" >Male</option>
 										<option value = "Female" >Female</option>
 										<option value = "Custom">Custom</option>
@@ -128,18 +135,9 @@
 						<!--end::Signin-->
 					</div>
 					<!--end::Container-->
-				</div>
+				
 				<!--begin::Content-->
-				<!--begin::Aside-->
-				<div class="login-aside order-1 order-lg-2 bgi-no-repeat bgi-position-x-right">
-					<div class="login-conteiner bgi-no-repeat bgi-position-x-right bgi-position-y-bottom" style="background-image: url({{asset('media/svg/illustrations/login-visual-4.svg')}}">
-						<!--begin::Aside title-->
-						<h3 class="pt-lg-40 pl-lg-20 pb-lg-0 pl-10 py-20 m-0 d-flex justify-content-lg-start font-weight-boldest display5 display1-lg text-white">We Got
-						<br />A Surprise
-						<br />For You</h3>
-						<!--end::Aside title-->
-					</div>
-				</div>
+				
 				<!--end::Aside-->
 			</div>
 			<!--end::Login-->

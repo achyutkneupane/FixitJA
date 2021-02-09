@@ -3,6 +3,13 @@
 @section('content')
 		<!--begin::Main-->
 		<div class="d-flex flex-column flex-root">
+		<div class="flash-message">
+                @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                    @if(Session::has('alert-' . $msg))
+                        <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                    @endif
+                @endforeach
+            </div>
 			<!--begin::Login-->
 			<div class="login login-4 wizard d-flex flex-column flex-lg-row flex-column-fluid">
 				<!--begin::Content-->
@@ -17,25 +24,26 @@
 						<!--begin::Signin-->
 						<div class="login-form">
 							<!--begin::Form-->
-							<form class="form" id="kt_login_singin_form" action="">
+							<form  method = "POST" action ="{{ route('login') }}">
+								@csrf
 								<!--begin::Title-->
 								<div class="pb-5 pb-lg-15">
 									<h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign In</h3>
 									<div class="text-muted font-weight-bold font-size-h4">New Here?
-									<a href="custom/pages/login/login-4/signup.html" class="text-primary font-weight-bolder">Create Account</a></div>
+									<a href="{{ route('register') }}" class="text-primary font-weight-bolder">Create Account</a></div>
 								</div>
 								<!--begin::Title-->
 								<!--begin::Form group-->
 								<div class="form-group">
 									<label class="font-size-h6 font-weight-bolder text-dark">Your Email</label>
-									<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="text" name="username" autocomplete="off" />
+									<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="text" name="email" autocomplete="off" />
 								</div>
 								<!--end::Form group-->
 								<!--begin::Form group-->
 								<div class="form-group">
 									<div class="d-flex justify-content-between mt-n5">
-										<label class="font-size-h6 font-weight-bolder text-dark pt-5">Your Name</label>
-										<a href="custom/pages/login/login-4/forgot.html" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Forgot Password ?</a>
+										<label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
+										<a href="/forget-password" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Forgot Password ?</a>
 									</div>
 									<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
 								</div>
