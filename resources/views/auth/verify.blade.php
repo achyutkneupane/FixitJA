@@ -3,13 +3,13 @@ Welcome to my  {{ config('app.name', 'FixitJA') }} Website!
 Please click the below link to verify your email and activate your account!
 <br><br>
 
-               
+
                 @if (session('resent'))
                          <div class="alert alert-success" role="alert">
                             {{ __('A fresh verification link has been sent to your email address.') }}
                         </div>
                     @endif
-                    <a href="http://127.0.0.1:8000/{{token}}/reset-password">Click Here</a>.
+                    <a href="http://fixitja.test/reset-password/{{ $token }}">Click Here</a>.
                 </div>
                 <br><br>
 Thank you!

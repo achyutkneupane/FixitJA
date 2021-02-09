@@ -4,6 +4,7 @@ use App\Http\Controllers\GeneralUserController;
 use App\Http\Controllers\IndividualContractorController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,11 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('homePage');
-Auth::routes();
+Auth::routes(['verify' => true]);
 Route::get('/verify', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
 
-Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController:: class ,'getEmail'])->name('forget-password');
-Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class,'postEmail'])->name('forget-password');
+Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
+Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('forget-password');
 
 Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'getPassword']);
 Route::post('/reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'updatePassword']);
@@ -35,7 +36,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('admin_panel');
 
-                          /* Added By Ashish Pokhrel */
+/* Added By Ashish Pokhrel */
 Route::get('/business', [App\Http\Controllers\BusinessController::class, 'index'])->middleware('business');
 Route::get('/individualcontractor', [App\Http\Controllers\IndividualContractorController::class, 'index'])->middleware('individualcontractor');
 Route::get('/generaluser', [App\Http\Controllers\GeneralUserController::class, 'index'])->middleware('generaluser');
