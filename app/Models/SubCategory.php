@@ -17,4 +17,8 @@ class SubCategory extends Model
     {
         return $this->belongsToMany(Skill::class);
     }
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }

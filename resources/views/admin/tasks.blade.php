@@ -84,12 +84,12 @@
                 <tr>
                     <td>{{ $task->id }}</td>
                     <td>{{ $task->created_by }}</td>
-                    <td>{{ $task->created_for->name }}</td>
+                    <td>{{ $task->created_for }}</td>
                     <td>{{ $task->assigned_by }}</td>
                     <td>{{ $task->assigned_to }}</td>
                     <td>{{ $task->status }}</td>
                     <td>{{ $task->description }}</td>
-                    <td>{{ $task->sub_category_id }}</td>
+                    <td>{{ $task->sub_category->name }}</td>
                     <td>{{ $task->type }}</td>
                     <td>{{ $task->deadline }}</td>
                     <td>{{ $task->working_location }}</td>

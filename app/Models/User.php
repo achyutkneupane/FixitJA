@@ -61,12 +61,27 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Subscription::class);
     }
-    public function tasks()
-    {
-        return $this->hasMany(Task::class);
-    }
     public function first_name()
     {
         return strtok(Auth::user()->name,  ' ');
+    }
+
+
+
+    public function created_by()
+    {
+        return $this->hasMany(Task::class, 'created_by');
+    }
+    public function created_for()
+    {
+        return $this->hasMany(Task::class, 'created_for');
+    }
+    public function assigned_by()
+    {
+        return $this->hasMany(Task::class, 'assigned_by');
+    }
+    public function assigned_to()
+    {
+        return $this->hasMany(Task::class, 'assigned_to');
     }
 }

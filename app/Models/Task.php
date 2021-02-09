@@ -27,8 +27,12 @@ class Task extends Model
     {
         return $this->belongsToMany(User::class, 'assigned_to');
     }
+    public function sub_category()
+    {
+        return $this->belongsTo(SubCategory::class);
+    }
     public function related_task()
     {
-        return $this->belongsToMany(Task::class, 'related_task_id');
+        return $this->belongsToMany(Task::class);
     }
 }
