@@ -83,8 +83,8 @@
                 @foreach ($tasks as $task)
                 <tr>
                     <td>{{ $task->id }}</td>
-                    <td>{{ dd($task->user) }}</td>
-                    <td>{{ $task->created_for }}</td>
+                    <td>{{ $task->created_by }}</td>
+                    <td>{{ $task->created_for->name }}</td>
                     <td>{{ $task->assigned_by }}</td>
                     <td>{{ $task->assigned_to }}</td>
                     <td>{{ $task->status }}</td>

@@ -63,7 +63,7 @@ class User extends Authenticatable
     }
     public function tasks()
     {
-        return $this->belongsToMany(Skill::class);
+        return $this->hasMany(Task::class);
     }
     public function first_name()
     {
