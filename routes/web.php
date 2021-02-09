@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('homePage');
+Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
 Auth::routes();
 
 Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update']);
@@ -23,6 +23,21 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('admin_panel');
 Route::get('/admin/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
+
+// Route for about page
+Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
+//Route for contact us page
+Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
+//Route for faqs page
+Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
+
+
+
+
+
+
+
+
 
 
 

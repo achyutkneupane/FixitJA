@@ -46,10 +46,18 @@
     @if(isset($show_sidebar) && !$show_sidebar)
             @include('layouts.partials._navbar')
             @yield('content')
+            @include('layouts.partials.extras._scrolltop')
+            @include('layouts.partials._footer')
     @else
         @guest
-            @include('layouts.partials._navbar')
-            @yield('content')
+            @if(isset($show_navbar) && $show_navbar)
+                @include('layouts.partials._navbar')
+                @yield('content')
+                @include('layouts.partials.extras._scrolltop')
+                @include('layouts.partials._footer')
+            @else
+                @yield('content')
+            @endif
         @endguest
         @auth
             @if (config('layout.page-loader.type') != '')
