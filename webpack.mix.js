@@ -30,7 +30,7 @@ mix.js('resources/js/app.js', 'public/js')
 // 3rd party plugins css/js
 mix.sass('resources/plugins/plugins.scss', 'public/plugins/global/plugins.bundle.css').then(() => {
     // remove unused preprocessed fonts folder
-    rimraf(path.resolve('public/fonts'), () => {});
+    // rimraf(path.resolve('public/fonts'), () => {});
     // rimraf(path.resolve('public/images'), () => {});
 }).sourceMaps(!mix.inProduction())
     // .setResourceRoot('./')

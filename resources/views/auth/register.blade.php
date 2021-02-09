@@ -1,5 +1,5 @@
+{{$show_sidebar = false}}
 @extends('layouts.app')
-
 @section('content')
 
 		<!--begin::Main-->

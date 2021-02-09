@@ -2,7 +2,7 @@
 	$direction = config('layout.extras.user.offcanvas.direction', 'right');
 @endphp
  {{-- User Panel --}}
-<div id="kt_quick_user" class="offcanvas offcanvas-{{ $direction }} p-10">
+<div id="kt_quick_user" class="offcanvas offcanvas-{{ $direction }} p-10" style="z-index:9999;">
 	{{-- Header --}}
 	<div class="offcanvas-header d-flex align-items-center justify-content-between pb-5">
 		<h3 class="font-weight-bold m-0">
@@ -18,16 +18,20 @@
 		{{-- Header --}}
         <div class="d-flex align-items-center mt-5">
             <div class="symbol symbol-85 mr-5">
+                @auth
                 @if(!is_null(Auth::user()->documents->where('type', 'profile_picture')->first()))
                 <div class="symbol-label" style="background-image:url('{{ asset('storage/'. Auth::user()->documents->where('type', 'profile_picture')->first()->path) }}')"></div>
                 @else
                 <div class="symbol-label" style="background-image:url('{{ asset('images/unknown-avatar.png') }}')"></div>
                 @endif
+                @endauth
 				<!--i class="symbol-badge bg-success"></i-->
             </div>
             <div class="d-flex flex-column">
                 <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
+                @auth
                 {{ Auth::user()->name }}
+                @endauth
 				</a>
                 <div class="text-muted mt-1">
                     Application Developer
@@ -38,7 +42,11 @@
                             <span class="navi-icon mr-1">
 								{{ Metronic::getSVG("media/svg/icons/Communication/Mail-notification.svg", "svg-icon-lg svg-icon-primary") }}
 							</span>
-                            <span class="navi-text text-muted text-hover-primary">{{ Auth::user()->email }}</span>
+                            <span class="navi-text text-muted text-hover-primary">
+                                @auth
+                                {{ Auth::user()->email }}
+                                @endauth
+                            </span>
                         </span>
                     </a>
                 </div>

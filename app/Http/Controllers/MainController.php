@@ -25,8 +25,9 @@ class MainController extends Controller
         //return view('landingpage');
 
             // dd($documents->where('type','profile_picture')->where('id','1')->first()->path);
-        return view('pages.welcome', ['users' => $users, 'documents' => $documents]);
-
+        $page_title = 'Welcome';
+        $page_description = 'This is welcome page';
+        return view('pages.welcome', compact('page_title', 'page_description'), ['users' => $users, 'documents' => $documents, "show_sidebar" => false]);
     }
     
 }
