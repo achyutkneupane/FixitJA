@@ -11,19 +11,19 @@ class Task extends Model
 
     protected $guarded = [];
 
-    public function created_by()
+    public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-    public function created_for()
+    public function createdFor()
     {
         return $this->belongsTo(User::class, 'created_for');
     }
-    public function assigned_by()
+    public function assignedBy()
     {
         return $this->belongsToMany(User::class, 'assigned_by');
     }
-    public function assigned_to()
+    public function assignedTo()
     {
         return $this->belongsToMany(User::class, 'assigned_to');
     }
