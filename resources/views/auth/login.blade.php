@@ -22,7 +22,7 @@ $show_sidebar = false;
             <div class="login-content d-flex flex-column pt-lg-0 pt-8">
                 <!--begin::Logo-->
                 <a href="/" class="login-logo pb-xl-15 pb-10">
-                    <img src="{{asset('images/logo.png')}}" class="max-h-70px" alt="" />
+                    <img src="{{asset('images/logo.png')}}" class="max-h-120px" alt="" />
                 </a>
                 <!--end::Logo-->
                 <!--begin::Signin-->

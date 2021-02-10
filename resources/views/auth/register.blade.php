@@ -25,7 +25,7 @@ $show_sidebar = false;
 
                 <!--begin::Aside header-->
                 <a href="/" class="login-logo pb-lg-4 pb-10">
-                    <img src="{{asset('images/logo.png')}}" class="max-h-70px" alt="" />
+                    <img src="{{asset('images/logo.png')}}" class="max-h-120px" alt="" />
                 </a>
                 <!--end::Aside header-->
                 <!--begin: Wizard Nav-->
