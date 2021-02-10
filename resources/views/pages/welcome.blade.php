@@ -3,8 +3,8 @@
 
 <!-- Page Header-->
 <header class="page-header page-header-dark bg-gradient-primary-to-secondary">
-    <div class="page-header-content pt-10">
-        <div class="container">
+    <div class="page-header-content pt-website-10">
+        <div class="container-website">
             <div class="row align-items-center">
                 <div class="col-lg-6" data-aos="fade-up">
                     <div class="row align-items-center">
@@ -13,7 +13,7 @@
                     </div>
                     <div class="row">
                         <div class="col-9" style="padding: 0;">
-                            <select class="form-control kt-select2 select2" id="kt_select2_1" name="param">
+                            <select class="form-control-website kt-select2 select2" id="kt_select2_1" name="param">
                                 <option value="plu">Plumbing</option>
                                 <option value="ele">Electrician</option>
                                 <option value="CA">California</option>
@@ -82,14 +82,14 @@
         </svg>
     </div>
 </header>
-<section class="bg-white py-10">
-    <div class="container">
+<section class="bg-white py-website-10">
+    <div class="container-website">
         <div class="row">
             <div class="col-xl-12">
                 <!--begin::Tiles Widget 25-->
                 <div class="card-website card-website-custom bgi-no-repeat bgi-size-cover gutter-b bg-primary" style="background-image: url({{asset('media/svg/patterns/taieri.svg')}})">
-                    <div class="card-website-body d-flex">
-                        <div class="d-flex flex-column align-items-start flex-grow-1">
+                    <div class="card-website-body d-flex-website">
+                        <div class="d-flex-website flex-column-website align-items-start flex-grow-1">
                             <div class="flex-grow-1">
                                 <a href="#" class="text-white font-weight-bolder font-size-h3">How FixitJA works?</a>
                                 <p class="text-white opacity-75 font-weight-bold mt-3" style="width: 60%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
@@ -113,13 +113,13 @@
             </div>
         </div>
         <div class="row justify-content-center text-center mb-2">
-            <div class="col-lg-8 py-5" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
+            <div class="col-lg-8 py-website-5" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
                 <a class="btn-website btn-website-teal font-weight-500 mb-3" href="#!">Get Started Now!</a>
                 <h2 class="text-black">No need to create an account to place your project</h2>
                 <p class="lead text-black-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
         </div>
-        <div class="row justify-content-center text-center py-5">
+        <div class="row justify-content-center text-center py-website-5">
             <div class="badge badge-transparent-dark badge-pill badge-marketing text-white">OR</div>
         </div>
         <div class="p-5" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
@@ -155,10 +155,10 @@
     </div>
 </section>
 <section class="bg-light">
-    <div class="pt-10 py-10">
-        <div class="container" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
+    <div class="pt-website-10 py-website-10">
+        <div class="container-website" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
             <div class="row">
-                <h1 class="font-weight-bolder text-uppercase m-auto py-5">Our Top Reviewed Fixicians</h1>
+                <h1 class="font-weight-bolder text-uppercase m-auto py-website-5">Our Top Reviewed Fixicians</h1>
             </div>
             @include('layouts.partials._team-members')
         </div>
@@ -169,14 +169,14 @@
         </svg>
     </div>
 </section>
-<section class="bg-dark py-10">
-    <div class="container">
+<section class="bg-dark py-website-10">
+    <div class="container-website">
         <div class="row">
             <div class="col-xl-12">
                 <!--begin::Tiles Widget 25-->
                 <div class="card-website card-website-custom bgi-no-repeat bgi-size-cover gutter-b" style="background-color:#663259; background-image: url({{asset('media/svg/patterns/taieri.svg')}})">
-                    <div class="card-website-body d-flex">
-                        <div class="d-flex flex-column align-items-start flex-grow-1">
+                    <div class="card-website-body d-flex-website">
+                        <div class="d-flex-website flex-column-website align-items-start flex-grow-1">
                             <div class="flex-grow-1">
                                 <a href="#" class="text-white font-weight-bolder font-size-h3">What is our hiring process?</a>
                                 <p class="text-white opacity-75 font-weight-bold mt-3" style="width: 60%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
@@ -253,12 +253,12 @@
     </div>
 </section>
 <!-- testimonial -->
-<section class="bg-white pt-10">
-    <div class="container">
+<section class="bg-white pt-website-10">
+    <div class="container-website">
         <div class="row">
             <div class="col-lg-6 mb-lg-n10 mb-5 mb-lg-0 z-1">
                 <a class="card-website text-decoration-none h-100 lift" href="#!">
-                    <div class="card-website-body py-5">
+                    <div class="card-website-body py-website-5">
                         <div class="testimonial p-lg-5">
                             <div class="testimonial-brand text-gray-400">
                                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500.01 816.05">
@@ -280,7 +280,7 @@
             </div>
             <div class="col-lg-6 mb-lg-n10 z-1">
                 <a class="card-website text-decoration-none h-100 lift" href="#!">
-                    <div class="card-website-body py-5">
+                    <div class="card-website-body py-website-5">
                         <div class="testimonial p-lg-5">
                             <div class="testimonial-brand text-gray-400">
                                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 705.92">
@@ -304,8 +304,8 @@
     </div>
 </section>
 <!-- contact us section -->
-<section class="bg-light py-10">
-    <div class="container mt-5">
+<section class="bg-light py-website-10">
+    <div class="container-website mt-5">
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <h4>Ready to get started?</h4>

@@ -42,5 +42,11 @@ class MainController extends Controller
         $page_description = 'This is frequently asked questions page';
         return view('pages.faqs', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
     }
-    
+    public function createProject()
+    {
+        $page_title = 'Create Project Wizard';
+        $page_description = 'This is create project wizard page';
+        return view('pages.createTaskWizard', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
+
 }

@@ -3,8 +3,8 @@
 <main>
     <!-- Page Header-->
     <header class="page-header page-header-dark bg-gradient-primary-to-secondary">
-        <div class="page-header-content pt-10">
-            <div class="container text-center">
+        <div class="page-header-content pt-website-10">
+            <div class="container-website text-center">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <h1 class="page-header-title mb-3">Knowledgebase</h1>
@@ -19,9 +19,9 @@
             </svg>
         </div>
     </header>
-    <section class="bg-light py-10">
-        <div class="container">
-            <div class="d-flex align-items-center mb-5">
+    <section class="bg-light py-website-10">
+        <div class="container-website">
+            <div class="d-flex-website align-items-center mb-5">
                 <div class="icon-stack icon-stack-lg bg-primary text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                         <circle cx="9" cy="7" r="4"></circle>
@@ -131,8 +131,8 @@
                             <h6>Account</h6>
                             <p class="card-website-text">Issues related to logging in, out, or about multiple devices.</p>
                         </div>
-                        <div class="card-website-footer bg-transparent pt-0 pb-website-5">
-                            <div class="badge badge-pill badge-light font-weight-normal px-3 py-2">21 Entries</div>
+                        <div class="card-website-footer bg-transparent pt-website-0 pb-website-5">
+                            <div class="badge badge-pill badge-light font-weight-normal px-3 py-website-2">21 Entries</div>
                         </div>
                     </a>
                 </div>
@@ -146,8 +146,8 @@
                             <h6>Integrations</h6>
                             <p class="card-website-text">Connecting with 3rd party apps to exchange data.</p>
                         </div>
-                        <div class="card-website-footer bg-transparent pt-0 pb-website-5">
-                            <div class="badge badge-pill badge-light font-weight-normal px-3 py-2">9 Entries</div>
+                        <div class="card-website-footer bg-transparent pt-website-0 pb-website-5">
+                            <div class="badge badge-pill badge-light font-weight-normal px-3 py-website-2">9 Entries</div>
                         </div>
                     </a>
                 </div>
@@ -161,8 +161,8 @@
                             <h6>Billing</h6>
                             <p class="card-website-text">Issues with payments or invoicing.</p>
                         </div>
-                        <div class="card-website-footer bg-transparent pt-0 pb-website-5">
-                            <div class="badge badge-pill badge-light font-weight-normal px-3 py-2">14 Entries</div>
+                        <div class="card-website-footer bg-transparent pt-website-0 pb-website-5">
+                            <div class="badge badge-pill badge-light font-weight-normal px-3 py-website-2">14 Entries</div>
                         </div>
                     </a>
                 </div>
