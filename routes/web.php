@@ -34,14 +34,14 @@ Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update'])
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Added by Achyut Neupane
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('admin_panel');
-
 /* Added By Ashish Pokhrel */
 Route::get('/business', [App\Http\Controllers\BusinessController::class, 'index'])->middleware('business');
 Route::get('/individualcontractor', [App\Http\Controllers\IndividualContractorController::class, 'index'])->middleware('individualcontractor');
 Route::get('/generaluser', [App\Http\Controllers\GeneralUserController::class, 'index'])->middleware('generaluser');
 
+
+// Added by Achyut Neupane
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('admin_panel');
 Route::get('/admin/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
 Route::get('/admin/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listTask');
 Route::get('/admin/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewTask');
