@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
 <header class="page-header page-header-dark bg-gradient-primary-to-secondary">
-    <div class="page-header-content pt-10">
-        <div class="container text-center">
+    <div class="page-header-content pt-website-10">
+        <div class="container-website text-center">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <h1 class="page-header-title mb-3">About our company</h1>
@@ -17,8 +17,8 @@
         </svg>
     </div>
 </header>
-<section class="bg-white py-10">
-    <div class="container">
+<section class="bg-white py-website-10">
+    <div class="container-website">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <h2 class="mb-4">A quick guide to our company culture</h2>

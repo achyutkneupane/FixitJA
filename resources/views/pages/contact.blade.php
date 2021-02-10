@@ -3,8 +3,8 @@
 <main>
     <!-- Page Header-->
     <header class="page-header page-header-dark bg-gradient-primary-to-secondary">
-        <div class="page-header-content pt-10">
-            <div class="container text-center">
+        <div class="page-header-content pt-website-10">
+            <div class="container-website text-center">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <h1 class="page-header-title mb-3">Contact us</h1>
@@ -19,8 +19,8 @@
             </svg>
         </div>
     </header>
-    <section class="bg-white py-10">
-        <div class="container">
+    <section class="bg-white py-website-10">
+        <div class="container-website">
             <div class="row mb-5">
                 <div class="col-lg-4 mb-5">
                     <a class="card-website card-website-link border-top border-top-lg border-primary lift text-center o-visible h-100" href="#!">
@@ -115,10 +115,10 @@
             </div>
             <form>
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label class="text-dark" for="inputName">Full name</label><input class="form-control py-4" id="inputName" type="text" placeholder="Full name"></div>
-                    <div class="form-group col-md-6"><label class="text-dark" for="inputEmail">Email</label><input class="form-control py-4" id="inputEmail" type="email" placeholder="name@example.com"></div>
+                    <div class="form-group col-md-6"><label class="text-dark" for="inputName">Full name</label><input class="form-control-website py-website-4" id="inputName" type="text" placeholder="Full name"></div>
+                    <div class="form-group col-md-6"><label class="text-dark" for="inputEmail">Email</label><input class="form-control-website py-website-4" id="inputEmail" type="email" placeholder="name@example.com"></div>
                 </div>
-                <div class="form-group"><label class="text-dark" for="inputMessage">Message</label><textarea class="form-control py-3" id="inputMessage" type="text" placeholder="Enter your message..." rows="4"></textarea></div>
+                <div class="form-group"><label class="text-dark" for="inputMessage">Message</label><textarea class="form-control-website py-website-3" id="inputMessage" type="text" placeholder="Enter your message..." rows="4"></textarea></div>
                 <div class="text-center"><button class="btn btn-primary mt-4" type="submit">Submit Request</button></div>
             </form>
         </div>
