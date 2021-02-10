@@ -26,7 +26,7 @@ Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordControlle
 Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('forget-password');
 
 Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'getPassword']);
-Route::post('/reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'updatePassword']);
+Route::post('/reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'updatePassword'])->name('updatePassword');
 
 Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
