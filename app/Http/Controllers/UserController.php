@@ -15,6 +15,8 @@ use function GuzzleHttp\Promise\all;
 
 class UserController extends Controller
 {
+
+  
     public function update(User $user)
     {
         $user = new User();
