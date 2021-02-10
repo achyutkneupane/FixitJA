@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('homePage');
+Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
 Auth::routes(['verify' => true]);
 Route::get('/verify', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
 
@@ -42,6 +42,21 @@ Route::get('/individualcontractor', [App\Http\Controllers\IndividualContractorCo
 Route::get('/generaluser', [App\Http\Controllers\GeneralUserController::class, 'index'])->middleware('generaluser');
 
 Route::get('/admin/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
+
+// Route for about page
+Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
+//Route for contact us page
+Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
+//Route for faqs page
+Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
+
+
+
+
+
+
+
+
 
 
 
