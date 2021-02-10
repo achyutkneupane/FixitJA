@@ -32,7 +32,7 @@ class LoginController extends Controller
       public function redirectTo() {
 
          $type = Auth::user()->type;
-         
+
           /*switch(Auth::user()-> type){
               case  'admin':
                  $this-> redirectTo = '/admin';
@@ -72,22 +72,16 @@ class LoginController extends Controller
                         return  '/individualcontractor';
                 }
                 else{
-                    return '/'; 
+                    return '/';
                 }
 
-
-                  
-
-
           }
-
-          
           public function logout(Request $request) {
             Auth::logout();
             return redirect('/login');
         }
       }
 
-  
+
 
 
