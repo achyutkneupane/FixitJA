@@ -20,13 +20,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
 Auth::routes(['verify' => true]);
-Route::get('/verify', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
+Route::get('/verify/{verification_code}', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
 
 Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
 Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('forget-password');
 
 Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'getPassword']);
-Route::post('/reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'updatePassword']);
+Route::post('/reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'updatePassword'])->name('updatePassword');
 
 Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 

@@ -24,7 +24,7 @@
                 <!--begin::Signin-->
                 <div class="login-form">
                     <!--begin::Form-->
-                    <form method="POST" action="/reset-password">
+                    <form method="POST" action="{{ route('updatePassword') }}">
                         @csrf
                         <input type="hidden" name="token" value="{{ $token }}">
 
@@ -50,7 +50,7 @@
                                 <label class="font-size-h6 font-weight-bolder text-dark pt-5"> Confirmed Password</label>
 
                             </div>
-                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="password" name="password_confirmation" autocomplete="off" />
                         </div>
 
                         <!--end::Form group-->

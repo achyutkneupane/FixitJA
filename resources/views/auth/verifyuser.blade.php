@@ -1,6 +1,6 @@
 Welcome to my  {{ config('app.name', 'FixitJA') }} Website!
 <br>
-Please click the below link to Reset Your Password
+Please click the below link to verify your account
 <br><br>
 
 
@@ -9,7 +9,7 @@ Please click the below link to Reset Your Password
                             {{ __('A fresh verification link has been sent to your email address.') }}
                         </div>
                     @endif
-                    <a href="http://127.0.0.1:8000/reset-password/{{ $token }}">Click Here</a>.
+                    <a href="http://127.0.0.1:8000/verify/{{ $verification_code }}">Click Here</a>.
                 </div>
                 <br><br>
 Thank you!
