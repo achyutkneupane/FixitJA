@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+// Added by Achyut Neupane
 Route::prefix('/admin')->group(function () {
     Route::post('/add_category', [App\Http\Controllers\CategoryController::class, 'store']);
     Route::put('/edit_category/{id}', [App\Http\Controllers\CategoryController::class, 'update']);

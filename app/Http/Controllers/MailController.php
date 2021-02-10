@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Author : Ashish Pokhrel
  * Date :   3 feb 2021
  */
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -11,14 +13,18 @@ use App\Mail\VerifyEmail;
 
 class MailController extends Controller
 {
-    public static  function  sendVerfiyEmail($name, $email, $verfication_code){
+    public static function sendVerifyEmail($name, $email, $verification_code)
+    {
+        $subject = "Verify Email";
         $data =  [
             'name' => $name,
-            'verfication_code' => $verfication_code,
-            
+            'verification_code' => $verification_code,
+
         ];
         //dd($verfication_code);
-        Mail::to($email)->send(new VerifyEmail($data));
+
+        Mail::send('auth.verifyuser', $data, function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
     }
-    
 }
