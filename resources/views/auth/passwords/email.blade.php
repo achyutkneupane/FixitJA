@@ -1,5 +1,9 @@
+@php
+$page_title = 'Forgot Password';
+$page_description = 'This is forgot password page';
+$show_sidebar = false;
+@endphp
 @extends('layouts.app')
-
 @section('content')
 <div class="d-flex flex-column flex-root">
 <div class="flash-message">
@@ -18,8 +22,8 @@
 					<!--begin::Wrapper-->
 					<div class="login-content d-flex flex-column pt-lg-0 pt-12">
 						<!--begin::Logo-->
-						<a href="#" class="login-logo pb-xl-20 pb-15">
-						<img src="{{asset('media/logos/logo-4.png')}}" class="max-h-70px" alt="" />
+						<a href="/" class="login-logo pb-xl-20 pb-15">
+						<img src="{{asset('images/logo.png')}}" class="max-h-70px" alt="" />
 						</a>
 						<!--end::Logo-->
 						<!--begin::Signin-->
@@ -71,5 +75,5 @@
 {{-- Scripts Section --}}
 @section('scripts')
     <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
-@endsection	
+@endsection
 

@@ -17,8 +17,8 @@
 					<!--begin::Wrapper-->
 					<div class="login-content d-flex flex-column pt-lg-0 pt-12">
 						<!--begin::Logo-->
-						<a href="#" class="login-logo pb-xl-20 pb-15">
-							<img src="{{asset('media/logos/logo-4.png')}}" class="max-h-70px" alt="" />
+						<a href="/" class="login-logo pb-xl-20 pb-15">
+							<img src="{{asset('images/logo.png')}}" class="max-h-70px" alt="" />
 						</a>
 						<!--end::Logo-->
 						<!--begin::Signin-->
@@ -27,11 +27,11 @@
 							<form method="POST" action="/reset-password">
                            @csrf
                            <input type="hidden" name="token" value="{{ $token }}">
-								
+
 								<!--begin::Title-->
 								<div class="pb-5 pb-lg-15">
 									<h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Reset Paaword</h3>
-								
+
 									</div>
                                     <div class="form-group">
 										<label class="font-size-h6 font-weight-bolder text-dark">Email</label>
@@ -48,17 +48,17 @@
 								<div class="form-group">
 									<div class="d-flex justify-content-between mt-n5">
 										<label class="font-size-h6 font-weight-bolder text-dark pt-5"> Confirmed Password</label>
-										
+
 									</div>
 									<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
 								</div>
-								
+
 								<!--end::Form group-->
 								<!--begin::Action-->
 								<div class="pb-lg-0 pb-5">
 									<button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3"> Reset Password</button>
-									
-									
+
+
 								</div>
 								<!--end::Action-->
 							</form>
@@ -92,5 +92,5 @@
 {{-- Scripts Section --}}
 @section('scripts')
     <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
-@endsection		
+@endsection
 
