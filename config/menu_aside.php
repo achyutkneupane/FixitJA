@@ -3,10 +3,10 @@
 return [
 
     'items' => [
-        /* Section Example */
+        /* Section Example
         [
             'section' => 'Admin Panel',
-        ],
+        ], */
 
 
         // Links

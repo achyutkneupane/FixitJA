@@ -25,7 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('admin_panel');
 Route::get('/admin/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
 Route::get('/admin/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listTask');
-Route::get('/admin/task/add', [App\Http\Controllers\TaskController::class, 'create'])->middleware('auth', 'checkIfAdmin')->name('addTask');
+Route::get('/admin/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewTask');
 
 
 
