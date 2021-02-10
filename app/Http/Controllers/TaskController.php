@@ -16,7 +16,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::orderBy('created_at','ASC')->get();
+        $tasks = Task::orderBy('created_at', 'ASC')->get();
         return view('admin.tasks', compact('tasks'));
     }
 
@@ -49,8 +49,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $task = Task::find($id)->get();
-
+        $task = Task::where('id', $id)->first();
         return view('admin.viewTask', compact('task'));
     }
 
