@@ -8,6 +8,11 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\MailController;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -29,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -50,9 +55,17 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            
+           
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'string', 'min:8', 'unique:users'],
+            /* Add by Ashish Pokhrel */
+            'user_type' => Rule::in(['individual_contractor', 'Business', 'general_user']), 
+            'gender' => ['nullable','string'],
+            'companyname' => ['nullable', 'string'],
+            'websitepersonal' => ['nullable'],
+            'websitecompany' => ['nullable'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -69,7 +82,54 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
+            'type' => $data['user_type'],
+            'gender' => $data['gender'],
+            'companyname' => $data['companyname'],
             'password' => Hash::make($data['password']),
+            
         ]);
+    }
+
+    /* Add by Ashish Pokhrel */
+    public function register(Request $request)
+    {
+       $user = new User();
+       $user->name = $request->name;
+       $user->email = $request->email;
+       $user->phone = $request->phone;
+       $user->gender = $request->gender;
+       $user->companyname = $request->companyname;
+       $user->type = $request->user_type;
+       $user->password = Hash::make($request->password);
+       $user->verification_code = sha1(time());
+       $user->save();
+
+       if($user != null){
+           MailController::sendVerfiyEmail($user->name, $user->email, $user->verification_code);
+           //dd({{$user->verfication_code);
+           return redirect()->back()->with(session()->flash('alert-success', 
+           'Your account has been created. Please check email for verification link.'));
+
+       }
+       return redirect()->back()->with(session()->flash('alert-danger', 'Something went wrong!'));
+
+       
+
+    }
+    public function verifyuser(Request $request){
+        $verification_code = \Illuminate\Support\Facades\Request::get('code');
+        $user = User::where(['verification_code' => $verification_code])->first();
+
+
+        if($user !=null){
+            $user->status = 'active';
+            $user->email_verified_at =  Carbon::now();
+            
+            $user->save();
+            return redirect()->route('login')->with(session()->flash('alert-success', 'Your account is verified. Please login!'));
+        }
+    return redirect()->route('register')->with(session()->flash('alert-danger', 'Invalid verification code!'));
+
+        
     }
 }
