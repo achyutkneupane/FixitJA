@@ -18,6 +18,7 @@ class MainController extends Controller
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
 
+
             // dd($documents->where('type','profile_picture')->where('id','1')->first()->path);
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
@@ -41,4 +42,5 @@ class MainController extends Controller
         $page_description = 'This is frequently asked questions page';
         return view('pages.faqs', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
     }
+    
 }
