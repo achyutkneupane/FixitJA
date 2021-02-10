@@ -1,7 +1,7 @@
 <!-- Navbar-->
 <nav class="navbar navbar-marketing navbar-expand-lg bg-transparent navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand text-white" href="#">
+    <div class="container-website">
+        <a class="navbar-brand text-white" href="/">
         <img src="{{asset('images/logo.png')}}" height="100px" class="d-inline-block align-top" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
@@ -13,7 +13,7 @@
                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up mr-lg-n25 mr-xl-n15" aria-labelledby="navbarDropdownDemos">
                         <div class="row no-gutters">
                             <div class="col-lg-5 p-lg-3 bg-img-cover overlay overlay-primary overlay-70 d-none d-lg-block" style="background-image: url({{asset('images/website/bg-dropdown-xl.jpg')}})">
-                                <div class="d-flex h-100 w-100 align-items-center justify-content-center">
+                                <div class="d-flex-website h-100 w-100 align-items-center justify-content-center">
                                     <div class="text-white text-center z-1">
                                         <div class="mb-3">There are more categories for you.</div>
                                         <a class="btn-website btn-website-white btn-website-sm text-primary font-weight-500" href="index.html">View All Categories</a>
@@ -79,7 +79,7 @@
                 <!-- <li class="nav-item dropdown no-caret">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Documentation<i class="fas fa-chevron-right dropdown-arrow"></i></a>
                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
-                        <a class="dropdown-item py-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/quickstart" target="_blank"
+                        <a class="dropdown-item py-website-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/quickstart" target="_blank"
                             ><div class="icon-stack bg-primary-soft text-primary mr-4"><i data-feather="book-open"></i></div>
                             <div>
                                 <div class="small text-gray-500">Documentation</div>
@@ -87,7 +87,7 @@
                             </div></a
                         >
                         <div class="dropdown-divider m-0"></div>
-                        <a class="dropdown-item py-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/components" target="_blank"
+                        <a class="dropdown-item py-website-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/components" target="_blank"
                             ><div class="icon-stack bg-primary-soft text-primary mr-4"><i data-feather="code"></i></div>
                             <div>
                                 <div class="small text-gray-500">Components</div>
@@ -95,7 +95,7 @@
                             </div></a
                         >
                         <div class="dropdown-divider m-0"></div>
-                        <a class="dropdown-item py-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/changelog" target="_blank"
+                        <a class="dropdown-item py-website-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/changelog" target="_blank"
                             ><div class="icon-stack bg-primary-soft text-primary mr-4"><i data-feather="file-text"></i></div>
                             <div>
                                 <div class="small text-gray-500">Changelog</div>
@@ -125,7 +125,7 @@
                         @csrf
                     </form> -->
                     <div class="topbar-item">
-                        <div class="btn btn-icon w-auto d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
+                        <div class="btn btn-icon w-auto d-flex-website align-items-center btn-lg px-2" id="kt_quick_user_toggle">
                             <span class="font-weight-bold font-size-base d-none d-md-inline mr-1" style="color: #fff;">Hi,</span>
                             <span class="font-weight-bolder font-size-base d-none d-md-inline mr-3" style="color: #fff;">Sean</span>
                             <span class="symbol symbol-35 symbol-light-success">

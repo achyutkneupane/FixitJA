@@ -1,6 +1,6 @@
 <div id="layoutDefault_footer">
-        <footer class="footer pt-10 pb-website-5 mt-auto bg-light footer-light">
-            <div class="container">
+        <footer class="footer pt-website-10 pb-website-5 mt-auto bg-light footer-light">
+            <div class="container-website">
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="footer-brand">FixitJA</div>
@@ -14,7 +14,7 @@
                             <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                                 <div class="text-uppercase-expanded text-xs mb-4">About FixitJA</div>
                                 <ul class="list-unstyled mb-0">
-                                    <li class="mb-2"><a href="#!">About the comapany</a></li>
+                                    <li class="mb-2"><a href="/about">About the comapany</a></li>
                                     <li class="mb-2"><a href="#!">Fixician Directory</a></li>
                                     <li class="mb-2"><a href="#!">Services</a></li>
                                     <li class="mb-2"><a href="#!">How it works</a></li>
@@ -32,8 +32,8 @@
                             <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
                                 <div class="text-uppercase-expanded text-xs mb-4">Support</div>
                                 <ul class="list-unstyled mb-0">
-                                    <li class="mb-2"><a href="#!">Contact</a></li>
-                                    <li class="mb-2"><a href="#!">FAQs</a></li>
+                                    <li class="mb-2"><a href="/contact">Contact</a></li>
+                                    <li class="mb-2"><a href="/faqs">FAQs</a></li>
                                     <li class="mb-2"><a href="#!">Careers</a></li>
                                 </ul>
                             </div>
