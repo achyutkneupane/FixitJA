@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('homePage');
+Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
 Auth::routes(['verify' => true]);
 Route::get('/verify', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
 
