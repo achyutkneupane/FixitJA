@@ -19,10 +19,10 @@ $show_sidebar = false;
         <!--begin::Content-->
         <div class="login-container order-2 order-lg-1 d-flex flex-center flex-row-fluid px-7 pt-lg-0 pb-lg-0 pt-4 pb-6 bg-white">
             <!--begin::Wrapper-->
-            <div class="login-content d-flex flex-column pt-lg-0 pt-12">
+            <div class="login-content d-flex flex-column pt-lg-0 pt-8">
                 <!--begin::Logo-->
-                <a href="/" class="login-logo pb-xl-20 pb-15">
-                    <img src="{{asset('images/logo.png')}}" class="max-h-70px" alt="" />
+                <a href="/" class="login-logo pb-xl-15 pb-10">
+                    <img src="{{asset('images/logo.png')}}" class="max-h-120px" alt="" />
                 </a>
                 <!--end::Logo-->
                 <!--begin::Signin-->
@@ -56,21 +56,22 @@ $show_sidebar = false;
                         <!--begin::Action-->
                         <div class="pb-lg-0 pb-5">
                             <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Login</button>
-
-
                         </div>
                         <!--end::Action-->
                     </form>
                     <!--end::Form-->
                 </div>
+
+                @include('layouts.partials._footer_simple')
                 <!--end::Signin-->
             </div>
             <!--end::Wrapper-->
+
         </div>
         <!--begin::Content-->
         <!--begin::Aside-->
         <div class="login-aside order-1 order-lg-2 bgi-no-repeat bgi-position-x-right">
-            <div class="login-conteiner bgi-no-repeat bgi-position-x-right bgi-position-y-bottom" style="background-image: url({{asset('media/svg/illustrations/login-visual-4.svg')}}">
+            <div class="login-conteiner bgi-no-repeat bgi-position-x-right bgi-position-y-bottom" style="background-image: url({{asset('images/website/repair1.svg')}});">
                 <!--begin::Aside title-->
                 <h3 class="pt-lg-40 pl-lg-20 pb-lg-0 pl-10 py-20 m-0 d-flex justify-content-lg-start font-weight-boldest display5 display1-lg text-white">We Got
                     <br />A Surprise

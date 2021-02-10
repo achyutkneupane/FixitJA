@@ -16,16 +16,16 @@ $show_sidebar = false;
         @endforeach
     </div>
     <!--begin::Login-->
-    <div class="login login-4 wizard d-flex flex-column flex-lg-row flex-column-fluid wizard py-20" id="kt_login">
+    <div class="login login-4 wizard d-flex flex-column flex-lg-row flex-column-fluid" id="kt_login">
         <!--begin::Content-->
-        <div class="login-container d-flex flex-center flex-row flex-row-fluid order-2 order-lg-1 flex-row-fluid bg-white py-lg-0 pb-lg-0 pt-15 pb-12">
+        <div class="login-container order-2 order-lg-1 d-flex flex-center flex-row-fluid px-7 pt-lg-0 pb-lg-0 pt-4 pb-6 bg-white">
             <!--begin::Container-->
             <div class="login-content login-content-signup d-flex flex-column">
                 <!--begin::Aside Top-->
 
                 <!--begin::Aside header-->
                 <a href="/" class="login-logo pb-lg-4 pb-10">
-                    <img src="{{asset('images/logo.png')}}" class="max-h-70px" alt="" />
+                    <img src="{{asset('images/logo.png')}}" class="max-h-120px" alt="" />
                 </a>
                 <!--end::Aside header-->
                 <!--begin: Wizard Nav-->
@@ -132,12 +132,10 @@ $show_sidebar = false;
                             <!--begin::Action-->
                             <div class="pb-lg-0 pb-5">
                                 <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign Up</button>
-
-
                             </div>
                         </div>
-
                 </div>
+                @include('layouts.partials._footer_simple')
                 <!--end::Signin-->
             </div>
             <!--end::Container-->
