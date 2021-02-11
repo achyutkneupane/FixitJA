@@ -4,13 +4,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Task;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-use function PHPSTORM_META\map;
-
-class CategoryController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('sub_categories')->get();
-        return view('admin.category', compact('categories'));
+        $tasks = Task::orderBy('created_at', 'ASC')->get();
+        return view('admin.tasks', compact('tasks'));
     }
 
     /**
@@ -30,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.addCategory');
+        return view('admin.addTasks');
     }
 
     /**
@@ -41,29 +38,25 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = $request->validate([
-            'name' => 'required',
-            'description' => 'required'
-        ]);
-        Category::create($category);
-        return redirect()->route('listCategory');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $task = Task::where('id', $id)->first();
+        return view('admin.viewTask', compact('task'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -75,31 +68,22 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $new = Category::find($id);
-        $category = $request->validate([
-            'name' => 'required',
-            'description' => 'required'
-        ]);
-        $new->name = $request->name;
-        $new->description = $request->description;
-        $new->save();
-        return redirect()->route('listCategory');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Category::find($id)->delete();
-        return redirect()->route('listCategory');
+        //
     }
 }
