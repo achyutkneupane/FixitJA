@@ -55,9 +55,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-
-
-            'name' => ['required', 'string', 'max:255'],
+           'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'string', 'min:8', 'unique:users'],
             /* Add by Ashish Pokhrel */
@@ -66,7 +64,10 @@ class RegisterController extends Controller
             'companyname' => ['nullable', 'string'],
             'websitepersonal' => ['nullable'],
             'websitecompany' => ['nullable'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8',
+            'regex:/[A-Z]/',      // must contain at least one uppercase letter
+            'regex:/[0-9]/',
+             'confirmed'],
         ]);
     }
 
@@ -86,13 +87,17 @@ class RegisterController extends Controller
             'gender' => $data['gender'],
             'companyname' => $data['companyname'],
             'password' => Hash::make($data['password']),
+            
 
         ]);
     }
 
     /* Add by Ashish Pokhrel */
     public function register(Request $request)
-    {
+    {  
+      
+
+        $this->validator($request->all())->validate();
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -103,11 +108,12 @@ class RegisterController extends Controller
         $user->password = Hash::make($request->password);
         $user->verification_code = sha1(time());
         $user->save();
+        
 
         if ($user != null) {
             MailController::sendVerifyEmail($user->name, $user->email, $user->verification_code);
             //dd({{$user->verfication_code);
-            return redirect()->back()->with(session()->flash(
+            return redirect('/login')->with(session()->flash(
                 'alert-success',
                 'Your account has been created. Please check email for verification link.'
             ));

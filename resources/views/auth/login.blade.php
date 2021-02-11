@@ -3,7 +3,11 @@
 $page_title = 'Login';
 $page_description = 'This is login page';
 $show_sidebar = false;
+
+
 @endphp
+                                                                                                                                                                                  
+
 @section('content')
 <!--begin::Main-->
 <div class="d-flex flex-column flex-root">
@@ -19,16 +23,16 @@ $show_sidebar = false;
         <!--begin::Content-->
         <div class="login-container order-2 order-lg-1 d-flex flex-center flex-row-fluid px-7 pt-lg-0 pb-lg-0 pt-4 pb-6 bg-white">
             <!--begin::Wrapper-->
-            <div class="login-content d-flex flex-column pt-lg-0 pt-8">
+            <div class="login-content d-flex flex-column pt-lg-0 pt-12">
                 <!--begin::Logo-->
-                <a href="/" class="login-logo pb-xl-15 pb-10">
-                    <img src="{{asset('images/logo.png')}}" class="max-h-120px" alt="" />
+                <a href="/" class="login-logo pb-xl-20 pb-15">
+                    <img src="{{asset('images/logo.png')}}" class="max-h-70px" alt="" />
                 </a>
                 <!--end::Logo-->
                 <!--begin::Signin-->
                 <div class="login-form">
                     <!--begin::Form-->
-                    <form method="POST" action="{{ route('login') }}">
+                    <form  method="POST" action="{{ route('login') }}">
                         @csrf
                         <!--begin::Title-->
                         <div class="pb-5 pb-lg-15">
@@ -40,8 +44,12 @@ $show_sidebar = false;
                         <!--begin::Title-->
                         <!--begin::Form group-->
                         <div class="form-group">
-                            <label class="font-size-h6 font-weight-bolder text-dark">Your Email</label>
-                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="text" name="email" autocomplete="off" />
+                            <label class="font-size-h6 font-weight-bolder text-dark">Your Email</label><span id="error-email"></span>
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 " type="text" name="email" autocomplete="off" />
+							@if ($errors->has('email'))
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                            @endif
+								
                         </div>
                         <!--end::Form group-->
                         <!--begin::Form group-->
@@ -50,28 +58,32 @@ $show_sidebar = false;
                                 <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
                                 <a href="/forget-password" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Forgot Password ?</a>
                             </div>
-                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 " type="password" name="password" autocomplete="off" />
+							@if ($errors->has('password'))
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                                @endif
+								<span id="error-password"></span>
+							
                         </div>
                         <!--end::Form group-->
                         <!--begin::Action-->
                         <div class="pb-lg-0 pb-5">
                             <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Login</button>
+
+
                         </div>
                         <!--end::Action-->
                     </form>
                     <!--end::Form-->
                 </div>
-
-                @include('layouts.partials._footer_simple')
                 <!--end::Signin-->
             </div>
             <!--end::Wrapper-->
-
         </div>
         <!--begin::Content-->
         <!--begin::Aside-->
         <div class="login-aside order-1 order-lg-2 bgi-no-repeat bgi-position-x-right">
-            <div class="login-conteiner bgi-no-repeat bgi-position-x-right bgi-position-y-bottom" style="background-image: url({{asset('images/website/repair1.svg')}});">
+            <div class="login-conteiner bgi-no-repeat bgi-position-x-right bgi-position-y-bottom" style="background-image: url({{asset('media/svg/illustrations/login-visual-4.svg')}}">
                 <!--begin::Aside title-->
                 <h3 class="pt-lg-40 pl-lg-20 pb-lg-0 pl-10 py-20 m-0 d-flex justify-content-lg-start font-weight-boldest display5 display1-lg text-white">We Got
                     <br />A Surprise
@@ -93,4 +105,5 @@ $show_sidebar = false;
 {{-- Scripts Section --}}
 @section('scripts')
 <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
+<script src="assets/js/scripts.bundle.js"></script>
 @endsection
