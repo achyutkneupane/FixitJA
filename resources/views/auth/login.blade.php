@@ -42,6 +42,9 @@ $show_sidebar = false;
                         <div class="form-group">
                             <label class="font-size-h6 font-weight-bolder text-dark">Your Email</label>
                             <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="text" name="email" autocomplete="off" />
+                            @if ($errors->has('email'))
+                             <span class="text-danger">{{ $errors->first('email') }}</span>
+                            @endif
                         </div>
                         <!--end::Form group-->
                         <!--begin::Form group-->
@@ -51,6 +54,9 @@ $show_sidebar = false;
                                 <a href="/forget-password" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Forgot Password ?</a>
                             </div>
                             <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
+                            @if ($errors->has('password'))
+                             <span class="text-danger">{{ $errors->first('password') }}</span>
+                            @endif
                         </div>
                         <!--end::Form group-->
                         <!--begin::Action-->

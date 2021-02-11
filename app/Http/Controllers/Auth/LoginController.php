@@ -72,7 +72,7 @@ class LoginController extends Controller
                         return  '/individualcontractor';
                 }
                 else{
-                    return '/';
+                    return '/login';
                 }
 
           }
