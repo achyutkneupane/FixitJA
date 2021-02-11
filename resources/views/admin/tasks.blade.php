@@ -21,11 +21,13 @@
                 </div>
             </h3>
         </div>
+        @isAdmin
         <div class="card-toolbar">
             <a href="#" class="btn btn-primary font-weight-bolder">
             <span class="svg-icon svg-icon-md">
             </span>New Task</a>
         </div>
+        @endisAdmin
     </div>
     <div class="card-body">
         <!--begin: Datatable-->
