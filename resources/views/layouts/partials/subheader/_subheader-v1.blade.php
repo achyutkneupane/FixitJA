@@ -5,7 +5,19 @@
 
 		{{-- Info --}}
         <div class="d-flex align-items-center flex-wrap mr-1">
-
+            @if($user->status == "pending")
+                <span class="font-weight-bold text-danger">
+                    Your account is not activated yet.
+                </span>
+            @elseif($user->status == "suspended")
+                <span class="font-weight-bold text-warning">
+                    Your account has been suspended.
+                </span>
+            @elseif($user->status == "blocked")
+                <span class="font-weight-bold text-danger">
+                    Your account has been blocked.
+                </span>
+            @endif
 			{{-- Page Title --}}
             <h5 class="text-dark font-weight-bold my-2 mr-5">
                 {{ @$page_title }}

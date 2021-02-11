@@ -16,7 +16,7 @@ use function GuzzleHttp\Promise\all;
 class UserController extends Controller
 {
 
-  
+
     public function update(User $user)
     {
         $user = new User();
@@ -69,5 +69,10 @@ class UserController extends Controller
         } else {
             return Redirect::back()->withErrors(['old_password' => 'Old password did not match.'])->withInput();
         }
+    }
+    public function index()
+    {
+        $user = User::find(Auth::user()->id)->first();
+        return view('pages.profile', compact('user'));
     }
 }
