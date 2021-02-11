@@ -39,6 +39,9 @@ $show_sidebar = false;
                             <!--begin::Form group-->
                             <div class="form-group">
                                 <input class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" type="email" placeholder="Email" name="email" autocomplete="off" />
+                                @if ($errors->has('email'))
+                             <span class="text-danger">{{ $errors->first('email') }}</span>
+                            @endif
                             </div>
                             <!--end::Form group-->
                             <!--begin::Form group-->
