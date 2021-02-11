@@ -3,6 +3,7 @@
 namespace App\Classes\Theme;
 
 use App\Classes\Theme\Metronic;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 class Menu
@@ -22,7 +23,6 @@ class Menu
         if (!$item) {
             return 'menu misconfiguration';
         }
-
         if (isset($item['separator'])) {
             echo '<li class="menu-separator"><span></span></li>';
         } elseif (isset($item['section'])) {
@@ -188,7 +188,12 @@ class Menu
             echo '</li>';
         } else {
             foreach ($item as $each) {
-                self::renderVerMenu($each, $parent, $rec++);
+                if (isset($each['admin'])) {
+                    if (Auth::user()->type == "admin")
+                        self::renderVerMenu($each, $parent, $rec++);
+                } else {
+                    self::renderVerMenu($each, $parent, $rec++);
+                }
             }
         }
     }

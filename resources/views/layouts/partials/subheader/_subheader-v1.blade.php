@@ -4,8 +4,23 @@
     <div class="{{ Metronic::printClasses('subheader-container', false) }} d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
 
 		{{-- Info --}}
+        @php
+            $currentuser = Auth::user();
+        @endphp
         <div class="d-flex align-items-center flex-wrap mr-1">
-
+            @if($currentuser->status == "pending")
+                <span class="font-weight-bold text-danger">
+                    Your account is not activated yet.
+                </span>
+            @elseif($currentuser->status == "suspended")
+                <span class="font-weight-bold text-warning">
+                    Your account has been suspended.
+                </span>
+            @elseif($currentuser->status == "blocked")
+                <span class="font-weight-bold text-danger">
+                    Your account has been blocked.
+                </span>
+            @endif
 			{{-- Page Title --}}
             <h5 class="text-dark font-weight-bold my-2 mr-5">
                 {{ @$page_title }}

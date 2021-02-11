@@ -16,6 +16,14 @@ return [
             'icon' => 'flaticon-list', // flaticon-*
             'page' => '/admin/category',
             'new-tab' => false,
+            'admin' => true
+        ],
+        [
+            'title' => 'Tasks',
+            'root' => false,
+            'icon' => 'flaticon-interface-10', // flaticon-*
+            'page' => '/admin/task',
+            'new-tab' => false,
         ]
     ]
 
