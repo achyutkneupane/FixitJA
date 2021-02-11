@@ -1,13 +1,6 @@
 {{-- Author: Achyut Neupane --}}
 @extends('layouts.app')
 @section('content')
-@if (Session::has('toastr-success'))
-
-<script>
-    console.log("Toast")
-    </script>
-
-@endif
     <div class="container jumbotron">
         <div class="row">
             <div class="col-md-12">
@@ -192,9 +185,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-{{-- Scripts Section --}}
-@section('scripts')
-    <script src="{{ asset('js/pages/features/miscellaneous/toastr.js') }}" type="text/javascript"></script>
 @endsection
