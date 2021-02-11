@@ -38,7 +38,6 @@
                 </a>
             </div>
         @endif
-
         <div
             id="kt_aside_menu"
             class="aside-menu my-4 {{ Metronic::printClasses('aside_menu', false) }}"

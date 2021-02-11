@@ -41,10 +41,10 @@ Route::get('/generaluser', [App\Http\Controllers\GeneralUserController::class, '
 
 
 // Added by Achyut Neupane
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('admin_panel');
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth')->name('admin_panel');
 Route::get('/admin/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
-Route::get('/admin/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listTask');
-Route::get('/admin/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewTask');
+Route::get('/admin/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
+Route::get('/admin/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth')->name('viewProfile');
 
 // Route for about page

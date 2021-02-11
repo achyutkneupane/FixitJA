@@ -9,10 +9,11 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Registered;
+
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\MailController;
 use Carbon\Carbon;
+
 
 class RegisterController extends Controller
 {
@@ -52,67 +53,50 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+   
+    /* Add by Ashish Pokhrel */
+    public function register(Request $request)
     {
-        return Validator::make($data, [
+        
 
-
+         
+         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'string', 'min:8', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'phone' => ['required', 'string', 'min:8', 'unique:users,phone'],
             /* Add by Ashish Pokhrel */
-            'user_type' => Rule::in(['individual_contractor', 'Business', 'general_user']),
+            'type' => Rule::in(['admin', 'individual_contractor', 'Business', 'general_user']),
             'gender' => ['nullable', 'string'],
             'companyname' => ['nullable', 'string'],
             'websitepersonal' => ['nullable'],
             'websitecompany' => ['nullable'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
+            'password' => ['min:6|required_with:cpassword|same:cpassword', 'regex:/[A-Z]/','regex:/[0-9]/'],
+            'cpassword' => ['min:6','regex:/[A-Z]/','regex:/[0-9]/'],
+         
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'type' => $data['user_type'],
-            'gender' => $data['gender'],
-            'companyname' => $data['companyname'],
-            'password' => Hash::make($data['password']),
-
-        ]);
-    }
-
-    /* Add by Ashish Pokhrel */
-    public function register(Request $request)
-    {
+      ]);
+       
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->gender = $request->gender;
         $user->companyname = $request->companyname;
-        $user->type = $request->user_type;
+        $user->type = $request->type;
         $user->password = Hash::make($request->password);
         $user->verification_code = sha1(time());
         $user->save();
+        
 
         if ($user != null) {
             MailController::sendVerifyEmail($user->name, $user->email, $user->verification_code);
             //dd({{$user->verfication_code);
-            return redirect()->to('/login')->with(session()->flash(
+            return redirect()->route('login')->with(session()->flash(
                 'alert-success',
                 'Your account has been created. Please check email for verification link.'
             ));
         }
-        return redirect()->back()->with(session()->flash('alert-danger', 'Something went wrong!'));
+        return redirect()->route('register')->with(session()->flash('alert-danger', 'Something went wrong!'));
     }
     public function verifyuser($verification_code)
     {

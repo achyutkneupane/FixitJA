@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -28,12 +28,13 @@ class LoginController extends Controller
      *
      * @var string
      */
-     protected $redirectTo;
-      public function redirectTo() {
+    protected $redirectTo;
+    public function redirectTo()
+    {
 
-         $type = Auth::user()->type;
+        $type = Auth::user()->type;
 
-          /*switch(Auth::user()-> type){
+        /*switch(Auth::user()-> type){
               case  'admin':
                  $this-> redirectTo = '/admin';
                   return  $this-> redirectTo;
@@ -54,34 +55,21 @@ class LoginController extends Controller
                 $this->redirectTo = '/login';
                 return $this->redirectTo;*/
 
-                if($type == 'admin')
-                {
-                    return '/admin';
-
-                }
-                elseif($type == 'general_user')
-                {
-                     return '/home';
-                }
-                elseif($type == 'business')
-                {
-                       return  '/home';
-                }
-                elseif($type == 'individual_contractor')
-                {
-                        return  '/individualcontractor';
-                }
-                else{
-                    return '/';
-                }
-
-          }
-          public function logout(Request $request) {
-            Auth::logout();
-            return redirect('/login');
+        if ($type == 'admin') {
+            return '/admin';
+        } elseif ($type == 'general_user') {
+            return '/home';
+        } elseif ($type == 'business') {
+            return  '/home';
+        } elseif ($type == 'individual_contractor') {
+            return  '/individualcontractor';
+        } else {
+            return '/login';
         }
-      }
-
-
-
-
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
+}
