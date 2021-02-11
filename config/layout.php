@@ -70,7 +70,7 @@ return [
 
     // Page loader
     'page-loader' => [
-        'type' => 'default' // default, spinner-message, spinner-logo
+        'type' => '' // default, spinner-message, spinner-logo
     ],
 
     // Header
