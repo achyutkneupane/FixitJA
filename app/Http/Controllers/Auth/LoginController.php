@@ -55,30 +55,21 @@ class LoginController extends Controller
                 $this->redirectTo = '/login';
                 return $this->redirectTo;*/
 
-                if($type == 'admin')
-                {
-                    return '/admin';
-
-                }
-                elseif($type == 'general_user')
-                {
-                     return '/home';
-                }
-                elseif($type == 'business')
-                {
-                       return  '/home';
-                }
-                elseif($type == 'individual_contractor')
-                {
-                        return  '/individualcontractor';
-                }
-                else{
-                    return '/login';
-                }
-
-          }
-          public function logout(Request $request) {
-            Auth::logout();
-            return redirect('/login');
-
+        if ($type == 'admin') {
+            return '/admin';
+        } elseif ($type == 'general_user') {
+            return '/home';
+        } elseif ($type == 'business') {
+            return  '/home';
+        } elseif ($type == 'individual_contractor') {
+            return  '/individualcontractor';
+        } else {
+            return '/login';
+        }
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
 }
