@@ -70,7 +70,7 @@ return [
 
     // Page loader
     'page-loader' => [
-        'type' => 'default' // default, spinner-message, spinner-logo
+        'type' => '' // default, spinner-message, spinner-logo
     ],
 
     // Header
@@ -112,7 +112,7 @@ return [
 
     // Subheader
     'subheader' => [
-        'display' => false,
+        'display' => true,
         'displayDesc' => true,
         'layout' => 'subheader-v1',
         'fixed' => true,

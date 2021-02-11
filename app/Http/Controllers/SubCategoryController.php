@@ -29,7 +29,7 @@ class SubCategoryController extends Controller
     public function create()
     {
         if (Category::all()->count() == 0) {
-            return redirect()->route('addCategory')->with('error', 'Create a category first.');
+            return redirect()->route('addCategory');
         }
         $categories = Category::all();
         return view('admin.addSubCategory', compact('categories'));

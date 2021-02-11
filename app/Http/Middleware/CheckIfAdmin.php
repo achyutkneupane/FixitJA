@@ -22,7 +22,7 @@ class CheckIfAdmin
     public function handle($request, Closure $next)
     {
         if ($request->user()->type !== 'admin') {
-            return redirect()->route('homePage');
+            return redirect()->route('admin_panel');
         }
         return $next($request);
     }

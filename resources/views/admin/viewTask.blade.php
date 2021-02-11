@@ -3,6 +3,71 @@
 @extends('layouts.app')
 @section('content')
 
-{{ $task->first()->id }}
+    <div class="row">
 
+        @include('admin.taskSideBar', $task)
+
+        <div class="col-lg-8">
+            <div class="card card-custom">
+                <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                    <div class="card-title">
+                        <h3 class="card-label">
+                            Task Overview
+                        </h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Created By: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">{{ $task->createdBy->name }}</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Created For: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">{{ $task->createdFor->name }}</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Working Location: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">{{ $task->working_location }}</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Client: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                @if($task->is_client_on_site == 1)
+                                On Site
+                                @else
+                                Not On Site
+                                @endif
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Repair Parts: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                @if($task->is_repair_parts_provided == 1)
+                                Provided
+                                @else
+                                Not Provided
+                                @endif
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+@endsection
+
+{{-- Scripts Section --}}
+@section('scripts')
+    <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
 @endsection
