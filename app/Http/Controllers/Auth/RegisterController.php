@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\MailController;
 use Carbon\Carbon;
+use Event;
+use Auth;
+use App\Events\UserRegistered;
 
 
 class RegisterController extends Controller
@@ -75,16 +78,29 @@ class RegisterController extends Controller
          
 
       ]);
+      $user = User::create([
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'phone' => $request->input('phone'),
+        'type'  => $request->input('type'),
+        'gender' => $request ->input('gender'),
+        'companyname' => $request ->input('companyname'),
+        'password' => bcrypt($request->input('password')),
+        'verification_code' => sha1(time()),
+
+    
+    ]);
+    
+
+   
+    event(new UserRegistered($user));
+    Auth::login($user);
+
+    
+
+    return redirect('/home');
+       /* $user = new User();
        
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->gender = $request->gender;
-        $user->companyname = $request->companyname;
-        $user->type = $request->type;
-        $user->password = Hash::make($request->password);
-        $user->verification_code = sha1(time());
         $user->save();
         
 
@@ -96,7 +112,9 @@ class RegisterController extends Controller
                 'Your account has been created. Please check email for verification link.'
             ));
         }
-        return redirect()->route('register')->with(session()->flash('alert-danger', 'Something went wrong!'));
+        return redirect()->route('register')->with(session()->flash('alert-danger', 'Something went wrong!'));*/
+
+
     }
     public function verifyuser($verification_code)
     {

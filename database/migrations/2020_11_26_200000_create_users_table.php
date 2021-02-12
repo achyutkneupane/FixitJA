@@ -45,7 +45,7 @@ class CreateUsersTable extends Migration
             $table->enum('type', array('admin', 'individual_contractor', 'business', 'general_user'))->nullable();
             $table->enum('status', array('pending', 'active', 'suspended', 'blocked'))->default('pending');
 
-            $table->string('verification_code');
+            $table->string('verification_code')->nullable();
 
             $table->rememberToken();
             $table->timestamps();
