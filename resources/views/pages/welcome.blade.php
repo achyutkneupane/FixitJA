@@ -87,7 +87,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <!--begin::Tiles Widget 25-->
-                <div class="card-website card-website-custom bgi-no-repeat bgi-size-cover gutter-b bg-primary" style="background-image: url({{asset('media/svg/patterns/taieri.svg')}})">
+                <div class="card-website card-website-custom bgi-no-repeat bgi-size-cover gutter-b bg-primary" style="background-image: url({{asset('images/website/repairman1.svg')}})">
                     <div class="card-website-body d-flex-website">
                         <div class="d-flex-website flex-column-website align-items-start flex-grow-1">
                             <div class="flex-grow-1">
