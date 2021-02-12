@@ -28,6 +28,7 @@ class User extends Authenticatable
         'website',
         'experience',
         'profile_image',
+        'verification_code'
     ];
 
     /**

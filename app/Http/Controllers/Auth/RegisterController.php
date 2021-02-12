@@ -60,10 +60,10 @@ class RegisterController extends Controller
     /* Add by Ashish Pokhrel */
     public function register(Request $request)
     {
-        
-
-         
-         $request->validate([
+          $verfiy_code = sha1(time());  /* auto genarte by system */
+       
+           
+            $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'phone' => ['required', 'string', 'min:8', 'unique:users,phone'],
@@ -78,6 +78,8 @@ class RegisterController extends Controller
          
 
       ]);
+      
+
       $user = User::create([
         'name' => $request->input('name'),
         'email' => $request->input('email'),
@@ -86,34 +88,15 @@ class RegisterController extends Controller
         'gender' => $request ->input('gender'),
         'companyname' => $request ->input('companyname'),
         'password' => bcrypt($request->input('password')),
-        'verification_code' => sha1(time()),
-
-    
+        'verification_code' => $verfiy_code,
     ]);
     
 
    
     event(new UserRegistered($user));
     Auth::login($user);
-
-    
-
     return redirect('/home');
-       /* $user = new User();
-       
-        $user->save();
-        
-
-        if ($user != null) {
-            MailController::sendVerifyEmail($user->name, $user->email, $user->verification_code);
-            //dd({{$user->verfication_code);
-            return redirect()->route('login')->with(session()->flash(
-                'alert-success',
-                'Your account has been created. Please check email for verification link.'
-            ));
-        }
-        return redirect()->route('register')->with(session()->flash('alert-danger', 'Something went wrong!'));*/
-
+      
 
     }
     public function verifyuser($verification_code)
