@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
-Auth::routes();
-Route::get('/verify', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
+Auth::routes(['verify' => true]);
+Route::get('/verify/{verification_code}', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
 
 Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
 Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('forget-password');
@@ -35,9 +35,9 @@ Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update'])
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 /* Added By Ashish Pokhrel */
-Route::get('/business', [App\Http\Controllers\BusinessController::class, 'index'])->middleware('business');
+/*Route::get('/business', [App\Http\Controllers\BusinessController::class, 'index'])->middleware('business');
 Route::get('/individualcontractor', [App\Http\Controllers\IndividualContractorController::class, 'index'])->middleware('individualcontractor');
-Route::get('/generaluser', [App\Http\Controllers\GeneralUserController::class, 'index'])->middleware('generaluser');
+Route::get('/generaluser', [App\Http\Controllers\GeneralUserController::class, 'index'])->middleware('generaluser');*/
 
 
 // Added by Achyut Neupane

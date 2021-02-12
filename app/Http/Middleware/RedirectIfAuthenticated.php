@@ -22,36 +22,9 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
-        switch($guard){
-            case 'admin':
-                if (Auth::guard($guard)->check()) {
-                    return redirect()->route('admin.index');
-                }
-            break;
-            case 'general_user':
-                if (Auth::guard($guard)->check()) {
-                    return redirect()->route('generaluser');
-                }
-            break;
-            case 'business':
-                if (Auth::guard($guard)->check()) {
-                    return redirect()->route('business');
-                }
-            break;
-            case 'individual_contractor':
-                if (Auth::guard($guard)->check()) {
-                    return redirect()->route('individualcontractor');
-                }
-            break;
-    
-            default:
-                if (Auth::guard($guard)->check()) {
-                    return redirect('/login');
-                }
-            break;
-
-        
-    }
-    return $next($request);
+        if (Auth::guard($guard)->check()){
+            return redirect('/home');
+        }
+        return $next($request);
 }
 }

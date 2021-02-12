@@ -143,7 +143,8 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Password</label>
-                                <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="password" placeholder="Password" value="" />
+                                <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="password" id="psw" placeholder="Password" value="" />
+                                <span id="passwordinfo"> Password must contains minimum characters, atleast 1 number and atleast 1 captial letter </span>
                                 @if ($errors->has('password'))
                                     <span class="text-danger">{{ $errors->first('password') }}</span>
                             @endif
@@ -198,10 +199,17 @@ $show_sidebar = false;
             $('.select2').select2();
         });
     </script>
+    <style>
+        #passwordinfo{
+        color:red;
+    }
+    </style>
+    
     <script>
         document.getElementById("genders").style.display = "none";
         document.getElementById("webpersonal").style.display = "none";
         document.getElementById("webcompany").style.display = "none";
         document.getElementById("companyname").style.display = "none";
+        document.getElementById("passwordinfo").style.display = "none";
     </script>
     @endsection

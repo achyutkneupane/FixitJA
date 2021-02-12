@@ -60,9 +60,6 @@ class RegisterController extends Controller
     /* Add by Ashish Pokhrel */
     public function register(Request $request)
     {
-          $verfiy_code = sha1(time());  /* auto genarte by system */
-       
-           
             $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
@@ -80,20 +77,26 @@ class RegisterController extends Controller
       ]);
       
 
-      $user = User::create([
-        'name' => $request->input('name'),
-        'email' => $request->input('email'),
-        'phone' => $request->input('phone'),
-        'type'  => $request->input('type'),
-        'gender' => $request ->input('gender'),
-        'companyname' => $request ->input('companyname'),
-        'password' => bcrypt($request->input('password')),
-        'verification_code' => $verfiy_code,
-    ]);
-    
+      $user = new User();
+      $user->name = $request->name;
+      $user->email = $request->email;
+      $user->phone = $request->phone;
+      $user->gender = $request->gender;
+      $user->companyname = $request->companyname;
+      $user->type = $request->type;
+      $user->password = Hash::make($request->password);
+      $user->verification_code = sha1(time());
+      $user->save();
 
    
-    event(new UserRegistered($user));
+    // event(new UserRegistered($user));
+    try{
+        MailController::sendVerifyEmail($user->name, $user->email, $user->verification_code);
+
+    } catch (\Throwable $t) {
+
+        dd($t);
+    }
     Auth::login($user);
     return redirect('/home');
       
@@ -101,13 +104,11 @@ class RegisterController extends Controller
     }
     public function verifyuser($verification_code)
     {
+        
         $user = User::where(['verification_code' => $verification_code])->first();
-
-
         if ($user != null) {
             $user->status = 'active';
             $user->email_verified_at =  Carbon::now();
-
             $user->save();
             return redirect()->route('login')->with(session()->flash('alert-success', 'Your account is verified. Please login!'));
         }
