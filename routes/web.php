@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
-Auth::routes(['verify' => true]);
-Route::get('/verify/{verification_code}', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
+Auth::routes();
+Route::get('/verify', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
 
 Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
 Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('forget-password');
@@ -34,14 +34,18 @@ Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update'])
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('admin_panel');
-
 /* Added By Ashish Pokhrel */
 Route::get('/business', [App\Http\Controllers\BusinessController::class, 'index'])->middleware('business');
 Route::get('/individualcontractor', [App\Http\Controllers\IndividualContractorController::class, 'index'])->middleware('individualcontractor');
 Route::get('/generaluser', [App\Http\Controllers\GeneralUserController::class, 'index'])->middleware('generaluser');
 
+
+// Added by Achyut Neupane
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth')->name('admin_panel');
 Route::get('/admin/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
+Route::get('/admin/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
+Route::get('/admin/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
+Route::get('/profile', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth')->name('viewProfile');
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);

@@ -20522,9 +20522,9 @@ body {
   font-size: 1.2rem;
   font-weight: bold;
 }
-.navbar-marketing .navbar-brand img {
+/* .navbar-marketing .navbar-brand img {
   height: 100px;
-}
+} */
 .navbar-marketing .navbar-brand svg {
   height: 1rem;
   fill: currentColor;

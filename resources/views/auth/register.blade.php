@@ -34,7 +34,7 @@ $show_sidebar = false;
                 <!--begin::Signin-->
                 <div class="login-form">
                     <!--begin::Form-->
-                    <form method="POST" action="{{ route('register') }}">
+                    <form id="demoForm" method="POST" action="{{ route('register') }}">
                         @csrf
                         <!--begin: Wizard Step 1-->
                         <div class="" data-wizard-type="step-content" data-wizard-state="current">
@@ -51,7 +51,7 @@ $show_sidebar = false;
                                 <label class="font-size-h6 font-weight-bolder text-dark">Full Name (Required)</label>
                                 <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="name" placeholder="Name" value="" />
                                 @if ($errors->has('name'))
-                             <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
@@ -60,7 +60,7 @@ $show_sidebar = false;
                                 <label class="font-size-h6 font-weight-bolder text-dark">Email (Required)</label>
                                 <input type="email" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="email" placeholder="Email" value="" />
                                 @if ($errors->has('email'))
-                             <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
@@ -69,9 +69,9 @@ $show_sidebar = false;
                                 <label class="font-size-h6 font-weight-bolder text-dark">Phone (Required)</label>
                                 <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone" placeholder="Phone" value="" />
                                 @if ($errors->has('phone'))
-                             <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                    <span class="text-danger">{{ $errors->first('phone') }}</span>
                             @endif
-                            </div>
+                                 </div>
                             <!--end::Form Group-->
 
                             <!--begin::Form Group-->
@@ -85,7 +85,7 @@ $show_sidebar = false;
                                     <option value="individual_contractor" id="type3">Skilled Worker</option>
                                 </select>
                                 @if ($errors->has('type'))
-                             <span class="text-danger">{{ $errors->first('type') }}</span>
+                                    <span class="text-danger">{{ $errors->first('type') }}</span>
                             @endif
                             </div>
 
@@ -103,7 +103,7 @@ $show_sidebar = false;
                                     <option value="Custom">Other</option>
                                 </select>
                                 @if ($errors->has('gender'))
-                             <span class="text-danger">{{ $errors->first('gender') }}</span>
+                                    <span class="text-danger">{{ $errors->first('gender') }}</span>
                             @endif
                             </div>
 
@@ -115,8 +115,8 @@ $show_sidebar = false;
                             <div class="form-group" id="webpersonal">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Website</label>
                                 <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitepersonal" placeholder="Website (Optional)" value="" />
-                                @if ($errors->has('websitepersonal'))
-                             <span class="text-danger">{{ $errors->first('websitepersonal') }}</span>
+                                @if ($errors->has('website'))
+                                    <span class="text-danger">{{ $errors->first('website') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
@@ -126,7 +126,7 @@ $show_sidebar = false;
                                 <label class="font-size-h6 font-weight-bolder text-dark">CompanyName</label>
                                 <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="companyname" placeholder="Company Name" value="" />
                                 @if ($errors->has('companyname'))
-                             <span class="text-danger">{{ $errors->first('companyname') }}</span>
+                                    <span class="text-danger">{{ $errors->first('companyname') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
@@ -145,7 +145,7 @@ $show_sidebar = false;
                                 <label class="font-size-h6 font-weight-bolder text-dark">Password</label>
                                 <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="password" placeholder="Password" value="" />
                                 @if ($errors->has('password'))
-                             <span class="text-danger">{{ $errors->first('password') }}</span>
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
@@ -154,14 +154,14 @@ $show_sidebar = false;
                                 <label class="font-size-h6 font-weight-bolder text-dark"> Confirm Password</label>
                                 <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="cpassword" placeholder=" Confirm Password" value="" />
                                 @if ($errors->has('password'))
-                             <span class="text-danger">{{ $errors->first('password') }}</span>
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
 
                             <!--begin::Action-->
                             <div class="pb-lg-0 pb-5">
-                                <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign Up</button>
+                                <button type="submit" id="signup" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign Up</button>
                             </div>
                         </div>
                 </div>
@@ -184,10 +184,14 @@ $show_sidebar = false;
     {{-- Styles Section --}}
     @section('styles')
     <link href="{{ asset('css/pages/login/login-4.css') }}" rel="stylesheet" type="text/css" />
+    
     @endsection
     {{-- Scripts Section --}}
     @section('scripts')
     <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
+    <!-- <script src="{{ asset('js/form-validation.js') }}" type="text/javascript"></script>git ss -->
+  
+    
     {{-- Scripts Section --}}
     <script>
         $(document).ready(function() {

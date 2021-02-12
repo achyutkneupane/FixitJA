@@ -58,8 +58,10 @@
             }
             if ($(".navbar-marketing.bg-transparent.fixed-top").offset().top > 0) {
                 $(".navbar-marketing").addClass("navbar-scrolled");
+                $(".img-logo").addClass("logo-fixitja-scrolled");
             } else {
                 $(".navbar-marketing").removeClass("navbar-scrolled");
+                $(".img-logo").removeClass("logo-fixitja-scrolled");
             }
         }
     };
