@@ -45,7 +45,11 @@ class VerificationController extends Controller
     public function resend()
     {
         $user = Auth::user();
-        return view('auth.resendemail', compact('user'));
+        if ($user->status == "pending") {
+            return view('auth.resendemail', compact('user'));
+        } else {
+            return redirect()->route('home');
+        }
     }
     public function resendVerifyEmail(Request $request)
     {
