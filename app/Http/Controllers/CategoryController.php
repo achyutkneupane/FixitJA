@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 use function PHPSTORM_META\map;
 
@@ -47,7 +47,7 @@ class CategoryController extends Controller
             'description' => 'required'
         ]);
         Category::create($category);
-        return redirect()->route('listCategory');
+        return redirect()->route('listCategory')->with(session()->flash('toastr_success', 'Category ' . $request->name . ' created.'));
     }
 
     /**
@@ -100,7 +100,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::find($id)->delete();
+        $cat = Category::find($id);
+        $name = $cat->name;
+        $cat->delete();
+        $toastr_success = 'Category ' . $name . ' deleted.';
+        Session::keep('toastr_success', $toastr_success);
         return redirect()->route('listCategory');
     }
 }

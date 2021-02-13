@@ -97,5 +97,28 @@
             });
         </script>
     @endif
+
+    {{-- Toastr Controller --}}
+    {{-- Author: Achyut Neupane --}}
+    @foreach (['danger', 'warning', 'success', 'info'] as $toast)
+        @php
+            $select = 'toastr_' . $toast;
+        @endphp
+        @if(isset($$select))
+            @php
+                echo("<script>toastr." . $toast . "('". $$select . "');</script>");
+                echo("<script>console.log('". $$select . "');</script>");
+            @endphp
+        @elseif(session()->has('toastr_' . $toast))
+            <script>
+                console.log("{{ Session::get('toastr_' . $toast) }}");
+            </script>
+        @else
+            @php
+                echo("<script>console.log('Toastr ". $toast . " not Found.');</script>");
+            @endphp
+        @endif
+    @endforeach
+
 </body>
 </html>

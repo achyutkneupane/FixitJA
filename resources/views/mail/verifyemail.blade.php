@@ -6,8 +6,8 @@ Welcome to my  {{ config('app.name', 'FixitJA') }} Website!
 Please click the below link to verify your email and activate your account!
 <br><br>
 
-<a href="http://127.0.0.1:8000/verify/?code={{$email_data['verfication_code']}}"
-         style="background-color:#ffbe00; color:#000000; display:inline-block; padding:12px 40px 12px 40px; text-align:center; text-decoration:none;" 
+<a href="{{ asset('/') }}/verify/?code={{$email_data['verfication_code']}}"
+         style="background-color:#ffbe00; color:#000000; display:inline-block; padding:12px 40px 12px 40px; text-align:center; text-decoration:none;"
          target="_blank">Verfiy Your Email</a>
 
 <br><br>
