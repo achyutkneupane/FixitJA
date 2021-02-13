@@ -9,3 +9,11 @@
 .object-fit-scale-down{
     object-fit: scale-down;
 }
+
+.logo-fixitja {
+    height: 120px;
+    transition: height 0.5s;
+}
+.logo-fixitja-scrolled {
+    height: 72px;
+}

@@ -1,4 +1,4 @@
-Welcome to my  {{ config('app.name', 'FixitJA') }} Website!
+Welcome {{ config('app.name', 'FixitJA') }}!
 <br>
 Please click the below link to Reset Your Password
 <br><br>
