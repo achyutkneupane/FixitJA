@@ -21,31 +21,28 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
 Auth::routes(['verify' => true]);
 Route::get('/verify/{verification_code}', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
-
 Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
 Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('forget-password');
-
 Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'getPassword']);
 Route::post('/reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'updatePassword'])->name('updatePassword');
-
 Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
-
 Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update']);
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-/* Added By Ashish Pokhrel */
-Route::get('/business', [App\Http\Controllers\BusinessController::class, 'index'])->middleware('business');
-Route::get('/individualcontractor', [App\Http\Controllers\IndividualContractorController::class, 'index'])->middleware('individualcontractor');
-Route::get('/generaluser', [App\Http\Controllers\GeneralUserController::class, 'index'])->middleware('generaluser');
-
-
 // Added by Achyut Neupane
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth')->name('admin_panel');
-Route::get('/admin/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
-Route::get('/admin/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
-Route::get('/admin/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
-Route::get('/profile', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth')->name('viewProfile');
+Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
+
+Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
+Route::get('/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
+Route::get('/task/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth')->name('taskAssignedBy');
+Route::get('/task/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth')->name('taskAssignedTo');
+
+Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
+Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
+Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
+
+Route::get('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resend'])->name('resendEmail');
+Route::post('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->middleware('auth')->name('reverifyUser');
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);

@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Carbon\Carbon;
 use Mail;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -33,6 +34,12 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }  
+
+  
 
 
     public function getPassword($token)
@@ -64,4 +71,5 @@ class ResetPasswordController extends Controller
 
         return redirect('/login')->with('message', 'Your password has been changed!');
     }
+
 }

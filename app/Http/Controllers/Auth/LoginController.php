@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo;
+    protected $redirectTo = '/home';
     public function redirectTo()
     {
 
@@ -56,13 +56,13 @@ class LoginController extends Controller
                 return $this->redirectTo;*/
 
         if ($type == 'admin') {
-            return '/admin';
+            return '/home';
         } elseif ($type == 'general_user') {
             return '/home';
         } elseif ($type == 'business') {
             return  '/home';
         } elseif ($type == 'individual_contractor') {
-            return  '/individualcontractor';
+            return  '/home';
         } else {
             return '/login';
         }

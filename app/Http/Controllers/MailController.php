@@ -22,9 +22,14 @@ class MailController extends Controller
 
         ];
         //dd($verfication_code);
-
+try{
         Mail::send('auth.verifyuser', $data, function ($message) use ($email, $subject) {
             $message->to($email)->subject($subject);
         });
     }
+
+catch (Exception $ex){
+    dd($ex);
+}
+}
 }

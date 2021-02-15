@@ -34,7 +34,7 @@ $show_sidebar = false;
                 <!--begin::Signin-->
                 <div class="login-form">
                     <!--begin::Form-->
-                    <form method="POST" action="{{ route('register') }}">
+                    <form id="demoForm" method="POST" action="{{ route('register') }}">
                         @csrf
                         <!--begin: Wizard Step 1-->
                         <div class="" data-wizard-type="step-content" data-wizard-state="current">
@@ -49,43 +49,43 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Full Name (Required)</label>
-                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="name" placeholder="Name" value="" />
+                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="name" placeholder="Name" value="{{old('name')}}" />
                                 @if ($errors->has('name'))
-                             <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Email (Required)</label>
-                                <input type="email" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="email" placeholder="Email" value="" />
+                                <input type="email" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="email" placeholder="Email" value="{{old('email')}}" />
                                 @if ($errors->has('email'))
-                             <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Phone (Required)</label>
-                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone" placeholder="Phone" value="" />
+                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone" placeholder="Phone" value="{{old('phone')}}" />
                                 @if ($errors->has('phone'))
-                             <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                    <span class="text-danger">{{ $errors->first('phone') }}</span>
                             @endif
-                            </div>
+                                 </div>
                             <!--end::Form Group-->
 
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Type (Required)</label>
 
-                                <select class="form-control" id="user_type" name="type">
+                                <select class="form-control" id="user_type" name="type" value="{{old('type')}}" >
                                     <option value="">Select</option>
-                                    <option value="general_user" id="type1">General</option>
+                                    <option value="general_user"   id="type1"  >General</option>
                                     <option value="Business" id="type2">Business</option>
                                     <option value="individual_contractor" id="type3">Skilled Worker</option>
                                 </select>
                                 @if ($errors->has('type'))
-                             <span class="text-danger">{{ $errors->first('type') }}</span>
+                                    <span class="text-danger">{{ $errors->first('type') }}</span>
                             @endif
                             </div>
 
@@ -96,14 +96,14 @@ $show_sidebar = false;
                             <div class="form-group" id="genders">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Gender</label>
 
-                                <select class="form-control" name="gender">
+                                <select class="form-control" name="gender" value="{{old('gender')}}" >
                                     <option value="">Select</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Custom">Other</option>
                                 </select>
                                 @if ($errors->has('gender'))
-                             <span class="text-danger">{{ $errors->first('gender') }}</span>
+                                    <span class="text-danger">{{ $errors->first('gender') }}</span>
                             @endif
                             </div>
 
@@ -114,9 +114,9 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group" id="webpersonal">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Website</label>
-                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitepersonal" placeholder="Website (Optional)" value="" />
-                                @if ($errors->has('websitepersonal'))
-                             <span class="text-danger">{{ $errors->first('websitepersonal') }}</span>
+                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitepersonal" placeholder="Website (Optional)" value="{{old('websitepersonal')}}" />
+                                @if ($errors->has('website'))
+                                    <span class="text-danger">{{ $errors->first('website') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
@@ -124,9 +124,9 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group" id="companyname">
                                 <label class="font-size-h6 font-weight-bolder text-dark">CompanyName</label>
-                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="companyname" placeholder="Company Name" value="" />
+                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="companyname" placeholder="Company Name" value="{{old('companyname')}}" />
                                 @if ($errors->has('companyname'))
-                             <span class="text-danger">{{ $errors->first('companyname') }}</span>
+                                    <span class="text-danger">{{ $errors->first('companyname') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
@@ -134,7 +134,7 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group" id="webcompany">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Website</label>
-                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitecompany" placeholder="Website (Optional)" value="" />
+                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitecompany" placeholder="Website (Optional)" value="{{old('websitecompany')}}" />
                                 @if ($errors->has('websitecompany'))
                              <span class="text-danger">{{ $errors->first('websitecompany') }}</span>
                             @endif
@@ -143,9 +143,11 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Password</label>
-                                <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="password" placeholder="Password" value="" />
+                                <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="password" id="psw" placeholder="Password" value="" />
+                                <span id="passwordinfo"> Your Password must be more than 6 characters long, should contain at-least 1 Uppercase
+                                and 1 Numeric Character. </span>
                                 @if ($errors->has('password'))
-                             <span class="text-danger">{{ $errors->first('password') }}</span>
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
@@ -154,14 +156,14 @@ $show_sidebar = false;
                                 <label class="font-size-h6 font-weight-bolder text-dark"> Confirm Password</label>
                                 <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="cpassword" placeholder=" Confirm Password" value="" />
                                 @if ($errors->has('password'))
-                             <span class="text-danger">{{ $errors->first('password') }}</span>
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
                             @endif
                             </div>
                             <!--end::Form Group-->
 
                             <!--begin::Action-->
                             <div class="pb-lg-0 pb-5">
-                                <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign Up</button>
+                                <button type="submit" id="signup" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign Up</button>
                             </div>
                         </div>
                 </div>
@@ -184,20 +186,27 @@ $show_sidebar = false;
     {{-- Styles Section --}}
     @section('styles')
     <link href="{{ asset('css/pages/login/login-4.css') }}" rel="stylesheet" type="text/css" />
+    
     @endsection
     {{-- Scripts Section --}}
     @section('scripts')
     <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
+    <!-- <script src="{{ asset('js/form-validation.js') }}" type="text/javascript"></script>git ss -->
+  
+    
     {{-- Scripts Section --}}
     <script>
         $(document).ready(function() {
             $('.select2').select2();
         });
     </script>
+    
+    
     <script>
         document.getElementById("genders").style.display = "none";
         document.getElementById("webpersonal").style.display = "none";
         document.getElementById("webcompany").style.display = "none";
         document.getElementById("companyname").style.display = "none";
+
     </script>
     @endsection
