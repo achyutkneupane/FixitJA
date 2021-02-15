@@ -107,8 +107,6 @@ class CategoryController extends Controller
         $cat = Category::find($id);
         $name = $cat->name;
         $cat->delete();
-        $toastr_success = 'Category ' . $name . ' deleted.';
-        Session::keep('toastr_success', $toastr_success);
         return redirect()->route('listCategory');
     }
 }
