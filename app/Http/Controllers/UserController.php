@@ -15,7 +15,9 @@ use function GuzzleHttp\Promise\all;
 
 class UserController extends Controller
 {
+    // creating folder to store document
 
+    protected $documents_dir = "uploads/douments";
 
     public function update(User $user)
     {
@@ -84,5 +86,28 @@ class UserController extends Controller
     {
         $users = User::all();
         return view('admin.users', compact('users'));
+    }
+
+    public function uploadfile($file, $dir)
+    {
+        $file_extension = $file->getClientOriginalExtension();
+        $file_name = md5(time()). '.' .$file_extension;
+        $file -> move($dir,$file_name);
+        return $file_name;
+    }
+    public function updateprofile(User $user)
+    {
+        $user = Auth::user();
+        request()->validate([
+            'street1'      => ['required'],
+            'city'         => ['required'],
+            'introduction' => ['required','min:100'],
+            'areas_covering' => ['required'],
+            'certificate'    => ['nullable'],
+            'is_police_record' => ['required'],
+            'is_travelling'   => ['required'],
+        ]);
+
+        return view('pages.createProfileWizard');
     }
 }

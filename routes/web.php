@@ -44,6 +44,8 @@ Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
 Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
 //Route for faqs page
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
+//Route for profile wizard
+Route::get('/addprofile',[App\Http\Controllers\UserController::class, 'addprofile']);
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
 
