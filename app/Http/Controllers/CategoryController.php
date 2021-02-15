@@ -4,7 +4,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ToastHelper;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -46,8 +48,10 @@ class CategoryController extends Controller
             'name' => 'required',
             'description' => 'required'
         ]);
-        Category::create($category);
-        return redirect()->route('listCategory')->with(session()->flash('toastr_success', 'Category ' . $request->name . ' created.'));
+
+        $category = Category::create($category);
+        return redirect()->route('listCategory');
+
     }
 
     /**
