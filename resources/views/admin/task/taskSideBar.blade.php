@@ -31,7 +31,8 @@
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold">Category:</span>
-                <span class="text-muted">{{ $task->sub_category->name }}({{ $task->sub_category->category->name }})</span>
+                <span
+                    class="text-muted">{{ $task->sub_category->name }}({{ $task->sub_category->category->name }})</span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <span class="font-weight-bold">Created:</span>
@@ -42,6 +43,16 @@
                 <div class="navi-item mb-2">
                     <a href="{{ route('viewTask', $task->id) }}" class="navi-link py-4">
                         <span class="navi-text font-size-lg">Task Overview</span>
+                    </a>
+                </div>
+                <div class="navi-item mb-2">
+                    <a href="{{ route('taskAssignedBy', $task->id) }}" class="navi-link py-4">
+                        <span class="navi-text font-size-lg">Assigned By</span>
+                    </a>
+                </div>
+                <div class="navi-item mb-2">
+                    <a href="{{ route('taskAssignedTo', $task->id) }}" class="navi-link py-4">
+                        <span class="navi-text font-size-lg">Assigned To</span>
                     </a>
                 </div>
             </div>

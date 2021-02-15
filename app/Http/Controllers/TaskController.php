@@ -16,8 +16,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::orderBy('created_at', 'ASC')->get();
-        return view('admin.tasks', compact('tasks'));
+        $tasks = Task::orderBy('id', 'ASC')->get();
+        return view('admin.task.tasks', compact('tasks'));
     }
 
     /**
@@ -27,7 +27,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('admin.addTasks');
+        return view('admin.task.addTasks');
     }
 
     /**
@@ -50,7 +50,7 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::where('id', $id)->first();
-        return view('admin.viewTask', compact('task'));
+        return view('admin.task.viewTask', compact('task'));
     }
 
     /**
@@ -85,5 +85,15 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function assignedBy($id)
+    {
+        $task = Task::find($id);
+        return view('admin.task.assignedBy', compact('task'));
+    }
+    public function assignedTo($id)
+    {
+        $task = Task::find($id);
+        return view('admin.task.assignedTo', compact('task'));
     }
 }
