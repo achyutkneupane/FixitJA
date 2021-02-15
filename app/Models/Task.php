@@ -21,11 +21,11 @@ class Task extends Model
     }
     public function assignedBy()
     {
-        return $this->belongsToMany(User::class, 'assigned_by');
+        return $this->belongsToMany(User::class, 'assignedBy_task', 'task_id', 'assigned_by');
     }
     public function assignedTo()
     {
-        return $this->belongsToMany(User::class, 'assigned_to');
+        return $this->belongsToMany(User::class, 'assignedTo_task', 'task_id', 'assigned_to');
     }
     public function sub_category()
     {

@@ -15,7 +15,6 @@
 
     {{-- Favicon --}}
     <link rel="shortcut icon" href="{{ asset('media/logos/favicon.ico') }}" />
-
     {{-- Fonts --}}
     {{ Metronic::getGoogleFontsInclude() }}
     {{-- Global Theme Styles (used by all pages) --}}
@@ -97,5 +96,16 @@
             });
         </script>
     @endif
+
+    {{-- Toastr Controller --}}
+    {{-- Author: Achyut Neupane --}}
+
+
+    @if(session()->has('toast'))
+            <script>
+                toastr.{{ session('toast')['class'] }}("{{ session('toast')['message'] }}");
+            </script>
+    @endif
+
 </body>
 </html>

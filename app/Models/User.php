@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 
-class User extends Authenticatable 
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -69,6 +69,33 @@ class User extends Authenticatable
     public function first_name()
     {
         return strtok(Auth::user()->name,  ' ');
+    }
+    public function role()
+    {
+        switch ($this->type) {
+            case 'admin':
+                return "Admin";
+                break;
+            case 'individual_contractor':
+                return "Individual Contractor";
+                break;
+            case 'business':
+                return "Business";
+                break;
+            case 'general_user':
+                return "User";
+                break;
+            default:
+                return "";
+        }
+    }
+    public function isVerified()
+    {
+        if ($this->status == "pending") {
+            return "Not Verified";
+        } else {
+            return "Verified";
+        }
     }
 
 
