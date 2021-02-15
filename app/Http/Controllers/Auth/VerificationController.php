@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MailController;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
@@ -38,5 +41,26 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+    public function resend()
+    {
+        $user = Auth::user();
+        if ($user->status == "pending") {
+            return view('auth.resendemail', compact('user'));
+        } else {
+            return redirect()->route('home');
+        }
+    }
+    public function resendVerifyEmail(Request $request)
+    {
+        $user = Auth::user();
+        if ($user != null) {
+            MailController::sendVerifyEmail($user->name, $request->email, $user->verification_code);
+            return redirect()->route('login')->with(session()->flash(
+                'alert-success',
+                'Verification email has been resent. Please check your email'
+            ));
+        }
+        return redirect()->route('resendEmail')->with(session()->flash('alert-danger', 'Something went wrong!'));
     }
 }

@@ -4,10 +4,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ToastHelper;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 use function PHPSTORM_META\map;
 
@@ -46,7 +48,7 @@ class CategoryController extends Controller
             'name' => 'required',
             'description' => 'required'
         ]);
-        Category::create($category);
+        $category = Category::create($category);
         return redirect()->route('listCategory');
     }
 
@@ -100,7 +102,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::find($id)->delete();
+        $cat = Category::find($id);
+        $name = $cat->name;
+        $cat->delete();
+        $toastr_success = 'Category ' . $name . ' deleted.';
+        Session::keep('toastr_success', $toastr_success);
         return redirect()->route('listCategory');
     }
 }
