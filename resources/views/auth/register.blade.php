@@ -49,7 +49,7 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Full Name (Required)</label>
-                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="name" placeholder="Name" value="" />
+                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="name" placeholder="Name" value="{{old('name')}}" />
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif
@@ -58,7 +58,7 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Email (Required)</label>
-                                <input type="email" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="email" placeholder="Email" value="" />
+                                <input type="email" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="email" placeholder="Email" value="{{old('email')}}" />
                                 @if ($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
@@ -67,7 +67,7 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Phone (Required)</label>
-                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone" placeholder="Phone" value="" />
+                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone" placeholder="Phone" value="{{old('phone')}}" />
                                 @if ($errors->has('phone'))
                                     <span class="text-danger">{{ $errors->first('phone') }}</span>
                             @endif
@@ -78,9 +78,9 @@ $show_sidebar = false;
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Type (Required)</label>
 
-                                <select class="form-control" id="user_type" name="type">
+                                <select class="form-control" id="user_type" name="type" value="{{old('type')}}" >
                                     <option value="">Select</option>
-                                    <option value="general_user" id="type1">General</option>
+                                    <option value="general_user"   id="type1"  >General</option>
                                     <option value="Business" id="type2">Business</option>
                                     <option value="individual_contractor" id="type3">Skilled Worker</option>
                                 </select>
@@ -96,7 +96,7 @@ $show_sidebar = false;
                             <div class="form-group" id="genders">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Gender</label>
 
-                                <select class="form-control" name="gender">
+                                <select class="form-control" name="gender" value="{{old('gender')}}" >
                                     <option value="">Select</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -114,7 +114,7 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group" id="webpersonal">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Website</label>
-                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitepersonal" placeholder="Website (Optional)" value="" />
+                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitepersonal" placeholder="Website (Optional)" value="{{old('websitepersonal')}}" />
                                 @if ($errors->has('website'))
                                     <span class="text-danger">{{ $errors->first('website') }}</span>
                             @endif
@@ -124,7 +124,7 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group" id="companyname">
                                 <label class="font-size-h6 font-weight-bolder text-dark">CompanyName</label>
-                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="companyname" placeholder="Company Name" value="" />
+                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="companyname" placeholder="Company Name" value="{{old('companyname')}}" />
                                 @if ($errors->has('companyname'))
                                     <span class="text-danger">{{ $errors->first('companyname') }}</span>
                             @endif
@@ -134,7 +134,7 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group" id="webcompany">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Website</label>
-                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitecompany" placeholder="Website (Optional)" value="" />
+                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="websitecompany" placeholder="Website (Optional)" value="{{old('websitecompany')}}" />
                                 @if ($errors->has('websitecompany'))
                              <span class="text-danger">{{ $errors->first('websitecompany') }}</span>
                             @endif
@@ -144,7 +144,8 @@ $show_sidebar = false;
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Password</label>
                                 <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="password" id="psw" placeholder="Password" value="" />
-                                <span id="passwordinfo"> Password must contains minimum characters, atleast 1 number and atleast 1 captial letter </span>
+                                <span id="passwordinfo"> Your Password must be more than 8 characters long, should contain at-least 1 Uppercase
+                                and 1 Numeric Character. </span>
                                 @if ($errors->has('password'))
                                     <span class="text-danger">{{ $errors->first('password') }}</span>
                             @endif

@@ -75,6 +75,7 @@ class RegisterController extends Controller
          
 
       ]);
+    
       
 
       $user = new User();
