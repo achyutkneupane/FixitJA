@@ -70,9 +70,19 @@ class UserController extends Controller
             return Redirect::back()->withErrors(['old_password' => 'Old password did not match.'])->withInput();
         }
     }
+    public function profile()
+    {
+        $user = User::find(Auth::user()->id);
+        return view('pages.profile', compact('user'));
+    }
+    public function show($id)
+    {
+        $user = User::find($id);
+        return view('pages.profile', compact('user'));
+    }
     public function index()
     {
-        $user = User::find(Auth::user()->id)->first();
-        return view('pages.profile', compact('user'));
+        $users = User::all();
+        return view('admin.users', compact('users'));
     }
 }
