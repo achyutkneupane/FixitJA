@@ -25,7 +25,7 @@ class TaskFactory extends Factory
             'created_by' => '1',
             'created_for' => $this->faker->numberBetween(2, 10),
             'status' => $this->faker->randomElement(array('completed', 'new', 'pending', 'assigned')),
-            'description' => $this->faker->text(50),
+            'description' => $this->faker->text(10),
             'sub_category_id' => $this->faker->numberBetween(1, 15),
             'type' => $this->faker->randomElement(array('N/A', 'ready to hire', 'planning', 'budgeting')),
             'deadline' => $this->faker->randomElement(array('N/A', 'asap', 'within a week', 'within a month', 'more than a month', 'flexible')),

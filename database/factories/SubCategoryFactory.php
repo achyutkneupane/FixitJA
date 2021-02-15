@@ -24,7 +24,7 @@ class SubcategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'description' => $this->faker->text(200),
+            'description' => $this->faker->text(10),
             'category_id' => $this->faker->numberBetween(1, 5)
         ];
     }
