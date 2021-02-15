@@ -45,7 +45,9 @@ Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->mi
 Route::get('/admin/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
 Route::get('/admin/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
 Route::get('/admin/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
-Route::get('/profile', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth')->name('viewProfile');
+Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
+Route::get('/admin/user/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
+Route::get('/admin/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);

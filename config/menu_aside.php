@@ -19,6 +19,14 @@ return [
             'admin' => true
         ],
         [
+            'title' => 'Users',
+            'root' => false,
+            'icon' => 'flaticon-users', // flaticon-*
+            'page' => '/admin/users',
+            'new-tab' => false,
+            'admin' => true
+        ],
+        [
             'title' => 'Tasks',
             'root' => false,
             'icon' => 'flaticon-interface-10', // flaticon-*

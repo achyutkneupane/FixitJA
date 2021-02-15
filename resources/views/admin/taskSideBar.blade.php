@@ -44,11 +44,6 @@
                         <span class="navi-text font-size-lg">Task Overview</span>
                     </a>
                 </div>
-                <div class="navi-item mb-2">
-                    <a href="" class="navi-link py-4">
-                        <span class="navi-text font-size-lg">BBB</span>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
