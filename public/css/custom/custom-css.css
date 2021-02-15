@@ -1,12 +1,12 @@
-.strong-text{
+.strong-text {
     font-weight: bold;
 }
 
-.application-status{
+.application-status {
     font-size: 24px;
 }
 
-.object-fit-scale-down{
+.object-fit-scale-down {
     object-fit: scale-down;
 }
 
@@ -16,4 +16,9 @@
 }
 .logo-fixitja-scrolled {
     height: 72px;
+}
+
+/* for registration form */
+#passwordinfo {
+    color: grey;
 }
