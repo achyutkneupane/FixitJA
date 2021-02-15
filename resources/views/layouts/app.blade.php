@@ -100,10 +100,12 @@
     {{-- Toastr Controller --}}
     {{-- Author: Achyut Neupane --}}
 
+
     @if(session()->has('toast'))
             <script>
                 toastr.{{ session('toast')['class'] }}("{{ session('toast')['message'] }}");
             </script>
     @endif
+
 </body>
 </html>
