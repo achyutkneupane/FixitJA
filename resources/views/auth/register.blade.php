@@ -144,7 +144,7 @@ $show_sidebar = false;
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Password</label>
                                 <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="password" id="psw" placeholder="Password" value="" />
-                                <span id="passwordinfo"> Your Password must be more than 8 characters long, should contain at-least 1 Uppercase
+                                <span id="passwordinfo"> Your Password must be more than 6 characters long, should contain at-least 1 Uppercase
                                 and 1 Numeric Character. </span>
                                 @if ($errors->has('password'))
                                     <span class="text-danger">{{ $errors->first('password') }}</span>
@@ -200,17 +200,13 @@ $show_sidebar = false;
             $('.select2').select2();
         });
     </script>
-    <style>
-        #passwordinfo{
-        color:red;
-    }
-    </style>
+    
     
     <script>
         document.getElementById("genders").style.display = "none";
         document.getElementById("webpersonal").style.display = "none";
         document.getElementById("webcompany").style.display = "none";
         document.getElementById("companyname").style.display = "none";
-        document.getElementById("passwordinfo").style.display = "none";
+
     </script>
     @endsection

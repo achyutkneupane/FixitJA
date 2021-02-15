@@ -30,8 +30,8 @@ $(document).ready(function(){
 });
 
   /* for password fields */
-  $('#psw').on('keypress', function(){
+  /*$('#psw').on('keypress', function(){
     document.getElementById("passwordinfo").style.display = "block";
-});
+});*/
 
 });
