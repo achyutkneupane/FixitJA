@@ -48,8 +48,10 @@ class CategoryController extends Controller
             'name' => 'required',
             'description' => 'required'
         ]);
+
         $category = Category::create($category);
         return redirect()->route('listCategory');
+
     }
 
     /**
