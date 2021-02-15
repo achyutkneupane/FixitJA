@@ -53,14 +53,14 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-   
+
     /* Add by Ashish Pokhrel */
     public function register(Request $request)
     {
-        
 
-         
-         $request->validate([
+
+
+        $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'phone' => ['required', 'string', 'min:8', 'unique:users,phone'],
@@ -70,12 +70,12 @@ class RegisterController extends Controller
             'companyname' => ['nullable', 'string'],
             'websitepersonal' => ['nullable'],
             'websitecompany' => ['nullable'],
-            'password' => ['min:6|required_with:cpassword|same:cpassword', 'regex:/[A-Z]/','regex:/[0-9]/'],
-            'cpassword' => ['min:6','regex:/[A-Z]/','regex:/[0-9]/'],
-         
+            'password' => ['min:6|required_with:cpassword|same:cpassword', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
+            'cpassword' => ['min:6', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
 
-      ]);
-       
+
+        ]);
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -86,7 +86,7 @@ class RegisterController extends Controller
         $user->password = Hash::make($request->password);
         $user->verification_code = sha1(time());
         $user->save();
-        
+
 
         if ($user != null) {
             MailController::sendVerifyEmail($user->name, $user->email, $user->verification_code);

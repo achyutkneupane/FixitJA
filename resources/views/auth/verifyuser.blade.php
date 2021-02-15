@@ -9,7 +9,7 @@ Please click the below link to verify your account
                             {{ __('A fresh verification link has been sent to your email address.') }}
                         </div>
                     @endif
-                    <a href="http://127.0.0.1:8000/verify/{{ $verification_code }}">Click Here</a>.
+                    <a href="{{ asset('/') }}/verify/{{ $verification_code }}">Click Here</a>.
                 </div>
                 <br><br>
 Thank you!

@@ -14,7 +14,7 @@ return [
             'title' => 'Categories',
             'root' => false,
             'icon' => 'flaticon-list', // flaticon-*
-            'page' => '/admin/category',
+            'page' => '/category',
             'new-tab' => false,
             'admin' => true
         ],
@@ -22,7 +22,7 @@ return [
             'title' => 'Users',
             'root' => false,
             'icon' => 'flaticon-users', // flaticon-*
-            'page' => '/admin/users',
+            'page' => '/users',
             'new-tab' => false,
             'admin' => true
         ],
@@ -30,7 +30,7 @@ return [
             'title' => 'Tasks',
             'root' => false,
             'icon' => 'flaticon-interface-10', // flaticon-*
-            'page' => '/admin/task',
+            'page' => '/task',
             'new-tab' => false,
         ]
     ]
