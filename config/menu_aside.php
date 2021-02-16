@@ -32,6 +32,14 @@ return [
             'icon' => 'flaticon-interface-10', // flaticon-*
             'page' => '/task',
             'new-tab' => false,
+        ],
+        [
+            'title' => 'Error Log',
+            'root' => false,
+            'icon' => 'flaticon-exclamation', // flaticon-*
+            'page' => '/error_log',
+            'new-tab' => false,
+            'admin' => true
         ]
     ]
 
