@@ -15,11 +15,11 @@ class TaskSeeder extends Seeder
      */
     public function run()
     {
-        Task::factory(10)->create();
+        Task::factory(50)->create();
         foreach (Task::all() as $task) {
-            $users = User::inRandomOrder()->take(rand(2, 10))->pluck('id');
+            $users = User::inRandomOrder()->where('id', '!=', '1')->take(rand(2, 10))->pluck('id');
             $task->assignedBy()->attach($users);
-            $users = User::inRandomOrder()->take(rand(2, 10))->pluck('id');
+            $users = User::inRandomOrder()->where('id', '!=', '1')->take(rand(2, 10))->pluck('id');
             $task->assignedTo()->attach($users);
         }
     }
