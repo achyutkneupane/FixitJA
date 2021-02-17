@@ -30,18 +30,7 @@ return [
             'admin' => true
         ],
         [
-            'section' => 'Extra',
-        ],
-        [
-            'title' => 'Error Log',
-            'root' => false,
-            'icon' => 'flaticon-exclamation', // flaticon-*
-            'page' => '/error_log',
-            'new-tab' => false,
-            'admin' => true
-        ],
-        [
-            'section' => 'Account',
+            'section' => 'Account & Privacy',
         ],
         [
             'title' => 'Profile',
@@ -56,7 +45,18 @@ return [
             'icon' => 'flaticon-lock', // flaticon-*
             'page' => '/security',
             'new-tab' => false
-        ]
+        ],
+        [
+            'section' => 'Extra',
+        ],
+        [
+            'title' => 'Error Log',
+            'root' => false,
+            'icon' => 'flaticon-exclamation', // flaticon-*
+            'page' => '/error_log',
+            'new-tab' => false,
+            'admin' => true
+        ],
     ]
 
 ];
