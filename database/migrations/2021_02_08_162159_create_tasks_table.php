@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateTasksTable extends Migration
@@ -35,7 +36,7 @@ class CreateTasksTable extends Migration
             $table->foreign('sub_category_id')->references('id')->on('sub_categories');
             $table->foreign('related_task_id')->references('id')->on('tasks');
         });
-
+        DB::statement("ALTER TABLE tasks AUTO_INCREMENT = 1000;");
 
         Schema::create('task_timeline', function (Blueprint $table) {
             $table->id();
