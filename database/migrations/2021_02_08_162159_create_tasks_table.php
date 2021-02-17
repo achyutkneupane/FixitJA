@@ -15,6 +15,7 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('created_for');
             $table->enum('status', array('completed', 'new', 'pending', 'assigned'));

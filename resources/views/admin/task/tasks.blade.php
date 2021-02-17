@@ -30,10 +30,12 @@ $page_title = 'Tasks';
         @endisAdmin
         <div class="card-body">
             <!--begin: Datatable-->
-            <table class="datatable datatable-bordered datatable-head-custom text-center" id="kt_datatable">
+            <table class="datatable datatable-bordered table-striped table-hover datatable-head-custom text-center"
+                id="kt_datatable">
                 <thead>
                     <tr>
                         <th title="ID">ID</th>
+                        <th title="Name">Name</th>
                         <th title="Created By">Created By</th>
                         <th title="Created For">Created For</th>
                         <th title="Description">Description</th>
@@ -43,22 +45,13 @@ $page_title = 'Tasks';
                 </thead>
                 <tbody>
                     @foreach ($tasks as $task)
-                        @php
-                            if ($task->status == 'completed'):
-                                $tableColor = 'table-success';
-                            elseif ($task->status == 'new'):
-                                $tableColor = 'table-primary';
-                            elseif ($task->status == 'pending'):
-                                $tableColor = 'table-danger';
-                            elseif ($task->status == 'assigned'):
-                                $tableColor = 'table-warning';
-                            else:
-                                $tableColor = '';
-                            endif;
-                        @endphp
-                        <tr class="{{ $tableColor }}" style="transform: rotate(0);">
-                            <td><a href="{{ route('viewTask', $task->id) }}" class="stretched-link"
-                                    style="color: #000;">{{ $task->id }}</a></td>
+                        <tr>
+                            <td>{{ $task->id }}</td>
+                            <td>
+                                <a href="{{ route('viewTask', $task->id) }}">
+                                    {{ $task->name }}
+                                </a>
+                            </td>
                             <td>{{ $task->createdBy->name }}</td>
                             <td>{{ $task->createdFor->name }}</td>
                             <td>{{ $task->description }}</td>

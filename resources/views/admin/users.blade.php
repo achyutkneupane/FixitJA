@@ -39,21 +39,15 @@
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
-                        @php
-                            if ($user->status == 'pending'):
-                                $tableColor = 'table-primary';
-                            elseif ($user->status == 'blocked'):
-                                $tableColor = 'table-danger';
-                            elseif ($user->status == 'suspended'):
-                                $tableColor = 'table-warning';
-                            else:
-                                $tableColor = '';
-                            endif;
-                        @endphp
-                        <tr class="{{ $tableColor }}" style="transform: rotate(0);">
-                            <td><a href="{{ route('viewUser', $user->id) }}" class="stretched-link"
-                                    style="color: #000;">{{ $user->id }}</a></td>
-                            <td>{{ $user->name }}</td>
+                        <tr>
+                            <td>
+                                {{ $user->id }}
+                            </td>
+                            <td>
+                                <a href="{{ route('viewUser', $user->id) }}">
+                                    {{ $user->name }}
+                                </a>
+                            </td>
                             <td>{{ $user->role() }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->city->name }}</td>
