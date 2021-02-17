@@ -121,7 +121,16 @@
 
         </script>
     @endif
+    <script>
+        var el = document.getElementById('kt_profile_aside');
+        var toggler = document.getElementById('kt_subheader_mobile_toggle');
+        if (JSON.stringify(el) != "null") {
+            toggler.innerHTML = "<span></span>";
+        } else {
+            toggler.innerHTML = "";
+        }
 
+    </script>
 </body>
 
 </html>
