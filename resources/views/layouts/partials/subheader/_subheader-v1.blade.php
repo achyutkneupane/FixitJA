@@ -72,14 +72,14 @@
                                     <button class="btn btn-{{ $button['class'] }} font-weight-bolder">
                                         {{ $button['text'] }}
                                     </button>
-                                    </form>
-                                    @else
-                                        <a class="btn btn-{{ $button['class'] }} font-weight-bolder" {!!
-                                            isset($button['target']) ? 'data-target="' . $button['target']
-                                            . '" data-toggle="modal" ' : '' !!}
-                                            {{ isset($button['link']) ? "href='" . $button['link'] . "'" : '' }}>
-                                            {{ $button['text'] }}
-                                        </a>
+                                </form>
+                            @else
+                                <a class="btn btn-{{ $button['class'] }} font-weight-bolder" {!!
+                                    isset($button['target']) ? 'data-target="' . $button['target']
+                                    . '" data-toggle="modal" ' : '' !!}
+                                    {{ isset($button['link']) ? "href='" . $button['link'] . "'" : '' }}>
+                                    {{ $button['text'] }}
+                                </a>
                             @endif
                         @endforeach
                     </div>

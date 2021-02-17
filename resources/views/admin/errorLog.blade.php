@@ -36,22 +36,14 @@
                 </thead>
                 <tbody>
                     @foreach ($errors as $error)
-                        @php
-                            if (isset($error->solved_by)):
-                                $tableColor = 'table-success';
-                            else:
-                                $tableColor = 'table-danger';
-                            endif;
-                        @endphp
-                        <tr class="{{ $tableColor }}" style="transform: rotate(0);">
+                        <tr class="{{ !isset($error->solved_by) ? 'table-danger' : '' }}">
                             <td>
-                                <a href="{{ route('viewErrorDetail', $error->id) }}" class="stretched-link"
-                                    style="color: #000;">
-                                    {{ $error->id }}
-                                </a>
+                                {{ $error->id }}
                             </td>
                             <td>
-                                {{ $error->title }}
+                                <a href="{{ route('viewErrorDetail', $error->id) }}">
+                                    {{ $error->title }}
+                                </a>
                             </td>
                             <td>
                                 {{ $error->foundBy->name }}

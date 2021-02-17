@@ -19,6 +19,10 @@
                     </div>
                 @endif
                 <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="font-weight-bold">Name:</span>
+                    <span class="text-muted">{{ ucwords($task->name) }}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold">Status:</span>
                     <span class="text-muted">{{ ucwords($task->status) }}</span>
                 </div>
