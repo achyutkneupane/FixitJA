@@ -3,19 +3,16 @@
 @extends('layouts.app')
 @section('content')
 
+    @php
+    $page_title = 'Task Overview';
+    @endphp
+
     <div class="row">
 
         @include('admin.task.taskSideBar', $task)
 
         <div class="col-lg-8">
             <div class="card card-custom">
-                <div class="card-header flex-wrap border-0 pt-6 pb-0">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Task Overview
-                        </h3>
-                    </div>
-                </div>
                 <div class="card-body">
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Created By: </label>

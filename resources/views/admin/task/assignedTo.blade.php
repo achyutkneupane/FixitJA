@@ -2,20 +2,16 @@
 
 @extends('layouts.app')
 @section('content')
+    @php
 
+    $page_title = 'Task Assigned To';
+    @endphp
     <div class="row">
 
         @include('admin.task.taskSideBar', $task)
 
         <div class="col-lg-8">
             <div class="card card-custom">
-                <div class="card-header flex-wrap border-0 pt-6 pb-0">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Task Assigned To
-                        </h3>
-                    </div>
-                </div>
                 <div class="card-body">
                     @foreach ($task->assignedTo as $user)
                         @if ($loop->odd)

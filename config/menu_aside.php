@@ -3,13 +3,16 @@
 return [
 
     'items' => [
-        /* Section Example
         [
-            'section' => 'Admin Panel',
-        ], */
-
-
-        // Links
+            'section' => 'Dashboard',
+        ],
+        [
+            'title' => 'Tasks',
+            'root' => false,
+            'icon' => 'flaticon-interface-10', // flaticon-*
+            'page' => '/task',
+            'new-tab' => false,
+        ],
         [
             'title' => 'Categories',
             'root' => false,
@@ -27,11 +30,7 @@ return [
             'admin' => true
         ],
         [
-            'title' => 'Tasks',
-            'root' => false,
-            'icon' => 'flaticon-interface-10', // flaticon-*
-            'page' => '/task',
-            'new-tab' => false,
+            'section' => 'Extra',
         ],
         [
             'title' => 'Error Log',
@@ -40,6 +39,23 @@ return [
             'page' => '/error_log',
             'new-tab' => false,
             'admin' => true
+        ],
+        [
+            'section' => 'Account',
+        ],
+        [
+            'title' => 'Profile',
+            'root' => false,
+            'icon' => 'flaticon-profile-1', // flaticon-*
+            'page' => '/profile',
+            'new-tab' => false
+        ],
+        [
+            'title' => 'Security',
+            'root' => false,
+            'icon' => 'flaticon-lock', // flaticon-*
+            'page' => '/security',
+            'new-tab' => false
         ]
     ]
 
