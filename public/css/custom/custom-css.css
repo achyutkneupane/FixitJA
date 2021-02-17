@@ -38,6 +38,7 @@
     }
 }
 /* for registration form */
-#passwordinfo {
+.passwordinfo {
     color: grey;
+    font-size: 1rem;
 }

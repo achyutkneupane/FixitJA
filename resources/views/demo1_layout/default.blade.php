@@ -24,7 +24,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
         {{-- Favicon --}}
         <link rel="shortcut icon" href="{{ asset('media/logos/favicon.ico') }}" />
-        <link href="css/modern-business.css" rel="stylesheet">
 
         {{-- Fonts --}}
         {{ Metronic::getGoogleFontsInclude() }}
