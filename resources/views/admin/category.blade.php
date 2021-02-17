@@ -42,8 +42,7 @@
                                     data-target="#editModal{{ $cat->id }}">
                                     Edit
                                 </button>
-                                <a href="{{ url('/api/admin/delete_category', $cat->id) }}" type="button"
-                                    class="btn btn-danger">
+                                <a href="{{ url('/category/delete', $cat->id) }}" type="button" class="btn btn-danger">
                                     Delete
                                 </a>
                             </div>
@@ -76,7 +75,7 @@
                                                             data-target="#editSubCat{{ $sub->id }}">
                                                             Edit
                                                         </button>
-                                                        <a href="{{ url('/api/admin/delete_sub_category', $sub->id) }}"
+                                                        <a href="{{ url('/sub_category/delete', $sub->id) }}"
                                                             type="button" class="btn btn-danger">
                                                             Delete
                                                         </a>
@@ -96,9 +95,9 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body" style="height: 300px;">
-                                                                <form
-                                                                    action="{{ url('/api/admin/edit_sub_category', $sub->id) }}"
+                                                                <form action="{{ url('/sub_category/edit', $sub->id) }}"
                                                                     method="POST">
+                                                                    @csrf
                                                                     <input type="hidden" name="_method" value="PUT">
                                                                     <div class="form-group">
                                                                         <label for="name">Sub-Category Name</label>
@@ -139,7 +138,8 @@
                                         </button>
                                     </div>
                                     <div class="modal-body" style="height: 300px;">
-                                        <form action="{{ url('/api/admin/add_sub_category') }}" method="POST">
+                                        <form action="{{ url('/sub_category/add') }}" method="POST">
+                                            @csrf
                                             <input type="hidden" name="category_id" value="{{ $cat->id }}">
                                             <div class="form-group">
                                                 <label for="name">Sub-Category Name</label>
@@ -170,7 +170,8 @@
                                         </button>
                                     </div>
                                     <div class="modal-body" style="height: 300px;">
-                                        <form action="{{ url('/api/admin/edit_category', $cat->id) }}" method="POST">
+                                        <form action="{{ url('/category/edit', $cat->id) }}" method="POST">
+                                            @csrf
                                             <input type="hidden" name="_method" value="PUT">
                                             <div class="form-group">
                                                 <label for="name">Category Name</label>
@@ -201,7 +202,8 @@
                                 </button>
                             </div>
                             <div class="modal-body" style="height: 300px;">
-                                <form action="{{ url('/api/admin/add_category') }}" method="POST">
+                                <form action="{{ url('/category/add') }}" method="POST">
+                                    @csrf
                                     <div class="form-group">
                                         <label for="name">Category Name</label>
                                         <input type="text" name="name" class="form-control" id="name"

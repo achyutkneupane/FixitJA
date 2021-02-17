@@ -31,6 +31,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Added by Achyut Neupane
 Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
+Route::post('/category/add', [App\Http\Controllers\CategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');
+Route::put('/category/edit/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
+Route::get('/category/delete/{id}', [App\Http\Controllers\CategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
+Route::post('/sub_category/add', [App\Http\Controllers\SubCategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');
+Route::put('/sub_category/edit/{id}', [App\Http\Controllers\SubCategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
+Route::get('/sub_category/delete/{id}', [App\Http\Controllers\SubCategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
 
 Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
 Route::get('/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
@@ -40,6 +46,11 @@ Route::get('/task/{id}/assigned_to', [App\Http\Controllers\TaskController::class
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
 Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
+
+Route::get('/error_log', [App\Http\Controllers\AdminController::class, 'error_log'])->middleware('auth', 'checkIfAdmin')->name('viewErrorLog');
+Route::get('/error_log/{id}', [App\Http\Controllers\AdminController::class, 'error_detail'])->middleware('auth', 'checkIfAdmin')->name('viewErrorDetail');
+Route::put('/error_log/{id}/solved', [App\Http\Controllers\AdminController::class, 'error_solved'])->middleware('auth', 'checkIfAdmin')->name('errorSolved');
+
 
 Route::get('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resend'])->name('resendEmail');
 Route::post('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->middleware('auth')->name('reverifyUser');

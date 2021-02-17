@@ -33,7 +33,7 @@ class UserFactory extends Factory
             'website' => $this->faker->domainName,
             'is_police_record' => '0',
             'is_travelling' => '0',
-            'city_id' => '1',
+            'city_id' => $this->faker->numberBetween(1, 16),
             'type' => $this->faker->randomElement($array = array('individual_contractor', 'business', 'general_user')),
             'status' => 'active',
             'verification_code' => sha1(time()),
