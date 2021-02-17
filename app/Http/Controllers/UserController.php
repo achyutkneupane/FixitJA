@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use DB;
 
 use function GuzzleHttp\Promise\all;
 
@@ -87,27 +88,52 @@ class UserController extends Controller
         $users = User::all();
         return view('admin.users', compact('users'));
     }
-
-    public function uploadfile($file, $dir)
+    public function updateprofile1(Request $request)
     {
-        $file_extension = $file->getClientOriginalExtension();
-        $file_name = md5(time()). '.' .$file_extension;
-        $file -> move($dir,$file_name);
-        return $file_name;
-    }
-    public function updateprofile(User $user)
-    {
-        $user = Auth::user();
-        request()->validate([
-            'street1'      => ['required'],
-            'city'         => ['required'],
-            'introduction' => ['required','min:100'],
-            'areas_covering' => ['required'],
-            'certificate'    => ['nullable'],
-            'is_police_record' => ['required'],
-            'is_travelling'   => ['required'],
-        ]);
-
         return view('pages.createProfileWizard');
+    }
+
+   
+
+    public function updateprofile(Request $request)
+    {
+       
+        $files = [];
+        if($request->hasfile('certificate'))
+         {
+            foreach($request->file('certificate') as $file)
+            {
+                $name = time().rand(1,100).'.'.$file->extension();
+                $file->move($this->documents_dir, $name);  
+                $files[] = $name;  
+            }
+            
+           
+         }
+  
+        /* $user= new User();
+         $user = Auth::user();*/
+         //dd($user);
+         //$user->certificate = implode(',' , $files);
+         //$user->save();
+  
+        //return back()->with(session()->flash('success', ' Your files has been successfully added'));
+        
+       /* $user->street1 = request()->street1;
+        $user->city = request()->city;
+        $user->introduction = request()->introduction;
+        $user->areas_covering = request()->areas_covering;
+        $user->is_police_record = request()->is_police_record;
+        $user->is_travelling = request()->is_travelling;*/
+        
+        /*return Response::json(array(
+            'status'  => 'ok',
+            'message'  => 'success',
+            'userId' => $id
+
+        ));*/
+       
+
+        
     }
 }
