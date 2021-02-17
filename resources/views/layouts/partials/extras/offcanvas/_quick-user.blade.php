@@ -71,32 +71,32 @@
 		                    My Profile
 		                </div>
 		                <div class="text-muted">
-		                    Account settings and more
+		                    View your profile
 		                    <!--span class="label label-light-danger label-inline font-weight-bold">update</span-->
 		                </div>
 		            </div>
 		        </div>
 		    </a>
 
-		    {{-- Item --}}
-		    <a href="#"  class="navi-item">
+
+            {{-- Item --}}
+		    <a href="#" class="navi-item">
 		        <div class="navi-link">
 					<div class="symbol symbol-40 bg-light mr-3">
 						<div class="symbol-label">
- 						   {{ Metronic::getSVG("media/svg/icons/Communication/Mail-opened.svg", "svg-icon-md svg-icon-warning") }}
- 					   </div>
+							{{ Metronic::getSVG("media/svg/icons/Shopping/Chart-bar1.svg", "svg-icon-md svg-icon-primary") }}
+						</div>
 				   	</div>
 		            <div class="navi-text">
 		                <div class="font-weight-bold">
-		                    My Messages
+		                    My Tasks
 		                </div>
 		                <div class="text-muted">
-		                    Inbox and tasks
+		                    Latest tasks and projects
 		                </div>
 		            </div>
 		        </div>
 		    </a>
-
 		    {{-- Item --}}
 		    <a href="#"  class="navi-item">
 		        <div class="navi-link">
@@ -115,21 +115,20 @@
 		            </div>
 		        </div>
 		    </a>
-
-		    {{-- Item --}}
+            {{-- Item --}}
 		    <a href="#" class="navi-item">
 		        <div class="navi-link">
 					<div class="symbol symbol-40 bg-light mr-3">
 						<div class="symbol-label">
-							{{ Metronic::getSVG("media/svg/icons/Shopping/Chart-bar1.svg", "svg-icon-md svg-icon-primary") }}
+							{{ Metronic::getSVG("media/svg/icons/Code/Settings4.svg", "svg-icon-md svg-icon-primary") }}
 						</div>
 				   	</div>
 		            <div class="navi-text">
 		                <div class="font-weight-bold">
-		                    My Tasks
+		                    Account Setting
 		                </div>
 		                <div class="text-muted">
-		                    latest tasks and projects
+		                    Account setting and more
 		                </div>
 		            </div>
 		        </div>
@@ -146,9 +145,6 @@
 		            <div class="navi-text">
 		                <div class="font-weight-bold">
 		                    Logout
-		                </div>
-		                <div class="text-muted">
-		                    I want to get out.
 		                </div>
 		            </div>
 		        </div>
