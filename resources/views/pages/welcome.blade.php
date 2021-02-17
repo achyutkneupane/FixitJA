@@ -92,7 +92,7 @@
                         <div class="d-flex-website flex-column-website align-items-start flex-grow-1">
                             <div class="flex-grow-1">
                                 <a href="#" class="text-white font-weight-bolder font-size-h3">How FixitJA works?</a>
-                                <p class="text-white opacity-75 font-weight-bold mt-3" style="width: 60%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                <p class="text-white opacity-75 font-weight-bold mt-3 custom-paragraph custom-paragraph-width-80">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                             </div>
                             <a href="#" class="btn btn-link btn-link-white font-weight-bold">Read More
                                 <span class="svg-icon svg-icon-lg svg-icon-white">
@@ -179,7 +179,7 @@
                         <div class="d-flex-website flex-column-website align-items-start flex-grow-1">
                             <div class="flex-grow-1">
                                 <a href="#" class="text-white font-weight-bolder font-size-h3">What is our hiring process?</a>
-                                <p class="text-white opacity-75 font-weight-bold mt-3" style="width: 60%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                <p class="text-white opacity-75 font-weight-bold mt-3 custom-paragraph-width-60">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                             </div>
                             <a href="#" class="btn btn-link btn-link-white font-weight-bold">Read More
                                 <span class="svg-icon svg-icon-lg svg-icon-white">

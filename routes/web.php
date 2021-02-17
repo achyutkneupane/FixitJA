@@ -91,6 +91,7 @@ Route::get('/metronics/icons/socicons', [App\Http\Controllers\PagesController::c
 Route::get('/metronics/icons/svg', [App\Http\Controllers\PagesController::class, 'svg']);
 Route::get('/metronics/login1', [App\Http\Controllers\PagesController::class, 'login1']);
 Route::get('/metronics/wizard1', [App\Http\Controllers\PagesController::class, 'wizard1']);
+Route::get('/metronics/tagify', [App\Http\Controllers\PagesController::class, 'tagify']);
 
 // Quick search dummy route to display html elements in search dropdown (header search)
 Route::get('/quick-search', [App\Http\Controllers\PagesController::class, 'quickSearch'])->name('quick-search');
