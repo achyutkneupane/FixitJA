@@ -5,39 +5,38 @@
         <!--begin::Body-->
         <div class="card-body pt-15">
             <!--begin::User-->
-            <div class="mb-10">
-                <div class="row">
-                    <div class="col-12">
-                        <h4 class="float-left font-weight-bold my-2">{{ ucwords($user->name) }}</h4>
-                        <div class="float-right">
-                            <img src="
-                        @if (!is_null($user->documents->where('type',
+            <div class="text-center mb-10">
+                <div class="symbol symbol-60 symbol-circle symbol-xl-90">
+                    <div class="symbol-label" style="background-image:url(' @if (!is_null($user->documents->where('type',
                             'profile_picture')->first())) {{ asset('storage/' . $user->documents->where('type', 'profile_picture')->first()->path) }}
                         @else
-                            {{ asset('images/unknown-avatar.png') }} @endif
-                            " class="rounded-circle object-fit-scale-down" width="100" height="100">
-                        </div>
-                    </div>
+                            {{ asset('images/unknown-avatar.png') }} @endif')"></div>
+                    <i class="symbol-badge symbol-badge-bottom bg-success"></i>
                 </div>
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="font-weight-bold">Email:</span>
-                    <span class="text-muted">{{ $user->email }}</span>
-                </div>
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="font-weight-bold">Phone:</span>
-                    <span class="text-muted">{{ $user->phone }}</span>
-                </div>
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="font-weight-bold">Gender:</span>
-                    <span class="text-muted">{{ ucwords($user->gender) }}</span>
-                </div>
+                <h4 class="font-weight-bold my-2">{{ ucwords($user->name) }}</h4>
+                <div class="text-muted mb-2">[User Type]</div>
+                <span class="label label-light-warning label-inline font-weight-bold label-lg">[User Status]</span>
             </div>
             <!--end::User-->
+            <!--begin::Contact-->
+            <div class="mb-10 text-center">
+                <a href="#" class="btn btn-icon btn-circle btn-light-facebook mr-2">
+                    <i class="socicon-facebook"></i>
+                </a>
+                <a href="#" class="btn btn-icon btn-circle btn-light-twitter mr-2">
+                    <i class="socicon-twitter"></i>
+                </a>
+                <a href="#" class="btn btn-icon btn-circle btn-light-google">
+                    <i class="socicon-google"></i>
+                </a>
+            </div>
+            <!--end::Contact-->
             <!--begin::Nav-->
-            <a href="{{ Auth::user()->id === $user->id ? route('viewProfile') : route('viewUser', $user->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block active">
-                User Overview
-            </a>
+            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block active">User Information</a>
+            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">User Documents</a>
+            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Change Password</a>
+            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Account Settings</a>
+            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Tax information</a>
             <!--end::Nav-->
         </div>
         <!--end::Body-->
