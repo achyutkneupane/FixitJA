@@ -1,29 +1,26 @@
 {{-- Author: Achyut Neupane --}}
 @extends('layouts.app')
 @section('content')
+    @php
+    $page_title = 'Category';
+    $subhead_button = [['class' => 'primary', 'target' => '#addCategoryModal', 'text' => 'New Category']];
+    @endphp
+
+    @if ($categories->count() == 0)
+        @php
+            $page_description = 'No categories';
+        @endphp
+    @elseif ($categories->count() == 1)
+        @php
+            $page_description = '1 category';
+        @endphp
+    @else
+        @php
+            $page_description = $categories->count() . ' categories';
+        @endphp
+
+    @endif
     <div class="card card-custom">
-        <div class="card-header flex-wrap border-0 pt-6 pb-0">
-            <div class="card-title">
-                <h3 class="card-label">
-                    Category
-                    <div class="text-muted pt-2 font-size-sm">
-                        @if ($categories->count() == 0)
-                            No categories
-                        @elseif ($categories->count() == 1)
-                            1 category
-                        @else
-                            {{ $categories->count() }} categories
-                        @endif
-                    </div>
-                </h3>
-            </div>
-            <div class="card-toolbar">
-                <button href="#" class="btn btn-primary font-weight-bolder" data-toggle="modal"
-                    data-target="#addCategoryModal">
-                    <span class="svg-icon svg-icon-md">
-                    </span>New Category</a>
-            </div>
-        </div>
         <div class="card-body">
             <div class="list-group">
                 @if ($categories->count() == 0)

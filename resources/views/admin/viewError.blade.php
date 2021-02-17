@@ -2,30 +2,19 @@
 
 @extends('layouts.app')
 @section('content')
-
+    @php
+    $page_title = 'Error Overview';
+    @endphp
     <div class="row">
 
         <div class="col-lg-12">
             <div class="card card-custom">
-                <div class="card-header flex-wrap border-0 pt-6 pb-0">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Error Overview
-                        </h3>
-                    </div>
 
-                    @if (!isset($error->solved_at))
-                        <div class="card-toolbar">
-                            <form action="{{ route('errorSolved', $error->id) }}" method="POST">
-                                @csrf
-                                <input name="_method" type="hidden" value="PUT">
-                                <button class="btn btn-primary font-weight-bolder">
-                                    Solved
-                                </button>
-                            </form>
-                        </div>
-                    @endif
-                </div>
+                @if (!isset($error->solved_at))
+                    @php
+                        $subhead_button = [['class' => 'primary', 'text' => 'Solved', 'method' => 'PUT', 'action' => route('errorSolved', $error->id)]];
+                    @endphp
+                @endif
                 <div class="card-body">
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">In Module: </label>
