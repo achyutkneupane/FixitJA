@@ -10,14 +10,14 @@ return [
             'title' => 'Tasks',
             'root' => false,
             'icon' => 'flaticon-interface-10', // flaticon-*
-            'page' => '/task',
+            'page' => '/tasks',
             'new-tab' => false,
         ],
         [
             'title' => 'Categories',
             'root' => false,
             'icon' => 'flaticon-list', // flaticon-*
-            'page' => '/category',
+            'page' => '/categories',
             'new-tab' => false,
             'admin' => true
         ],

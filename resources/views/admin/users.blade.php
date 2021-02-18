@@ -68,5 +68,5 @@
 
 {{-- Scripts Section --}}
 @section('scripts')
-    <script src="{{ asset('js/pages/crud/ktdatatable/base/html-table.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/pages/crud/ktdatatable/fixitja/user.js') }}" type="text/javascript"></script>
 @endsection

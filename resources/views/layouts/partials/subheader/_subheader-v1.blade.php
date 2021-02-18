@@ -60,8 +60,9 @@
                 @section('page_toolbar')
                     @endif
                 </div>
+
                 {{-- Author: Achyut Neupane --}}
-                {{-- Subheader button controller --}}
+                {{-- Subheader button controller Start --}}
                 @if (isset($subhead_button))
                     <div title="Buttons">
                         @foreach ($subhead_button as $button)
@@ -84,5 +85,6 @@
                         @endforeach
                     </div>
                 @endif
+                {{-- Subheader button controller End --}}
             </div>
         </div>
