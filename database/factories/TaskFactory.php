@@ -30,7 +30,7 @@ class TaskFactory extends Factory
             'sub_category_id' => $this->faker->numberBetween(1, 15),
             'type' => $this->faker->randomElement(array('N/A', 'ready to hire', 'planning', 'budgeting')),
             'deadline' => $this->faker->randomElement(array('N/A', 'asap', 'within a week', 'within a month', 'more than a month', 'flexible')),
-            'working_location' => $this->faker->city,
+            'working_location' => $this->faker->numberBetween(1, 16),
             'is_client_on_site' => $this->faker->randomElement(array('0', '1')),
             'is_repair_parts_provided' => $this->faker->randomElement(array('0', '1')),
         ];

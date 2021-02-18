@@ -35,4 +35,8 @@ class Task extends Model
     {
         return $this->belongsToMany(Task::class);
     }
+    public function workingLocation()
+    {
+        return $this->belongsTo(City::class, 'working_location');
+    }
 }
