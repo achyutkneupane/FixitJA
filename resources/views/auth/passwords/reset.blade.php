@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <!--begin::Main-->
 <div class="d-flex flex-column flex-root">
@@ -33,7 +32,7 @@
                             <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Reset Paaword</h3>
 
                         </div>
-                       
+
                         <!--begin::Title-->
                         <!--begin::Form group-->
                         <div class="form-group">

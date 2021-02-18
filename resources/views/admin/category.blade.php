@@ -67,7 +67,7 @@
                                                                 {{ $sub->description }}</small>
                                                         </li>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-3 py-5">
                                                         <button type="button" class="btn btn-success" data-toggle="modal"
                                                             data-target="#editSubCat{{ $sub->id }}">
                                                             Edit

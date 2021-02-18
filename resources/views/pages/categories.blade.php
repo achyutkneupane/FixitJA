@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<div class="container py-20">
+<div class="container py-10">
+    <div class="row">
+        <h1 class="font-weight-bolder text-uppercase m-auto py-5">All Our Categories</h1>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <div class="card card-custom gutter-b custom-card-bg-color">
@@ -29,8 +32,6 @@
                 <div class="card-body">
                     <li>sub-category 1</li>
                     <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
                 </div>
             </div>
         </div>
@@ -45,9 +46,6 @@
                 </div>
                 <div class="card-body">
                     <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
                 </div>
             </div>
         </div>

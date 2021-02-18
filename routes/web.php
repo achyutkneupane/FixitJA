@@ -64,7 +64,7 @@ Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
 //Route for viewing all categories
-Route::get('/categories', [App\Http\Controllers\MainController::class, 'categories']);
+Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 
 
 
