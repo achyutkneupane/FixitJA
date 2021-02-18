@@ -91,14 +91,14 @@ $page_title = 'Tasks';
                             <td>{{ $task->id }}</td>
                             <td>
                                 <a href="{{ route('viewTask', $task->id) }}">
-                                    {{ $task->name }}
+                                    {{ ucwords($task->name) }}
                                 </a>
                             </td>
                             <td>{{ $task->status }}</td>
                             <td>{{ $task->type }}</td>
                             <td>{{ $task->createdFor->name }}</td>
                             <td>{!! $task->workingLocation->name !!}</td>
-                            <td>{{ $task->sub_category->name }}</td>
+                            <td>{{ ucwords($task->sub_category->name) }}</td>
                             <td>{{ $task->created_at->diffForHumans() }}</td>
                         </tr>
                     @endforeach
