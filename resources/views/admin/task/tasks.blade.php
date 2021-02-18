@@ -115,5 +115,5 @@ $page_title = 'Tasks';
 
 {{-- Scripts Section --}}
 @section('scripts')
-    <script src="{{ asset('js/pages/crud/ktdatatable/fixitja/task.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/custom/custom_task_datatable.js') }}" type="text/javascript"></script>
 @endsection
