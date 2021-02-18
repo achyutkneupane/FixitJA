@@ -20,13 +20,26 @@ class UserSeeder extends Seeder
             'email' => 'info@kumberland.com',
             'phone' => '+9779860323771',
             'companyname' => 'Kumberland Inc.',
+            'website' => 'https://www.kumberland.com',
             'city_id' => '7',
             'password' => Hash::make('Kumberland@123'),
             'email_verified_at' => now(),
             'verification_code' => sha1(time()),
             'status' => 'active',
             'type' => 'admin'
-
+        ]);
+        User::create([
+            'name' => 'Achyut Neupane',
+            'email' => 'aneupane@kumberland.com',
+            'phone' => '9860323771',
+            'companyname' => 'Kumberland Inc.',
+            'website' => 'https://www.kumberland.com',
+            'city_id' => '7',
+            'password' => Hash::make('Kumberland@123'),
+            'email_verified_at' => now(),
+            'verification_code' => sha1(time()),
+            'status' => 'active',
+            'type' => 'admin'
         ]);
     }
 }
