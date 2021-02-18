@@ -75,14 +75,14 @@ $page_title = 'Tasks';
                 id="kt_datatable">
                 <thead>
                     <tr>
-                        <th title="ID">ID</th>
-                        <th title="Name">Name</th>
-                        <th title="Status">Status</th>
-                        <th title="Type">Type</th>
-                        <th title="Created For">Created For</th>
-                        <th title="Address">Address</th>
-                        <th title="Category">Category</th>
-                        <th title="Date">Date</th>
+                        <th title="ID" style="width:5%;">ID</th>
+                        <th title="Name" style="width:15%;">Name</th>
+                        <th title="Status" style="width:10%;">Status</th>
+                        <th title="Type" style="width:10%;">Type</th>
+                        <th title="Created For" style="width:15%;">Created For</th>
+                        <th title="Address" style="width:15%;">Address</th>
+                        <th title="Category" style="width:15%;">Category</th>
+                        <th title="Date" style="width:15%;">Date</th>
                     </tr>
                 </thead>
                 <tbody>
