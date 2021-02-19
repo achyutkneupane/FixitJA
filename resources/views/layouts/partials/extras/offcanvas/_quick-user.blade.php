@@ -34,6 +34,7 @@
                 @endauth
 				</a>
                 <div class="text-muted mt-1">
+                	{{ Auth::user()->userType() }}
                 </div>
                 <div class="navi mt-2">
                     <a href="#" class="navi-item">
@@ -58,80 +59,82 @@
 		{{-- Nav --}}
 		<div class="navi navi-spacer-x-0 p-0">
 		    {{-- Item --}}
+		    <a href="{{ route('home') }}" class="navi-item">
+		        <div class="navi-link">
+		            <div class="symbol symbol-40 bg-light mr-3">
+		                <div class="symbol-label">
+							{{ Metronic::getSVG("media/svg/icons/Home/Home.svg", "svg-icon-md svg-icon-success") }}
+						</div>
+		            </div>
+		            <div class="navi-text">
+		                <div class="font-weight-bold">
+		                    Dashboard
+		                </div>
+		                <!-- <div class="text-muted">
+		                    View your profile
+		                    <span class="label label-light-danger label-inline font-weight-bold">update</span>
+		                </div>
+ -->		            </div>
+		        </div>
+		    </a>
+
 		    <a href="{{ route('viewProfile') }}" class="navi-item">
 		        <div class="navi-link">
 		            <div class="symbol symbol-40 bg-light mr-3">
 		                <div class="symbol-label">
-							{{ Metronic::getSVG("media/svg/icons/General/Notification2.svg", "svg-icon-md svg-icon-success") }}
+							{{ Metronic::getSVG("media/svg/icons/General/User.svg", "svg-icon-md svg-icon-success") }}
 						</div>
 		            </div>
 		            <div class="navi-text">
 		                <div class="font-weight-bold">
-		                    My Profile
+		                    Profile
 		                </div>
-		                <div class="text-muted">
+		                <!-- <div class="text-muted">
 		                    View your profile
-		                    <!--span class="label label-light-danger label-inline font-weight-bold">update</span-->
+		                    <span class="label label-light-danger label-inline font-weight-bold">update</span>
 		                </div>
-		            </div>
+ -->		            </div>
 		        </div>
 		    </a>
 
+		    <a href="{{ route('listTask') }}" class="navi-item">
+		        <div class="navi-link">
+		            <div class="symbol symbol-40 bg-light mr-3">
+		                <div class="symbol-label">
+							{{ Metronic::getSVG("media/svg/icons/Text/Bullet-list.svg", "svg-icon-md svg-icon-success") }}
+						</div>
+		            </div>
+		            <div class="navi-text">
+		                <div class="font-weight-bold">
+		                    Tasks
+		                </div>
+		                <!-- <div class="text-muted">
+		                    View your profile
+		                    <span class="label label-light-danger label-inline font-weight-bold">update</span>
+		                </div>
+ -->		            </div>
+		        </div>
+		    </a>
 
-            {{-- Item --}}
-		    <a href="#" class="navi-item">
+		    <a href="{{ route('accountSecurity') }}" class="navi-item">
 		        <div class="navi-link">
-					<div class="symbol symbol-40 bg-light mr-3">
-						<div class="symbol-label">
-							{{ Metronic::getSVG("media/svg/icons/Shopping/Chart-bar1.svg", "svg-icon-md svg-icon-primary") }}
+		            <div class="symbol symbol-40 bg-light mr-3">
+		                <div class="symbol-label">
+							{{ Metronic::getSVG("media/svg/icons/General/Lock.svg", "svg-icon-md svg-icon-success") }}
 						</div>
-				   	</div>
-		            <div class="navi-text">
-		                <div class="font-weight-bold">
-		                    My Tasks
-		                </div>
-		                <div class="text-muted">
-		                    Latest tasks and projects
-		                </div>
 		            </div>
-		        </div>
-		    </a>
-		    {{-- Item --}}
-		    <a href="#"  class="navi-item">
-		        <div class="navi-link">
-					<div class="symbol symbol-40 bg-light mr-3">
-						<div class="symbol-label">
-							{{ Metronic::getSVG("media/svg/icons/Files/Selected-file.svg", "svg-icon-md svg-icon-danger") }}
-						</div>
-				   	</div>
-		            <div class="navi-text">
-		                <div class="font-weight-bold">
-		                    My Activities
-		                </div>
-		                <div class="text-muted">
-		                    Logs and notifications
-		                </div>
-		            </div>
-		        </div>
-		    </a>
-            {{-- Item --}}
-		    <a href="#" class="navi-item">
-		        <div class="navi-link">
-					<div class="symbol symbol-40 bg-light mr-3">
-						<div class="symbol-label">
-							{{ Metronic::getSVG("media/svg/icons/Code/Settings4.svg", "svg-icon-md svg-icon-primary") }}
-						</div>
-				   	</div>
 		            <div class="navi-text">
 		                <div class="font-weight-bold">
 		                    Account Setting
 		                </div>
-		                <div class="text-muted">
-		                    Account setting and more
+		                <!-- <div class="text-muted">
+		                    View your profile
+		                    <span class="label label-light-danger label-inline font-weight-bold">update</span>
 		                </div>
-		            </div>
+ -->		            </div>
 		        </div>
 		    </a>
+
             {{-- Logout --}}
 		    <a href="{{ route('logout') }}" class="navi-item" onclick="event.preventDefault();
          document.getElementById('logout-form').submit();">

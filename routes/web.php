@@ -51,6 +51,8 @@ Route::get('/error_log', [App\Http\Controllers\AdminController::class, 'error_lo
 Route::get('/error_log/{id}', [App\Http\Controllers\AdminController::class, 'error_detail'])->middleware('auth', 'checkIfAdmin')->name('viewErrorDetail');
 Route::put('/error_log/{id}/solved', [App\Http\Controllers\AdminController::class, 'error_solved'])->middleware('auth', 'checkIfAdmin')->name('errorSolved');
 
+Route::get('/security', [App\Http\Controllers\UserController::class, 'security'])->middleware('auth')->name('accountSecurity');
+
 
 Route::get('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resend'])->name('resendEmail');
 Route::post('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->middleware('auth')->name('reverifyUser');

@@ -83,7 +83,25 @@ class User extends Authenticatable
             return "Verified";
         }
     }
-
+    public function userType()
+    {
+        switch ($this->type) {
+            case 'admin':
+                return "Admin";
+                break;
+            case 'individual_contractor':
+                return "Individual Contractor";
+                break;
+            case 'business':
+                return "Business";
+                break;
+            case 'general_user':
+                return "General User";
+                break;
+            default:
+                return "";
+        }
+    }
 
 
     public function created_by()
