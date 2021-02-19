@@ -20,7 +20,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
 Auth::routes(['verify' => true]);
-Route::get('/verify/{verification_code}', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
+Route::get('/login', function () {
+    return view('auth.login');
+})->middleware('guest');
+Route::get('verify/{verification_code}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyUser']);
 Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
 Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('forget-password');
 Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'getPassword']);
@@ -55,8 +58,7 @@ Route::put('/error/{id}/solved', [App\Http\Controllers\AdminController::class, '
 Route::get('/security', [App\Http\Controllers\UserController::class, 'security'])->middleware('auth')->name('accountSecurity');
 
 
-Route::get('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resend'])->name('resendEmail');
-Route::post('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->middleware('auth')->name('reverifyUser');
+Route::get('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);

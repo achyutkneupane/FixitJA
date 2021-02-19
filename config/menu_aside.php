@@ -68,6 +68,7 @@ return [
         ],
         [
             'section' => 'Extra',
+            'admin' => true
         ],
         [
             'title' => 'Error Log',

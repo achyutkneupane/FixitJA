@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\ToastHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MailController;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Support\Facades\Auth;
@@ -55,12 +58,25 @@ class VerificationController extends Controller
     {
         $user = Auth::user();
         if ($user != null) {
-            MailController::sendVerifyEmail($user->name, $request->email, $user->verification_code);
-            return redirect()->route('login')->with(session()->flash(
-                'alert-success',
-                'Verification email has been resent. Please check your email'
-            ));
+            MailController::sendVerifyEmail($user->name, $user->email, $user->verification_code);
+            ToastHelper::showToast('Verification email sent successfully.');
+            return redirect()->route('home');
         }
         return redirect()->route('resendEmail')->with(session()->flash('alert-danger', 'Something went wrong!'));
+    }
+    public function verifyUser($verification_code)
+    {
+        $user = User::where(['verification_code' => $verification_code])->first();
+        if ($user != null) {
+            $user->status = 'active';
+            $user->email_verified_at =  Carbon::now();
+            $user->save();
+            ToastHelper::showToast('Account has been verified');
+            if (!empty(Auth::user()))
+                return redirect()->route('home');
+            else
+                return redirect()->route('login');
+        }
+        return redirect()->route('login')->with(session()->flash('alert-danger', 'Invalid verification code!'));
     }
 }
