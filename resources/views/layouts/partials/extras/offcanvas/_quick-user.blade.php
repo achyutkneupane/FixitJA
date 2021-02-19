@@ -34,7 +34,6 @@
                 @endauth
 				</a>
                 <div class="text-muted mt-1">
-                    Application Developer
                 </div>
                 <div class="navi mt-2">
                     <a href="#" class="navi-item">
