@@ -40,7 +40,11 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
             <div class="d-flex flex-column">
                 <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
                     @auth
-                        <a href="{{ route('viewProfile') }}" class="text-black">{{ Auth::user()->name }}</a>
+                        <a href="{{ route('viewProfile') }}">
+                            <span class="text-dark font-weight-bold">
+                                {{ Auth::user()->name }}
+                            </span>
+                        </a>
                     @endauth
                 </a>
                 <div class="text-muted mt-1">
