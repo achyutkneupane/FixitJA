@@ -238,7 +238,22 @@
 
 
 
-                                        <div class="fv-plugins-message-container"></div>
+                                        <div class="fv-plugins-message-container">
+                                            <div class="form-group">
+                            <label class="font-size-h6 font-weight-bolder text-dark">Expereince</label>
+                            <input type="text"
+                                class="form-control "
+                                name="educationinstutional_name" placeholder="experience"
+                                value="{{old('educationinstutional_name')}}" />
+                            @if ($errors->has('experience'))
+                            <span class="text-danger">{{ $errors->first('experience') }}</span>
+                            @endif
+                        </div>
+
+                                        </div>
+                                          
+                        
+                        <div class="fv-plugins-message-container"></div>
                                     </div>
 
 
@@ -338,7 +353,8 @@
                             <div class="col-9 col-form-label">
                                 <label for="exampleTextarea">8.Write short description about yoursel
                                     <span class="text-danger">*</span></label>
-                                <textarea class="form-control" id="exampleTextarea" rows="3" name="personal_description"></textarea>
+                                <textarea class="form-control" id="exampleTextarea" rows="3"
+                                    name="personal_description"></textarea>
                             </div>
                         </div>
                         <div class="fv-plugins-message-container"></div>
@@ -396,7 +412,8 @@
                             <div class="col-9 col-form-label">
                                 <label for="exampleTextarea">12. How long distance you are willing to travel?
                                     <div class="slidecontainer">
-                                        <input type="range" min="1" max="100" value="0" class="slider" id="myRange" name="total distance">
+                                        <input type="range" min="1" max="100" value="0" class="slider" id="myRange"
+                                            name="total distance">
                                         <p>Total Distance: <span id="demo"></span></p>
                                     </div>
                                     <style>
@@ -469,7 +486,8 @@
 
                         <div class="form-group fv-plugins-icon-container">
                             <label>House Number or Unit (Optional)</label>
-                            <input type="text" name="house_number" class="form-control form-control-solid form-control-lg"
+                            <input type="text" name="house_number"
+                                class="form-control form-control-solid form-control-lg"
                                 placeholder="Enter your House number" />
                         </div>
 
@@ -477,7 +495,8 @@
 
                         <div class="form-group fv-plugins-icon-container">
                             <label> Postal Code (Optional)</label>
-                            <input type="text" name="postal_code" class="form-control form-control-solid form-control-lg"
+                            <input type="text" name="postal_code"
+                                class="form-control form-control-solid form-control-lg"
                                 placeholder="Enter your  Postal Code (Optional)" />
                         </div>
 

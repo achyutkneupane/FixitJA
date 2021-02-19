@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use DB;
 
+
 use function GuzzleHttp\Promise\all;
 
 class UserController extends Controller
@@ -99,6 +100,14 @@ class UserController extends Controller
 
     }
 
+    public function uploadfile($file, $dir)
+    {
+        $filename = time().rand(1,100).'.'.$file->extension();
+        $file->move($dir, $filename);
+        return $filename;
+
+    }
+
    
 
     public function updateprofile(Request $request)
@@ -126,15 +135,38 @@ class UserController extends Controller
                'city'                      => ['required'],
                
             ]);
-            $files = [];
+            //$files = []; 
             if($request->hasfile('certificate'))
             {
                 foreach($request->file('certificate') as $file)
                 {
-                    $filename = time().rand(1,100).'.'.$file->extension();
-                    $file->move(public_path('files'), $filename);
-                    $files[] = $filename;
+                   $filename = $this->uploadfile(request()->file('certificate'), $this->$documents_dir);
+                   $files[] = $filename;
                 }
+
+                $documents = new Document();
+                $document->path= $filename;
+                $document->type='reference_letter';
+                $document->user_id = 1;
+                $document->save();
+            }
+            if($request->hasfile('profile')
+            {
+                $profilename = $this->uploadfile(request()->file('profile'), $this->$documents_dir);
+
+                $document = new Document();
+                $document->path = $filename;
+                $document->type = 'profile_picture';
+                $document->user_id = 1;
+                $document->save();
+            }
+            
+                $user = new User();
+                $user->areas_covering = $request->skills_category;
+                $user->experience = $request->experience;
+                
+                
+
             }
             
        } catch (\Throwable $th) {
