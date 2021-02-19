@@ -4,6 +4,7 @@
     @php
         $page_title = 'Dashboard';
         $subhead_button = [['class'=>'primary','text'=>'Edit Profile','target'=>'#editProfileModal']];
+
     @endphp
 <div class="container">
     <div class="row justify-content-center">
@@ -139,7 +140,7 @@
                                                     <h6 class="mb-0">Website</h6>
                                                 </div>
                                                 <div class="col-sm-6 text-secondary">
-                                                    {{$loggedUser->website}}
+                                                    {{--$loggedUser->website--}}
                                                 </div>
                                             </div>
                                             <hr>
@@ -166,7 +167,7 @@
                                                     <h6 class="mb-0">Status</h6>
                                                 </div>
                                                 <div class="col-sm-6 text-secondary">
-                                                    {{ucfirst($loggedUser->status)}}
+                                                    {{--ucfirst($loggedUser->status)--}}
                                                 </div>
                                             </div>
                                             <hr>

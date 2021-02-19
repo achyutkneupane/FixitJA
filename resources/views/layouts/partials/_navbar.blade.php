@@ -18,7 +18,7 @@
                         aria-labelledby="navbarDropdownDemos">
                         <div class="row no-gutters">
                             <div class="col-lg-5 p-lg-3 bg-img-cover overlay overlay-primary overlay-70 d-none d-lg-block"
-                                style="background-image: url({{ asset('images/website/bg-dropdown-xl.jpg') }})">
+                                style="background-image: url({{ asset('images/website/mainbg.jpg') }})">
                                 <div class="d-flex-website h-100 w-100 align-items-center justify-content-center">
                                     <div class="text-white text-center z-1">
                                         <div class="mb-3">There are more categories for you.</div>
@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-7 p-lg-5">
+                            <div class="col-lg-7 p-lg-5 p-5">
                                 <h2>Popular Categories</h2>
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -139,14 +139,14 @@
             @endguest
             @auth
                 <!-- <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/home">Account</a>
-                                <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">Logout
-                                </a>
+                                    <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">Logout
+                                    </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form> -->
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form> -->
                 <div class="topbar-item">
                     <div class="btn btn-icon w-auto d-flex-website align-items-center btn-lg px-2"
                         id="kt_quick_user_toggle">
