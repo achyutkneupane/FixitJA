@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\User;
 use Carbon\Exceptions\Exception;
 use Illuminate\Http\Request;
@@ -128,5 +129,10 @@ class CategoryController extends Controller
             LogHelper::store('Category', $e);
             return redirect()->route('listCategory')->withInput();
         }
+    }
+    public function proposed()
+    {
+        $cats = SubCategory::where('status','proposed')->get();
+        return view('admin.proposed', compact('cats'));
     }
 }
