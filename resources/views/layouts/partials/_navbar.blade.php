@@ -16,7 +16,7 @@
                                 <div class="d-flex-website h-100 w-100 align-items-center justify-content-center">
                                     <div class="text-white text-center z-1">
                                         <div class="mb-3">There are more categories for you.</div>
-                                        <a class="btn-website btn-website-white btn-website-sm text-primary font-weight-500" href="index.html">View All Categories</a>
+                                        <a class="btn-website btn-website-white btn-website-sm text-primary font-weight-500" href="/categories/all">View All Categories</a>
                                     </div>
                                 </div>
                             </div>
