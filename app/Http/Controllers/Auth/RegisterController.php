@@ -74,11 +74,11 @@ class RegisterController extends Controller
             'cpassword' => ['min:6', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
 
 
-       
+
 
       ]);
-    
-      
+
+
 
       $user = new User();
       $user->name = $request->name;
@@ -91,23 +91,21 @@ class RegisterController extends Controller
       $user->verification_code = sha1(time());
       $user->save();
 
-   
+
     // event(new UserRegistered($user));
     try{
         MailController::sendVerifyEmail($user->name, $user->email, $user->verification_code);
 
     } catch (\Throwable $t) {
 
-        dd($t);
+        // dd($t);
     }
     Auth::login($user);
     return redirect('/home');
-      
-
     }
     public function verifyuser($verification_code)
     {
-        
+
         $user = User::where(['verification_code' => $verification_code])->first();
         if ($user != null) {
             $user->status = 'active';
