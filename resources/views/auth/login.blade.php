@@ -3,11 +3,7 @@
 $page_title = 'Login';
 $page_description = 'This is login page';
 $show_sidebar = false;
-
-
 @endphp
-
-
 @section('content')
 <!--begin::Main-->
 <div class="d-flex flex-column flex-root">
@@ -98,6 +94,7 @@ $show_sidebar = false;
     <!--end::Login-->
 </div>
 <!--end::Main-->
+@endsection
 {{--Section --}}
 @section('styles')
 <link href="{{ asset('css/pages/login/login-4.css') }}" rel="stylesheet" type="text/css" />
@@ -105,5 +102,4 @@ $show_sidebar = false;
 {{-- Scripts Section --}}
 @section('scripts')
 <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
-<script src="assets/js/scripts.bundle.js"></script>
 @endsection
