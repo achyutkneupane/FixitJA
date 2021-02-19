@@ -7,6 +7,13 @@ return [
             'section' => 'Dashboard',
         ],
         [
+            'title' => 'Home',
+            'root' => false,
+            'icon' => 'flaticon-home-2', // flaticon-*
+            'page' => '/home',
+            'new-tab' => false,
+        ],
+        [
             'title' => 'Tasks',
             'root' => false,
             'icon' => 'flaticon-interface-10', // flaticon-*

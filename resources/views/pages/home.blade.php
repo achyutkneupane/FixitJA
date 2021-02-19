@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+
+    @php
+        $page_title = 'Dashboard';
+        $subhead_button = [['class'=>'primary','text'=>'Edit Profile','target'=>'#editProfileModal']];
+    @endphp
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -44,14 +49,11 @@
                                                 " alt="Admin" class="rounded-circle object-fit-scale-down" width="150" height="150">
                                                 <div class="mt-3">
                                                     <h4>{{ucwords($loggedUser->name)}}</h4>
-                                                    <p class="text-secondary mb-1">Painter</p>
+                                                    <p class="text-secondary mb-1">{{ $loggedUser->userType() }}</p>
                                                     <p class="text-muted font-size-sm"></p>
                                                     <!-- <button class="btn btn-primary">Follow</button>
                                     <button class="btn btn-outline-primary">Message</button> -->
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">
-                                                        Edit Profile
-                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,7 +103,7 @@
                                                     <h6 class="mb-0">City</h6>
                                                 </div>
                                                 <div class="col-sm-6 text-secondary">
-                                                    Manchester
+                                                    {{$loggedUser->city->name}}
                                                 </div>
                                             </div>
                                             <hr>
@@ -137,7 +139,7 @@
                                                     <h6 class="mb-0">Website</h6>
                                                 </div>
                                                 <div class="col-sm-6 text-secondary">
-                                                    example.com
+                                                    {{$loggedUser->website}}
                                                 </div>
                                             </div>
                                             <hr>
