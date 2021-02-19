@@ -117,4 +117,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class, 'assigned_to');
     }
+
+
+
+    public function found_by()
+    {
+        return $this->hasMany(ErrorLog::class, 'found_by');
+    }
+    public function solved_by()
+    {
+        return $this->hasMany(ErrorLog::class, 'solved_by');
+    }
 }

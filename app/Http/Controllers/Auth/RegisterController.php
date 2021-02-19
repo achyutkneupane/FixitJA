@@ -56,7 +56,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-   
+
     /* Add by Ashish Pokhrel */
     public function register(Request $request)
     {
@@ -70,9 +70,11 @@ class RegisterController extends Controller
             'companyname' => ['nullable', 'string'],
             'websitepersonal' => ['nullable'],
             'websitecompany' => ['nullable'],
-            'password' => ['min:6|required_with:cpassword|same:cpassword', 'regex:/[A-Z]/','regex:/[0-9]/'],
-            'cpassword' => ['min:6','regex:/[A-Z]/','regex:/[0-9]/'],
-         
+            'password' => ['min:6|required_with:cpassword|same:cpassword', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
+            'cpassword' => ['min:6', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
+
+
+       
 
       ]);
     

@@ -1,3 +1,5 @@
+const { result } = require("lodash");
+
 /* for register select jquery */
 $(document).ready(function(){
     $('#user_type').on('change', function(){
@@ -34,4 +36,45 @@ $(document).ready(function(){
     document.getElementById("passwordinfo").style.display = "block";
 });*/
 
+/* for Profile wizard step 2 */
+
+$("#selected_catgeory").on('change', function (e) {
+    
+    var category_id = $(this).val();
+    $('#choosencategory').text(category_id);
+    
 });
+
+function getCatgeory(categoryId){
+var subcategory = new Array();
+$.ajax({
+            type: "GET",
+            url: 'profile/',
+            dataType: 'json',
+            data:data,
+            success: function (data) {
+
+                data = JSON.parse( data );
+                console.log(data)
+                $('#choosencategory').val(data.name);
+
+               
+            }
+        });
+
+}
+/*  for  Range slider */
+
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+
+
+ 
+});
+
+

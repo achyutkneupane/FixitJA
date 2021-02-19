@@ -1,13 +1,9 @@
 @extends('layouts.app')
 @php
-$page_title = 'Login';
+$page_title = 'Resend Verification';
 $page_description = 'This is login page';
 $show_sidebar = false;
-
-
 @endphp
-
-
 @section('content')
 <!--begin::Main-->
 <div class="d-flex flex-column flex-root">
@@ -32,54 +28,36 @@ $show_sidebar = false;
                 <!--begin::Signin-->
                 <div class="login-form">
                     <!--begin::Form-->
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('reverifyUser') }}">
                         @csrf
                         <!--begin::Title-->
                         <div class="pb-5 pb-lg-15">
-                            <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign In</h3>
-                            <div class="text-muted font-weight-bold font-size-h4">New Here?
-                                <a href="{{ route('register') }}" class="text-primary font-weight-bolder">Create Account</a>
-                            </div>
+                            <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Resend Verification Email</h3>
                         </div>
                         <!--begin::Title-->
                         <!--begin::Form group-->
                         <div class="form-group">
-                            <label class="font-size-h6 font-weight-bolder text-dark">Your Email</label><span id="error-email"></span>
-                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 " type="text" name="email" autocomplete="off" />
+                            <label class="font-size-h6 font-weight-bolder text-dark">Your Email</label>
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="text" name="email" autocomplete="off" value="{{ $user->email }}" />
                             @if ($errors->has('email'))
-                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                             <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
-
-                        </div>
-                        <!--end::Form group-->
-                        <!--begin::Form group-->
-                        <div class="form-group">
-                            <div class="d-flex justify-content-between mt-n5">
-                                <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
-                                <a href="/forget-password" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Forgot Password ?</a>
-                            </div>
-                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 " type="password" name="password" autocomplete="off" />
-                            @if ($errors->has('password'))
-                            <span class="text-danger">{{ $errors->first('password') }}</span>
-                            @endif
-                            <span id="error-password"></span>
-
                         </div>
                         <!--end::Form group-->
                         <!--begin::Action-->
                         <div class="pb-lg-0 pb-5">
-                            <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Login</button>
-
-
+                            <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Resend</button>
                         </div>
                         <!--end::Action-->
                     </form>
                     <!--end::Form-->
                 </div>
+
                 @include('layouts.partials._footer_simple')
                 <!--end::Signin-->
             </div>
             <!--end::Wrapper-->
+
         </div>
         <!--begin::Content-->
         <!--begin::Aside-->
@@ -98,12 +76,12 @@ $show_sidebar = false;
     <!--end::Login-->
 </div>
 <!--end::Main-->
-{{--Section --}}
+@endsection
+{{-- Styles Section --}}
 @section('styles')
 <link href="{{ asset('css/pages/login/login-4.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 {{-- Scripts Section --}}
 @section('scripts')
 <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
-<script src="assets/js/scripts.bundle.js"></script>
 @endsection

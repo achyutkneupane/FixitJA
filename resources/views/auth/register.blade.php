@@ -123,7 +123,7 @@ $show_sidebar = false;
                             <!--end::Form Group-->
                             <!--begin::Form Group-->
                             <div class="form-group" id="companyname">
-                                <label class="font-size-h6 font-weight-bolder text-dark">CompanyName</label>
+                                <label class="font-size-h6 font-weight-bolder text-dark">Company Name</label>
                                 <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="companyname" placeholder="Company Name" value="{{old('companyname')}}" />
                                 @if ($errors->has('companyname'))
                                     <span class="text-danger">{{ $errors->first('companyname') }}</span>
@@ -144,8 +144,7 @@ $show_sidebar = false;
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Password</label>
                                 <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="password" id="psw" placeholder="Password" value="" />
-                                <span id="passwordinfo"> Your Password must be more than 6 characters long, should contain at-least 1 Uppercase
-                                and 1 Numeric Character. </span>
+                                <span class="passwordinfo"> Your password must be more than 8 characters long, should contain at least one uppercase and one numeric character.</span>
                                 @if ($errors->has('password'))
                                     <span class="text-danger">{{ $errors->first('password') }}</span>
                             @endif
@@ -186,22 +185,22 @@ $show_sidebar = false;
     {{-- Styles Section --}}
     @section('styles')
     <link href="{{ asset('css/pages/login/login-4.css') }}" rel="stylesheet" type="text/css" />
-    
+
     @endsection
     {{-- Scripts Section --}}
     @section('scripts')
     <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
     <!-- <script src="{{ asset('js/form-validation.js') }}" type="text/javascript"></script>git ss -->
-  
-    
+
+
     {{-- Scripts Section --}}
     <script>
         $(document).ready(function() {
             $('.select2').select2();
         });
     </script>
-    
-    
+
+
     <script>
         document.getElementById("genders").style.display = "none";
         document.getElementById("webpersonal").style.display = "none";

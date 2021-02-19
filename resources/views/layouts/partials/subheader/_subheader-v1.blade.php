@@ -11,6 +11,7 @@
             @if($currentuser->status == "pending")
                 <span class="font-weight-bold text-danger">
                     Your account is not activated yet.
+                    <a href="{{ route('resendEmail') }}">Resend Verification</a>
                 </span>
             @elseif($currentuser->status == "suspended")
                 <span class="font-weight-bold text-warning">

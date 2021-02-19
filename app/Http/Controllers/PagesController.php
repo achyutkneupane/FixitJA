@@ -124,6 +124,14 @@ class PagesController extends Controller
 
         return view('demo1_pages.wizard-1', compact('page_title', 'page_description'),["show_sidebar" => false]);
     }
+      //tagify
+      public function tagify()
+      {
+          $page_title = 'Tagify';
+          $page_description = 'This is tagify test page';
+
+          return view('demo1_pages.tagify', compact('page_title', 'page_description'),["show_sidebar" => false]);
+      }
     // Quicksearch Result
     public function quickSearch()
     {

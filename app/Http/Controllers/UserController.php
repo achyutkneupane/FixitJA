@@ -93,20 +93,54 @@ class UserController extends Controller
         return view('pages.createProfileWizard');
     }
 
+    public function addeducation(Request $request){
+
+         return view('pages.addeducationbackground');
+
+    }
+
    
 
     public function updateprofile(Request $request)
     {
-       
-        $files = [];
-        if($request->hasfile('certificate'))
-         {
-            foreach($request->file('certificate') as $file)
+       try {
+           $request->validate([
+               'skills_category'           => ['required'],
+               'sub_categories'            => ['required'],
+               'certificate'               => ['nullable'],
+               'educationinstutional_name' => ['required'],
+               'degree'                    => ['required'],
+               'startdate'                 => ['required'],
+               'enddate'                   => ['required'],
+               'gpa'                       => ['required'],
+               'police_report'             => ['required'],
+               'personal_description'      => ['required'],
+               'hrs-per_weeks'             => ['required'],
+               'working_days'              => ['required'],
+               'long_distance'             => ['required'],
+               'total distance'            => ['required'],
+               'profile'                   => ['required'],
+               'street'                    => ['required'],
+               'house_number'              => ['required'],
+               'postal_code'               => ['required'],
+               'city'                      => ['required'],
+               
+            ]);
+            $files = [];
+            if($request->hasfile('certificate'))
             {
-                $name = time().rand(1,100).'.'.$file->extension();
-                $file->move($this->documents_dir, $name);  
-                $files[] = $name;  
+                foreach($request->file('certificate') as $file)
+                {
+                    $filename = time().rand(1,100).'.'.$file->extension();
+                    $file->move(public_path('files'), $filename);
+                    $files[] = $filename;
+                }
             }
+            
+       } catch (\Throwable $th) {
+           //throw $th;
+       }
+        
             
            
          }
@@ -136,4 +170,3 @@ class UserController extends Controller
 
         
     }
-}

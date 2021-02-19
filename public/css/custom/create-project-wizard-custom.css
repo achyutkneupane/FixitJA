@@ -9,8 +9,8 @@
     text-align: center;
 }
 .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step .wizard-label {
-    margin-left: 3.5rem;
-    margin-right: 3.5rem;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
 }
 .wizard.wizard-1
     .wizard-nav
@@ -57,7 +57,7 @@
 }
 .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step .wizard-arrow {
     color: #7e8299;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
 }
 .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step .wizard-arrow.last {
     display: none;

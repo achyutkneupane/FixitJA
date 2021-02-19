@@ -30,13 +30,30 @@ Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update'])
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Added by Achyut Neupane
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->middleware('auth')->name('admin_panel');
-Route::get('/admin/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
-Route::get('/admin/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
-Route::get('/admin/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
+Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
+Route::post('/category/add', [App\Http\Controllers\CategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');
+Route::put('/category/edit/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
+Route::get('/category/delete/{id}', [App\Http\Controllers\CategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
+Route::post('/sub_category/add', [App\Http\Controllers\SubCategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');
+Route::put('/sub_category/edit/{id}', [App\Http\Controllers\SubCategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
+Route::get('/sub_category/delete/{id}', [App\Http\Controllers\SubCategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
+
+Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
+Route::get('/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
+Route::get('/task/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth')->name('taskAssignedBy');
+Route::get('/task/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth')->name('taskAssignedTo');
+
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
-Route::get('/admin/user/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
-Route::get('/admin/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
+Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
+Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
+
+Route::get('/error_log', [App\Http\Controllers\AdminController::class, 'error_log'])->middleware('auth', 'checkIfAdmin')->name('viewErrorLog');
+Route::get('/error_log/{id}', [App\Http\Controllers\AdminController::class, 'error_detail'])->middleware('auth', 'checkIfAdmin')->name('viewErrorDetail');
+Route::put('/error_log/{id}/solved', [App\Http\Controllers\AdminController::class, 'error_solved'])->middleware('auth', 'checkIfAdmin')->name('errorSolved');
+
+
+Route::get('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resend'])->name('resendEmail');
+Route::post('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->middleware('auth')->name('reverifyUser');
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
@@ -49,6 +66,15 @@ Route::get('/profile',[App\Http\Controllers\UserController::class, 'updateprofil
 Route::post('/profile',[App\Http\Controllers\UserController::class, 'updateprofile']);
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
+
+
+// for skilled worker
+
+Route::get('/profile',[App\Http\Controllers\CategoryController::class, 'getCategory']);
+Route::get('/profile/{id}',[App\Http\Controllers\CategoryController::class, 'getSubCategory']);
+Route::get('/addeducation', [App\Http\Controllers\UserController::class, 'addeducation']);
+
+
 
 
 
@@ -77,6 +103,7 @@ Route::get('/metronics/icons/socicons', [App\Http\Controllers\PagesController::c
 Route::get('/metronics/icons/svg', [App\Http\Controllers\PagesController::class, 'svg']);
 Route::get('/metronics/login1', [App\Http\Controllers\PagesController::class, 'login1']);
 Route::get('/metronics/wizard1', [App\Http\Controllers\PagesController::class, 'wizard1']);
+Route::get('/metronics/tagify', [App\Http\Controllers\PagesController::class, 'tagify']);
 
 // Quick search dummy route to display html elements in search dropdown (header search)
 Route::get('/quick-search', [App\Http\Controllers\PagesController::class, 'quickSearch'])->name('quick-search');

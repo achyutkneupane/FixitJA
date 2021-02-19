@@ -5,7 +5,7 @@
 
     <div class="row">
 
-        @include('admin.taskSideBar', $task)
+        @include('admin.task.taskSideBar', $task)
 
         <div class="col-lg-8">
             <div class="card card-custom">
@@ -20,29 +20,32 @@
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Created By: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">{{ $task->createdBy->name }}</span>
+                            <span
+                                class="form-control form-control-lg form-control-solid">{{ $task->createdBy->name }}</span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Created For: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">{{ $task->createdFor->name }}</span>
+                            <span
+                                class="form-control form-control-lg form-control-solid">{{ $task->createdFor->name }}</span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Working Location: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">{{ $task->working_location }}</span>
+                            <span
+                                class="form-control form-control-lg form-control-solid">{{ $task->working_location }}</span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Client: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span class="form-control form-control-lg form-control-solid">
-                                @if($task->is_client_on_site == 1)
-                                On Site
+                                @if ($task->is_client_on_site == 1)
+                                    On Site
                                 @else
-                                Not On Site
+                                    Not On Site
                                 @endif
                             </span>
                         </div>
@@ -51,10 +54,10 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Repair Parts: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span class="form-control form-control-lg form-control-solid">
-                                @if($task->is_repair_parts_provided == 1)
-                                Provided
+                                @if ($task->is_repair_parts_provided == 1)
+                                    Provided
                                 @else
-                                Not Provided
+                                    Not Provided
                                 @endif
                             </span>
                         </div>

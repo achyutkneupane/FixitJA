@@ -16,38 +16,17 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					address1: {
+					category: {
 						validators: {
 							notEmpty: {
-								message: 'Address is required'
+								message: 'Category is required'
 							}
 						}
 					},
-					postcode: {
+					sub_categories: {
 						validators: {
 							notEmpty: {
-								message: 'Postcode is required'
-							}
-						}
-					},
-					city: {
-						validators: {
-							notEmpty: {
-								message: 'City is required'
-							}
-						}
-					},
-					state: {
-						validators: {
-							notEmpty: {
-								message: 'State is required'
-							}
-						}
-					},
-					country: {
-						validators: {
-							notEmpty: {
-								message: 'Country is required'
+								message: 'Sub-category is required'
 							}
 						}
 					}
@@ -216,6 +195,8 @@ var KTWizard1 = function () {
 				}
 			}
 		));
+
+		
 	}
 
 	var _initWizard = function () {
