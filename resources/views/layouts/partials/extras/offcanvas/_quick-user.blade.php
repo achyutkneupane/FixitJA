@@ -92,30 +92,6 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
                     </div>
                 </div>
             </a>
-
-<<<<<<< HEAD
-		{{-- Nav --}}
-		<div class="navi navi-spacer-x-0 p-0">
-		    {{-- Item --}}
-		    <a href="" class="navi-item">
-		        <div class="navi-link">
-		            <div class="symbol symbol-40 bg-light mr-3">
-		                <div class="symbol-label">
-							{{ Metronic::getSVG("media/svg/icons/General/Notification2.svg", "svg-icon-md svg-icon-success") }}
-						</div>
-		            </div>
-		            <div class="navi-text">
-		                <div class="font-weight-bold">
-		                    My Profile
-		                </div>
-		                <div class="text-muted">
-		                    Account settings and more
-		                    <!--span class="label label-light-danger label-inline font-weight-bold">update</span-->
-		                </div>
-		            </div>
-		        </div>
-		    </a>
-=======
             <a href="{{ route('viewProfile') }}" class="navi-item">
                 <div class="navi-link">
                     <div class="symbol symbol-40 bg-light mr-3">
@@ -135,7 +111,6 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
                     </div>
                 </div>
             </a>
->>>>>>> development
 
             <a href="{{ route('listTask') }}" class="navi-item">
                 <div class="navi-link">

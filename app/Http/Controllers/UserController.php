@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogHelper;
+use App\Models\Category;
 use App\Models\Document;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -13,8 +15,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use DB;
-
-
+use Throwable;
 
 use function GuzzleHttp\Promise\all;
 
@@ -22,7 +23,7 @@ class UserController extends Controller
 {
     // creating folder to store document
 
-    protected $documents_dir = "uploads/douments";
+    protected $documents_dir = "uploads/documents";
 
     public function update(User $user)
     {
@@ -92,28 +93,30 @@ class UserController extends Controller
         $users = User::all();
         return view('admin.users', compact('users'));
     }
-    public function updateprofile1(Request $request)
+    public function updateprofile1()
     {
-        return view('pages.createProfileWizard');
+        $categories = Category::with('sub_categories')->get();
+        return view('pages.createProfileWizard')->with('categories', $categories);
     }
 
-    public function addeducation(Request $request){
+    public function addeducation(Request $request)
+    {
 
-         return view('pages.addeducationbackground');
-
+        return view('pages.addeducationbackground');
     }
 
     public function uploadfile($file, $dir)
     {
-        $filename = time().rand(1,100).'.'.$file->extension();
+        $filename = time() . rand(1, 100) . '.' . $file->extension();
         $file->move($dir, $filename);
         return $filename;
- 
     }
+
 
     public function addprofiledetails(Request $request)
     {
-       /* $user = new User();
+        try {
+            /* $user = new User();
         $user = Auth::user();
         try {
             $request->validate([
@@ -138,17 +141,17 @@ class UserController extends Controller
              ]);
              if(request()->hasFile('certificate')){
               $imageName = time().'.'.$request->certificate->extension();
-              $document = new Document();  
+              $document = new Document();
               $document->path = store( $imageName);
               $document->type = 'profile_picture';
               $document->user()->associate($user->id);
               $document->save();
-            
+
             }
 
             if(request()->hasFile('profile')){
               $imageName = time().'.'.$request->certificate->extension();
-              $document = new Document();  
+              $document = new Document();
               $document->path = store( $imageName);
               $document->type = 'profile_picture';
               $document->user()->associate($user->id);
@@ -166,25 +169,23 @@ class UserController extends Controller
             $user->city_id= $request -> city;
             $user-save();
             return redirect('/profile');
-           
+
         } catch (Throwable $e) {
            LogHelper::store('User', $e);
            return redirect()->route('profile')->withInput();
         }
            }*/
 
-
-           try {
-               $user  = new User();
-               $user  = Auth::user();
-                $request->validate([
-               'skills_category' => ['required'],
+            $user  = new User();
+            $user  = User::find(Auth::user()->id);
+            $request->validate([
+                'skills_category' => ['required'],
                 'certificate' => ['nullable'],
                 'expereince'  => ['required'],
                 'educationinstutional_name' => ['required'],
                 'degree'  => ['required'],
                 'startdate' => ['required'],
-                'enddate'   =>['required'],
+                'enddate'   => ['required'],
                 'gpa' => ['required'],
                 'police_report' => ['required'],
                 'personal_description' => ['required'],
@@ -197,71 +198,38 @@ class UserController extends Controller
                 'city' => ['required'],
                 'profile' => ['mimes:jpeg,png,gif', 'max:4096', 'file'],
 
-                ]);
+            ]);
 
-                $education = new Education();
-                $education->education_instution_name = $request->educationinstutional_name;
-                $education->degree = $request -> degree;
-                $education->start_date = $request -> start_date;
-                $education->end_date= $request -> end_date;
-                $education->gpa = $request->gpa;
-                $education->user()->associate($user->id);
-                $education->save();
+            $education = new Education();
+            $education->education_instution_name = $request->educationinstutional_name;
+            $education->degree = $request->degree;
+            $education->start_date = $request->start_date;
+            $education->end_date = $request->end_date;
+            $education->gpa = $request->gpa;
+            $education->user()->associate($user->id);
+            $education->save();
 
-                $skills = new Skill();
-                $skills->name = $request->skills_category;
-                $skills->save();
+            $skills = new Skill();
+            $skills->name = $request->skills_category;
+            $skills->save();
 
-                $user->areas_covering = $skill->id;
-                $user->expereince = $request->expereince;
-                $user->is_police_record = $request->police_report;
-                $user->is_travelling = $request->long_distance;
-                $user->hours = $request->hrs_per_weeks;
-                $user->days = $request->working_days;
-                $user->street_01 = $request->street;
-                $user->street_02 = $request->house_number;
-                $user->city_id = $request->city;
-                $user->save();
-                return redirect('/profile');
-
-
-
-           } catch (\Throwable $th) {
-               //throw $th;
-           }
-    
+            $user->areas_covering = $skills->id;
+            $user->expereince = $request->expereince;
+            $user->is_police_record = $request->police_report;
+            $user->is_travelling = $request->long_distance;
+            $user->hours = $request->hrs_per_weeks;
+            $user->days = $request->working_days;
+            $user->street_01 = $request->street;
+            $user->street_02 = $request->house_number;
+            $user->city_id = $request->city;
+            $user->save();
+            return redirect('/profile');
+        } catch (Throwable $e) {
+            LogHelper::store('User', $e);
+            return redirect()->route('profileWizard')->withInput();
+        }
     }
-}
-            
 
-          
-             
-            
-           
-                
-
-           
-       
-       
-        
-       
-
-
-        
-
-           
-     
-
-     
-
-
-   
-
-   
-       
-
-        
-    
     public function security()
     {
         $users = User::all();

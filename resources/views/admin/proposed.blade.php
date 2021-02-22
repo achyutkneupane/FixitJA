@@ -29,6 +29,7 @@
                     <tr>
                         <th title="ID">ID</th>
                         <th title="Name">Name</th>
+                        <th title="Description">Description</th>
                         <th title="Category">Category</th>
                         <th title="Date">Date</th>
                         <th title="Role">Action</th>
@@ -42,6 +43,9 @@
                             </td>
                             <td>
                                 {{ $cat->name }}
+                            </td>
+                            <td>
+                                {{ $cat->description }}
                             </td>
                             <td>{{ $cat->category->name }}</td>
                             <td>{{ $cat->created_at->diffForHumans() }}</td>
