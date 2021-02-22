@@ -7,15 +7,16 @@
             <!--begin::User-->
             <div class="text-center mb-10">
                 <div class="symbol symbol-60 symbol-circle symbol-xl-90">
-                    <div class="symbol-label" style="background-image:url(' @if (!is_null($user->documents->where('type',
-                            'profile_picture')->first())) {{ asset('storage/' . $user->documents->where('type', 'profile_picture')->first()->path) }}
-                        @else
-                            {{ asset('images/unknown-avatar.png') }} @endif')"></div>
+                    <div class="symbol-label" style="background-image:url(' @if (!is_null($user->
+                        documents->where('type', 'profile_picture')->first())) {{ asset('storage/' . $user->documents->where('type', 'profile_picture')->first()->path) }}
+                    @else
+                        {{ asset('images/unknown-avatar.png') }} @endif')"></div>
                     <i class="symbol-badge symbol-badge-bottom bg-success"></i>
                 </div>
                 <h4 class="font-weight-bold my-2">{{ ucwords($user->name) }}</h4>
-                <div class="text-muted mb-2">[User Type]</div>
-                <span class="label label-light-warning label-inline font-weight-bold label-lg">[User Status]</span>
+                <div class="text-muted mb-2">{{ $user->userType() }}</div>
+                <span
+                    class="label label-light-{{ $user->userStatus()['class'] }} label-inline font-weight-bold label-lg">{{ $user->userStatus()['name'] }}</span>
             </div>
             <!--end::User-->
             <!--begin::Contact-->
@@ -32,11 +33,18 @@
             </div>
             <!--end::Contact-->
             <!--begin::Nav-->
-            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block active">User Information</a>
-            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">User Documents</a>
-            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Change Password</a>
-            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Account Settings</a>
-            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Tax information</a>
+            <a href="#"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block active">User
+                Information</a>
+            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">User
+                Documents</a>
+            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Change
+                Password</a>
+            <a href="#"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Account
+                Settings</a>
+            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Tax
+                information</a>
             <!--end::Nav-->
         </div>
         <!--end::Body-->

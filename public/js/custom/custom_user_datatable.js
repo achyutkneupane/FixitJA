@@ -46,11 +46,11 @@ var KTDatatableHtmlTableDemo = function() {
             },
             suspended: {
               'title': 'Suspended',
-              'class': ' label-light-danger'
+              'class': ' label-light-warning'
             },
             blocked: {
               'title': 'Blocked',
-              'class': ' label-light-warning'
+              'class': ' label-light-danger'
             }
           };
             return '<span class="label font-weight-bold label-lg' + status[row.Status].class + ' label-inline">' + status[row.Status].title + '</span>';

@@ -68,11 +68,11 @@ class User extends Authenticatable
     }
     public function first_name()
     {
-        return explode(' ',Auth::user()->name, 2)[0];
+        return explode(' ', Auth::user()->name, 2)[0];
     }
     public function last_name()
     {
-        $ln = explode(' ',Auth::user()->name, 2);
+        $ln = explode(' ', Auth::user()->name, 2);
         return !empty($ln[1]) ? $ln[1] : '';
     }
     public function isVerified()
@@ -97,6 +97,25 @@ class User extends Authenticatable
                 break;
             case 'general_user':
                 return "General User";
+                break;
+            default:
+                return "";
+        }
+    }
+    public function userStatus()
+    {
+        switch ($this->status) {
+            case 'active':
+                return ['name' => 'Active', 'class' => 'success'];
+                break;
+            case 'pending':
+                return ['name' => 'Pending', 'class' => 'info'];
+                break;
+            case 'suspended':
+                return ['name' => 'Suspended', 'class' => 'warning'];
+                break;
+            case 'blocked':
+                return ['name' => 'Blocked', 'class' => 'danger'];
                 break;
             default:
                 return "";

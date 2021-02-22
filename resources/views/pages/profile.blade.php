@@ -18,6 +18,31 @@
             <div class="card card-custom">
                 <div class="card-body">
                     <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Gender: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->gender) ? ucwords($user->gender) : "<span class='text-muted'>N/A</span>"
+                                !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Email: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->email) ? $user->email : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Phone: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->phone) ? $user->phone : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Address: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span class="form-control form-control-lg form-control-solid">
@@ -27,16 +52,43 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Street : </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->street_01) ? $user->street_01 : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                            {!! !empty($user->street_02)
+                            ? '<span class="form-control form-control-lg form-control-solid mt-3">' .
+                                $user->street_02 .
+                                '</span>'
+                            : '' !!}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Company Name: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->companyname) ? $user->companyname : "<span class='text-muted'>N/A</span>"
+                                !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Experience: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">{{ $user->experience }}</span>
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->experience) ? $user->experience : "<span class='text-muted'>N/A</span>"
+                                !!}
+                            </span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Website: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid"><a
-                                    href="{{ $user->website }}">{{ $user->website }}</a></span>
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->website) ? '<a href="' . $user->website . '">' . $user->website . '</a>' :
+                                "<span class='text-muted'>N/A</span>" !!}
+                            </span>
                         </div>
                     </div>
                     <div class="form-group row">
