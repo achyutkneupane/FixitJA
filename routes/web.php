@@ -68,7 +68,8 @@ Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addpr
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
 //Route for viewing all categories
 Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
-
+//Route for the addding education qualification
+Route::post('/addeducation', [App\Http\Controllers\UserController::class, 'education_details']);
 
 // for skilled worker
 

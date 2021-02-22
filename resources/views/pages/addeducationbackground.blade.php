@@ -36,7 +36,7 @@ $show_sidebar = false;
                 <!--begin::Signin-->
                 <div class="login-form">
                     <!--begin::Form-->
-                    <form id="demoForm" method="POST" action="{{ route('register') }}">
+                    <form id="demoForm" method="POST" action="/profile/init">
                         @csrf
                         <!--begin: Wizard Step 1-->
                         <div class="" data-wizard-type="step-content" data-wizard-state="current">
@@ -128,7 +128,7 @@ $show_sidebar = false;
 
                                 <!--begin::Action-->
                                 <div class="pb-lg-0 pb-5">
-                                    <button type="submit" id="signup"
+                                    <button type="submit" id="Add"
                                         class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Add</button>
                                 </div>
                             </div>

@@ -338,10 +338,10 @@
                                 <div class="col-9 col-form-label">
                                     <div class="checkbox-inline">
                                         <label class="checkbox checkbox-outline checkbox-success">
-                                            <input type="checkbox" name="police_report" />
+                                            <input type="checkbox" name="police_report" value="true" />
                                             <span></span>Yes</label>
                                         <label class="checkbox checkbox-outline checkbox-success">
-                                            <input type="checkbox" name="police_report" />
+                                            <input type="checkbox" name="police_report" value="true" />
                                             <span></span>No</label>
 
                                     </div>
@@ -366,7 +366,7 @@
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">9. How many working hours per week?
-                                        <input type="text" class=" form-control " name="hrs-per_weeks"
+                                        <input type="text" class=" form-control " name="hours"
                                             placeholder="enter your work hours" rows="1" />
                                 </div>
                             </div>
@@ -397,10 +397,10 @@
                                 <div class="col-9 col-form-label">
                                     <div class="checkbox-inline">
                                         <label class="checkbox checkbox-outline checkbox-success">
-                                            <input type="checkbox" name="long_distance" />
+                                            <input type="checkbox" name="is_travelling" />
                                             <span></span>Yes</label>
                                         <label class="checkbox checkbox-outline checkbox-success">
-                                            <input type="checkbox" name="long_distance" />
+                                            <input type="checkbox" name="is_travelling" />
                                             <span></span>No</label>
 
                                     </div>

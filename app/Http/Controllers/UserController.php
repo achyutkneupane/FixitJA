@@ -111,7 +111,34 @@ class UserController extends Controller
         $file->move($dir, $filename);
         return $filename;
     }
+    public function education_details(Request $request)
+    {
+         
+            /* $user = new User();
+        //$user = Auth::user();*/
+        $educations = new Education();
 
+      
+            $request->validate([
+                
+                'educationinstutional_name' => ['required'],
+                'degree'  => ['required'],
+                'startdate' => ['required'],
+                'enddate'   =>['required'],
+                'gpa' => ['required'],
+             ]);
+             $educations = new Education();
+             $educations->educationalinstutional_name = $request->educationinstutional_name;
+             $educations->degree = $requets->degree;
+             $educations->startdate = $request->startdate;
+             $educations->enddate = $request->enddate;
+             $educations->gpa = $request->gpa;
+             $educations->save();
+            
+            
+
+
+    }
 
     public function addprofiledetails(Request $request)
     {
@@ -182,46 +209,51 @@ class UserController extends Controller
                 'skills_category' => ['required'],
                 'certificate' => ['nullable'],
                 'expereince'  => ['required'],
-                'educationinstutional_name' => ['required'],
-                'degree'  => ['required'],
-                'startdate' => ['required'],
-                'enddate'   => ['required'],
-                'gpa' => ['required'],
                 'police_report' => ['required'],
                 'personal_description' => ['required'],
-                'hrs_per_weeks' => ['required'],
+                'hours' => ['required'],
                 'working_days' => ['required'],
-                'long_distance' => ['required'],
-                'total distance' => ['required'],
-                'street' => ['required'],
+                'is_travelling' => ['required'],
+                'street' => ['nullable'],
                 'house_number' => ['nullable'],
-                'city' => ['required'],
-                'profile' => ['mimes:jpeg,png,gif', 'max:4096', 'file'],
+                'city' => ['nullable'],
+                'profile' => ['mimes:jpeg,png,gif', 'max:4096' ],
 
             ]);
 
-            $education = new Education();
-            $education->education_instution_name = $request->educationinstutional_name;
-            $education->degree = $request->degree;
-            $education->start_date = $request->start_date;
-            $education->end_date = $request->end_date;
-            $education->gpa = $request->gpa;
-            $education->user()->associate($user->id);
-            $education->save();
+
+           if (request('profile')) {
+                $tempPath = "";
+                $document = new Document();
+                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first())) {
+                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first();
+                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first()->path;
+                }
+                $document->path = request('profile')->store('profile');
+                dd(request('profile')->store('profile'));
+                $document->type = 'profile_picture';
+                $document->user()->associate($user->id);
+                $document->save();
+                if ($tempPath)
+                    Storage::delete($tempPath);
+            }
+
+          
 
             $skills = new Skill();
             $skills->name = $request->skills_category;
             $skills->save();
 
             $user->areas_covering = $skills->id;
-            $user->expereince = $request->expereince;
-            $user->is_police_record = $request->police_report;
-            $user->is_travelling = $request->long_distance;
-            $user->hours = $request->hrs_per_weeks;
+            $user->experience = $request->expereince;
+            $user->is_police_record = $request->input('police_report');
+            $user->is_travelling = $request->input('is_travelling');
+            $user->hours = $request->hours;
             $user->days = $request->working_days;
+             $user->introduction = $request->personal_description;
             $user->street_01 = $request->street;
             $user->street_02 = $request->house_number;
-            $user->city_id = $request->city;
+            //$user->city_id = $request->city;
             $user->save();
             return redirect('/profile');
         } catch (Throwable $e) {
