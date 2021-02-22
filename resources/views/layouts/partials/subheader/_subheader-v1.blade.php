@@ -3,6 +3,15 @@
     <div
         class="{{ Metronic::printClasses('subheader-container', false) }} d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
 
+        {{-- Page Title --}}
+        <h5 class="text-dark font-weight-bold my-2 mr-5">
+            {{ @$page_title }}
+            @if (isset($page_description) && config('layout.subheader.displayDesc'))
+                <br>
+                <small class="text-muted">{!! @$page_description !!}</small>
+            @endif
+        </h5>
+
         {{-- Info --}}
         @php
             $currentuser = Auth::user();
@@ -25,15 +34,6 @@
                     Your account has been blocked.
                 </span>
             @endif
-            {{-- Page Title --}}
-            <h5 class="text-dark font-weight-bold my-2 mr-5">
-                {{ @$page_title }}
-                @if (isset($page_description) && config('layout.subheader.displayDesc'))
-                    <br>
-                    <small class="text-muted">{!! @$page_description !!}</small>
-                @endif
-            </h5>
-
             @if (!empty($page_breadcrumbs))
                 {{-- Separator --}}
                 <div class="subheader-separator subheader-separator-ver my-2 mr-4 d-none"></div>

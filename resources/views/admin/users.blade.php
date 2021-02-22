@@ -94,7 +94,8 @@
                             <td>{{ $user->type }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
-                            <td>{!! $user->city->name !!}</td>
+                            <td>{!! !empty($user->city->name) ? $user->city->name : "<span class='text-muted'>N/A</span>"
+                                !!}</td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -104,7 +104,7 @@
                                                     <h6 class="mb-0">City</h6>
                                                 </div>
                                                 <div class="col-sm-6 text-secondary">
-                                                    {{--$loggedUser->city->name--}}
+                                                    {!! !empty($loggedUser->city->name) ? $loggedUser->city->name : "<span class='text-muted'>N/A</span>" !!}
                                                 </div>
                                             </div>
                                             <hr>

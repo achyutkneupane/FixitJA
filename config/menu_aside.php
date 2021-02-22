@@ -23,10 +23,23 @@ return [
         [
             'title' => 'Categories',
             'root' => false,
-            'icon' => 'flaticon-list', // flaticon-*
-            'page' => '/categories',
             'new-tab' => false,
-            'admin' => true
+            'admin' => true,
+            'icon' => 'flaticon-list',
+            'submenu' => [
+                [
+                    'title' => 'All',
+                    'page' => '/categories',
+                    'admin' => true,
+                    'icon' => 'flaticon-list-2',
+                ],
+                [
+                    'title' => 'Proposed',
+                    'page' => '/categories/proposed',
+                    'admin' => true,
+                    'icon' => 'flaticon-doc',
+                ],
+            ]
         ],
         [
             'title' => 'Users',
@@ -55,6 +68,7 @@ return [
         ],
         [
             'section' => 'Extra',
+            'admin' => true
         ],
         [
             'title' => 'Error Log',
