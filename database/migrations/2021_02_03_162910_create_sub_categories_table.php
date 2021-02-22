@@ -18,6 +18,7 @@ class CreateSubCategoriesTable extends Migration
             $table->id();
             $table->text('name');
             $table->text('description');
+            $table->enum('status', array('active', 'proposed'))->default('active');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
