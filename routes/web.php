@@ -3,6 +3,7 @@
 use App\Http\Controllers\GeneralUserController;
 use App\Http\Controllers\IndividualContractorController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -63,7 +64,7 @@ Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 //Route for profile wizard
 Route::get('/profile',[App\Http\Controllers\UserController::class, 'updateprofile1']);
-Route::post('/profile',[App\Http\Controllers\UserController::class, 'updateprofile']);
+Route::post('/profile',[App\Http\Controllers\UserController::class, 'addprofiledetails']);
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
 
@@ -72,6 +73,7 @@ Route::get('/project/create', [App\Http\Controllers\MainController::class, 'crea
 
 Route::get('/profile',[App\Http\Controllers\CategoryController::class, 'getCategory']);
 Route::get('/profile/{id}',[App\Http\Controllers\CategoryController::class, 'getSubCategory']);
+
 Route::get('/addeducation', [App\Http\Controllers\UserController::class, 'addeducation']);
 
 

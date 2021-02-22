@@ -30,6 +30,8 @@ class User extends Authenticatable
         'profile_image',
         'verification_code',
         'certificate',
+         'profile',
+         
     ];
 
     /**
@@ -66,6 +68,10 @@ class User extends Authenticatable
     public function subscription()
     {
         return $this->belongsTo(Subscription::class);
+    }
+    public function education()
+    {
+        return $this->belongsToMany(Education::class);
     }
     public function first_name()
     {

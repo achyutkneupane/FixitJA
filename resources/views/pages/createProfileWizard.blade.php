@@ -178,7 +178,8 @@
                     <div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
                         <div class="col-xl-12 col-xxl-7">
                             <!--begin::Wizard Form-->
-                            <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form">
+                            <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="post" >
+                             @csrf
                                 <!--begin::Wizard Step 1-->
                                 <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                                     <h3 class="mb-10 font-weight-bold text-dark">Enter your category details</h3>
@@ -243,7 +244,7 @@
                             <label class="font-size-h6 font-weight-bolder text-dark">Expereince</label>
                             <input type="text"
                                 class="form-control "
-                                name="educationinstutional_name" placeholder="experience"
+                                name="expereince" placeholder="experience"
                                 value="{{old('educationinstutional_name')}}" />
                             @if ($errors->has('experience'))
                             <span class="text-danger">{{ $errors->first('experience') }}</span>
@@ -539,7 +540,7 @@
                                 data-wizard-type="action-prev">Previous</button>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-success font-weight-bolder text-uppercase px-9 py-4"
+                            <button type="submit" class="btn btn-success font-weight-bolder text-uppercase px-9 py-4"
                                 data-wizard-type="action-submit">Submit</button>
                             <button type="button" class="btn btn-primary font-weight-bolder text-uppercase px-9 py-4"
                                 data-wizard-type="action-next">Next</button>

@@ -1,5 +1,16 @@
 function bindSubCat(data){
     var toEl = document.getElementById('kt_tagify_custom');
+
+    var result = data;
+    var result_data;
+    for (var a=0; a < result.length; a++)
+    {
+        result_data = result[a].name;
+    }
+    console.log(result.length);
+    
+    
+     
     var tagifyTo = new Tagify(toEl, {
         delimiters: ", ", // add new tags when a comma or a space character is entered
         maxTags: 10,
@@ -7,7 +18,14 @@ function bindSubCat(data){
         keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
         
        
-        whitelist: data,
+        whitelist: [
+            {
+               
+               "value":"ashish", id:1
+
+            },
+            
+        ],
         
         
         templates: {
@@ -43,8 +61,12 @@ $("#selected_catgeory").on('change', function (e) {
     e.preventDefault();
     var result;
     var category_id = $(this).val();
-    var data = [{value:'ashish', id:1}, {value:'kiran', id:2}, {value:'shayam', Id: 3}]
-    console.log(data);
+    var data = getSubCatData(category_id);
+    for( var i =0; i<data.length; i++){
+        return data[i].name;
+    }
+    console.log(data.length);
+    
     
     bindSubCat(data);
 });
@@ -62,8 +84,9 @@ $.ajax({
                 });
                
   
-                console.log(subcategory);
+                //console.log(subcategory);
             }
         });
+       
 return subcategory;
 }

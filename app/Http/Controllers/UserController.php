@@ -6,11 +6,14 @@ use App\Models\Document;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Education;
+use App\Models\Skill;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use DB;
+
 
 
 use function GuzzleHttp\Promise\all;
@@ -105,100 +108,157 @@ class UserController extends Controller
         $filename = time().rand(1,100).'.'.$file->extension();
         $file->move($dir, $filename);
         return $filename;
-
+ 
     }
+
+    public function addprofiledetails(Request $request)
+    {
+       /* $user = new User();
+        $user = Auth::user();
+        try {
+            $request->validate([
+                'skills_category' => ['required'],
+                'certificate' => ['nullable'],
+                'expereince'  => ['required'],
+                'educationinstutional_name' => ['required'],
+                'degree'  => ['required'],
+                'startdate' => ['required'],
+                'enddate'   =>['required'],
+                'gpa' => ['required'],
+                'police_report' => ['required'],
+                'personal_description' => ['required'],
+                'hrs-per_weeks' => ['required'],
+                'working_days' => ['required'],
+                'long_distance' => ['required'],
+                'total distance' => ['required'],
+                'street' => ['required'],
+                'house_number' => ['required'],
+                'city' => ['required'],
+                'profile' => ['mimes:jpeg,png,gif', 'max:4096', 'file'],
+             ]);
+             if(request()->hasFile('certificate')){
+              $imageName = time().'.'.$request->certificate->extension();
+              $document = new Document();  
+              $document->path = store( $imageName);
+              $document->type = 'profile_picture';
+              $document->user()->associate($user->id);
+              $document->save();
+            
+            }
+
+            if(request()->hasFile('profile')){
+              $imageName = time().'.'.$request->certificate->extension();
+              $document = new Document();  
+              $document->path = store( $imageName);
+              $document->type = 'profile_picture';
+              $document->user()->associate($user->id);
+              $document->save();
+
+            }
+
+            $user->areas_covering = $request->skills_category;
+            $user ->experience =  $request->experience;
+            $user->is_police_record = $request->police_report;
+            $user->is_travelling = $request-> long_distance;
+            $user->days = $request->working_days;
+            $user->introduction = $request-> personal_description;
+            $user->street_01 = $request-> street;
+            $user->city_id= $request -> city;
+            $user-save();
+            return redirect('/profile');
+           
+        } catch (Throwable $e) {
+           LogHelper::store('User', $e);
+           return redirect()->route('profile')->withInput();
+        }
+           }*/
+
+
+           try {
+               $user  = new User();
+               $user  = Auth::user();
+                $request->validate([
+               'skills_category' => ['required'],
+                'certificate' => ['nullable'],
+                'expereince'  => ['required'],
+                'educationinstutional_name' => ['required'],
+                'degree'  => ['required'],
+                'startdate' => ['required'],
+                'enddate'   =>['required'],
+                'gpa' => ['required'],
+                'police_report' => ['required'],
+                'personal_description' => ['required'],
+                'hrs_per_weeks' => ['required'],
+                'working_days' => ['required'],
+                'long_distance' => ['required'],
+                'total distance' => ['required'],
+                'street' => ['required'],
+                'house_number' => ['nullable'],
+                'city' => ['required'],
+                'profile' => ['mimes:jpeg,png,gif', 'max:4096', 'file'],
+
+                ]);
+
+                $education = new Education();
+                $education->education_instution_name = $request->educationinstutional_name;
+                $education->degree = $request -> degree;
+                $education->start_date = $request -> start_date;
+                $education->end_date= $request -> end_date;
+                $education->gpa = $request->gpa;
+                $education->user()->associate($user->id);
+                $education->save();
+
+                $skills = new Skill();
+                $skills->name = $request->skills_category;
+                $skills->save();
+
+                $user->areas_covering = $skill->id;
+                $user->expereince = $request->expereince;
+                $user->is_police_record = $request->police_report;
+                $user->is_travelling = $request->long_distance;
+                $user->hours = $request->hrs_per_weeks;
+                $user->days = $request->working_days;
+                $user->street_01 = $request->street;
+                $user->street_02 = $request->house_number;
+                $user->city_id = $request->city;
+                $user->save();
+                return redirect('/profile');
+
+
+
+           } catch (\Throwable $th) {
+               //throw $th;
+           }
+    
+    }
+}
+            
+
+          
+             
+            
+           
+                
+
+           
+       
+       
+        
+       
+
+
+        
+
+           
+     
+
+     
+
 
    
 
-    public function updateprofile(Request $request)
-    {
-       try {
-           $request->validate([
-               'skills_category'           => ['required'],
-               'sub_categories'            => ['required'],
-               'certificate'               => ['nullable'],
-               'educationinstutional_name' => ['required'],
-               'degree'                    => ['required'],
-               'startdate'                 => ['required'],
-               'enddate'                   => ['required'],
-               'gpa'                       => ['required'],
-               'police_report'             => ['required'],
-               'personal_description'      => ['required'],
-               'hrs-per_weeks'             => ['required'],
-               'working_days'              => ['required'],
-               'long_distance'             => ['required'],
-               'total distance'            => ['required'],
-               'profile'                   => ['required'],
-               'street'                    => ['required'],
-               'house_number'              => ['required'],
-               'postal_code'               => ['required'],
-               'city'                      => ['required'],
-               
-            ]);
-            //$files = []; 
-            if($request->hasfile('certificate'))
-            {
-                foreach($request->file('certificate') as $file)
-                {
-                   $filename = $this->uploadfile(request()->file('certificate'), $this->$documents_dir);
-                   $files[] = $filename;
-                }
-
-                $documents = new Document();
-                $document->path= $filename;
-                $document->type='reference_letter';
-                $document->user_id = 1;
-                $document->save();
-            }
-            if($request->hasfile('profile')
-            {
-                $profilename = $this->uploadfile(request()->file('profile'), $this->$documents_dir);
-
-                $document = new Document();
-                $document->path = $filename;
-                $document->type = 'profile_picture';
-                $document->user_id = 1;
-                $document->save();
-            }
-            
-                $user = new User();
-                $user->areas_covering = $request->skills_category;
-                $user->experience = $request->experience;
-                
-                
-
-            }
-            
-       } catch (\Throwable $th) {
-           //throw $th;
-       }
-        
-            
-           
-         }
-  
-        /* $user= new User();
-         $user = Auth::user();*/
-         //dd($user);
-         //$user->certificate = implode(',' , $files);
-         //$user->save();
-  
-        //return back()->with(session()->flash('success', ' Your files has been successfully added'));
-        
-       /* $user->street1 = request()->street1;
-        $user->city = request()->city;
-        $user->introduction = request()->introduction;
-        $user->areas_covering = request()->areas_covering;
-        $user->is_police_record = request()->is_police_record;
-        $user->is_travelling = request()->is_travelling;*/
-        
-        /*return Response::json(array(
-            'status'  => 'ok',
-            'message'  => 'success',
-            'userId' => $id
-
-        ));*/
+   
        
 
         
-    }
+    
