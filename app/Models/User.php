@@ -75,9 +75,22 @@ class User extends Authenticatable
     }
     public function first_name()
     {
-        return strtok(Auth::user()->name,  ' ');
+        return explode(' ',Auth::user()->name, 2)[0];
     }
-    public function role()
+    public function last_name()
+    {
+        $ln = explode(' ',Auth::user()->name, 2);
+        return !empty($ln[1]) ? $ln[1] : '';
+    }
+    public function isVerified()
+    {
+        if ($this->status == "pending") {
+            return "Not Verified";
+        } else {
+            return "Verified";
+        }
+    }
+    public function userType()
     {
         switch ($this->type) {
             case 'admin':
@@ -90,21 +103,12 @@ class User extends Authenticatable
                 return "Business";
                 break;
             case 'general_user':
-                return "User";
+                return "General User";
                 break;
             default:
                 return "";
         }
     }
-    public function isVerified()
-    {
-        if ($this->status == "pending") {
-            return "Not Verified";
-        } else {
-            return "Verified";
-        }
-    }
-
 
 
     public function created_by()

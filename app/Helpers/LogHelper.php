@@ -13,7 +13,6 @@ class LogHelper
     public static function store($module, $e)
     {
         if (isset($e->validator)) {
-            dd("Validator: " . $e->validator);
             foreach ($e->validator->messages()->all() as $err) {
                 $error = new ErrorLog;
                 $error->found_by = Auth::user()->id;

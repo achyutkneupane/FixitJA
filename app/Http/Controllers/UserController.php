@@ -262,3 +262,9 @@ class UserController extends Controller
 
         
     
+    public function security()
+    {
+        $users = User::all();
+        return view('pages.security', compact('users'));
+    }
+}

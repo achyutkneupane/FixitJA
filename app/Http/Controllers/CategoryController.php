@@ -148,4 +148,9 @@ class CategoryController extends Controller
             return redirect()->route('listCategory')->withInput();
         }
     }
+    public function proposed()
+    {
+        $cats = SubCategory::where('status','proposed')->get();
+        return view('admin.proposed', compact('cats'));
+    }
 }

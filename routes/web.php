@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
 Auth::routes(['verify' => true]);
-Route::get('/verify/{verification_code}', [App\Http\Controllers\Auth\RegisterController::class, 'verifyuser']);
+Route::get('verify/{verification_code}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyUser']);
 Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
 Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('forget-password');
 Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'getPassword']);
@@ -31,15 +31,19 @@ Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update'])
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Added by Achyut Neupane
-Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
+Route::get('/login', function () {
+    return view('auth.login');
+})->middleware('guest')->name('login');
+Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
 Route::post('/category/add', [App\Http\Controllers\CategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');
+Route::get('/categories/proposed', [App\Http\Controllers\CategoryController::class, 'proposed'])->middleware('auth', 'checkIfAdmin')->name('proposedCategory');
 Route::put('/category/edit/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
 Route::get('/category/delete/{id}', [App\Http\Controllers\CategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
 Route::post('/sub_category/add', [App\Http\Controllers\SubCategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');
 Route::put('/sub_category/edit/{id}', [App\Http\Controllers\SubCategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
 Route::get('/sub_category/delete/{id}', [App\Http\Controllers\SubCategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
 
-Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
+Route::get('/tasks', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
 Route::get('/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
 Route::get('/task/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth')->name('taskAssignedBy');
 Route::get('/task/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth')->name('taskAssignedTo');
@@ -49,12 +53,13 @@ Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'show'])->
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
 
 Route::get('/error_log', [App\Http\Controllers\AdminController::class, 'error_log'])->middleware('auth', 'checkIfAdmin')->name('viewErrorLog');
-Route::get('/error_log/{id}', [App\Http\Controllers\AdminController::class, 'error_detail'])->middleware('auth', 'checkIfAdmin')->name('viewErrorDetail');
-Route::put('/error_log/{id}/solved', [App\Http\Controllers\AdminController::class, 'error_solved'])->middleware('auth', 'checkIfAdmin')->name('errorSolved');
+Route::get('/error/{id}', [App\Http\Controllers\AdminController::class, 'error_detail'])->middleware('auth', 'checkIfAdmin')->name('viewErrorDetail');
+Route::put('/error/{id}/solved', [App\Http\Controllers\AdminController::class, 'error_solved'])->middleware('auth', 'checkIfAdmin')->name('errorSolved');
+
+Route::get('/security', [App\Http\Controllers\UserController::class, 'security'])->middleware('auth')->name('accountSecurity');
 
 
-Route::get('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resend'])->name('resendEmail');
-Route::post('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->middleware('auth')->name('reverifyUser');
+Route::get('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
@@ -67,6 +72,8 @@ Route::get('/profile',[App\Http\Controllers\UserController::class, 'updateprofil
 Route::post('/profile',[App\Http\Controllers\UserController::class, 'addprofiledetails']);
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
+//Route for viewing all categories
+Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 
 
 // for skilled worker
