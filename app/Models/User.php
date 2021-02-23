@@ -75,6 +75,16 @@ class User extends Authenticatable
         $ln = explode(' ', Auth::user()->name, 2);
         return !empty($ln[1]) ? $ln[1] : '';
     }
+    public function getEmails()
+    {
+        $emails = explode(':', Auth::user()->email);
+        return $emails;
+    }
+    public function getEmail()
+    {
+        $emails = explode(':', Auth::user()->email);
+        return $emails[0];
+    }
     public function isVerified()
     {
         if ($this->status == "pending") {

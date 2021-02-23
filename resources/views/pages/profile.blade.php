@@ -2,6 +2,9 @@
 
 @extends('layouts.app')
 @section('content')
+    @php
+    $profileIsActive = 'true';
+    @endphp
     @if (Auth::user()->id == $user->id)
         @php
             $page_title = 'Profile';
@@ -12,8 +15,7 @@
         @endphp
     @endif
     <div class="row">
-
-        @include('admin.userSideBar', $user)
+        @include('admin.profile.userSideBar', $user)
         <div class="col-lg-8">
             <div class="card card-custom">
                 <div class="card-body">
@@ -30,7 +32,8 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Email: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span class="form-control form-control-lg form-control-solid">
-                                {!! !empty($user->email) ? $user->email : "<span class='text-muted'>N/A</span>" !!}
+                                {!! !empty($user->getemail()) ? $user->getemail() : "<span class='text-muted'>N/A</span>"
+                                !!}
                             </span>
                         </div>
                     </div>

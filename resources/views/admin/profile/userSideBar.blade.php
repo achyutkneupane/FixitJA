@@ -7,10 +7,9 @@
             <!--begin::User-->
             <div class="text-center mb-10">
                 <div class="symbol symbol-60 symbol-circle symbol-xl-90">
-                    <div class="symbol-label" style="background-image:url(' @if (!is_null($user->
-                        documents->where('type', 'profile_picture')->first())) {{ asset('storage/' . $user->documents->where('type', 'profile_picture')->first()->path) }}
-                    @else
-                        {{ asset('images/unknown-avatar.png') }} @endif')"></div>
+                    <div class="symbol-label"
+                        style="background-image:url('{{ !empty($user->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . $user->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}')">
+                    </div>
                     <i class="symbol-badge symbol-badge-bottom bg-success"></i>
                 </div>
                 <h4 class="font-weight-bold my-2">{{ ucwords($user->name) }}</h4>
@@ -33,18 +32,24 @@
             </div>
             <!--end::Contact-->
             <!--begin::Nav-->
-            <a href="#"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block active">User
+            <a href="{{ Auth::user()->id === $user->id ? route('viewProfile') : route('viewUser', $user->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileIsActive) ? 'active' : '' }}">User
                 Information</a>
-            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">User
-                Documents</a>
-            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Change
-                Password</a>
+            @isAdminOrContractor
             <a href="#"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Account
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileDocumentIsActive) ? 'active' : '' }}">User
+                Documents</a>
+            @endisAdminOrContractor
+            <a href="{{ route('accountSecurity') }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileAccountIsActive) ? 'active' : '' }}">Account
                 Settings</a>
-            <a href="#" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block">Tax
-                information</a>
+            @isAdminOrContractor
+            <a href="#"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profilePaymentIsActive) ? 'active' : '' }}">Payment
+                Details</a>
+            <a href="#"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileReferenceIsActive) ? 'active' : '' }}">References</a>
+            @endisAdminOrContractor
             <!--end::Nav-->
         </div>
         <!--end::Body-->

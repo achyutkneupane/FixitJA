@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogHelper;
+use App\Helpers\ToastHelper;
 use App\Models\Document;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -10,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 use function GuzzleHttp\Promise\all;
 
@@ -77,17 +80,50 @@ class UserController extends Controller
     }
     public function show($id)
     {
+        if (User::find($id) == Auth::user()) {
+            return redirect()->route('viewProfile');
+        }
         $user = User::find($id);
         return view('pages.profile', compact('user'));
     }
     public function index()
     {
         $users = User::all();
-        return view('admin.users', compact('users'));
+        return view('admin.profile.users', compact('users'));
     }
     public function security()
     {
-        $users = User::all();
-        return view('pages.security', compact('users'));
+        $user = User::find(Auth::user()->id);
+        return view('admin.profile.security', compact('user'));
+    }
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user();
+        if (!Hash::check($request->old_password, $user->password)) {
+            ToastHelper::showToast("Old Password doesn't match.", "error");
+            return redirect()->route('accountSecurity')->withInput($request->input());
+        } else {
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            ToastHelper::showToast("Password has been changed.");
+            return redirect()->route('accountSecurity');
+        }
+    }
+    public function addEmail(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        try {
+            $request->validate([
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')],
+            ]);
+            $old = $user->email;
+            $new = $old . ':' . $request->email;
+            $user->email = $new;
+            $user->save();
+            return redirect()->route('accountSecurity');
+        } catch (Throwable $e) {
+            LogHelper::store('Category', $e);
+            return redirect()->route('accountSecurity');
+        }
     }
 }
