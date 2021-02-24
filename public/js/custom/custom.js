@@ -1,4 +1,4 @@
-const { result } = require("lodash");
+/*const { result } = require("lodash");*/
 
 /* for register select jquery */
 $(document).ready(function(){
@@ -41,9 +41,18 @@ $(document).ready(function(){
 $("#selected_catgeory").on('change', function (e) {
     
     var category_id = $(this).val();
-    $('#choosencategory').text(category_id);
+    $('.card-title').attr("category_id");
+    
     
 });
+
+ $('#add_btn').click( function(){
+    document.getElementById("card_two").style.display="block";
+    document.getElementById("card_three").style.display="block";
+    document.getElementById("add_btn").style.display="none";
+
+
+ });
 
 function getCatgeory(categoryId){
 var subcategory = new Array();
@@ -74,7 +83,17 @@ slider.oninput = function() {
 }
 
 
+  
+
+       
+
+
+
+      
+
+
  
 });
+
 
 

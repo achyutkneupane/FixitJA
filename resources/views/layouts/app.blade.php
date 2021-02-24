@@ -39,6 +39,7 @@
         <link href="{{ asset('css/website/styles.css') }}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     @endif
+    
     <script src="{{ asset('js/custom/custom.js') }}" defer></script>
     <link href="{{ asset('css/custom/custom-css.css') }}" rel="stylesheet">
     <!-- <link href="{{ asset('css/modern-business.css') }}" rel="stylesheet"> -->
@@ -118,16 +119,7 @@
 
         </script>
     @endif
-    <script>
-        var el = document.getElementById('kt_profile_aside');
-        var toggler = document.getElementById('kt_subheader_mobile_toggle');
-        if (JSON.stringify(el) != "null") {
-            toggler.innerHTML = "<span></span>";
-        } else {
-            toggler.innerHTML = "";
-        }
-
-    </script>
+   
 </body>
 
 </html>

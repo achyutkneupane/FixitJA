@@ -1,14 +1,7 @@
 function bindSubCat(data){
     var toEl = document.getElementById('kt_tagify_custom');
-
-    var result = data;
-    var result_data;
-    for (var a=0; a < result.length; a++)
-    {
-        result_data = result[a].name;
-    }
-    console.log(result.length);
-    
+     var  vals = data.map(function(a) { return A.val;});
+     console.log(vals)
     
      
     var tagifyTo = new Tagify(toEl, {
@@ -62,10 +55,7 @@ $("#selected_catgeory").on('change', function (e) {
     var result;
     var category_id = $(this).val();
     var data = getSubCatData(category_id);
-    for( var i =0; i<data.length; i++){
-        return data[i].name;
-    }
-    console.log(data.length);
+    console.log(data);
     
     
     bindSubCat(data);
@@ -75,7 +65,7 @@ function getSubCatData(categoryId){
 var subcategory = new Array();
 $.ajax({
             type: "GET",
-            url: 'profile/' + categoryId,
+            url: '/profile/' + categoryId,
             dataType: 'json',
             success: function (result) {
                 $.each(result, function (i, item) {
@@ -84,7 +74,7 @@ $.ajax({
                 });
                
   
-                //console.log(subcategory);
+                console.log(subcategory);
             }
         });
        

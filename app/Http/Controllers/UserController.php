@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Education;
+use App\Models\EducationUser;
 use App\Models\Skill;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -93,16 +94,18 @@ class UserController extends Controller
         $users = User::all();
         return view('admin.users', compact('users'));
     }
-    public function updateprofile1()
+   public function updateprofile1()
     {
         $categories = Category::with('sub_categories')->get();
         return view('pages.createProfileWizard')->with('categories', $categories);
     }
 
-    public function addeducation(Request $request)
-    {
+  
 
-        return view('pages.addeducationbackground');
+    public function getprofileImage(Request $request)
+    {
+        $document = Document::where('user_id', Auth::user()->id)->get();
+        return view('pages.createProfileWizard', compact('document'));
     }
 
     public function uploadfile($file, $dir)
@@ -111,41 +114,12 @@ class UserController extends Controller
         $file->move($dir, $filename);
         return $filename;
     }
-    public function education_details(Request $request)
-    {
-         
-            /* $user = new User();
-        //$user = Auth::user();*/
-        $educations = new Education();
-
-      
-            $request->validate([
-                
-                'educationinstutional_name' => ['required'],
-                'degree'  => ['required'],
-                'startdate' => ['required'],
-                'enddate'   =>['required'],
-                'gpa' => ['required'],
-             ]);
-             $educations = new Education();
-             $educations->educationalinstutional_name = $request->educationinstutional_name;
-             $educations->degree = $requets->degree;
-             $educations->startdate = $request->startdate;
-             $educations->enddate = $request->enddate;
-             $educations->gpa = $request->gpa;
-             $educations->save();
-            
-            
-
-
-    }
-
     public function addprofiledetails(Request $request)
     {
         try {
-            /* $user = new User();
-        $user = Auth::user();
-        try {
+            
+             $user  = new User();
+            $user  = User::find(Auth::user()->id);
             $request->validate([
                 'skills_category' => ['required'],
                 'certificate' => ['nullable'],
@@ -165,59 +139,6 @@ class UserController extends Controller
                 'house_number' => ['required'],
                 'city' => ['required'],
                 'profile' => ['mimes:jpeg,png,gif', 'max:4096', 'file'],
-             ]);
-             if(request()->hasFile('certificate')){
-              $imageName = time().'.'.$request->certificate->extension();
-              $document = new Document();
-              $document->path = store( $imageName);
-              $document->type = 'profile_picture';
-              $document->user()->associate($user->id);
-              $document->save();
-
-            }
-
-            if(request()->hasFile('profile')){
-              $imageName = time().'.'.$request->certificate->extension();
-              $document = new Document();
-              $document->path = store( $imageName);
-              $document->type = 'profile_picture';
-              $document->user()->associate($user->id);
-              $document->save();
-
-            }
-
-            $user->areas_covering = $request->skills_category;
-            $user ->experience =  $request->experience;
-            $user->is_police_record = $request->police_report;
-            $user->is_travelling = $request-> long_distance;
-            $user->days = $request->working_days;
-            $user->introduction = $request-> personal_description;
-            $user->street_01 = $request-> street;
-            $user->city_id= $request -> city;
-            $user-save();
-            return redirect('/profile');
-
-        } catch (Throwable $e) {
-           LogHelper::store('User', $e);
-           return redirect()->route('profile')->withInput();
-        }
-           }*/
-
-            $user  = new User();
-            $user  = User::find(Auth::user()->id);
-            $request->validate([
-                'skills_category' => ['required'],
-                'certificate' => ['nullable'],
-                'expereince'  => ['required'],
-                'police_report' => ['required'],
-                'personal_description' => ['required'],
-                'hours' => ['required'],
-                'working_days' => ['required'],
-                'is_travelling' => ['required'],
-                'street' => ['nullable'],
-                'house_number' => ['nullable'],
-                'city' => ['nullable'],
-                'profile' => ['mimes:jpeg,png,gif', 'max:4096' ],
 
             ]);
 

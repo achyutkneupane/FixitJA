@@ -16,7 +16,7 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					category: {
+					skills_category: {
 						validators: {
 							notEmpty: {
 								message: 'Category is required'
@@ -47,10 +47,10 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					package: {
+					expereince: {
 						validators: {
 							notEmpty: {
-								message: 'Package details is required'
+								message: 'Experience is required'
 							}
 						}
 					},
@@ -111,24 +111,24 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					delivery: {
+					educationinstutional_name: {
 						validators: {
 							notEmpty: {
-								message: 'Delivery type is required'
+								message: 'Educationinstutional Name is required'
 							}
 						}
 					},
-					packaging: {
+					degree: {
 						validators: {
 							notEmpty: {
-								message: 'Packaging type is required'
+								message: 'Degree type is required'
 							}
 						}
 					},
-					preferreddelivery: {
+					gpa: {
 						validators: {
 							notEmpty: {
-								message: 'Preferred delivery window is required'
+								message: 'Gpa is required'
 							}
 						}
 					}
@@ -149,17 +149,67 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					locaddress1: {
+					personal_description: {
 						validators: {
 							notEmpty: {
-								message: 'Address is required'
+								message: 'Personal descrption is required'
 							}
 						}
 					},
-					locpostcode: {
+					hours: {
 						validators: {
 							notEmpty: {
-								message: 'Postcode is required'
+								message: 'Hours is required'
+							}
+						}
+					},
+					loccity: {
+						validators: {
+							notEmpty: {
+								message: 'City is required'
+							}
+						}
+					},
+					locstate: {
+						validators: {
+							notEmpty: {
+								message: 'State is required'
+							}
+						}
+					},
+					loccountry: {
+						validators: {
+							notEmpty: {
+								message: 'Country is required'
+							}
+						}
+					}
+				},
+				plugins: {
+					trigger: new FormValidation.plugins.Trigger(),
+					// Bootstrap Framework Integration
+					bootstrap: new FormValidation.plugins.Bootstrap({
+						//eleInvalidClass: '',
+						eleValidClass: '',
+					})
+				}
+			}
+		))
+		_validations.push(FormValidation.formValidation(
+			_formEl,
+			{
+				fields: {
+					personal_description: {
+						validators: {
+							notEmpty: {
+								message: 'Personal descrption is required'
+							}
+						}
+					},
+					hours: {
+						validators: {
+							notEmpty: {
+								message: 'Hours is required'
 							}
 						}
 					},
@@ -201,21 +251,21 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					locaddress1: {
+					street: {
 						validators: {
 							notEmpty: {
-								message: 'Address is required'
+								message: 'Street is required'
 							}
 						}
 					},
-					locpostcode: {
+					City: {
 						validators: {
 							notEmpty: {
 								message: 'Postcode is required'
 							}
 						}
 					},
-					loccity: {
+					City: {
 						validators: {
 							notEmpty: {
 								message: 'City is required'
@@ -403,6 +453,4 @@ jQuery(document).ready(function () {
 // for slider
 
 
-      var slider = new Slider("#basic", {
-        tooltip: 'always'
-      });
+     

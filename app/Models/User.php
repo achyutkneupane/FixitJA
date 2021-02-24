@@ -69,9 +69,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Subscription::class);
     }
-    public function education()
+    public function educations()
     {
-        return $this->belongsToMany(Education::class);
+         return $this->belongsToMany(Education::class);
     }
     public function first_name()
     {
