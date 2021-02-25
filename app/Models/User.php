@@ -66,13 +66,38 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Subscription::class);
     }
+
+    public function emails()
+    {
+        return $this->hasMany(Email::class);
+    }
+    public function phones()
+    {
+        return $this->hasMany(Phone::class);
+    }
+    public function email()
+    {
+        return User::find(auth()->id())->emails->where('primary', true)->first()->email;
+    }
+    public function getEmail($id)
+    {
+        return User::find($id)->emails->where('primary', true)->first()->email;
+    }
+    public function phone()
+    {
+        return User::find(auth()->id())->phones->where('primary', true)->first()->phone;
+    }
+    public function getPhone($id)
+    {
+        return User::find($id)->phones->where('primary', true)->first()->phone;
+    }
     public function first_name()
     {
-        return explode(' ',Auth::user()->name, 2)[0];
+        return explode(' ', $this->name, 2)[0];
     }
     public function last_name()
     {
-        $ln = explode(' ',Auth::user()->name, 2);
+        $ln = explode(' ', $this->name, 2);
         return !empty($ln[1]) ? $ln[1] : '';
     }
     public function isVerified()
@@ -97,6 +122,31 @@ class User extends Authenticatable
                 break;
             case 'general_user':
                 return "General User";
+                break;
+            default:
+                return "";
+        }
+    }
+    public function userStatus()
+    {
+        switch ($this->status) {
+            case 'active':
+                return ['name' => 'Active', 'class' => 'success'];
+                break;
+            case 'pending':
+                return ['name' => 'Pending', 'class' => 'info'];
+                break;
+            case 'suspended':
+                return ['name' => 'Suspended', 'class' => 'warning'];
+                break;
+            case 'blocked':
+                return ['name' => 'Blocked', 'class' => 'danger'];
+                break;
+            case 'deactivated':
+                return ['name' => 'Deactivated', 'class' => 'danger'];
+                break;
+            case 'deleted':
+                return ['name' => 'Deleted', 'class' => 'danger'];
                 break;
             default:
                 return "";

@@ -2,6 +2,9 @@
 
 @extends('layouts.app')
 @section('content')
+    @php
+    $profileIsActive = 'true';
+    @endphp
     @if (Auth::user()->id == $user->id)
         @php
             $page_title = 'Profile';
@@ -12,31 +15,73 @@
         @endphp
     @endif
     <div class="row">
-
-        @include('admin.userSideBar', $user)
+        @include('admin.profile.userSideBar', $user)
         <div class="col-lg-8">
             <div class="card card-custom">
                 <div class="card-body">
                     <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Gender: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->gender) ? ucwords($user->gender) : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Email: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->getEmail($user->id)) ? $user->getEmail($user->id) : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Phone: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->getPhone($user->id)) ? $user->getPhone($user->id) : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Address: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span class="form-control form-control-lg form-control-solid">
-                                {!! !empty($user->city->name) ? $user->city->name : "<span class='text-muted'>N/A</span>"
-                                !!}
+                                {!! !empty($user->city->name) ? $user->city->name : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Street : </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->street_01) ? $user->street_01 : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                            {!! !empty($user->street_02) ? '<span class="form-control form-control-lg form-control-solid mt-3">' . $user->street_02 . '</span>' : '' !!}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Company Name: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->companyname) ? $user->companyname : "<span class='text-muted'>N/A</span>" !!}
                             </span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Experience: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">{{ $user->experience }}</span>
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->experience) ? $user->experience : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Website: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid"><a
-                                    href="{{ $user->website }}">{{ $user->website }}</a></span>
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->website) ? '<a href="' . $user->website . '">' . $user->website . '</a>' : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -74,4 +119,5 @@
 {{-- Scripts Section --}}
 @section('scripts')
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/pages/custom/profile/profile.js') }}" type="text/javascript"></script>
 @endsection

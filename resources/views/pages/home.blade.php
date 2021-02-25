@@ -77,7 +77,7 @@
                                                     <h6 class="mb-0">Email</h6>
                                                 </div>
                                                 <div class="col-sm-6 text-secondary">
-                                                    {{$loggedUser->email}}
+                                                    {{$loggedUser->email()}}
                                                 </div>
                                             </div>
                                             <hr>
@@ -86,7 +86,7 @@
                                                     <h6 class="mb-0">Phone</h6>
                                                 </div>
                                                 <div class="col-sm-6 text-secondary">
-                                                    {{$loggedUser->phone}}
+                                                    {{$loggedUser->phone()}}
                                                 </div>
                                             </div>
                                             <hr>
@@ -258,7 +258,7 @@
                                                         <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                                                         <div class="col-md-6">
-                                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="@if($errors->any()){{{old('email')}}} @else{{{$loggedUser->email}}} @endif" required autocomplete="email">
+                                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="@if($errors->any()){{{old('email')}}} @else{{{$loggedUser->email()}}} @endif" required autocomplete="email">
 
                                                             @error('email')
                                                             <span class="invalid-feedback" role="alert">
@@ -271,7 +271,7 @@
                                                         <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
 
                                                         <div class="col-md-6">
-                                                            <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="@if($errors->any()){{{old('phone')}}} @else{{{$loggedUser->phone}}} @endif" required autocomplete="phone">
+                                                            <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="@if($errors->any()){{{old('phone')}}} @else{{{$loggedUser->phone()}}} @endif" required autocomplete="phone">
 
                                                             @error('phone')
                                                             <span class="invalid-feedback" role="alert">
