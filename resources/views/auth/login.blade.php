@@ -30,7 +30,7 @@ $show_sidebar = false;
                     <!--begin::Signin-->
                     <div class="login-form">
                         <!--begin::Form-->
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('authenticate') }}">
                             @csrf
                             <!--begin::Title-->
                             <div class="pb-5 pb-lg-15">

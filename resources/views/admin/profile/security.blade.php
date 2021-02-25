@@ -77,28 +77,31 @@
 
                     @foreach ($user->emails()->get() as $email)
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label">Email: </label>
+                            <label class="col-xl-3 col-lg-3 col-form-label">
+                                @if ($loop->first)
+                                    Email:
+                                @endif
+                            </label>
                             <div class="col-lg-9 col-xl-9">
                                 <span class="form-control form-control-lg form-control-solid">
-                                    {{ $email }}
+                                    {{ $email->email }}
                                     @if ($email->primary == true)
                                         {!! $user->status == 'pending'
-                                        ? '
+    ? '
                                         <span class="label label-warning label-pill label-inline mr-2 float-right">Not
                                             Verified</span>'
-                                        : '
+    : '
                                         <span
-                                            class="label label-success label-pill label-inline mr-2 float-right">Verified</span>'
-                                        !!}
+                                            class="label label-success label-pill label-inline mr-2 float-right">Verified</span>' !!}
                                     @endif
                                 </span>
                                 {!! $user->status == 'pending'
-                                ? '<span class="form-text text-center"><a href="' .
-                                            route('resendEmail') .
-                                            '" class="text-muted">Resend
+    ? '<span class="form-text text-center"><a href="' .
+        route('resendEmail') .
+        '" class="text-muted">Resend
                                         Activation
                                         Email.</a></span>'
-                                : '' !!}
+    : '' !!}
                             </div>
                         </div>
                     @endforeach

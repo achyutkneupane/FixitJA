@@ -30,7 +30,7 @@ class HomeController extends Controller
         return view(
             'pages.home',
             [
-                'loggedUser' => User::find(Auth::user()->id)->with('emails', 'phones'),
+                'loggedUser' => User::find(Auth::user()->id)->with('emails', 'phones')->first(),
                 'documents' => $documents,
                 'show_navbar' => true
             ]

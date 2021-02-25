@@ -79,7 +79,8 @@ class UserController extends Controller
     }
     public function profile()
     {
-        $user = User::find(Auth::user()->id)->with('emails', 'phones');
+        $user = User::with('emails', 'phones')->find(Auth::user()->id)->first();
+
         return view('pages.profile', compact('user'));
     }
     public function show($id)
@@ -87,17 +88,17 @@ class UserController extends Controller
         if (User::find($id) == Auth::user()) {
             return redirect()->route('viewProfile');
         }
-        $user = User::find(Auth::user()->id)->with('emails', 'phones');
+        $user = User::with('emails', 'phones')->find($id);
         return view('pages.profile', compact('user'));
     }
     public function index()
     {
-        $users = User::all()->with('emails', 'phones');
+        $users = User::with('emails', 'phones')->get();
         return view('admin.profile.users', compact('users'));
     }
     public function security()
     {
-        $user = User::find(Auth::user()->id)->with('emails', 'phones');
+        $user = User::with('emails', 'phones')->find(Auth::user()->id);
         return view('admin.profile.security', compact('user'));
     }
     public function viewSecurity($id)
@@ -105,7 +106,7 @@ class UserController extends Controller
         if (User::find($id) == Auth::user()) {
             return redirect()->route('accountSecurity');
         }
-        $user = User::find($id);
+        $user = User::with('emails', 'phones')->find($id);
         return view('admin.profile.security', compact('user'));
     }
     public function changePassword(Request $request)
@@ -123,14 +124,15 @@ class UserController extends Controller
     }
     public function addEmail(Request $request)
     {
-        $user = User::find($request->user)->with('emails');
+        $user = User::with('emails')->find($request->user);
         try {
-            $request->validate([
-                'email' => ['required', 'string', 'email', 'unique:users,email', 'max:255'],
+            $email = $request->validate([
+                'email' => ['required', 'string', 'email', 'unique:emails,email', 'max:255'],
             ]);
-            $user->emails()->create($request);
+            $user->emails()->create($email);
             return redirect()->back();
         } catch (Throwable $e) {
+            dd($e);
             LogHelper::store('Category', $e);
             return redirect()->back();
         }
