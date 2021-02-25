@@ -48,9 +48,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-  public function getCategory(Request $request){
+  public function getCategory(){
        $category = Category::with('sub_categories')->get();
-        return view('pages.createProfileWizard', compact('category'));
+
+       
+       
+       return view('pages.createProfileWizard', compact('category'));
 
     }
 

@@ -94,10 +94,10 @@ class UserController extends Controller
         $users = User::all();
         return view('admin.users', compact('users'));
     }
-   public function updateprofile1()
+     public function updateprofile1()
     {
-        $categories = Category::with('sub_categories')->get();
-        return view('pages.createProfileWizard')->with('categories', $categories);
+        
+        return view('pages.createProfileWizard');
     }
 
   
@@ -105,7 +105,8 @@ class UserController extends Controller
     public function getprofileImage(Request $request)
     {
         $document = Document::where('user_id', Auth::user()->id)->get();
-        return view('pages.createProfileWizard', compact('document'));
+        $category = Category::with('sub_categories')->get();
+        return view('pages.createProfileWizard', compact('document', 'category'));
     }
 
     public function uploadfile($file, $dir)

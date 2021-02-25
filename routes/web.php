@@ -64,26 +64,27 @@ Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 //Route for profile wizard
 Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->name('profileWizard');
+Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
 //Route::get('/profile/int/{id}', [App\Http\Controller\CategoryController::class, 'getCategory']);
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
 //Route for viewing all categories
 Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
+
+Route::get('/hello',  [App\Http\Controllers\CategoryController::class, 'getCategory']);
 //Route for the addding education qualification
 
 
-//Route for gettign education qualification
-//Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'getUserEducation'])->name('profileWizard'); 
+
 
 // for skilled worker
 
-Route::get('/profile/init', [App\Http\Controllers\CategoryController::class, 'getCategory']);
-Route::get('/profile/init/{id}', [App\Http\Controllers\CategoryController::class, 'getSubCategory']);
+
 
 Route::get('/addeducation', [App\Http\Controllers\UserController::class, 'addeducation']);
 
-Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage']);
+
 
 
 

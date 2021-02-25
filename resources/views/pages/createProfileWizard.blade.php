@@ -213,42 +213,152 @@
                                     <h3 class="mb-10 font-weight-bold text-dark">Enter your up to 3 categories</h3>
                                     <!--begin::Select-->
                                     <div class="card-body">
-												<!--begin::Accordion-->
-												<div class="accordion accordion-solid accordion-toggle-plus" id="accordionExample3">
-													<div class="card">
-														<div class="card-header" id="headingOne3">
-															<div class="card-title" data-toggle="collapse" data-target="#collapseOne3">Category1</div>
-														</div>
-														<div id="collapseOne3" class="collapse show" data-parent="#accordionExample3">
-															<div class="card-body">
-                                                               </div>
-														</div>
-													</div>
-													<div class="card" id="card_two">
-														<div class="card-header" id="headingTwo3">
-															<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo3">Catgeory 2</div>
-														</div>
-														<div id="collapseTwo3" class="collapse" data-parent="#accordionExample3">
-															<div class="card-body"></div>
-														</div>
-													</div>
-													<div class="card" id ="card_three">
-														<div class="card-header" id="headingThree3">
-															<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree3">Category</div>
-														</div>
-														<div id="collapseThree3" class="collapse" data-parent="#accordionExample3">
-															<div class="card-body"></div>
-														</div>
-													</div>
-												</div>
+                                        <!--begin::Accordion-->
+                                        <div class="accordion accordion-solid accordion-toggle-plus"
+                                            id="accordionExample3">
+                                            <div class="card">
+                                                <div class="card-header" id="headingOne3">
+                                                    <div class="card-title" data-toggle="collapse"
+                                                        data-target="#collapseOne3">Category1</div>
+                                                </div>
+                                                <div id="collapseOne3" class="collapse show"
+                                                    data-parent="#accordionExample3">
+                                                    <div class="card-body">
+                                                        <div class="form-group fv-plugins-icon-container">
+                                                            <label>Category</label>
 
-                                   
-                                        
-                                        
+
+
+                                                            <select name="skills_category" id="selected_catgeory1"
+                                                                class="form-control form-control-solid form-control-lg">
+                                                                <option value="">Select Category </option>
+                                                                @foreach ($category as $cate)
+                                                                <option value="{{ $cate->name }}">{{ $cate->name }}
+                                                                </option>
+                                                                @endforeach
+
+                                                            </select>
+
+
+                                                            <div class="fv-plugins-message-container"></div>
+
+                                                        </div>
+                                                        <!--end::Select-->
+                                                        <!--begin::Select-->
+                                                        <div class="form-group fv-plugins-icon-container">
+                                                            <label>Sub category</label>
+                                                            <div>
+                                                                <input id="kt_tagify_custom" class="form-control tagify"
+                                                                    name="sub_categories"
+                                                                    placeholder="Add sub-categories">
+                                                                <div class="mt-3 text-muted">Select multiple
+                                                                    subcategories. If you don't see
+                                                                    your option just create one.</div>
+                                                            </div>
+                                                            <div class="fv-plugins-message-container"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card" id="card_two">
+                                                <div class="card-header" id="headingTwo3">
+                                                    <div class="card-title collapsed" data-toggle="collapse"
+                                                        data-target="#collapseTwo3">Catgeory 2</div>
+                                                </div>
+                                                <div id="collapseTwo3" class="collapse"
+                                                    data-parent="#accordionExample3">
+                                                    <div class="card-body">
+                                                        <div class="form-group fv-plugins-icon-container">
+                                                            <label>Category</label>
+
+
+
+                                                            <select name="skills_category" id="selected_catgeory2"
+                                                                class="form-control form-control-solid form-control-lg">
+                                                                <option value="">Select Category </option>
+                                                                @foreach ($category as $cate)
+                                                                <option value="{{ $cate->name }}">{{ $cate->name }}
+                                                                </option>
+                                                                @endforeach
+
+                                                            </select>
+
+
+                                                            <div class="fv-plugins-message-container"></div>
+
+                                                        </div>
+                                                        <!--end::Select-->
+                                                        <!--begin::Select-->
+                                                        <div class="form-group fv-plugins-icon-container">
+                                                            <label>Sub category</label>
+                                                            <div>
+                                                                <input id="kt_tagify_custom" class="form-control tagify"
+                                                                    name="sub_categories"
+                                                                    placeholder="Add sub-categories">
+                                                                <div class="mt-3 text-muted">Select multiple
+                                                                    subcategories. If you don't see
+                                                                    your option just create one.</div>
+                                                            </div>
+                                                            <div class="fv-plugins-message-container"></div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card" id="card_three">
+                                                <div class="card-header" id="headingThree3">
+                                                    <div class="card-title collapsed" data-toggle="collapse"
+                                                        data-target="#collapseThree3">Category</div>
+                                                </div>
+                                                <div id="collapseThree3" class="collapse"
+                                                    data-parent="#accordionExample3">
+                                                    <div class="card-body">
+                                                        <div class="form-group fv-plugins-icon-container">
+                                                            <label>Category</label>
+
+
+
+                                                            <select name="skills_category" id="selected_catgeory3"
+                                                                class="form-control form-control-solid form-control-lg">
+                                                                <option value="">Select Category </option>
+                                                                @foreach ($category as $cate)
+                                                                <option value="{{ $cate->name }}">{{ $cate->name }}
+                                                                </option>
+                                                                @endforeach
+
+                                                            </select>
+
+
+                                                            <div class="fv-plugins-message-container"></div>
+
+                                                        </div>
+                                                        <!--end::Select-->
+                                                        <!--begin::Select-->
+                                                        <div class="form-group fv-plugins-icon-container">
+                                                            <label>Sub category</label>
+                                                            <div>
+                                                                <input id="kt_tagify_custom" class="form-control tagify"
+                                                                    name="sub_categories"
+                                                                    placeholder="Add sub-categories">
+                                                                <div class="mt-3 text-muted">Select multiple
+                                                                    subcategories. If you don't see
+                                                                    your option just create one.</div>
+                                                            </div>
+                                                            <div class="fv-plugins-message-container"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
                                         <button type="button" name="add" id="add_btn" class="btn btn-success">Add
                                             More</button>
 
-                                           
+
 
 
 
@@ -275,11 +385,25 @@
                                                 <div class="card">
                                                     <div class="card-header" id="headingOne3">
                                                         <div class="card-title" data-toggle="collapse"
-                                                            data-target="#collapseOne3"></div>
+                                                            data-target="#collapseOne3" id="selectcategory">
+                                                            <p id="sc1"></p>
+                                                        </div>
                                                     </div>
                                                     <div id="collapseOne3" class="collapse show"
                                                         data-parent="#accordionExample3">
                                                         <div class="card-body">
+                                                            <div class="form-group row">
+												<label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Certificate</label>
+												<div class="col-lg-4 col-md-9 col-sm-12">
+													<div class="dropzone dropzone-default dropzone-primary" id="kt_dropzone_2">
+														<div class="dropzone-msg dz-message needsclick">
+															<h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
+															<span class="dropzone-msg-desc">Upload up to 10 files</span>
+														</div>
+													</div>
+												</div>
+											</div>
+                                                            
                                                             <div class="form-group">
                                                                 <label
                                                                     class="font-size-h6 font-weight-bolder text-dark">Expereince</label>
@@ -297,11 +421,24 @@
                                                 <div class="card">
                                                     <div class="card-header" id="headingTwo3">
                                                         <div class="card-title collapsed" data-toggle="collapse"
-                                                            data-target="#collapseTwo3">Category B</div>
+                                                            data-target="#collapseTwo3">
+                                                            <p id="sc2"></p>
+                                                        </div>
                                                     </div>
                                                     <div id="collapseTwo3" class="collapse"
                                                         data-parent="#accordionExample3">
                                                         <div class="card-body">
+                                                              <div class="form-group row">
+												<label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Certificate</label>
+												<div class="col-lg-4 col-md-9 col-sm-12">
+													<div class="dropzone dropzone-default dropzone-primary" id="kt_dropzone_2">
+														<div class="dropzone-msg dz-message needsclick">
+															<h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
+															<span class="dropzone-msg-desc">Upload up to 10 files</span>
+														</div>
+													</div>
+												</div>
+											</div>
                                                             <div class="form-group">
                                                                 <label
                                                                     class="font-size-h6 font-weight-bolder text-dark">Expereince</label>
@@ -319,11 +456,24 @@
                                                 <div class="card">
                                                     <div class="card-header" id="headingThree3">
                                                         <div class="card-title collapsed" data-toggle="collapse"
-                                                            data-target="#collapseThree3">Catgeory C</div>
+                                                            data-target="#collapseThree3">
+                                                            <p id="sc3"></p>
+                                                        </div>
                                                     </div>
                                                     <div id="collapseThree3" class="collapse"
                                                         data-parent="#accordionExample3">
                                                         <div class="card-body">
+                                                              <div class="form-group row">
+												<label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Certificate</label>
+												<div class="col-lg-4 col-md-9 col-sm-12">
+													<div class="dropzone dropzone-default dropzone-primary" id="kt_dropzone_2">
+														<div class="dropzone-msg dz-message needsclick">
+															<h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
+															<span class="dropzone-msg-desc">Upload up to 10 files</span>
+														</div>
+													</div>
+												</div>
+											</div>
                                                             <div class="form-group">
                                                                 <label
                                                                     class="font-size-h6 font-weight-bolder text-dark">Expereince</label>
@@ -458,7 +608,7 @@
                     <!--end::Wizard Step 3-->
 
                     <div class="pb-5" data-wizard-type="step-content">
-                        <h4 class="mb-10 font-weight-bold text-dark">Upload certificate for each selected
+                        <h4 class="mb-10 font-weight-bold text-dark">Reference certificate for each selected
                             skills category</h4>
                         <!--begin::Input-->
 
@@ -472,10 +622,22 @@
                                     <div class="card">
                                         <div class="card-header" id="headingOne3">
                                             <div class="card-title" data-toggle="collapse" data-target="#collapseOne3">
-                                                category A</div>
+                                                <p id="sct1">
+                                            </div>
                                         </div>
                                         <div id="collapseOne3" class="collapse show" data-parent="#accordionExample3">
                                             <div class="card-body">
+                                                  <div class="form-group row">
+												<label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Certificate</label>
+												<div class="col-lg-4 col-md-9 col-sm-12">
+													<div class="dropzone dropzone-default dropzone-primary" id="kt_dropzone_2">
+														<div class="dropzone-msg dz-message needsclick">
+															<h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
+															<span class="dropzone-msg-desc">Upload up to 10 files</span>
+														</div>
+													</div>
+												</div>
+											</div>
                                                 <div class="form-group">
                                                     <label
                                                         class="font-size-h6 font-weight-bolder text-dark">Expereince</label>
@@ -492,10 +654,23 @@
                                     <div class="card">
                                         <div class="card-header" id="headingTwo3">
                                             <div class="card-title collapsed" data-toggle="collapse"
-                                                data-target="#collapseTwo3">Category B</div>
+                                                data-target="#collapseTwo3">
+                                                <p id="sct2">
+                                            </div>
                                         </div>
                                         <div id="collapseTwo3" class="collapse" data-parent="#accordionExample3">
                                             <div class="card-body">
+                                                  <div class="form-group row">
+												<label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Certificate</label>
+												<div class="col-lg-4 col-md-9 col-sm-12">
+													<div class="dropzone dropzone-default dropzone-primary" id="kt_dropzone_2">
+														<div class="dropzone-msg dz-message needsclick">
+															<h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
+															<span class="dropzone-msg-desc">Upload up to 10 files</span>
+														</div>
+													</div>
+												</div>
+											</div>
                                                 <div class="form-group">
                                                     <label
                                                         class="font-size-h6 font-weight-bolder text-dark">Expereince</label>
@@ -512,10 +687,23 @@
                                     <div class="card">
                                         <div class="card-header" id="headingThree3">
                                             <div class="card-title collapsed" data-toggle="collapse"
-                                                data-target="#collapseThree3">Catgeory C</div>
+                                                data-target="#collapseThree3">
+                                                <p id="sct3">
+                                            </div>
                                         </div>
                                         <div id="collapseThree3" class="collapse" data-parent="#accordionExample3">
                                             <div class="card-body">
+                                                  <div class="form-group row">
+												<label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Certificate</label>
+												<div class="col-lg-4 col-md-9 col-sm-12">
+													<div class="dropzone dropzone-default dropzone-primary" id="kt_dropzone_2">
+														<div class="dropzone-msg dz-message needsclick">
+															<h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
+															<span class="dropzone-msg-desc">Upload up to 10 files</span>
+														</div>
+													</div>
+												</div>
+											</div>
                                                 <div class="form-group">
                                                     <label
                                                         class="font-size-h6 font-weight-bolder text-dark">Expereince</label>
@@ -665,8 +853,12 @@
                                 <div class="image-input" id="kt_image_2">
                                     <div class="image-input-wrapper" style="">
                                         <img src="
-                                                   
-                                                " alt="User" class="rounded-circle object-fit-scale-down" width="150"
+                                                    @if(!is_null($document->where('type','profile_picture')->first()))
+                                                    {{ asset('storage/'.$document->where('type','profile_picture')->first()->path)}}
+                                                    @else
+                                                    {{asset('images/unknown-avatar.png') }}
+                                                    @endif
+                                                " alt="Admin" class="rounded-circle object-fit-scale-down" width="150"
                                             height="150">
                                     </div>
                                     <label
@@ -813,8 +1005,8 @@
     $(".navbar-marketing").addClass("navbar-scrolled");
     $(".navbar-marketing").removeClass("fixed-top");
 
-     document.getElementById("card_two").style.display = "none";
-     document.getElementById("card_three").style.display = "none";
+    document.getElementById("card_two").style.display = "none";
+    document.getElementById("card_three").style.display = "none";
 
 </script>
 @endsection
