@@ -92,7 +92,7 @@
                             </td>
                             <td>{{ $user->status }}</td>
                             <td>{{ $user->type }}</td>
-                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->emails()->where('primary', true)->get() }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>{!! !empty($user->city->name) ? $user->city->name : "<span class='text-muted'>N/A</span>"
                                 !!}</td>

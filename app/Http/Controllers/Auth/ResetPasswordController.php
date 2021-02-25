@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Email;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -37,9 +38,9 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-    }  
+    }
 
-  
+
 
 
     public function getPassword($token)
@@ -52,7 +53,7 @@ class ResetPasswordController extends Controller
     {
 
         $request->validate([
-            'email' => 'required|email|exists:users',
+            'email' => 'required|email|exists:emails',
             'password' => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required',
 
@@ -64,12 +65,11 @@ class ResetPasswordController extends Controller
 
         if (!$updatePassword)
             return back()->withInput()->with('error', 'Invalid token!');
-        $user = User::where('email', $request->email)
-            ->update(['password' => Hash::make($request->password)]);
+        Email::where('email', $request->email)->first()
+            ->user->update(['password' => Hash::make($request->password)]);
 
         DB::table('password_resets')->where(['email' => $request->email])->delete();
 
         return redirect('/login')->with('message', 'Your password has been changed!');
     }
-
 }

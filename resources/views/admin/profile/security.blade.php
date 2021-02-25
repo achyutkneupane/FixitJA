@@ -7,10 +7,11 @@
     $profileAccountIsActive = 'true';
     @endphp
     <div class="row">
-
         @include('admin.profile.userSideBar', $user)
         <div class="col-lg-8">
             <div class="card card-custom">
+
+                @onlyForRespectiveUser($user->id)
                 <div class="card-header">
                     <div class="card-title">
                         <h3 class="card-label">
@@ -18,6 +19,8 @@
                         </h3>
                     </div>
                 </div>
+                {{-- Change Password --}}
+
                 <div class="card-body">
                     <form action="{{ route('changePassword') }}" method="POST" id="changePassword">
                         @csrf
@@ -51,6 +54,10 @@
                         </div>
                     </form>
                 </div>
+
+                @endonlyForRespectiveUser
+                {{-- Change or add email --}}
+
                 <div class="card-header">
                     <div class="card-title">
                         <h3 class="card-label">
@@ -60,7 +67,7 @@
                     @isVerified
                     <div class="card-toolbar">
                         <a href="#" class="btn btn-sm btn-primary font-weight-bold" data-toggle="modal"
-                            data-target="#addEmail">
+                            data-target="#addEmailModal">
                             Add Email
                         </a>
                     </div>
@@ -68,13 +75,13 @@
                 </div>
                 <div class="card-body">
 
-                    @foreach ($user->getEmails() as $email)
-                        @if ($loop->first)
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-lg-3 col-form-label">Email: </label>
-                                <div class="col-lg-9 col-xl-6">
-                                    <span class="form-control form-control-lg form-control-solid">
-                                        {{ $email }}
+                    @foreach ($user->emails()->get() as $email)
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label">Email: </label>
+                            <div class="col-lg-9 col-xl-9">
+                                <span class="form-control form-control-lg form-control-solid">
+                                    {{ $email }}
+                                    @if ($email->primary == true)
                                         {!! $user->status == 'pending'
                                         ? '
                                         <span class="label label-warning label-pill label-inline mr-2 float-right">Not
@@ -83,34 +90,46 @@
                                         <span
                                             class="label label-success label-pill label-inline mr-2 float-right">Verified</span>'
                                         !!}
-                                    </span>
-                                    {!! $user->status == 'pending'
-                                    ? '<span class="form-text text-center"><a href="' .
-                                                route('resendEmail') .
-                                                '" class="text-muted">Resend
-                                            Activation
-                                            Email.</a></span>'
-                                    : '' !!}
-                                </div>
+                                    @endif
+                                </span>
+                                {!! $user->status == 'pending'
+                                ? '<span class="form-text text-center"><a href="' .
+                                            route('resendEmail') .
+                                            '" class="text-muted">Resend
+                                        Activation
+                                        Email.</a></span>'
+                                : '' !!}
                             </div>
-                        @else
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-lg-3 col-form-label"></label>
-                                <div class="col-lg-9 col-xl-6">
-                                    <span class="form-control form-control-lg form-control-solid">
-                                        {{ $email }}
-                                    </span>
-                                </div>
-                            </div>
-                        @endif
+                        </div>
                     @endforeach
                 </div>
+
+                {{-- Account Setting --}}
+                @onlyForRespectiveUser($user->id)
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <a href="{{ route('deactivateUser') }}">
+                                Deactivate your account
+                            </a>
+                        </div>
+                        <div class="col-12">
+                            <a href="{{ route('deleteUser') }}">
+                                Delete your account
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                @endonlyForRespectiveUser
             </div>
         </div>
     </div>
-    <div class="modal fade" id="addEmail" data-backdrop="static" tabindex="-1" role="dialog"
+
+    @isVerified
+    <div class="modal fade" id="addEmailModal" data-backdrop="static" tabindex="-1" role="dialog"
         aria-labelledby="staticBackdrop" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addEmail">Add Email Address</h5>
@@ -125,6 +144,7 @@
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 col-form-label">Email Address: </label>
                             <div class="col-lg-9 col-xl-9">
+                                <input type="hidden" name="user" value="{{ $user->id }}">
                                 <input type="email" class="form-control form-control-lg form-control-solid"
                                     placeholder="Email Address" name="email" required>
                             </div>
@@ -137,6 +157,7 @@
             </div>
         </div>
     </div>
+    @endisVerified
 @endsection
 
 {{-- Scripts Section --}}

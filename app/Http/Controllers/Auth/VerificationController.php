@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Helpers\ToastHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MailController;
+use App\Models\Email;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Carbon\Carbon;
@@ -47,36 +48,43 @@ class VerificationController extends Controller
     }
     public function resend()
     {
-        $user = Auth::user();
+        $user = User::find(Auth::user()->id);
         if ($user->status == "pending") {
             return view('auth.resendemail', compact('user'));
         } else {
             return redirect()->route('home');
         }
     }
-    public function resendVerifyEmail(Request $request)
+    public function resendVerifyEmail($email)
     {
-        $user = Auth::user();
+        $user = User::find(Auth::user()->id);
         if ($user != null) {
-            MailController::sendVerifyEmail($user->name, $user->email, $user->verification_code);
+            MailController::sendVerifyEmail($user->name, $email, $user->verification_code);
             ToastHelper::showToast('Verification email sent successfully.');
             return redirect()->route('home');
         }
         return redirect()->route('resendEmail')->with(session()->flash('alert-danger', 'Something went wrong!'));
     }
-    public function verifyUser($verification_code)
+    public function verifyUser($verification_code, $email)
     {
         $user = User::where(['verification_code' => $verification_code])->first();
-        if ($user != null) {
+        $checkEmail = Email::where(['user_id' => $user->id, 'email' => $email])->first();
+        if (!empty($checkEmail)) {
+            ToastHelper::showToast('Email not matched with account', 'error');
+        } elseif ($user != null) {
             $user->status = 'active';
             $user->email_verified_at =  Carbon::now();
             $user->save();
+            foreach ($user->emails()->get() as $email) {
+                $email->update(['primary' => false]);
+            }
+            $checkEmail->update(['primary' => true]);
             ToastHelper::showToast('Account has been verified');
             if (!empty(Auth::user()))
                 return redirect()->route('home');
             else
                 return redirect()->route('login');
-        }
-        return redirect()->route('login')->with(session()->flash('alert-danger', 'Invalid verification code!'));
+        } else
+            return redirect()->route('login')->with(session()->flash('alert-danger', 'Invalid verification code!'));
     }
 }

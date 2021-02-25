@@ -18,28 +18,26 @@ use function GuzzleHttp\Promise\all;
 
 class UserController extends Controller
 {
-
-
     public function update(User $user)
     {
         $user = new User();
-        $user = Auth::user();
+        $user = User::find(auth()->id());
         if (request('password')) {
             request()->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user)],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('emails')],
                 'password' => ['string', 'min:8'],
                 'old_password' => ['required'],
-                'phone' => ['required', 'numeric', 'min:8', Rule::unique('users')->ignore($user)],
-                'profile_image' => ['mimes:jpeg,png,gif', 'max:4096', 'file'],
+                'phone' => ['required', 'numeric', 'min:8', Rule::unique('phones')],
+                'profile_image' => ['mimes:jpeg,png,gif,jpg', 'max:4096', 'file'],
             ]);
         } else
             request()->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user)],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('emails')],
                 'old_password' => ['required'],
-                'phone' => ['required', 'numeric', 'min:8', Rule::unique('users')->ignore($user)],
-                'profile_image' => ['mimes:jpeg,png,gif', 'max:4096', 'file'],
+                'phone' => ['required', 'numeric', 'min:8', Rule::unique('phones')],
+                'profile_image' => ['mimes:jpeg,png,gif,jpg', 'max:4096', 'file'],
             ]);
 
         if (Hash::check(request('old_password'), Auth::user()->password)) {
@@ -49,10 +47,16 @@ class UserController extends Controller
             $user->update(
                 [
                     'name' => request('name'),
-                    'email' => request('email'),
-                    'phone' => request('phone'),
                 ]
             );
+            $user->emails()->update([
+                'email' => request('email'),
+                'primary' => true
+            ]);
+            $user->phones()->update([
+                'email' => request('phone'),
+                'primary' => true
+            ]);
 
             if (request('profile_image')) {
                 $tempPath = "";
@@ -75,7 +79,7 @@ class UserController extends Controller
     }
     public function profile()
     {
-        $user = User::find(Auth::user()->id);
+        $user = User::find(Auth::user()->id)->with('emails', 'phones');
         return view('pages.profile', compact('user'));
     }
     public function show($id)
@@ -83,22 +87,30 @@ class UserController extends Controller
         if (User::find($id) == Auth::user()) {
             return redirect()->route('viewProfile');
         }
-        $user = User::find($id);
+        $user = User::find(Auth::user()->id)->with('emails', 'phones');
         return view('pages.profile', compact('user'));
     }
     public function index()
     {
-        $users = User::all();
+        $users = User::all()->with('emails', 'phones');
         return view('admin.profile.users', compact('users'));
     }
     public function security()
     {
-        $user = User::find(Auth::user()->id);
+        $user = User::find(Auth::user()->id)->with('emails', 'phones');
+        return view('admin.profile.security', compact('user'));
+    }
+    public function viewSecurity($id)
+    {
+        if (User::find($id) == Auth::user()) {
+            return redirect()->route('accountSecurity');
+        }
+        $user = User::find($id);
         return view('admin.profile.security', compact('user'));
     }
     public function changePassword(Request $request)
     {
-        $user = Auth::user();
+        $user = User::find(auth()->id());
         if (!Hash::check($request->old_password, $user->password)) {
             ToastHelper::showToast("Old Password doesn't match.", "error");
             return redirect()->route('accountSecurity')->withInput($request->input());
@@ -111,19 +123,40 @@ class UserController extends Controller
     }
     public function addEmail(Request $request)
     {
-        $user = User::find(Auth::user()->id);
+        $user = User::find($request->user)->with('emails');
         try {
             $request->validate([
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')],
+                'email' => ['required', 'string', 'email', 'unique:users,email', 'max:255'],
             ]);
-            $old = $user->email;
-            $new = $old . ':' . $request->email;
-            $user->email = $new;
-            $user->save();
-            return redirect()->route('accountSecurity');
+            $user->emails()->create($request);
+            return redirect()->back();
         } catch (Throwable $e) {
             LogHelper::store('Category', $e);
-            return redirect()->route('accountSecurity');
+            return redirect()->back();
         }
+    }
+    public function deactivateUser()
+    {
+        $user = User::find(auth()->id());
+        $user->status = "deactivated";
+        $user->save();
+        ToastHelper::showToast('Account successfully deactivated.');
+        return redirect()->route('logout');
+    }
+    public function deleteUser()
+    {
+        $user = User::find(auth()->id());
+        $user->status = "deleted";
+        $user->save();
+        ToastHelper::showToast('Account successfully deleted.');
+        return redirect()->route('logout');
+    }
+    public function changeStatus(Request $request)
+    {
+        $user = User::find($request->user);
+        $user->status = $request->status;
+        $user->save();
+        ToastHelper::showToast('User Status Changed.');
+        return redirect()->back();
     }
 }

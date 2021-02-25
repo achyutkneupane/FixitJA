@@ -38,4 +38,16 @@ class LogHelper
             session()->flash('toast', ['class' => 'error', 'message' => $e->getMessage()]);
         }
     }
+    static public function storeMessage($module, $message, $user)
+    {
+        $error = new ErrorLog;
+        $error->found_by = $user->id;
+        $error->module = $module;
+        $error->url = url()->current();
+        $error->ip = Request::ip();
+        $error->user_agent = Request::userAgent();
+        $error->title = "Custom Error";
+        $error->description = $message;
+        $error->save();
+    }
 }

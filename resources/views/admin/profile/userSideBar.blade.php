@@ -16,6 +16,12 @@
                 <div class="text-muted mb-2">{{ $user->userType() }}</div>
                 <span
                     class="label label-light-{{ $user->userStatus()['class'] }} label-inline font-weight-bold label-lg">{{ $user->userStatus()['name'] }}</span>
+                <br>
+                @isAdmin
+                <a href="#" class="font-weight-bold" data-toggle="modal" data-target="#changeUserStatus">
+                    Change Status
+                </a>
+                @endisAdmin
             </div>
             <!--end::User-->
             <!--begin::Contact-->
@@ -35,24 +41,62 @@
             <a href="{{ Auth::user()->id === $user->id ? route('viewProfile') : route('viewUser', $user->id) }}"
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileIsActive) ? 'active' : '' }}">User
                 Information</a>
-            @isAdminOrContractor
-            <a href="#"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileDocumentIsActive) ? 'active' : '' }}">User
-                Documents</a>
-            @endisAdminOrContractor
-            <a href="{{ route('accountSecurity') }}"
+            @if ($user->type == 'admin' || $user->type == 'individual_contractor')
+                <a href="#"
+                    class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileDocumentIsActive) ? 'active' : '' }}">User
+                    Documents</a>
+            @endif
+            <a href="{{ Auth::user()->id === $user->id ? route('accountSecurity') : route('viewAccountSecurity', $user->id) }}"
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileAccountIsActive) ? 'active' : '' }}">Account
                 Settings</a>
-            @isAdminOrContractor
-            <a href="#"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profilePaymentIsActive) ? 'active' : '' }}">Payment
-                Details</a>
-            <a href="#"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileReferenceIsActive) ? 'active' : '' }}">References</a>
-            @endisAdminOrContractor
+            @if ($user->type == 'admin' || $user->type == 'individual_contractor')
+                <a href="#"
+                    class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profilePaymentIsActive) ? 'active' : '' }}">Payment
+                    Details</a>
+                <a href="#"
+                    class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileReferenceIsActive) ? 'active' : '' }}">References</a>
+
+            @endif
             <!--end::Nav-->
         </div>
         <!--end::Body-->
     </div>
     <!--end::Card-->
 </div>
+@isAdmin
+<div class="modal fade" id="changeUserStatus" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeUserStatus">Change User Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <form action="{{ route('changeStatus') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Status: </label>
+                        <div class="col-lg-9 col-xl-9">
+                            <input type="hidden" name="user" value="{{ $user->id }}">
+                            <select class="form-control selectpicker" name="status">
+                                <option value="active">Active</option>
+                                <option value="suspended">Suspend</option>
+                                <option value="blocked">Block</option>
+                                <option value="deactivated">Deactivate</option>
+                                <option value="deleted">Delete</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-light-primary font-weight-bold" value="Change">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endisAdmin
