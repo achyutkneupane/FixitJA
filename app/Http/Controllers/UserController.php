@@ -8,6 +8,7 @@ use App\Models\Document;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Controllers\MailController;
 use App\Models\Education;
 use App\Models\EducationUser;
 use App\Models\Skill;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use DB;
 use Throwable;
 
@@ -123,27 +125,30 @@ class UserController extends Controller
             $user  = User::find(Auth::user()->id);
             $request->validate([
                 'skills_category' => ['required'],
-                'certificate' => ['nullable'],
+                'certificate' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
                 'expereince'  => ['required'],
                 'educationinstutional_name' => ['required'],
                 'degree'  => ['required'],
-                'startdate' => ['required'],
-                'enddate'   =>['required'],
+                'start_date' => ['required'],
+                'end_date'   =>['required'],
                 'gpa' => ['required'],
-                'police_report' => ['required'],
+                'reference' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
+                'police_report' => ['nullable'],
                 'personal_description' => ['required'],
-                'hrs-per_weeks' => ['required'],
-                'working_days' => ['required'],
-                'long_distance' => ['required'],
-                'total distance' => ['required'],
+                'hours' => ['required'],
+                'working_days' => ['nullable'],
+                'long_distance' => ['nullable'],
+                'total distance' => ['nullable'],
                 'street' => ['required'],
-                'house_number' => ['required'],
+                'house_number' => ['nullable'],
                 'city' => ['required'],
-                'profile' => ['mimes:jpeg,png,gif', 'max:4096', 'file'],
+                'profile' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
 
             ]);
 
+             //dd($request->skills_category);
 
+            /* Uplaoding profile picture */
            if (request('profile')) {
                 $tempPath = "";
                 $document = new Document();
@@ -152,34 +157,113 @@ class UserController extends Controller
                     $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first()->path;
                 }
                 $document->path = request('profile')->store('profile');
-                dd(request('profile')->store('profile'));
+                //dd(request('profile')->store('profile'));
                 $document->type = 'profile_picture';
                 $document->user()->associate($user->id);
                 $document->save();
                 if ($tempPath)
                     Storage::delete($tempPath);
-            }
+            };
 
-          
+            //dd("hello");
 
+          /*Uploading certificate */
+          if (request('certificate'))
+          {
+              $tempPath1 = "";
+              $document = new Document();
+              if(!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first())){
+                  $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
+                  $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
+              }
+              $document->path = request('certificate')->store('certificate');
+              //dd(request('certificate')->store('certificate'));
+              $document->type = 'other';
+              $document->user()->associate($user->id);
+              $document->save();
+              if($tempPath1)
+                  Storage::delete($tempPath1);
+          };
+
+          /* uploading Referenece */
+          if (request('reference')){
+              $tempPath2 = "";
+              $document = new Document();
+              if(!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first())){
+                  $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first();
+                  $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first()->path;
+              }
+              $document->path = request('reference')->store('reference');
+              //dd(request('reference')->store('reference'));
+              $document->type = 'reference_letter';
+              $document->user()->associate($user->id);
+              $document->save();
+              if($tempPath2)
+              Storage::delete($tempPath2);
+
+          }
+           
             $skills = new Skill();
             $skills->name = $request->skills_category;
             $skills->save();
 
+            
+            $education = new Education();
+            $education->education_instution_name = $request->educationinstutional_name;
+            $education->degree = $request->degree;
+            $education->start_date = $request->start_date;
+            $education->end_date = $request->end_date;
+            $education->gpa = $request->gpa;
+            $education->save();
+
+            $education_user = new EducationUser();
+            $education_user->user_id = Auth::user()->id;
+            $education_user->education_id = $education->id;
+            $education_user->save(); 
+
             $user->areas_covering = $skills->id;
             $user->experience = $request->expereince;
-            $user->is_police_record = $request->input('police_report');
-            $user->is_travelling = $request->input('is_travelling');
+            if($request->police_report == "1")
+            {
+                $user->is_police_record = 1;
+
+            }
+            elseif($request->police_report == "0")
+            {
+                $user->is_police_record = 0;
+
+            }
+
+             if($request->is_travelling == "1")
+            {
+                $user->is_travelling = 1;
+
+            }
+            elseif($request->is_travelling == "0")
+            {
+                $user->is_travelling = 0;
+
+            }
+            //$user->is_police_record =  implode(',',$request->police_report);
+            //$user->is_travelling =  implode(',',$request->is_travelling);
+            
+           
             $user->hours = $request->hours;
+            //dd($request->working_days);
             $user->days = $request->working_days;
              $user->introduction = $request->personal_description;
             $user->street_01 = $request->street;
             $user->street_02 = $request->house_number;
-            //$user->city_id = $request->city;
+            $user->city_id = $request->city;
             $user->save();
+            Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function($m){
+                 $m->to(Auth::user()->email)
+          ->subject('Thnak you for submitting your details');
+            });
             return redirect('/profile');
         } catch (Throwable $e) {
-            LogHelper::store('User', $e);
+            
+            dd($e);
             return redirect()->route('profileWizard')->withInput();
         }
     }

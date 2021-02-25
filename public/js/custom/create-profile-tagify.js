@@ -1,7 +1,6 @@
 function bindSubCat(data){
-    var toEl = document.getElementById('kt_tagify_custom');
-     var  vals = data.map(function(a) { return A.val;});
-     console.log(vals)
+    var toEl = document.getElementById('kt_tagify_subcategory');
+     
     
      
     var tagifyTo = new Tagify(toEl, {
@@ -11,14 +10,40 @@ function bindSubCat(data){
         keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
         
        
-        whitelist: [
-            {
-               
-               "value":"ashish", id:1
-
-            },
+       whitelist: [
+                {
+                    value: 'Monday',
+                    initials: '',
+                    initialsState: '',
+                    pic: './assets/media/users/100_11.jpg',
+                    class: 'tagify__tag--primary'
+                }, {
+                    value: 'Tuesday',
+                    
+                    initials: 'SS',
+                    initialsState: 'warning',
+                    pic: ''
+                }, {
+                    value: 'Wesneday',
+                    
+                    initials: '',
+                    initialsState: '',
+                    pic: './assets/media/users/100_6.jpg'
+                }, {
+                    value: 'Thursday',
+                    
+                    initials: '',
+                    initialsState: '',
+                    pic: './assets/media/users/100_8.jpg'
+                }, {
+                    value: 'Friday',
+                
+                    initials: '',
+                    initialsState: '',
+                    pic: './assets/media/users/100_9.jpg'
+                }
             
-        ],
+                ],
         
         
         templates: {
@@ -65,7 +90,7 @@ function getSubCatData(categoryId){
 var subcategory = new Array();
 $.ajax({
             type: "GET",
-            url: '/profile/' + categoryId,
+            url: '/profile/init' + categoryId,
             dataType: 'json',
             success: function (result) {
                 $.each(result, function (i, item) {
