@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Event;
 use Illuminate\Support\Facades\Auth;
 use App\Events\UserRegistered;
+use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
 
 class RegisterController extends Controller
@@ -62,8 +63,8 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'phone' => ['required', 'string', 'min:8', 'unique:users,phone'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:emails,email'],
+            'phone' => ['required', 'string', 'min:8', 'unique:phones,phone'],
             /* Add by Ashish Pokhrel */
             'type' => Rule::in(['admin', 'individual_contractor', 'Business', 'general_user']),
             'gender' => ['nullable', 'string'],
@@ -79,24 +80,29 @@ class RegisterController extends Controller
 
 
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->gender = $request->gender;
-        $user->companyname = $request->companyname;
-        $user->type = $request->type;
-        $user->password = Hash::make($request->password);
-        $user->verification_code = sha1(time());
-        $user->save();
+        $user = User::create([
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'companyname' => $request->companyname,
+            'type' => $request->type,
+            'password' => Hash::make($request->password),
+            'verification_code' => sha1(time())
+        ]);
+        $user->emails()->create([
+            'email' => $request->email,
+            'primary' => true
+        ]);
+        $user->phones()->create([
+            'phone' => $request->phone,
+            'primary' => true
+        ]);
 
 
         // event(new UserRegistered($user));
         try {
-            MailController::sendVerifyEmail($user->name, $user->email, $user->verification_code);
+            MailController::sendVerifyEmail($user->name, $user->email(), $user->verification_code);
         } catch (\Throwable $t) {
-
-            dd($t);
+            LogHelper::store('Register', $t);
         }
         Auth::login($user);
         return redirect('/home');

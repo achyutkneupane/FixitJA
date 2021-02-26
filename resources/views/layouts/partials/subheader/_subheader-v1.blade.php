@@ -3,15 +3,6 @@
     <div
         class="{{ Metronic::printClasses('subheader-container', false) }} d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
 
-        {{-- Page Title --}}
-        <h5 class="text-dark font-weight-bold my-2 mr-5">
-            {{ @$page_title }}
-            @if (isset($page_description) && config('layout.subheader.displayDesc'))
-                <br>
-                <small class="text-muted">{!! @$page_description !!}</small>
-            @endif
-        </h5>
-
         {{-- Info --}}
         @php
             $currentuser = Auth::user();
@@ -20,6 +11,15 @@
             <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
                 <span></span>
             </button>
+            {{-- Page Title --}}
+            <h5 class="text-dark font-weight-bold my-2 mr-5">
+                {{ @$page_title }}
+                @if (isset($page_description) && config('layout.subheader.displayDesc'))
+                    <br>
+                    <small class="text-muted">{!! @$page_description !!}</small>
+                @endif
+            </h5>
+
             @if ($currentuser->status == 'pending')
                 <span class="font-weight-bold text-danger">
                     Your account is not activated yet.

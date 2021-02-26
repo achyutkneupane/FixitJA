@@ -92,10 +92,9 @@
                             </td>
                             <td>{{ $user->status }}</td>
                             <td>{{ $user->type }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->phone }}</td>
-                            <td>{!! !empty($user->city->name) ? $user->city->name : "<span class='text-muted'>N/A</span>"
-                                !!}</td>
+                            <td>{{ $user->getEmail($user->id) }}</td>
+                            <td>{{ $user->getPhone($user->id) }}</td>
+                            <td>{!! !empty($user->city->name) ? $user->city->name : "<span class='text-muted'>N/A</span>" !!}</td>
                         </tr>
                     @endforeach
                 </tbody>

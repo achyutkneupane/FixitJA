@@ -25,8 +25,6 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->unique()->phoneNumber,
             'gender' => $this->faker->randomElement($array = array('male', 'female', 'other')),
             'companyname' => $this->faker->company,
             'email_verified_at' => now(),

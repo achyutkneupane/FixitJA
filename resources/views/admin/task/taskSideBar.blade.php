@@ -47,11 +47,11 @@
                 Task Overview
             </a>
             <a href="{{ route('taskAssignedBy', $task->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block active">
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">
                 Assigned By
             </a>
             <a href="{{ route('taskAssignedTo', $task->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block active">
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">
                 Assigned To
             </a>
             <!--end::Nav-->
