@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             $table->text('introduction')->nullable();
            $table->boolean('is_police_record')->default('0');
             $table->boolean('is_travelling')->default('0');
-            $table->integer('days')->nullable();
+            $table->string('days')->nullable();
             $table->integer('hours')->nullable();
 
             $table->string('street_01')->nullable();

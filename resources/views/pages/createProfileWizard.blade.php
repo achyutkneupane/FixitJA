@@ -233,7 +233,7 @@
                                                                 class="form-control form-control-solid form-control-lg">
                                                                 <option value="">Select Category </option>
                                                                 @foreach ($category as $cate)
-                                                                <option value="{{ $cate->name }}">{{ $cate->name }}
+                                                                <option value="{{ $cate->id }}">{{ $cate->name }}
                                                                 </option>
                                                                 @endforeach
 
@@ -247,8 +247,8 @@
                                                         <!--begin::Select-->
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <label>Sub category</label>
-                                                            <div>
-                                                                <input id="kt_tagify_custom" class="form-control tagify"
+                                                             <div>
+                                                                <input id="kt_tagify_subcategory" class="form-control tagify"
                                                                     name="sub_categories"
                                                                     placeholder="Add sub-categories">
                                                                 <div class="mt-3 text-muted">Select multiple
@@ -277,7 +277,7 @@
                                                                 class="form-control form-control-solid form-control-lg">
                                                                 <option value="">Select Category </option>
                                                                 @foreach ($category as $cate)
-                                                                <option value="{{ $cate->name }}">{{ $cate->name }}
+                                                                <option value="{{ $cate->id }}">{{ $cate->name }}
                                                                 </option>
                                                                 @endforeach
 
@@ -292,7 +292,7 @@
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <label>Sub category</label>
                                                             <div>
-                                                                <input id="kt_tagify_custom" class="form-control tagify"
+                                                                <input id="kt_tagify_subcategory2" class="form-control tagify"
                                                                     name="sub_categories"
                                                                     placeholder="Add sub-categories">
                                                                 <div class="mt-3 text-muted">Select multiple
@@ -323,7 +323,7 @@
                                                                 class="form-control form-control-solid form-control-lg">
                                                                 <option value="">Select Category </option>
                                                                 @foreach ($category as $cate)
-                                                                <option value="{{ $cate->name }}">{{ $cate->name }}
+                                                                <option value="{{ $cate->id }}">{{ $cate->name }}
                                                                 </option>
                                                                 @endforeach
 
@@ -337,8 +337,8 @@
                                                         <!--begin::Select-->
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <label>Sub category</label>
-                                                            <div>
-                                                                <input id="kt_tagify_subcategory" class="form-control tagify"
+                                                             <div>
+                                                                <input id="kt_tagify_subcategory3" class="form-control tagify"
                                                                     name="sub_categories"
                                                                     placeholder="Add sub-categories">
                                                                 <div class="mt-3 text-muted">Select multiple
@@ -1218,9 +1218,9 @@
 {{-- Scripts Section --}}
 @section('scripts')
 <script src="{{ asset('js/custom/custom.js') }}" type="text/javascript"></script>
- <script src="{{ asset('js/custom/create-profile-wizard-custom.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/custom/create-profile-wizard-custom.js') }}" type="text/javascript"></script>
 
-    <script src="{{ asset('js/custom/create-profile-tagify.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/custom/create-profile-tagify.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
 <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>

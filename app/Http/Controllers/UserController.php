@@ -145,9 +145,8 @@ class UserController extends Controller
                 'profile' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
 
             ]);
-
-             //dd($request->skills_category);
-
+             
+            
             /* Uplaoding profile picture */
            if (request('profile')) {
                 $tempPath = "";
@@ -220,6 +219,7 @@ class UserController extends Controller
             $education_user->user_id = Auth::user()->id;
             $education_user->education_id = $education->id;
             $education_user->save(); 
+            
 
             $user->areas_covering = $skills->id;
             $user->experience = $request->expereince;
@@ -250,11 +250,13 @@ class UserController extends Controller
            
             $user->hours = $request->hours;
             //dd($request->working_days);
-            $user->days = $request->working_days;
+            //$tags = explode(" ,", $input['working_days'])
+            
+            $user->days = $request->input('working_days');
              $user->introduction = $request->personal_description;
             $user->street_01 = $request->street;
             $user->street_02 = $request->house_number;
-            $user->city_id = $request->city;
+            $user->city_id = 1;
             $user->save();
             Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function($m){
                  $m->to(Auth::user()->email)

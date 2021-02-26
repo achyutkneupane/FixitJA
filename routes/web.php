@@ -69,7 +69,8 @@ Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getpr
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
 
 
-//Route::get('/profile/init/{id}', [App\Http\Controller\CategoryController::class, 'getSubCategory']);
+
+Route::get('/profile/init/{id}', [App\Http\Controller\CategoryController::class, 'getSubCategory']);
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
 //Route for viewing all categories
