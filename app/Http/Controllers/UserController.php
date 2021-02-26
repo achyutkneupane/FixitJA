@@ -246,23 +246,18 @@ class UserController extends Controller
                 $user->is_travelling = 0;
 
             }
-            //$user->is_police_record =  implode(',',$request->police_report);
-            //$user->is_travelling =  implode(',',$request->is_travelling);
             
-            if($request->working_day)
-            {
-                $work_day = explode(",", $request->working_days);
-                foreach($work_day as $data)
-                {
-                   
-                }
-            }
-            
+            /* converting array */
+           $dayArray = array();
+           foreach (json_decode($request->working_days) as $days) {
+            array_push($dayArray, $days->value);
+        }
+            //dd(implode(',',$dayArray));
            
             $user->hours = $request->hours;
 
-            $user->days = $request->input('working_days');
-            dd($request->input('working_days'));
+            $user->days = implode(',',$dayArray) ;
+            
              $user->introduction = $request->personal_description;
             $user->street_01 = $request->street;
             $user->street_02 = $request->house_number;

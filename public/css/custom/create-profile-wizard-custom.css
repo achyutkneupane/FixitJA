@@ -183,8 +183,8 @@
 
 @media (min-width: 768px) and (max-width: 1199.98px) {
     .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step .wizard-label {
-        margin-left: 1.5rem;
-        margin-right: 1.5rem;
+        margin-left: 0rem;
+        margin-right: 0rem;
     }
     .wizard.wizard-1
         .wizard-nav

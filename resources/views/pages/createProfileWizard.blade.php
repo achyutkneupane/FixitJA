@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<div class="d-flex flex-column-fluid">
+<!-- <div class="d-flex flex-column-fluid"> -->
     <!--begin::Container-->
-    <div class="container">
+    <!-- <div class="container"> -->
         <div class="card card-custom">
             <div class="card-body p-0">
                 <!--begin::Wizard-->
@@ -217,7 +217,7 @@
                                         <div class="accordion accordion-solid accordion-toggle-plus"
                                             id="accordionExample3">
                                             <div class="card">
-                                                <div class="card-header" id="headingOne3">
+                                                <div class="card-header" id="headingOne3" id="removeRow">
                                                     <div class="card-title" data-toggle="collapse"
                                                         data-target="#collapseOne3">Category1</div>
                                                 </div>
@@ -247,20 +247,22 @@
                                                         <!--begin::Select-->
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <label>Sub category</label>
-                                                             <div>
-                                                                <input id="kt_tagify_subcategory" class="form-control tagify"
-                                                                    name="sub_categories"
+                                                            <div>
+                                                                <input id="kt_tagify_subcategory"
+                                                                    class="form-control" name="sub_categories"
                                                                     placeholder="Add sub-categories">
                                                                 <div class="mt-3 text-muted">Select multiple
                                                                     subcategories. If you don't see
                                                                     your option just create one.</div>
                                                             </div>
-                                                            <div class="fv-plugins-message-container"></div>
+                                                            <div class="fv-plugins-message-container">
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card" id="card_two">
+                                            <div class="card" id="card_two" id="removeRow">
                                                 <div class="card-header" id="headingTwo3">
                                                     <div class="card-title collapsed" data-toggle="collapse"
                                                         data-target="#collapseTwo3">Catgeory 2</div>
@@ -283,7 +285,7 @@
 
                                                             </select>
 
-
+           
                                                             <div class="fv-plugins-message-container"></div>
 
                                                         </div>
@@ -292,21 +294,23 @@
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <label>Sub category</label>
                                                             <div>
-                                                                <input id="kt_tagify_subcategory2" class="form-control tagify"
-                                                                    name="sub_categories"
+                                                                <input id="kt_tagify_subcategory2"
+                                                                    class="form-control" name="sub_categories"
                                                                     placeholder="Add sub-categories">
                                                                 <div class="mt-3 text-muted">Select multiple
                                                                     subcategories. If you don't see
                                                                     your option just create one.</div>
                                                             </div>
+                                                            <div class="btn btn-danger" type="button" style="float:right;margin-bottom:3px;">Remove </div>
                                                             <div class="fv-plugins-message-container"></div>
+
                                                         </div>
 
 
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card" id="card_three">
+                                            <div class="card" id="card_three" id="removeRow">
                                                 <div class="card-header" id="headingThree3">
                                                     <div class="card-title collapsed" data-toggle="collapse"
                                                         data-target="#collapseThree3">Category</div>
@@ -337,15 +341,17 @@
                                                         <!--begin::Select-->
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <label>Sub category</label>
-                                                             <div>
-                                                                <input id="kt_tagify_subcategory3" class="form-control tagify"
-                                                                    name="sub_categories"
+                                                            <div>
+                                                                <input id="kt_tagify_subcategory3"
+                                                                    class="form-control" name="sub_categories"
                                                                     placeholder="Add sub-categories">
                                                                 <div class="mt-3 text-muted">Select multiple
                                                                     subcategories. If you don't see
                                                                     your option just create one.</div>
                                                             </div>
+                                                            <div class="btn btn-danger" type="button" style="float:right; margin-bottom:3px;">Remove </div>
                                                             <div class="fv-plugins-message-container"></div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -564,7 +570,7 @@
                                         <label class="font-size-h6 font-weight-bolder text-dark">Start Date</label>
 
                                         <div class="col-10">
-                                            <input class="form-control" type="date" value="" id="example-date-input"
+                                            <input class="form-control" type="date" value="" id="selectstartdate"
                                                 name="start_date" />
                                         </div>
                                         <!--end::Form Group-->
@@ -573,7 +579,7 @@
                                             <label class="font-size-h6 font-weight-bolder text-dark">End Date</label>
 
                                             <div class="col-10">
-                                                <input class="form-control" type="date" value="" id="example-date-input"
+                                                <input class="form-control" type="date" value="" id="selectenddate"
                                                     name="end_date" />
                                             </div>
                                             <!--end::Form Group-->
@@ -633,18 +639,37 @@
                                         </div>
                                         <div id="collapseOne3" class="collapse show" data-parent="#accordionExample3">
                                             <div class="card-body">
-                                                <div class="form-group row">
+                                                <div class="form-group">
                                                     <label
-                                                        class="col-form-label col-lg-3 col-sm-12 text-lg-right">Reference</label>
-                                                    <div class="col-lg-4 col-md-9 col-sm-12">
-                                                        <div class="dropzone dropzone-default dropzone-primary"
-                                                            id="kt_dropzone_2">
-                                                            <div class="dropzone-msg dz-message needsclick">
-                                                                <input type="file" name="reference"
-                                                                    accept=".png, .jpg, .jpeg, .pdf, .docx" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                        class="font-size-h6 font-weight-bolder text-dark">Name</label>
+                                                    <input type="email"
+                                                        class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
+                                                        name="email" placeholder="Email" value="{{old('email')}}" />
+                                                    @if ($errors->has('refname'))
+                                                    <span class="text-danger">{{ $errors->first('refname') }}</span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label
+                                                        class="font-size-h6 font-weight-bolder text-dark">Email</label>
+                                                    <input type="email"
+                                                        class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
+                                                        name="email" placeholder="Email" value="{{old('email')}}" />
+                                                    @if ($errors->has('refemail'))
+                                                    <span class="text-danger">{{ $errors->first('refemail') }}</span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label
+                                                        class="font-size-h6 font-weight-bolder text-dark">Phone</label>
+                                                    <input type="email"
+                                                        class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
+                                                        name="email" placeholder="Email" value="{{old('email')}}" />
+                                                    @if ($errors->has('refphone'))
+                                                    <span class="text-danger">{{ $errors->first('refphone') }}</span>
+                                                    @endif
                                                 </div>
 
                                             </div>
@@ -659,18 +684,37 @@
                                         </div>
                                         <div id="collapseTwo3" class="collapse" data-parent="#accordionExample3">
                                             <div class="card-body">
-                                                <div class="form-group row">
+                                                <div class="form-group">
                                                     <label
-                                                        class="col-form-label col-lg-3 col-sm-12 text-lg-right">Reference</label>
-                                                    <div class="col-lg-4 col-md-9 col-sm-12">
-                                                        <div class="dropzone dropzone-default dropzone-primary"
-                                                            id="kt_dropzone_2">
-                                                            <div class="dropzone-msg dz-message needsclick">
-                                                                <input type="file" name="reference"
-                                                                    accept=".png, .jpg, .jpeg, .pdf, .docx" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                        class="font-size-h6 font-weight-bolder text-dark">Name</label>
+                                                    <input type="email"
+                                                        class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
+                                                        name="email" placeholder="Email" value="{{old('email')}}" />
+                                                    @if ($errors->has('refname'))
+                                                    <span class="text-danger">{{ $errors->first('refname') }}</span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label
+                                                        class="font-size-h6 font-weight-bolder text-dark">Email</label>
+                                                    <input type="email"
+                                                        class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
+                                                        name="email" placeholder="Email" value="{{old('email')}}" />
+                                                    @if ($errors->has('refemail'))
+                                                    <span class="text-danger">{{ $errors->first('refemail') }}</span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label
+                                                        class="font-size-h6 font-weight-bolder text-dark">Phone</label>
+                                                    <input type="email"
+                                                        class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
+                                                        name="email" placeholder="Email" value="{{old('email')}}" />
+                                                    @if ($errors->has('refphone'))
+                                                    <span class="text-danger">{{ $errors->first('refphone') }}</span>
+                                                    @endif
                                                 </div>
 
                                             </div>
@@ -685,19 +729,37 @@
                                         </div>
                                         <div id="collapseThree3" class="collapse" data-parent="#accordionExample3">
                                             <div class="card-body">
-                                                <div class="form-group row">
+                                                <div class="form-group">
                                                     <label
-                                                        class="col-form-label col-lg-3 col-sm-12 text-lg-right">Reference</label>
-                                                    <div class="col-lg-4 col-md-9 col-sm-12">
-                                                        <div class="dropzone dropzone-default dropzone-primary"
-                                                            id="kt_dropzone_2">
-                                                            <div class="dropzone-msg dz-message needsclick">
-                                                                <input type="file" name="reference"
-                                                                    accept=".png, .jpg, .jpeg, .pdf, .docx" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                        class="font-size-h6 font-weight-bolder text-dark">Name</label>
+                                                    <input type="email"
+                                                        class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
+                                                        name="email" placeholder="Email" value="{{old('email')}}" />
+                                                    @if ($errors->has('refname'))
+                                                    <span class="text-danger">{{ $errors->first('refname') }}</span>
+                                                    @endif
+                                                </div>
 
+                                                <div class="form-group">
+                                                    <label
+                                                        class="font-size-h6 font-weight-bolder text-dark">Email</label>
+                                                    <input type="email"
+                                                        class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
+                                                        name="email" placeholder="Email" value="{{old('email')}}" />
+                                                    @if ($errors->has('refemail'))
+                                                    <span class="text-danger">{{ $errors->first('refemail') }}</span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label
+                                                        class="font-size-h6 font-weight-bolder text-dark">Phone</label>
+                                                    <input type="email"
+                                                        class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
+                                                        name="email" placeholder="Email" value="{{old('email')}}" />
+                                                    @if ($errors->has('refphone'))
+                                                    <span class="text-danger">{{ $errors->first('refphone') }}</span>
+                                                    @endif
                                                 </div>
 
                                             </div>
@@ -768,7 +830,7 @@
                             <div class="col-9 col-form-label">
                                 <div class="checkbox-inline">
 
-                                    <input id="kt_tagify_workingdays" class="form-control tagify" name="working_days"
+                                    <input id="kt_tagify_workingdays" class="form-control" name="working_days"
                                         placeholder="Add sub-categories">
                                     <div class="mt-3 text-muted">Select multiple days. If you don't see
                                         your option just create one.</div>
@@ -1203,14 +1265,14 @@
     </div>
     <!--end::Wizard-->
 </div>
-</div>
+<!-- </div> -->
 <!--end::Container-->
-</div>
+<!-- </div> -->
 @endsection
 
 {{-- Styles Section --}}
 @section('styles')
-<link href="{{ asset('css/custom/create-project-wizard-custom.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('css/custom/create-profile-wizard-custom.css') }}" rel="stylesheet" type="text/css" />
 
 
 

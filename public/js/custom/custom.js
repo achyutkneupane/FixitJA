@@ -43,12 +43,20 @@ $(document).ready(function () {
 
     });
 
+    /* for dymanic accordance */
+
     $('#add_btn').click(function () {
+
+        
+        
         document.getElementById("card_two").style.display = "block";
         document.getElementById("card_three").style.display = "block";
         document.getElementById("add_btn").style.display = "none";
 
 
+    });
+    $('#removeRow').click(function () {
+        $(this).hide();
     });
 
     $('#selected_catgeory1').on('change', function (e) {
@@ -91,6 +99,46 @@ $(document).ready(function () {
         });
 
     }
+
+    /* for calandar validation */
+
+
+    var dateControler = {
+        currentDate: null
+    }
+
+    $('#selectstartdate').on("change", function(e) {
+        var now = new Date();
+        var selectedDate = new Date($(this).val());
+        console.log(selectedDate);
+
+
+        if (selectedDate > now) {
+            $(this).val(dateControler.currentDate)
+        } else {
+            dateControler.currentDate = $(this).val();
+        }
+
+
+    })
+
+    $('#selectenddate').on("change", function (e) {
+
+        var now = new Date();
+        var selectedDate = new Date($(this).val());
+        console.log(selectedDate);
+
+
+        if (selectedDate > now) {
+            $(this).val(dateControler.currentDate)
+        } else {
+            dateControler.currentDate = $(this).val();
+        }
+
+
+    });
+
+
     /*  for  Range slider */
 
     var slider = document.getElementById("myRange");
