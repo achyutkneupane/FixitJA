@@ -63,6 +63,7 @@ class CategoryController extends Controller
         ->where('category_id', $id)
         ->get();
         
+        
         //dd($sub_category);
           return response()->json($sub_category);
 

@@ -145,6 +145,8 @@ class UserController extends Controller
                 'profile' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
 
             ]);
+
+            //dd(implode(',',$request->working_days));
              
             
             /* Uplaoding profile picture */
@@ -247,12 +249,20 @@ class UserController extends Controller
             //$user->is_police_record =  implode(',',$request->police_report);
             //$user->is_travelling =  implode(',',$request->is_travelling);
             
+            if($request->working_day)
+            {
+                $work_day = explode(",", $request->working_days);
+                foreach($work_day as $data)
+                {
+                   
+                }
+            }
+            
            
             $user->hours = $request->hours;
-            //dd($request->working_days);
-            //$tags = explode(" ,", $input['working_days'])
-            
+
             $user->days = $request->input('working_days');
+            dd($request->input('working_days'));
              $user->introduction = $request->personal_description;
             $user->street_01 = $request->street;
             $user->street_02 = $request->house_number;
@@ -260,7 +270,7 @@ class UserController extends Controller
             $user->save();
             Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function($m){
                  $m->to(Auth::user()->email)
-          ->subject('Thnak you for submitting your details');
+          ->subject('Thank you for submitting your details');
             });
             return redirect('/profile');
         } catch (Throwable $e) {

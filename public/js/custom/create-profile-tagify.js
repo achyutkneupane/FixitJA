@@ -1,5 +1,6 @@
-jQuery(document).ready(function () {
+function bindSubCat(data){
     var toEl = document.getElementById('kt_tagify_subcategory');
+
      
     
      
@@ -15,32 +16,31 @@ jQuery(document).ready(function () {
                     value: 'Monday',
                     initials: '',
                     initialsState: '',
-                    pic: './assets/media/users/100_11.jpg',
                     class: 'tagify__tag--primary'
                 }, {
                     value: 'Tuesday',
                     
-                    initials: 'SS',
-                    initialsState: 'warning',
-                    pic: ''
+                    initials: '',
+                    initialsState: '',
+                    
                 }, {
                     value: 'Wesneday',
                     
                     initials: '',
                     initialsState: '',
-                    pic: './assets/media/users/100_6.jpg'
+                   
                 }, {
                     value: 'Thursday',
                     
                     initials: '',
                     initialsState: '',
-                    pic: './assets/media/users/100_8.jpg'
+                    
                 }, {
                     value: 'Friday',
                 
                     initials: '',
                     initialsState: '',
-                    pic: './assets/media/users/100_9.jpg'
+                
                 }
             
                 ],
@@ -78,7 +78,7 @@ jQuery(document).ready(function () {
         }
     });
 
-},
+}
 
 $("#selected_catgeory1").on('change', function (e) {
     e.preventDefault();
@@ -87,10 +87,11 @@ $("#selected_catgeory1").on('change', function (e) {
     console.log(category_id);
     var data = getSubCatData(category_id);
     console.log(data);
+      bindSubCat(data);
     
     
    
-}));
+});
 
 
 /*function getSubCatData(categoryId){
@@ -202,7 +203,7 @@ $("#selected_catgeory2").on('change', function (e) {
     var category_id = $(this).val();
     console.log(category_id);
     var data = getSubCatData(category_id);
-    console.log(data);
+     
     
     
    
@@ -211,7 +212,7 @@ function getSubCatData(categoryId){
 var subcategory = new Array();
 $.ajax({
             type: "GET",
-            url: '/profile/init/' + categoryId,
+            url: '/profile/' + categoryId,
             dataType: 'json',
             success: function (result) {
                 $.each(result, function (i, item) {

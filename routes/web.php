@@ -70,7 +70,7 @@ Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addpr
 
 
 
-Route::get('/profile/init/{id}', [App\Http\Controller\CategoryController::class, 'getSubCategory']);
+Route::get('/profile/{id}', [App\Http\Controllers\CategoryController::class, 'getSubCategory']);
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
 //Route for viewing all categories
