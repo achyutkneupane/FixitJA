@@ -50,10 +50,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function skills()
-    {
-        return $this->belongsToMany(Skill::class);
-    }
     public function documents()
     {
         return $this->hasMany(Document::class);
@@ -66,7 +62,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Subscription::class);
     }
-
+    public function subcategories()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
     public function emails()
     {
         return $this->hasMany(Email::class);

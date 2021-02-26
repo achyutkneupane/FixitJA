@@ -161,4 +161,9 @@ class UserController extends Controller
         ToastHelper::showToast('User Status Changed.');
         return redirect()->back();
     }
+    public function profileSkills()
+    {
+        $user = User::find(auth()->id());
+        return view('admin.profile.skills', compact('user'));
+    }
 }

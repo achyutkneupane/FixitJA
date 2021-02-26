@@ -21,17 +21,6 @@ class CreateCategoriesTable extends Migration
             $table->string('description');
             $table->timestamps();
         });
-
-        // Schema for many-to-many relation between categories and skills
-        Schema::create('categories_skills', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('skill_id');
-            $table->timestamps();
-
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('skill_id')->references('id')->on('skills')->onDelete('cascade');
-        });
     }
 
     /**
@@ -42,6 +31,5 @@ class CreateCategoriesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('categories');
-        Schema::dropIfExists('categories_skills');
     }
 }

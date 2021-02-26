@@ -26,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        dd(User::find(1)->subcategories()->get());
         $documents = Document::where('user_id', Auth::user()->id)->get();
         return view(
             'pages.home',

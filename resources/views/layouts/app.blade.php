@@ -82,6 +82,7 @@
     {{-- Global Config (global config for global JS scripts) --}}
     <script>
         var KTAppSettings = {!! json_encode(config('layout.js'), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) !!};
+
     </script>
 
     {{-- Global Theme JS Bundle (used by all pages) --}}
@@ -119,12 +120,15 @@
         </script>
     @endif
     <script>
-        var el = document.getElementById('kt_profile_aside');
-        var toggler = document.getElementById('kt_subheader_mobile_toggle');
-        if (JSON.stringify(el) != "null") {
-            toggler.innerHTML = "<span></span>";
-        } else {
-            toggler.innerHTML = "";
+        var aside = document.getElementById('kt_aside');
+        if (JSON.stringify(aside) != "null") {
+            var el = document.getElementById('kt_profile_aside');
+            var toggler = document.getElementById('kt_subheader_mobile_toggle');
+            if (JSON.stringify(el) != "null") {
+                toggler.innerHTML = "<span></span>";
+            } else {
+                toggler.innerHTML = "";
+            }
         }
 
     </script>

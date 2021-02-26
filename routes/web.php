@@ -47,6 +47,7 @@ Route::get('/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->
 Route::get('/task/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth')->name('taskAssignedBy');
 Route::get('/task/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth')->name('taskAssignedTo');
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
+Route::get('/profile/skills', [App\Http\Controllers\UserController::class, 'profileSkills'])->middleware('auth')->name('profileSkills');
 Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
 Route::get('/error_log', [App\Http\Controllers\AdminController::class, 'error_log'])->middleware('auth', 'checkIfAdmin')->name('viewErrorLog');

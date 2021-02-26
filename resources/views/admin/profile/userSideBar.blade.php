@@ -45,18 +45,21 @@
                 <a href="#"
                     class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileDocumentIsActive) ? 'active' : '' }}">User
                     Documents</a>
+                <a href="{{ route('profileSkills') }}"
+                    class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileSkillIsActive) ? 'active' : '' }}">Skills</a>
+                <a href="#"
+                    class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileEducationIsActive) ? 'active' : '' }}">Education</a>
+
+                <a href="#"
+                    class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileReferenceIsActive) ? 'active' : '' }}">References</a>
+                <a href="#"
+                    class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profilePaymentIsActive) ? 'active' : '' }}">Payment
+                    Details</a>
             @endif
             <a href="{{ Auth::user()->id === $user->id ? route('accountSecurity') : route('viewAccountSecurity', $user->id) }}"
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileAccountIsActive) ? 'active' : '' }}">Account
                 Settings</a>
-            @if ($user->type == 'admin' || $user->type == 'individual_contractor')
-                <a href="#"
-                    class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profilePaymentIsActive) ? 'active' : '' }}">Payment
-                    Details</a>
-                <a href="#"
-                    class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileReferenceIsActive) ? 'active' : '' }}">References</a>
 
-            @endif
             <!--end::Nav-->
         </div>
         <!--end::Body-->
