@@ -1,5 +1,21 @@
 function bindSubCat1(data) {
     var toEl = document.getElementById('kt_tagify_subcategory');
+    var res_data = [];
+
+    
+
+   
+   
+  
+  
+
+    
+
+     
+   
+   
+    
+  
 
     
 
@@ -8,7 +24,7 @@ function bindSubCat1(data) {
    
 
 
-
+    
     var tagifyTo = new Tagify(toEl, {
         delimiters: ", ", // add new tags when a comma or a space character is entered
         maxTags: 10,
@@ -16,16 +32,10 @@ function bindSubCat1(data) {
         keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
         
 
-
-
-
-        whitelist: [ 
-
-           data
-         
-         ],
+        
 
         
+        whitelist: [ { value: data} ],
          
 
 
@@ -43,7 +53,7 @@ function bindSubCat1(data) {
                     html += '           <span class="symbol-label">' + (tagData.initials ? tagData.initials : '') + '</span>';
                     html += '       </span>';
                     html += '       <div class="d-flex flex-column">';
-                    html += '           <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">' + (tagData.value ? tagData.value : '') + '</a> <br>';
+                    html += '           <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">' + (tagData.value ? tagData.value : '') + '</a> <br/>';
                     html += '           <span class="text-muted font-weight-bold">' + (tagData.email ? tagData.email : '') + '</span>';
                     html += '       </div>';
                     html += '   </div>';
@@ -75,7 +85,7 @@ $("#selected_catgeory1").on('change', function (e) {
     var res = "";
 
     
-    console.log(data);
+    //console.log(data);
     bindSubCat1(data);
 
 
@@ -116,39 +126,9 @@ jQuery(document).ready(function () {
             keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
 
 
-            whitelist: [{
-                    value: 'Monday',
-                    initials: '',
-                    initialsState: '',
-                    pic: './assets/media/users/100_11.jpg',
-                    class: 'tagify__tag--primary'
-                }, {
-                    value: 'Tuesday',
-
-                    initials: 'SS',
-                    initialsState: 'warning',
-                    pic: ''
-                }, {
-                    value: 'Wesneday',
-
-                    initials: '',
-                    initialsState: '',
-                    pic: './assets/media/users/100_6.jpg'
-                }, {
-                    value: 'Thursday',
-
-                    initials: '',
-                    initialsState: '',
-                    pic: './assets/media/users/100_8.jpg'
-                }, {
-                    value: 'Friday',
-
-                    initials: '',
-                    initialsState: '',
-                    pic: './assets/media/users/100_9.jpg'
-                }
-
-            ],
+            whitelist:  [
+                   data
+                ],
 
 
             templates: {
@@ -200,28 +180,35 @@ jQuery(document).ready(function () {
 
 function getSubCatData(categoryId) {
     var subcategory = new Array();
+    var res_data = [];
+    var result_data;
     $.ajax({
         type: "GET",
         url: '/profile/' + categoryId,
         dataType: 'json',
         success: function (result) {
-            $.each(result, function (i, item) {
+            $.each(result, function (index, item) {
+                
                 //console.log(item.name);
                 
 
-                subcategory.push(item);
+                subcategory.push(item.name);
             });
-            for (var a =0; a < subcategory.length; a++)
+
+            for ( var i =0; i < subcategory.length; i++)
             {
-                return subcategory[a].name;
+                console.log(subcategory[i]);
             }
             
-
-            console.log(subcategory);
+           console.log(subcategory)
+      
+            
         }
     });
-
-    return subcategory;
+ 
+  
+ 
+    return subcategory ;
 }
 
 /* Category 3*/
