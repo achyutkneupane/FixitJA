@@ -47,39 +47,51 @@ $(document).ready(function () {
 
     $('#add_btn').click(function () {
 
+        var intialcount = 0;
+        var maxcount = 3;
+
+        if('#add_btn')
+
+
         
         
         document.getElementById("card_two").style.display = "block";
         document.getElementById("card_three").style.display = "block";
         document.getElementById("add_btn").style.display = "none";
+        document.getElementById("remove1").style.display = "none";
 
 
     });
-    $('#removeRow').click(function () {
-        $(this).hide();
+     $('#remove1').click(function () {
+         $('#card_one').empty();
+    });
+    $('#remove').click(function () {
+         $('#card_two').empty();
+    });
+     $('#remove3').click(function () {
+         $('#card_three').empty();
     });
 
     $('#selected_catgeory1').on('change', function (e) {
 
         e.preventDefault();
-        var productname = $(this).children("option:selected").val();
-        $("#sc1").html("<p>" + productname + "</p>")
-        $("#sct1").html("<p>" + productname + "</p>")
-    })
+        var data = $(this).children("option:selected").text();
+        $("#cat1").html('<p>You  select'  +  data     + ' category</p>')
+       
+    }),
     $('#selected_catgeory2').on('change', function (e) {
 
         e.preventDefault();
-        var productname = $(this).children("option:selected").val();
-        $("#sc2").html("<p>" + productname + "</p>")
-        $("#sct2").html("<p>" + productname + "</p>")
-    })
+        
+        var data = $(this).children("option:selected").text();
+        $("#cat2  ").html('<p>You  select'  +  data     + ' category</p>')
+    }),
     $('#selected_catgeory3').on('change', function (e) {
 
-        e.preventDefault();
-        var productname = $(this).children("option:selected").val();
-        $("#sc3").html("<p>" + productname + "</p>")
-        $("#sct3").html("<p>" + productname + "</p>")
-    })
+       e.preventDefault();
+        var data = $(this).children("option:selected").text();
+        $("#cat3").html('<p>You  select'  +  data     + ' category</p>')
+    }),
 
     function getCatgeory(categoryId) {
         var subcategory = new Array();

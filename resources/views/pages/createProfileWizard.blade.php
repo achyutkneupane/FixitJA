@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
 <!-- <div class="d-flex flex-column-fluid"> -->
     <!--begin::Container-->
     <!-- <div class="container"> -->
@@ -214,12 +215,12 @@
                                     <!--begin::Select-->
                                     <div class="card-body">
                                         <!--begin::Accordion-->
-                                        <div class="accordion accordion-solid accordion-toggle-plus"
-                                            id="accordionExample3">
+                                        <div class="accordion accordion-solid accordion-toggle-plus" 
+                                            id="accordionExample3" >
                                             <div class="card">
-                                                <div class="card-header" id="headingOne3" id="removeRow">
+                                                <div class="card-header"  >
                                                     <div class="card-title" data-toggle="collapse"
-                                                        data-target="#collapseOne3">Category1</div>
+                                                        data-target="#collapseOne3"><span class="glyphicon glyphicon-remove-circle pull-right "></span><p id="cat1"></p></div>
                                                 </div>
                                                 <div id="collapseOne3" class="collapse show"
                                                     data-parent="#accordionExample3">
@@ -229,7 +230,7 @@
 
 
 
-                                                            <select name="skills_category" id="selected_catgeory1"
+                                                            <select name="skills_category" subcatid="kt_tagify_subcategory" id="selected_catgeory1" 
                                                                 class="form-control form-control-solid form-control-lg">
                                                                 <option value="">Select Category </option>
                                                                 @foreach ($category as $cate)
@@ -256,16 +257,17 @@
                                                                     your option just create one.</div>
                                                             </div>
                                                             <div class="fv-plugins-message-container">
+                                                                <div class="btn btn-danger" id="remove1" type="button" style="float:right;margin-bottom:3px;">Remove </div>
 
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card" id="card_two" id="removeRow">
+                                            <div class="card" id="card_two" >
                                                 <div class="card-header" id="headingTwo3">
                                                     <div class="card-title collapsed" data-toggle="collapse"
-                                                        data-target="#collapseTwo3">Catgeory 2</div>
+                                                        data-target="#collapseTwo3"><p id="cat2"></p></div>
                                                 </div>
                                                 <div id="collapseTwo3" class="collapse"
                                                     data-parent="#accordionExample3">
@@ -275,7 +277,7 @@
 
 
 
-                                                            <select name="skills_category" id="selected_catgeory2"
+                                                            <select name="skills_category"  subcatid="kt_tagify_subcategory2" id="selected_catgeory2"
                                                                 class="form-control form-control-solid form-control-lg">
                                                                 <option value="">Select Category </option>
                                                                 @foreach ($category as $cate)
@@ -287,6 +289,7 @@
 
            
                                                             <div class="fv-plugins-message-container"></div>
+                                                              
 
                                                         </div>
                                                         <!--end::Select-->
@@ -301,8 +304,9 @@
                                                                     subcategories. If you don't see
                                                                     your option just create one.</div>
                                                             </div>
-                                                            <div class="btn btn-danger" type="button" style="float:right;margin-bottom:3px;">Remove </div>
+                                                           
                                                             <div class="fv-plugins-message-container"></div>
+                                                             <div class="btn btn-danger" id="remove" type="button" style="float:right;margin-bottom:3px;">Remove </div>
 
                                                         </div>
 
@@ -313,7 +317,7 @@
                                             <div class="card" id="card_three" id="removeRow">
                                                 <div class="card-header" id="headingThree3">
                                                     <div class="card-title collapsed" data-toggle="collapse"
-                                                        data-target="#collapseThree3">Category</div>
+                                                        data-target="#collapseThree3"><p id="cat3"></p></div>
                                                 </div>
                                                 <div id="collapseThree3" class="collapse"
                                                     data-parent="#accordionExample3">
@@ -323,7 +327,7 @@
 
 
 
-                                                            <select name="skills_category" id="selected_catgeory3"
+                                                            <select name="skills_category"  subcatid="kt_tagify_subcategory3" id="selected_catgeory3"
                                                                 class="form-control form-control-solid form-control-lg">
                                                                 <option value="">Select Category </option>
                                                                 @foreach ($category as $cate)
@@ -349,9 +353,9 @@
                                                                     subcategories. If you don't see
                                                                     your option just create one.</div>
                                                             </div>
-                                                            <div class="btn btn-danger" type="button" style="float:right; margin-bottom:3px;">Remove </div>
+                                                           
                                                             <div class="fv-plugins-message-container"></div>
-
+                                                              <div class="btn btn-danger" id="remove3" type="button" style="float:right;margin-bottom:3px;">Remove </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1299,6 +1303,7 @@
 
     document.getElementById("card_two").style.display = "none";
     document.getElementById("card_three").style.display = "none";
+    document.getElementById("remove1").style.display = "none";
 
 </script>
 @endsection

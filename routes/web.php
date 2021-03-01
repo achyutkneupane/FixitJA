@@ -56,13 +56,6 @@ Route::get('/error_{id}', [App\Http\Controllers\AdminController::class, 'error_d
 Route::put('/error_{id}/solved', [App\Http\Controllers\AdminController::class, 'error_solved'])->middleware('auth', 'checkIfAdmin')->name('errorSolved');
 Route::get('/security', [App\Http\Controllers\UserController::class, 'security'])->middleware('auth')->name('accountSecurity');
 Route::get('/resend-email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
-
-// Route for about page
-Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
-//Route for contact us page
-Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
-//Route for faqs page
-Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 //Route for profile wizard
 Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->name('profileWizard');
 Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
@@ -71,6 +64,14 @@ Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addpr
 
 
 Route::get('/profile/{id}', [App\Http\Controllers\CategoryController::class, 'getSubCategory']);
+
+// Route for about page
+Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
+//Route for contact us page
+Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
+//Route for faqs page
+Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
+
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
 //Route for viewing all categories
