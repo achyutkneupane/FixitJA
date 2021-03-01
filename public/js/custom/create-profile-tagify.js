@@ -71,8 +71,6 @@ $("#selected_catgeory3").on('change', function (e) {
 
 function getSubCatData(categoryId, subcatid) {
     var subcategory = new Array();
-    var res_data = [];
-    var result_data;
     $.ajax({
         type: "GET",
         url: '/profile/' + categoryId,

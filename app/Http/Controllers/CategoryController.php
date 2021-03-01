@@ -50,10 +50,11 @@ class CategoryController extends Controller
      */
   public function getCategory(){
        $category = Category::with('sub_categories')->get();
+       return response()->json($category);
 
        
        
-       return view('pages.createProfileWizard', compact('category'));
+       
 
     }
 

@@ -1,5 +1,3 @@
-/*const { result } = require("lodash");*/
-
 /* for register select jquery */
 $(document).ready(function () {
     $('#user_type').on('change', function () {
@@ -44,73 +42,133 @@ $(document).ready(function () {
     });
 
     /* for dymanic accordance */
-
-    $('#add_btn').click(function () {
-
-        var intialcount = 0;
-        var maxcount = 3;
-
-        if('#add_btn')
+    var result_data = '';
+    var category = new Array();
 
 
+
+
+
+    for (var counter = 0; counter < 3; counter++) {
+        addAccdorion();
+    }
+
+    $("#add_btn").click(addAccdorion);
+
+    function addAccdorion() {
         
-        
-        document.getElementById("card_two").style.display = "block";
-        document.getElementById("card_three").style.display = "block";
-        document.getElementById("add_btn").style.display = "none";
-        document.getElementById("remove1").style.display = "none";
+ $('#accordion').append(
+                    '<div class="card">' +
+                    '<div class="card-header">' +
+                    '<div class="card-title" data-toggle="collapse" data-target="#collapseOne3"><p id="cat1"></p></div>' +
+                    '</div>' +
+                    ' <div id="collapseOne3" class="collapse show"' +
+                    ' data-parent="#accordionExample3">' +
+                    ' <div class="card-body">' +
+                    ' <div class="form-group fv-plugins-icon-container"> ' +
+                    ' <label>Category</label> ' +
+                    ' <select name="skills_category" subcatid="kt_tagify_subcategory" id="selected_catgeory1"  ' +
+                    '  class="form-control form-control-solid form-control-lg"> ' +
+                    '  <option value="">Select Category </option> ' +
+                    '  @foreach ($category as $cate)' +
+                    '  <option value=" index  ">item.name ' +
+                    '  </option> ' +
+                    '  @endforeach ' +
+
+                    ' </select> ' +
 
 
-    });
-     $('#remove1').click(function () {
-         $('#card_one').empty();
+                    '<div class="fv-plugins-message-container"></div> ' +
+
+                    ' </div> ' +
+
+                    '<div class="form-group fv-plugins-icon-container"> ' +
+                    '  <label>Sub category</label> ' +
+                    ' <div> ' +
+                    '  <input id="kt_tagify_subcategory" ' +
+                    ' class="form-control" name="sub_categories" ' +
+                    ' placeholder="Add sub-categories"> ' +
+                    ' <div class="mt-3 text-muted">Select multiple ' +
+                    ' subcategories. If you don see ' +
+                    ' your option just create one.</div> ' +
+                    ' </div> ' +
+                    ' <div class="fv-plugins-message-container"> ' +
+                    '<button type="button" name="add" id="add_btn" class="btn btn-success">Add More</button> ') +
+
+                ' </div> ' +
+                ' </div> ' +
+                ' </div> ' +
+                ' </div>'
+
+
+
+
+       
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $('#remove1').click(function () {
+        $('#card_one').empty();
     });
     $('#remove').click(function () {
-         $('#card_two').empty();
+        $('#card_two').empty();
     });
-     $('#remove3').click(function () {
-         $('#card_three').empty();
+    $('#remove3').click(function () {
+        $('#card_three').empty();
     });
 
     $('#selected_catgeory1').on('change', function (e) {
 
-        e.preventDefault();
-        var data = $(this).children("option:selected").text();
-        $("#cat1").html('<p>You  select'  +  data     + ' category</p>')
-       
-    }),
-    $('#selected_catgeory2').on('change', function (e) {
+            e.preventDefault();
+            var data = $(this).children("option:selected").text();
+            $("#cat1").html('<p>You  select' + data + ' category</p>')
 
-        e.preventDefault();
-        
-        var data = $(this).children("option:selected").text();
-        $("#cat2  ").html('<p>You  select'  +  data     + ' category</p>')
-    }),
-    $('#selected_catgeory3').on('change', function (e) {
+        }),
+        $('#selected_catgeory2').on('change', function (e) {
 
-       e.preventDefault();
-        var data = $(this).children("option:selected").text();
-        $("#cat3").html('<p>You  select'  +  data     + ' category</p>')
-    }),
+            e.preventDefault();
 
-    function getCatgeory(categoryId) {
-        var subcategory = new Array();
-        $.ajax({
-            type: "GET",
-            url: 'profile/',
-            dataType: 'json',
-            data: data,
-            success: function (data) {
+            var data = $(this).children("option:selected").text();
+            $("#cat2  ").html('<p>You  select' + data + ' category</p>')
+        }),
+        $('#selected_catgeory3').on('change', function (e) {
 
-                data = JSON.parse(data);
-                console.log(data)
-                $('#choosencategory').val(data.name);
+            e.preventDefault();
+            var data = $(this).children("option:selected").text();
+            $("#cat3").html('<p>You  select' + data + ' category</p>')
+        }),
+
+        function getCatgeory(categoryId) {
+            var subcategory = new Array();
+            $.ajax({
+                type: "GET",
+                url: 'profile/',
+                dataType: 'json',
+                data: data,
+                success: function (data) {
+
+                    data = JSON.parse(data);
+                    console.log(data)
+                    $('#choosencategory').val(data.name);
 
 
-            }
-        });
+                }
+            });
 
-    }
+        }
 
     /* for calandar validation */
 
@@ -119,7 +177,7 @@ $(document).ready(function () {
         currentDate: null
     }
 
-    $('#selectstartdate').on("change", function(e) {
+    $('#selectstartdate').on("change", function (e) {
         var now = new Date();
         var selectedDate = new Date($(this).val());
         console.log(selectedDate);

@@ -216,7 +216,7 @@
                                     <div class="card-body">
                                         <!--begin::Accordion-->
                                         <div class="accordion accordion-solid accordion-toggle-plus" 
-                                            id="accordionExample3" >
+                                            id="accordion" >
                                             <div class="card">
                                                 <div class="card-header"  >
                                                     <div class="card-title" data-toggle="collapse"
@@ -257,14 +257,14 @@
                                                                     your option just create one.</div>
                                                             </div>
                                                             <div class="fv-plugins-message-container">
-                                                                <div class="btn btn-danger" id="remove1" type="button" style="float:right;margin-bottom:3px;">Remove </div>
+                                                               
 
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card" id="card_two" >
+                                           <!-- <div class="card" id="card_two" >
                                                 <div class="card-header" id="headingTwo3">
                                                     <div class="card-title collapsed" data-toggle="collapse"
                                                         data-target="#collapseTwo3"><p id="cat2"></p></div>
@@ -291,10 +291,10 @@
                                                             <div class="fv-plugins-message-container"></div>
                                                               
 
-                                                        </div>
+                                                        </div> -->
                                                         <!--end::Select-->
                                                         <!--begin::Select-->
-                                                        <div class="form-group fv-plugins-icon-container">
+                                                       <!-- <div class="form-group fv-plugins-icon-container">
                                                             <label>Sub category</label>
                                                             <div>
                                                                 <input id="kt_tagify_subcategory2"
@@ -340,10 +340,10 @@
 
                                                             <div class="fv-plugins-message-container"></div>
 
-                                                        </div>
+                                                        </div> -->
                                                         <!--end::Select-->
                                                         <!--begin::Select-->
-                                                        <div class="form-group fv-plugins-icon-container">
+                                                       <!-- <div class="form-group fv-plugins-icon-container">
                                                             <label>Sub category</label>
                                                             <div>
                                                                 <input id="kt_tagify_subcategory3"
@@ -360,13 +360,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
 
 
 
 
-                                        <button type="button" name="add" id="add_btn" class="btn btn-success">Add
-                                            More</button>
+                                       <button type="button" name="add" id="add_btn" class="btn btn-success">Add More</button>'
 
 
 
@@ -374,7 +373,7 @@
 
 
 
-                                    </div>
+                                   
                                     <!--end::Select-->
                                 </div>
                                 <!--end::Wizard Step 1-->

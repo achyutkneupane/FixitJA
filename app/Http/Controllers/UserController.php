@@ -225,6 +225,8 @@ class UserController extends Controller
 
             $user->areas_covering = $skills->id;
             $user->experience = $request->expereince;
+
+            // logic for the radio button 
             if($request->police_report == "1")
             {
                 $user->is_police_record = 1;
