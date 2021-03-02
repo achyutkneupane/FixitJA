@@ -1,5 +1,10 @@
 /* for register select jquery */
+
+var category_data;
+var count = 0;
 $(document).ready(function () {
+
+    
     $('#user_type').on('change', function () {
         console.log('hello');
         var selectedTYPE = $(this).children("option:selected").attr("id");
@@ -42,77 +47,19 @@ $(document).ready(function () {
     });
 
     /* for dymanic accordance */
-    var result_data = '';
-    var category = new Array();
 
 
 
 
-
-    for (var counter = 0; counter < 3; counter++) {
-        addAccdorion();
-    }
-
-    $("#add_btn").click(addAccdorion);
-
-    function addAccdorion() {
-        
- $('#accordion').append(
-                    '<div class="card">' +
-                    '<div class="card-header">' +
-                    '<div class="card-title" data-toggle="collapse" data-target="#collapseOne3"><p id="cat1"></p></div>' +
-                    '</div>' +
-                    ' <div id="collapseOne3" class="collapse show"' +
-                    ' data-parent="#accordionExample3">' +
-                    ' <div class="card-body">' +
-                    ' <div class="form-group fv-plugins-icon-container"> ' +
-                    ' <label>Category</label> ' +
-                    ' <select name="skills_category" subcatid="kt_tagify_subcategory" id="selected_catgeory1"  ' +
-                    '  class="form-control form-control-solid form-control-lg"> ' +
-                    '  <option value="">Select Category </option> ' +
-                    '  @foreach ($category as $cate)' +
-                    '  <option value=" index  ">item.name ' +
-                    '  </option> ' +
-                    '  @endforeach ' +
-
-                    ' </select> ' +
-
-
-                    '<div class="fv-plugins-message-container"></div> ' +
-
-                    ' </div> ' +
-
-                    '<div class="form-group fv-plugins-icon-container"> ' +
-                    '  <label>Sub category</label> ' +
-                    ' <div> ' +
-                    '  <input id="kt_tagify_subcategory" ' +
-                    ' class="form-control" name="sub_categories" ' +
-                    ' placeholder="Add sub-categories"> ' +
-                    ' <div class="mt-3 text-muted">Select multiple ' +
-                    ' subcategories. If you don see ' +
-                    ' your option just create one.</div> ' +
-                    ' </div> ' +
-                    ' <div class="fv-plugins-message-container"> ' +
-                    '<button type="button" name="add" id="add_btn" class="btn btn-success">Add More</button> ') +
-
-                ' </div> ' +
-                ' </div> ' +
-                ' </div> ' +
-                ' </div>'
-
-
-
-
-       
-
-
-    }
-
-
-
-
-
-
+    $.ajax({
+        type: 'GET',
+        url: '/category_data',
+        dataType: 'json',
+        success: function (response) {
+            //var response = JSON.parse(response);
+            category_data = response;
+        }
+    });
 
 
 
@@ -231,3 +178,57 @@ $(document).ready(function () {
 
 
 });
+$("#add_btn").click(function (e) {
+   
+    e.stopImmediatePropagation();
+    count++;
+    console.log(count);
+    var category_select = "";
+     $.each(category_data, function (index, item) {
+        category_select = category_select + ('<option value="' + item.id + '">' + item.name +' </option>');
+    });
+    console.log(category_select);
+    $('#accordion_category').append(
+        '<div class="card">' +
+        '<div class="card-header">' +
+        '<div class="card-title" data-toggle="collapse" data-target="#collapseOne3"><p id="cat1"></p></div>' +
+        '</div>' +
+        ' <div id="collapseOne3" class="collapse show"' +
+        ' data-parent="#accordionExample3">' +
+        ' <div class="card-body">' +
+        ' <div class="form-group fv-plugins-icon-container"> ' +
+        ' <label>Category</label> ' +
+        ' <select name="skills_category" subcatid="'+kt_tagify_subcategory+''+count +'"  id="selected_catgeory1"  ' +
+        '  class="form-control form-control-solid form-control-lg"> ' +
+        '  <option>Select Category</option> ' +
+        category_select +
+
+        ' </select> ' +
+
+
+        '<div class="fv-plugins-message-container"></div> ' +
+
+        ' </div> ' +
+
+        '<div class="form-group fv-plugins-icon-container"> ' +
+        '  <label>Sub category</label> ' +
+        ' <div> ' +
+        '  <input id="kt_tagify_subcategory" ' +
+        ' class="form-control" name="sub_categories" ' +
+        ' placeholder="Add sub-categories"> ' +
+        ' <div class="mt-3 text-muted">Select multiple ' +
+        ' subcategories. If you don see ' +
+        ' your option just create one.</div> ' +
+        ' </div> ' +
+        ' <div class="fv-plugins-message-container"> ' +
+
+
+        ' </div> ' +
+        ' </div> ' +
+        ' </div> ' +
+        ' </div>')
+
+
+
+
+})
