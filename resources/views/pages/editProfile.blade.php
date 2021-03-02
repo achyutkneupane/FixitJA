@@ -7,18 +7,13 @@
     @endphp
     @if (Auth::user()->id == $user->id)
         @php
-            $page_title = 'Profile';
+            $page_title = 'Edit Profile';
         @endphp
     @else
         @php
-            $page_title = 'User Overview';
+            $page_title = 'Edit User';
         @endphp
     @endif
-    @isAdminOrUser($user->id)
-    @php
-    $subhead_button = [['class' => 'primary', 'text' => 'Edit', 'link' => $user->id == auth()->id() ? route('editProfile') : route('editUserProfile', $user->id)]];
-    @endphp
-    @endisAdminOrUser
     <div class="row">
         @include('admin.profile.userSideBar', $user)
         <div class="col-lg-8">
@@ -27,50 +22,36 @@
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Gender: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">
-                                {!! !empty($user->gender) ? ucwords($user->gender) : "<span class='text-muted'>N/A</span>" !!}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Email: </label>
-                        <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">
-                                {!! !empty($user->getEmail($user->id)) ? $user->getEmail($user->id) : "<span class='text-muted'>N/A</span>" !!}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Phone: </label>
-                        <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">
-                                {!! !empty($user->getPhone($user->id)) ? $user->getPhone($user->id) : "<span class='text-muted'>N/A</span>" !!}
-                            </span>
+                            <input class="form-control form-control-lg form-control-solid" name="gender"
+                                value="{{ $user->gender }}" placeholder="Gender">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Address: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">
-                                {!! !empty($user->city->name) ? $user->city->name : "<span class='text-muted'>N/A</span>" !!}
-                            </span>
+                            <select class="form-control select2" id="kt_select2_1" name="address">
+                                @foreach ($cities as $city)
+                                    <option value="{{ $city->id }}">
+                                        {{ $city->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Street : </label>
                         <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">
-                                {!! !empty($user->street_01) ? $user->street_01 : "<span class='text-muted'>N/A</span>" !!}
-                            </span>
-                            {!! !empty($user->street_02) ? '<span class="form-control form-control-lg form-control-solid mt-3">' . $user->street_02 . '</span>' : '' !!}
+                            <input class="form-control form-control-lg form-control-solid" name="street_01"
+                                value="{{ $user->street_01 }}" placeholder="Street Address"><br>
+                            <input class="form-control form-control-lg form-control-solid" name="street_02"
+                                value="{{ $user->street_02 }}" placeholder="Street Address 2">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Company Name: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">
-                                {!! !empty($user->companyname) ? $user->companyname : "<span class='text-muted'>N/A</span>" !!}
-                            </span>
+                            <input class="form-control form-control-lg form-control-solid" name="companyname"
+                                value="{{ $user->companyname }}" placeholder="Company Name">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -125,4 +106,10 @@
 @section('scripts')
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/pages/custom/profile/profile.js') }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+
+    </script>
 @endsection

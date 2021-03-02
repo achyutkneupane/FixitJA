@@ -4,6 +4,7 @@
 
 namespace App\Helpers;
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Cache;
 
 class CacheHelper
@@ -15,7 +16,8 @@ class CacheHelper
             return Cache::get($key);
         }
 
-        $category = $subcategory->category()->orderBy('id', 'DESC');
+        // $category = $subcategory->category()->orderBy('id', 'DESC');
+        $category = Category::all();
         return Cache::rememberForever($key, function () use ($category) {
             return ['category_id' => $category->id, 'category_name' => $category->name];
         });

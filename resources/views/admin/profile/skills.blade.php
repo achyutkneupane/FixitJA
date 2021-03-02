@@ -21,7 +21,7 @@
 
                 <div class="card-body row">
                     @foreach ($subCats as $subCat)
-                        <div class="col-4 card card-custom gutter-b">
+                        <div class="col-sm-6 card card-custom gutter-b">
                             <div class="card-header">
                                 <div class="card-title">
                                     <h3 class="card-label">
@@ -32,7 +32,7 @@
                             <div class="card-body">
                                 <ul>
                                     @foreach ($subCat['subcategory'] as $subs)
-                                        <li>{{ $subs->name }}</li>
+                                        <li>{{ ucwords($subs->name) }}</li>
                                     @endforeach
                                 </ul>
                             </div>

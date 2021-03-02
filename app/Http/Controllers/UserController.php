@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
 use App\Models\Category;
+use App\Models\City;
 use App\Models\Document;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Hash;
@@ -171,5 +172,20 @@ class UserController extends Controller
         $user = auth()->user();
         $subCats = $user->allCategories();
         return view('admin.profile.skills', compact('user', 'subCats'));
+    }
+    public function userSkills($id)
+    {
+        if (User::find($id) == Auth::user()) {
+            return redirect()->route('profileSkills');
+        }
+        $user = User::find($id);
+        $subCats = $user->allCategories();
+        return view('admin.profile.skills', compact('user', 'subCats'));
+    }
+    public function editProfile()
+    {
+        $user = User::with('emails', 'phones')->find(auth()->id());
+        $cities = City::all();
+        return view('pages.editProfile', compact('user', 'cities'));
     }
 }
