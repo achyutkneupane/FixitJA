@@ -7,6 +7,8 @@ use App\Helpers\ToastHelper;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Document;
+use App\Models\Education;
+use App\Models\EducationUser;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -129,6 +131,7 @@ class UserController extends Controller
             $user  = User::find(Auth::user()->id);
             $request->validate([
                 'skills_category' => ['required'],
+                'sub_categories' => ['required'],
                 'certificate' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
                 'expereince'  => ['required'],
                 'educationinstutional_name' => ['required'],
@@ -208,9 +211,7 @@ class UserController extends Controller
 
           }
            
-            $skills = new Skill();
-            $skills->name = $request->skills_category;
-            $skills->save();
+           
 
             
             $education = new Education();
@@ -227,7 +228,7 @@ class UserController extends Controller
             $education_user->save(); 
             
 
-            $user->areas_covering = $skills->id;
+            //$user->areas_covering = $skills->id;
             $user->experience = $request->expereince;
 
             // logic for the radio button 
@@ -252,8 +253,22 @@ class UserController extends Controller
                 $user->is_travelling = 0;
 
             }
+
+            /* Converting skills array */
+
+            $subcategory = new SubCategory();
+            //dd($request->sub_categories);
+ $dayArray = array();
+           foreach (json_decode($request->sub_categories) as $days) {
+            array_push($dayArray, $days->value);
+        }
+        dd($dayArray);
+        $subcategory->name = $skillsArray ;
+        $subcategory->description ="working";
+        $subcategory->category_id = $skills_category;
+        $subcategory->save();
             
-            /* converting array */
+            /* converting  days array */
            $dayArray = array();
            foreach (json_decode($request->working_days) as $days) {
             array_push($dayArray, $days->value);
@@ -263,6 +278,8 @@ class UserController extends Controller
             $user->hours = $request->hours;
 
             $user->days = implode(',',$dayArray) ;
+
+           
             
              $user->introduction = $request->personal_description;
             $user->street_01 = $request->street;

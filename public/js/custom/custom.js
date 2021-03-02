@@ -1,7 +1,9 @@
 /* for register select jquery */
 
 var category_data;
+var selectcategoryid = "selected_catgeory" +count;
 var count = 0;
+
 $(document).ready(function () {
 
     
@@ -77,27 +79,8 @@ $(document).ready(function () {
         $('#card_three').empty();
     });
 
-    $('#selected_catgeory1').on('change', function (e) {
-
-            e.preventDefault();
-            var data = $(this).children("option:selected").text();
-            $("#cat1").html('<p>You  select' + data + ' category</p>')
-
-        }),
-        $('#selected_catgeory2').on('change', function (e) {
-
-            e.preventDefault();
-
-            var data = $(this).children("option:selected").text();
-            $("#cat2  ").html('<p>You  select' + data + ' category</p>')
-        }),
-        $('#selected_catgeory3').on('change', function (e) {
-
-            e.preventDefault();
-            var data = $(this).children("option:selected").text();
-            $("#cat3").html('<p>You  select' + data + ' category</p>')
-        }),
-
+   
+      
         function getCatgeory(categoryId) {
             var subcategory = new Array();
             $.ajax({
@@ -179,27 +162,31 @@ $(document).ready(function () {
 
 });
 $("#add_btn").click(function (e) {
-   
-    e.stopImmediatePropagation();
-    count++;
-    console.log(count);
+
+    if( count = 1, count <= 3, count++)
+    {
+         e.stopImmediatePropagation();
+    var selectcategoryid = "selected_catgeory" +count;
+    var subcatid = "kt_tagify_subcategory" + count;
+    var viewcategory = "selectedCatehroy" +count;
+    console.log(selectcategoryid);
     var category_select = "";
      $.each(category_data, function (index, item) {
         category_select = category_select + ('<option value="' + item.id + '">' + item.name +' </option>');
     });
-    console.log(category_select);
+    //console.log(sub);
     $('#accordion_category').append(
         '<div class="card">' +
         '<div class="card-header">' +
-        '<div class="card-title" data-toggle="collapse" data-target="#collapseOne3"><p id="cat1"></p></div>' +
+        '<div class="card-title" data-toggle="collapse" data-target="#collapseOne3"><p class="'+viewcategory+'"></p></div>' +
         '</div>' +
         ' <div id="collapseOne3" class="collapse show"' +
         ' data-parent="#accordionExample3">' +
         ' <div class="card-body">' +
         ' <div class="form-group fv-plugins-icon-container"> ' +
         ' <label>Category</label> ' +
-        ' <select name="skills_category" subcatid="'+kt_tagify_subcategory+''+count +'"  id="selected_catgeory1"  ' +
-        '  class="form-control form-control-solid form-control-lg"> ' +
+        ' <select name="skills_category[]" subcatid="'+ subcatid +'" id= "'+ selectcategoryid +'"`  ' +
+        '  class="form-control form-control-solid form-control-lg category-select"> ' +
         '  <option>Select Category</option> ' +
         category_select +
 
@@ -212,23 +199,98 @@ $("#add_btn").click(function (e) {
 
         '<div class="form-group fv-plugins-icon-container"> ' +
         '  <label>Sub category</label> ' +
-        ' <div> ' +
-        '  <input id="kt_tagify_subcategory" ' +
+        ' <div id = divTagify '+subcatid+'> ' +
+        '  <input id="'+ subcatid +'" ' +
         ' class="form-control" name="sub_categories" ' +
         ' placeholder="Add sub-categories"> ' +
         ' <div class="mt-3 text-muted">Select multiple ' +
         ' subcategories. If you don see ' +
         ' your option just create one.</div> ' +
         ' </div> ' +
+          ' <button type="button" name="remove" id="remove_btn" class="btn btn-danger remove-accordian" style="float:right"><i class="far fa-times-circle"></i></button>'+
         ' <div class="fv-plugins-message-container"> ' +
+       
 
 
         ' </div> ' +
         ' </div> ' +
         ' </div> ' +
-        ' </div>')
+        ' </div>' 
+       )
+        
+    }
+   
+   
 
 
 
 
 })
+
+ $(document).on("click", ".remove-accordian", function (e) {
+     e.preventDefault();
+     
+      $(this).parent(). parent().parent().parent().remove();  // remove input field
+     
+    })
+
+
+ $(document).on('change', '.category-select', function(e){
+     
+
+       
+            var data = $(this).children("option:selected").text();
+            $(".viewcategory").html(data);
+             $("#skilledcertificate").empty();
+            $("#skilledcertificate").append(
+                '<div class="card-body">'+
+                                       
+                                        '<div class="accordion accordion-solid accordion-toggle-plus"'+
+                                            'id="accordionExample4">'+
+                                           '<div class="card">'+
+                                               '<div class="card-header" id="headingOne3">'+
+                                                    '<div class="card-title" data-toggle="collapse"'+
+                                                       'data-target="#collapseOne3" id="selected-category">'+
+                                                        '<p id="sc1"></p>'+
+                                                   '</div>'+
+                                               '</div>'+
+                                                '<div id="collapseOne3" class="collapse show"'+
+                                                    'data-parent="#accordionExample3">'+
+                                                    '<div class="card-body">'+
+                                                        '<div class="form-group row">'+
+                                                            '<label'+
+                                                                'class="col-form-label col-lg-3 col-sm-12 text-lg-right">Certificate</label>'+
+                                                            ' <div class="col-lg-4 col-md-9 col-sm-12">'+
+                                                                '<div class="dropzone dropzone-default dropzone-primary"'+
+                                                                    'id="kt_dropzone_2">'+
+                                                                    '<div class="dropzone-msg dz-message needsclick">'+
+                                                                        '<input type="file" name="certificate"'+
+                                                                            'accept=".png, .jpg, .jpeg, .pdf, .docx" />'+
+                                                                   '</div>'+
+                                                                '</div>'+
+                                                           '</div>'+
+                                                        '</div>'+
+
+                                                        '<div class="form-group">'+
+                                                            '<label'+
+                                                                'class="font-size-h6 font-weight-bolder text-dark">Expereince</label>'+
+                                                            '<input type="text" class="form-control " name="expereince"'+
+                                                                'placeholder="experience"'+
+                                                                'value="" />'+
+                                                            
+                                                           '<span'+
+                                                                '</span>'+
+                                                            
+                                                       '</div>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                             '</div>'+
+'</div>'+
+
+                                 '</div>'
+
+
+            )
+
+        })
