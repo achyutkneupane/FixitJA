@@ -51,7 +51,9 @@ Route::get('/task/{id}/assigned_by', [App\Http\Controllers\TaskController::class
 Route::get('/task/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth')->name('taskAssignedTo');
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
 Route::get('/profile/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->middleware('auth')->name('editProfile');
+Route::put('/profile/edit', [App\Http\Controllers\UserController::class, 'putEditProfile'])->middleware('auth')->name('putEditProfile');
 Route::get('/user/{id}/edit', [App\Http\Controllers\UserController::class, 'editUserProfile'])->middleware('auth')->name('editUserProfile');
+Route::put('/user/{id}/edit', [App\Http\Controllers\UserController::class, 'putEditUserProfile'])->middleware('auth')->name('putEditUserProfile');
 Route::get('/profile/skills', [App\Http\Controllers\UserController::class, 'profileSkills'])->middleware('auth')->name('profileSkills');
 Route::get('/user/{id}/skills', [App\Http\Controllers\UserController::class, 'userSkills'])->middleware('auth')->name('userSkills');
 Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
