@@ -58,7 +58,7 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
                             </span>
                             <span class="navi-text text-muted text-hover-primary">
                                 @auth
-                                    {{ Auth::user()->email }}
+                                    {{ Auth::user()->email() }}
                                 @endauth
                             </span>
                         </span>

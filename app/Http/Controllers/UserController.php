@@ -3,51 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\LogHelper;
+use App\Helpers\ToastHelper;
 use App\Models\Category;
+use App\Models\City;
 use App\Models\Document;
+use App\Models\SubCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Controllers\MailController;
-use App\Models\Education;
-use App\Models\EducationUser;
-use App\Models\Skill;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Mail;
-use DB;
 use Throwable;
 
 use function GuzzleHttp\Promise\all;
 
 class UserController extends Controller
 {
-    // creating folder to store document
-
-    protected $documents_dir = "uploads/documents";
-
     public function update(User $user)
     {
         $user = new User();
-        $user = Auth::user();
+        $user = User::find(auth()->id());
         if (request('password')) {
             request()->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user)],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('emails')],
                 'password' => ['string', 'min:8'],
                 'old_password' => ['required'],
-                'phone' => ['required', 'numeric', 'min:8', Rule::unique('users')->ignore($user)],
-                'profile_image' => ['mimes:jpeg,png,gif', 'max:4096', 'file'],
+                'phone' => ['required', 'numeric', 'min:8', Rule::unique('phones')],
+                'profile_image' => ['mimes:jpeg,png,gif,jpg', 'max:4096', 'file'],
             ]);
         } else
             request()->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user)],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('emails')],
                 'old_password' => ['required'],
-                'phone' => ['required', 'numeric', 'min:8', Rule::unique('users')->ignore($user)],
-                'profile_image' => ['mimes:jpeg,png,gif', 'max:4096', 'file'],
+                'phone' => ['required', 'numeric', 'min:8', Rule::unique('phones')],
+                'profile_image' => ['mimes:jpeg,png,gif,jpg', 'max:4096', 'file'],
             ]);
 
         if (Hash::check(request('old_password'), Auth::user()->password)) {
@@ -57,10 +51,16 @@ class UserController extends Controller
             $user->update(
                 [
                     'name' => request('name'),
-                    'email' => request('email'),
-                    'phone' => request('phone'),
                 ]
             );
+            $user->emails()->update([
+                'email' => request('email'),
+                'primary' => true
+            ]);
+            $user->phones()->update([
+                'email' => request('phone'),
+                'primary' => true
+            ]);
 
             if (request('profile_image')) {
                 $tempPath = "";
@@ -83,18 +83,22 @@ class UserController extends Controller
     }
     public function profile()
     {
-        $user = User::find(Auth::user()->id);
+        $user = User::with('emails', 'phones')->find(Auth::user()->id)->first();
+
         return view('pages.profile', compact('user'));
     }
     public function show($id)
     {
-        $user = User::find($id);
+        if (User::find($id) == Auth::user()) {
+            return redirect()->route('viewProfile');
+        }
+        $user = User::with('emails', 'phones')->find($id);
         return view('pages.profile', compact('user'));
     }
     public function index()
     {
-        $users = User::all();
-        return view('admin.users', compact('users'));
+        $users = User::with('emails', 'phones')->get();
+        return view('admin.profile.users', compact('users'));
     }
      public function updateprofile1()
     {
@@ -279,7 +283,90 @@ class UserController extends Controller
 
     public function security()
     {
-        $users = User::all();
-        return view('pages.security', compact('users'));
+        $user = User::with('emails', 'phones')->find(Auth::user()->id);
+        return view('admin.profile.security', compact('user'));
+    }
+    public function viewSecurity($id)
+    {
+        if (User::find($id) == Auth::user()) {
+            return redirect()->route('accountSecurity');
+        }
+        $user = User::with('emails', 'phones')->find($id);
+        return view('admin.profile.security', compact('user'));
+    }
+    public function changePassword(Request $request)
+    {
+        $user = User::find(auth()->id());
+        if (!Hash::check($request->old_password, $user->password)) {
+            ToastHelper::showToast("Old Password doesn't match.", "error");
+            return redirect()->route('accountSecurity')->withInput($request->input());
+        } else {
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            ToastHelper::showToast("Password has been changed.");
+            return redirect()->route('accountSecurity');
+        }
+    }
+    public function addEmail(Request $request)
+    {
+        $user = User::with('emails')->find($request->user);
+        try {
+            $email = $request->validate([
+                'email' => ['required', 'string', 'email', 'unique:emails,email', 'max:255'],
+            ]);
+            $user->emails()->create($email);
+            return redirect()->back();
+        } catch (Throwable $e) {
+            dd($e);
+            LogHelper::store('Category', $e);
+            return redirect()->back();
+        }
+    }
+    public function deactivateUser()
+    {
+        $user = User::find(auth()->id());
+        $user->status = "deactivated";
+        $user->save();
+        ToastHelper::showToast('Account successfully deactivated.');
+        return redirect()->route('logout');
+    }
+    public function deleteUser()
+    {
+        $user = User::find(auth()->id());
+        $user->status = "deleted";
+        $user->save();
+        ToastHelper::showToast('Account successfully deleted.');
+        return redirect()->route('logout');
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $user = User::find($request->user);
+        $user->status = $request->status;
+        $user->save();
+        ToastHelper::showToast('User Status Changed.');
+        return redirect()->back();
+    }
+
+    public function profileSkills()
+    {
+        $user = auth()->user();
+        $subCats = $user->allCategories();
+        return view('admin.profile.skills', compact('user', 'subCats'));
+    }
+    public function userSkills($id)
+    {
+        if (User::find($id) == Auth::user()) {
+            return redirect()->route('profileSkills');
+        }
+        $user = User::find($id);
+        $subCats = $user->allCategories();
+        return view('admin.profile.skills', compact('user', 'subCats'));
+    }
+    public function editProfile()
+    {
+        $user = User::with('emails', 'phones')->find(auth()->id());
+        $cities = City::all();
+        return view('pages.editProfile', compact('user', 'cities'));
     }
 }

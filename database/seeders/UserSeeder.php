@@ -15,10 +15,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $user = User::create([
             'name' => 'Admin',
-            'email' => 'info@kumberland.com',
-            'phone' => '+9779860323771',
             'companyname' => 'Kumberland Inc.',
             'website' => 'https://www.kumberland.com',
             'city_id' => '7',
@@ -28,10 +26,16 @@ class UserSeeder extends Seeder
             'status' => 'active',
             'type' => 'admin'
         ]);
-        User::create([
+        $user->emails()->create([
+            'email' => 'info@kumberland.com',
+            'primary' => true
+        ]);
+        $user->phones()->create([
+            'phone' => '+9779860323771',
+            'primary' => true
+        ]);
+        $user = User::create([
             'name' => 'Achyut Neupane',
-            'email' => 'aneupane@kumberland.com',
-            'phone' => '9860323771',
             'companyname' => 'Kumberland Inc.',
             'website' => 'https://www.kumberland.com',
             'city_id' => '7',
@@ -40,6 +44,14 @@ class UserSeeder extends Seeder
             'verification_code' => sha1(time()),
             'status' => 'active',
             'type' => 'admin'
+        ]);
+        $user->emails()->create([
+            'email' => 'aneupane@kumberland.com',
+            'primary' => true
+        ]);
+        $user->phones()->create([
+            'phone' => '9860323771',
+            'primary' => true
         ]);
     }
 }

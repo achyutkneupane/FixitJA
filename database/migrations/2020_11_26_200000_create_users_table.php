@@ -17,35 +17,26 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            // $table->string('email')->unique();
             $table->string('password');
-            $table->string('phone')->unique();
+            // $table->string('phone')->unique();
             $table->string('gender')->nullable();
             $table->string('companyname')->nullable();
-             $table->string('website')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-
-            $table->string('areas_covering')->nullable();
-
-            $table->string('certificate');
             $table->tinyInteger('experience')->nullable();
-
-
-            
-           
-          
-            $table->text('introduction')->nullable();
-           $table->boolean('is_police_record')->default('0');
-            $table->boolean('is_travelling')->default('0');
-            $table->string('days')->nullable();
-            $table->integer('hours')->nullable();
-
+            $table->string('website')->nullable();
             $table->string('street_01')->nullable();
             $table->string('street_02')->nullable();
             $table->unsignedBigInteger('city_id')->nullable();
+            $table->text('introduction')->nullable();
+            $table->string('areas_covering')->nullable();
+            $table->boolean('is_police_record')->default('0');
+            $table->boolean('is_travelling')->default('0');
+            $table->integer('days')->nullable();
+            $table->integer('hours')->nullable();
             $table->unsignedBigInteger('subscription_id')->nullable();
             $table->enum('type', array('admin', 'individual_contractor', 'business', 'general_user'))->nullable();
-            $table->enum('status', array('pending', 'active', 'suspended', 'blocked'))->default('pending');
+            $table->enum('status', array('pending', 'active', 'suspended', 'blocked', 'deactivated', 'deleted'))->default('pending');
 
             $table->string('verification_code');
 
