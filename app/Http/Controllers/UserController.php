@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
+use App\Models\Category;
 use App\Models\Document;
+use App\Models\SubCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
@@ -153,6 +156,7 @@ class UserController extends Controller
         ToastHelper::showToast('Account successfully deleted.');
         return redirect()->route('logout');
     }
+
     public function changeStatus(Request $request)
     {
         $user = User::find($request->user);
@@ -161,9 +165,11 @@ class UserController extends Controller
         ToastHelper::showToast('User Status Changed.');
         return redirect()->back();
     }
+
     public function profileSkills()
     {
-        $user = User::find(auth()->id());
-        return view('admin.profile.skills', compact('user'));
+        $user = auth()->user();
+        $subCats = $user->allCategories();
+        return view('admin.profile.skills', compact('user', 'subCats'));
     }
 }

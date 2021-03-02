@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
+        \App\Models\Category::factory(10)->create();
+        \App\Models\SubCategory::factory(100)->create();
         $this->call(UserSeeder::class);
         foreach (\App\Models\User::factory(9)->create() as $user) {
             $user->emails()->create([
@@ -26,8 +28,7 @@ class DatabaseSeeder extends Seeder
                 'primary' => true
             ]);
         }
-        \App\Models\Category::factory(10)->create();
-        \App\Models\SubCategory::factory(100)->create();
+        $this->call(SkillSeeder::class);
         $this->call(TaskSeeder::class);
     }
 }

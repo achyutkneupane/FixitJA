@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\CacheHelper;
 
 class User extends Authenticatable
 {
@@ -64,7 +65,7 @@ class User extends Authenticatable
     }
     public function subcategories()
     {
-        return $this->hasMany(SubCategory::class);
+        return $this->belongsToMany(SubCategory::class, 'subcategory_user', 'user_id', 'sub_category_id');
     }
     public function emails()
     {
@@ -179,5 +180,23 @@ class User extends Authenticatable
     public function solved_by()
     {
         return $this->hasMany(ErrorLog::class, 'solved_by');
+    }
+
+    public function allCategories()
+    {
+        $subcategories = $this->subcategories;
+        $catData = collect([]);
+        foreach ($subcategories as $subcategory) {
+            $cat = CacheHelper::subcategory($subcategory);
+            if ($catData->has('cat_' . $cat['category_id'])) {
+                $updateCat = $catData->get('cat_' . $cat['category_id']);
+                $updateCat['subcategory'][] = $subcategory;
+                $catData->put('cat_' . $cat['category_id'], $updateCat);
+            } else {
+                $catValue = ['category' => $cat, 'subcategory' => [$subcategory]];
+                $catData->put('cat_' . $cat['category_id'], $catValue);
+            }
+        }
+        return $catData;
     }
 }

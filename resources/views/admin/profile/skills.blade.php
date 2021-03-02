@@ -13,44 +13,31 @@
                 <div class="card-header">
                     <div class="card-title">
                         <h3 class="card-label">
-                            Change Password
+                            User Skills
                         </h3>
                     </div>
                 </div>
-                {{-- Change Password --}}
+                {{-- Show Skills --}}
 
-                <div class="card-body">
-                    <form action="{{ route('changePassword') }}" method="POST" id="changePassword">
-                        @csrf
-                        @method('PUT')
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label">Old Password: </label>
-                            <div class="col-lg-9 col-xl-6">
-                                <input type="password" class="form-control form-control-lg form-control-solid"
-                                    placeholder="Old Password" name="old_password" required>
+                <div class="card-body row">
+                    @foreach ($subCats as $subCat)
+                        <div class="col-4 card card-custom gutter-b">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                        {{ ucwords($subCat['category']['category_name']) }}
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    @foreach ($subCat['subcategory'] as $subs)
+                                        <li>{{ $subs->name }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label">New Password: </label>
-                            <div class="col-lg-9 col-xl-6">
-                                <input type="password" class="form-control form-control-lg form-control-solid"
-                                    placeholder="New Password" name="new_password" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label">Confirm New Password: </label>
-                            <div class="col-lg-9 col-xl-6">
-                                <input type="password" class="form-control form-control-lg form-control-solid"
-                                    placeholder="Confirm New Password" name="cnew_password" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-lg-12 col-xl-9 text-center">
-                                <button class="btn btn-primary" onclick="validatePasswordAndGo()">Change</button>
-                            </div>
-                        </div>
-                    </form>
+                    @endforeach
                 </div>
             </div>
         </div>
