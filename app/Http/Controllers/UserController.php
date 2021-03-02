@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
+use App\Models\Category;
+use App\Models\City;
 use App\Models\Document;
+use App\Models\SubCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
@@ -153,6 +157,7 @@ class UserController extends Controller
         ToastHelper::showToast('Account successfully deleted.');
         return redirect()->route('logout');
     }
+
     public function changeStatus(Request $request)
     {
         $user = User::find($request->user);
@@ -160,5 +165,27 @@ class UserController extends Controller
         $user->save();
         ToastHelper::showToast('User Status Changed.');
         return redirect()->back();
+    }
+
+    public function profileSkills()
+    {
+        $user = auth()->user();
+        $subCats = $user->allCategories();
+        return view('admin.profile.skills', compact('user', 'subCats'));
+    }
+    public function userSkills($id)
+    {
+        if (User::find($id) == Auth::user()) {
+            return redirect()->route('profileSkills');
+        }
+        $user = User::find($id);
+        $subCats = $user->allCategories();
+        return view('admin.profile.skills', compact('user', 'subCats'));
+    }
+    public function editProfile()
+    {
+        $user = User::with('emails', 'phones')->find(auth()->id());
+        $cities = City::all();
+        return view('pages.editProfile', compact('user', 'cities'));
     }
 }
