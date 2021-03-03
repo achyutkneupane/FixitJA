@@ -105,4 +105,9 @@ class SubCategoryController extends Controller
         SubCategory::find($id)->delete();
         return redirect()->route('listCategory');
     }
+    public function list($id)
+    {
+        $cats = Category::with(['sub_categories'])->find($id);
+        return $cats->sub_categories;
+    }
 }

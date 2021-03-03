@@ -91,11 +91,9 @@
                                     <div class="form-group fv-plugins-icon-container">
                                         <label>Category</label>
                                         <select name="category" class="form-control form-control-solid form-control-lg">
-                                            <option value="">Select</option>
-                                            <option value="AF">Category 1</option>
-                                            <option value="AX">Category 2</option>
-                                            <option value="AL">Category 3</option>
-                                            <option value="DZ">Category 4</option>
+                                            @foreach($cats as $cat)
+                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                            @endforeach
                                         </select>
                                         <div class="fv-plugins-message-container"></div>
                                     </div>

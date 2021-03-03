@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -265,7 +266,8 @@ class UserController extends Controller
           
      
        
-        $subcategory = new SubCategory();+
+        $subcategory = new SubCategory();
+        dd($skillArray);
         $skill = implode(',', $skillArray);
         $subcategory->name = $skill;
        
@@ -292,8 +294,7 @@ class UserController extends Controller
             $user->city_id = 1;
             $user->save();
             Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function($m){
-                 $m->to(Auth::user()->email)
-          ->subject('Thank you for submitting your details');
+                 $m->to(auth()->user()->email())->subject('Thank you for submitting your details');
             });
             return redirect('/profile');
         } catch (Throwable $e) {
