@@ -89,10 +89,32 @@
                                     <h3 class="mb-10 font-weight-bold text-dark">Enter your task category</h3>
                                     <!--begin::Select-->
                                     {{-- Category 1 --}}
-                                    <div class="accordion accordion-solid accordion-toggle-plus" id="skill_accordian">
-                                        <div class="form-group fv-plugins-icon-container" id="category1_selector">
+                                    <div class="form-group fv-plugins-icon-container" id="category1_selector">
+                                        <label>Category</label>
+                                        <select name="category1" class="form-control form-control-solid form-control-lg profile_category1_select">
+                                            @foreach($cats as $cat)
+                                            <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="fv-plugins-message-container"></div>
+                                    </div>
+                                    <!--end::Select-->
+                                    <!--begin::Select-->
+                                    <div class="form-group fv-plugins-icon-container" id="subCategory1_selector" style="display:none;">
+                                        <label id="subCategory1_label"></label>
+                                        <div>
+                                            <input id="kt_tagify_sub1" class="form-control tagify" name="sub_categories1" placeholder="Add sub-categories">
+                                        </div>
+                                        <div class="fv-plugins-message-container"></div>
+                                    </div>
+                                    <!--end::Select-->
+                                    <input type="button" class="mr-auto ml-2 btn btn-primary" value="Add More Category " id="subCategoryAddButton2" onclick="addCategory2()" style="display: none;">
+                                    {{-- Category 2 --}}
+                                    <div id="categorySection2" class="mt-3" style="display:none;">
+                                        <!--begin::Select-->
+                                        <div class="form-group fv-plugins-icon-container" id="category2_selector">
                                             <label>Category</label>
-                                            <select name="category1" class="form-control form-control-solid form-control-lg profile_category1_select">
+                                            <select name="category2" class="form-control form-control-solid form-control-lg profile_category2_select">
                                                 @foreach($cats as $cat)
                                                 <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
                                                 @endforeach
@@ -101,81 +123,40 @@
                                         </div>
                                         <!--end::Select-->
                                         <!--begin::Select-->
-                                        <div class="form-group fv-plugins-icon-container" id="subCategory1_selector" style="display:none;">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <div class="card-title" id="subCategory1_label" data-toggle="collapse" data-target="#collapseCat1"></div>
-                                                </div>
-                                                <div id="collapseCat1" class="collapse show" data-parent="#skill_accordian">
-                                                    <div class="card-body">
-                                                        <input id="kt_tagify_sub1" class="form-control tagify" name="sub_categories1" placeholder="Add sub-categories">
-                                                        <div class="fv-plugins-message-container"></div>
-                                                    </div>
-                                                </div>
+                                        <div class="form-group fv-plugins-icon-container" id="subCategory2_selector" style="display:none;">
+                                            
+                                            <label id="subCategory2_label"></label>
+                                            <div>
+                                                <input id="kt_tagify_sub2" class="form-control tagify" name="sub_categories2" placeholder="Add sub-categories">
                                             </div>
+                                            <div class="fv-plugins-message-container"></div>
                                         </div>
                                         <!--end::Select-->
-                                        <input type="button" class="mr-auto ml-2 btn btn-primary" value="Add More Category " id="subCategoryAddButton2" onclick="addCategory2()" style="display: none;">
-                                        {{-- Category 2 --}}
-                                        <div id="categorySection2" class="mt-3" style="display:none;">
-                                            <!--begin::Select-->
-                                            <div class="form-group fv-plugins-icon-container" id="category2_selector">
-                                                <label>Category</label>
-                                                <select name="category2" class="form-control form-control-solid form-control-lg profile_category2_select">
-                                                    @foreach($cats as $cat)
-                                                    <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <div class="fv-plugins-message-container"></div>
-                                            </div>
-                                            <!--end::Select-->
-                                            <!--begin::Select-->
-                                            <div class="form-group fv-plugins-icon-container" id="subCategory2_selector" style="display:none;">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <div class="card-title" id="subCategory2_label" data-toggle="collapse" data-target="#collapseCat2"></div>
-                                                    </div>
-                                                    <div id="collapseCat2" class="collapse show" data-parent="#skill_accordian">
-                                                        <div class="card-body">
-                                                            <input id="kt_tagify_sub2" class="form-control tagify" name="sub_categories2" placeholder="Add sub-categories">
-                                                            <div class="fv-plugins-message-container"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--end::Select-->
-                                            <input type="button" class="mr-auto ml-2 btn btn-primary" value="Add More Category " id="subCategoryAddButton3" onclick="addCategory3()" style="display: none;">
-                                        </div>
+                                        <input type="button" class="mr-auto ml-2 btn btn-primary" value="Add More Category " id="subCategoryAddButton3" onclick="addCategory3()" style="display: none;">
+                                    </div>
 
-                                        {{-- Category 3 --}}
-                                        <div id="categorySection3" class="mt-3" style="display:none;">
-                                            <!--begin::Select-->
-                                            <div class="form-group fv-plugins-icon-container" id="category3_selector">
-                                                <label>Category</label>
-                                                <select name="category3" class="form-control form-control-solid form-control-lg profile_category3_select">
-                                                    @foreach($cats as $cat)
-                                                    <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <div class="fv-plugins-message-container"></div>
-                                            </div>
-                                            <!--end::Select-->
-                                            <!--begin::Select-->
-                                            <div class="form-group fv-plugins-icon-container" id="subCategory3_selector" style="display:none;">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <div class="card-title" id="subCategory3_label" data-toggle="collapse" data-target="#collapseCat3"></div>
-                                                    </div>
-                                                    <div id="collapseCat3" class="collapse show" data-parent="#skill_accordian">
-                                                        <div class="card-body">
-                                                            <input id="kt_tagify_sub3" class="form-control tagify" name="sub_categories3" placeholder="Add sub-categories">
-                                                            <div class="fv-plugins-message-container"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--end::Select-->
+                                    {{-- Category 3 --}}
+                                    <div id="categorySection3" class="mt-3" style="display:none;">
+                                        <!--begin::Select-->
+                                        <div class="form-group fv-plugins-icon-container" id="category3_selector">
+                                            <label>Category</label>
+                                            <select name="category3" class="form-control form-control-solid form-control-lg profile_category3_select">
+                                                @foreach($cats as $cat)
+                                                <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="fv-plugins-message-container"></div>
                                         </div>
+                                        <!--end::Select-->
+                                        <!--begin::Select-->
+                                        <div class="form-group fv-plugins-icon-container" id="subCategory3_selector" style="display:none;">
+                                            <label id="subCategory3_label"></label>
+                                            <div>
+                                                <input id="kt_tagify_sub3" class="form-control tagify" name="sub_categories3" placeholder="Add sub-categories">
+                                            </div>
+                                            <div class="fv-plugins-message-container"></div>
+                                        </div>
+                                        <!--end::Select-->
                                     </div>
                                     <div class="mt-3 text-muted">Select multiple subcategories. If you don't see your option just create one.</div>
                                 </div>
