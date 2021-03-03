@@ -227,9 +227,6 @@
                                             <div class="card-body">
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <label>Category</label>
-
-
-
                                                     <select name="skills_category[]" subcatid="kt_tagify_subcategory"
                                                         id="selected_catgeory1"
                                                         class="form-control form-control-solid form-control-lg category-select">
@@ -238,10 +235,7 @@
                                                         <option value="{{ $cate->id }}">{{ $cate->name }}
                                                         </option>
                                                         @endforeach
-
                                                     </select>
-
-
                                                     <div class="fv-plugins-message-container"></div>
 
                                                 </div>
@@ -249,8 +243,8 @@
                                                 <!--begin::Select-->
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <label>Sub category</label>
-                                                    <div id="divTagifykt_tagify_subcategory">
-                                                        <input id="kt_tagify_subcategory" class="form-control"
+                                                    <div id="subcategory_tagify" style="display: none;">
+                                                        <input id="kt_tagify_subcategory" class="form-control subCategory"
                                                             name="sub_categories" placeholder="Add sub-categories">
                                                         <div class="mt-3 text-muted">Select multiple
                                                             subcategories. If you don't see

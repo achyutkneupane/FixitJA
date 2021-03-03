@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Document;
@@ -46,7 +47,8 @@ class MainController extends Controller
     {
         $page_title = 'Create Project Wizard';
         $page_description = 'This is create project wizard page';
-        return view('pages.createTaskWizard', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+        $cats = Category::with('sub_categories')->get();
+        return view('pages.createTaskWizard', compact('page_title', 'page_description','cats'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function categories()
     {
