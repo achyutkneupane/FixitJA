@@ -16,7 +16,7 @@ class CreateSubCategoriesTable extends Migration
     {
         Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
+            $table->string('name');
             $table->text('description');
             $table->enum('status', array('active', 'proposed'))->default('active');
             $table->unsignedBigInteger('category_id');

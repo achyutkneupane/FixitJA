@@ -255,17 +255,22 @@ class UserController extends Controller
             }
 
             /* Converting skills array */
-
-            $subcategory = new SubCategory();
-            //dd($request->sub_categories);
- $dayArray = array();
-           foreach (json_decode($request->sub_categories) as $days) {
-            array_push($dayArray, $days->value);
+             $skillArray = array();
+            foreach (json_decode($request->sub_categories) as $category) {
+             array_push($skillArray , $category->value);
         }
-        dd($dayArray);
-        $subcategory->name = $skillsArray ;
+
+            
+            //dd($request->sub_categories);
+          
+     
+       
+        $subcategory = new SubCategory();+
+        $skill = implode(',', $skillArray);
+        $subcategory->name = $skill;
+       
         $subcategory->description ="working";
-        $subcategory->category_id = $skills_category;
+        $subcategory->category_id = $request->skills_category;
         $subcategory->save();
             
             /* converting  days array */
