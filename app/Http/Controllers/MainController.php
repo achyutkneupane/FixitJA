@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\City;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Document;
+use App\Models\SubCategory;
+use App\Models\Task;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -47,8 +51,85 @@ class MainController extends Controller
     {
         $page_title = 'Create Project Wizard';
         $page_description = 'This is create project wizard page';
+        $user = Auth::user();
         $cats = Category::with('sub_categories')->get();
-        return view('pages.createTaskWizard', compact('page_title', 'page_description','cats'), ["show_sidebar" => false, "show_navbar" => true]);
+        $cities = City::get();
+        if(!empty(auth()->user()))
+            return view('pages.createTaskWizard', compact('page_title', 'page_description','cats','cities','user'), ["show_sidebar" => false, "show_navbar" => true]);
+        else
+            return view('pages.createTaskWizard', compact('page_title', 'page_description','cats','cities'), ["show_sidebar" => false, "show_navbar" => true]);
+
+    }
+    public function addProject(Request $request)
+    {
+        // Classify Sub-Categories
+        $task_subcategories = new Collection();
+        foreach(json_decode($request->sub_categories1) as $subCat) {
+            if(empty($subCat->id)){
+                $cat = Category::find($request->category1)->sub_categories()->create([
+                    'name' => $subCat->value,
+                    'description' => 'Proposed Category'
+                ]);
+                $cat->status = "proposed";
+                $cat->save();
+                $task_subcategories->push(SubCategory::find($cat->id));
+            }
+            else
+                $task_subcategories->push(SubCategory::find($subCat->id));
+        }
+        if(!empty($request->sub_categories2)){
+            foreach(json_decode($request->sub_categories2) as $subCat) {
+                if(empty($subCat->id)){
+                    $cat = Category::find($request->category2)->sub_categories()->create([
+                        'name' => $subCat->value,
+                        'description' => 'Proposed Category'
+                    ]);
+                    $cat->status = "proposed";
+                    $cat->save();
+                    $task_subcategories->push(SubCategory::find($cat->id));
+                }
+                else
+                    $task_subcategories->push(SubCategory::find($subCat->id));
+            }
+            if(!empty($request->sub_categories3)){
+                foreach(json_decode($request->sub_categories3) as $subCat) {
+                    if(empty($subCat->id)){
+                        $cat = Category::find($request->category3)->sub_categories()->create([
+                            'name' => $subCat->value,
+                            'description' => 'Proposed Category'
+                        ]);
+                        $cat->status = "proposed";
+                        $cat->save();
+                        $task_subcategories->push(SubCategory::find($cat->id));
+                    }
+                    else
+                        $task_subcategories->push(SubCategory::find($subCat->id));
+                }
+            }
+        }
+
+        // Task Store
+        $task = new Task();
+        $task->created_by = auth()->id();
+        $task->name = $request->name;
+        $task->description = $request->description;
+        $task->type = $request->type;
+        $task->payment_type = $request->payment_type;
+        $task->deadline = $request->deadline;
+        $task->is_client_on_site = $request->is_client_on_site;
+        $task->is_repair_parts_provided = $request->is_repair_parts_provided;
+        $task->creator_name = $request->user_name;
+        $task->creator_phone = $request->phone;
+        $task->creator_email = $request->email;
+        $task->creator_city_id = $request->city;
+        $task->creator_street_01 = $request->street_01;
+        $task->creator_street_02 = $request->street_02;
+        $task->creator_house_number = $request->house_number;
+        $task->creator_postal_code = $request->postal_code;
+        $task->creator_province = $request->province;
+        $task->save();
+        $task->subcategories()->attach($task_subcategories);
+        return redirect()->route('viewTask',$task->id);
     }
     public function categories()
     {

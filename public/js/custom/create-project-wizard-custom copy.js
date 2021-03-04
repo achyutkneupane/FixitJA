@@ -54,24 +54,43 @@ var KTWizard1 = function () {
 							}
 						}
 					},
-					type: {
+					weight: {
 						validators: {
 							notEmpty: {
-								message: 'Project Type is required'
+								message: 'Package weight is required'
+							},
+							digits: {
+								message: 'The value added is not valid'
 							}
 						}
 					},
-					payment_type: {
+					width: {
 						validators: {
 							notEmpty: {
-								message: 'Project Payment Type is required'
+								message: 'Package width is required'
+							},
+							digits: {
+								message: 'The value added is not valid'
 							}
 						}
 					},
-					deadline: {
+					height: {
 						validators: {
 							notEmpty: {
-								message: 'Project Deadline is required'
+								message: 'Package height is required'
+							},
+							digits: {
+								message: 'The value added is not valid'
+							}
+						}
+					},
+					packagelength: {
+						validators: {
+							notEmpty: {
+								message: 'Package length is required'
+							},
+							digits: {
+								message: 'The value added is not valid'
 							}
 						}
 					}
@@ -92,45 +111,76 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					name: {
+					delivery: {
 						validators: {
 							notEmpty: {
-								message: 'Your Name is required'
+								message: 'Delivery type is required'
 							}
 						}
 					},
-					phone: {
+					packaging: {
 						validators: {
 							notEmpty: {
-								message: 'Your Phone is required'
+								message: 'Packaging type is required'
 							}
 						}
 					},
-					email: {
+					preferreddelivery: {
 						validators: {
 							notEmpty: {
-								message: 'Your Email is required'
+								message: 'Preferred delivery window is required'
+							}
+						}
+					}
+				},
+				plugins: {
+					trigger: new FormValidation.plugins.Trigger(),
+					// Bootstrap Framework Integration
+					bootstrap: new FormValidation.plugins.Bootstrap({
+						//eleInvalidClass: '',
+						eleValidClass: '',
+					})
+				}
+			}
+		));
+
+		// Step 4
+		_validations.push(FormValidation.formValidation(
+			_formEl,
+			{
+				fields: {
+					locaddress1: {
+						validators: {
+							notEmpty: {
+								message: 'Address is required'
 							}
 						}
 					},
-					city: {
+					locpostcode: {
 						validators: {
 							notEmpty: {
-								message: 'Your City is required'
+								message: 'Postcode is required'
 							}
 						}
 					},
-					street_01: {
+					loccity: {
 						validators: {
 							notEmpty: {
-								message: 'Your Street Address is required'
+								message: 'City is required'
 							}
 						}
 					},
-					province: {
+					locstate: {
 						validators: {
 							notEmpty: {
-								message: 'Your Province is required'
+								message: 'State is required'
+							}
+						}
+					},
+					loccountry: {
+						validators: {
+							notEmpty: {
+								message: 'Country is required'
 							}
 						}
 					}

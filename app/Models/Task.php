@@ -19,6 +19,18 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'created_for');
     }
+    public function creatorCity()
+    {
+        return $this->belongsTo(City::class, 'creator_city_id');
+    }
+    public function siteCity()
+    {
+        return $this->belongsTo(City::class, 'site_city_id');
+    }
+    public function subcategories()
+    {
+        return $this->belongsToMany(SubCategory::class, 'subcategory_task', 'task_id', 'sub_category_id');
+    }
     public function assignedBy()
     {
         return $this->belongsToMany(User::class, 'assignedBy_task', 'task_id', 'assigned_by');

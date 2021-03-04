@@ -25,7 +25,7 @@ $page_title = 'Tasks';
 
         @isAdmin
         @php
-            $subhead_button = [['link' => '#', 'text' => 'New Task', 'class' => 'primary']];
+            $subhead_button = [['link' => route('createProject'), 'text' => 'New Task', 'class' => 'primary']];
         @endphp
         @endisAdmin
         <div class="card-body">
@@ -96,9 +96,10 @@ $page_title = 'Tasks';
                             </td>
                             <td>{{ $task->status }}</td>
                             <td>{{ $task->type }}</td>
-                            <td>{{ $task->createdFor->name }}</td>
-                            <td>{!! $task->workingLocation->name !!}</td>
-                            <td>{{ ucwords($task->sub_category->name) }}</td>
+                            <td>{!! isset($task->createdFor->name) ? $task->createdFor->name : '<span class="text-muted">N/A</span>' !!}</td>
+                            <td>{!! $task->creatorCity->name !!}</td>
+                            <td></td>
+                            {{-- <td>{{ ucwords($task->sub_category->name) }}</td> --}}
                             <td>{{ $task->created_at->diffForHumans() }}</td>
                         </tr>
                     @endforeach

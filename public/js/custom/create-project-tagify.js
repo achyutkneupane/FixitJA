@@ -42,13 +42,14 @@ function bindSubCat1(subcat_data) {
 }
 $(document).on('change','.profile_category1_select', function (e) {
     document.getElementById("category1_selector").style.display = "none";
-    document.getElementById("subCategory1_label").innerHTML = "Sub Category under " + $('.profile_category1_select option:selected').text();
+    document.getElementById("subCategory1_label").innerHTML =  $('.profile_category1_select option:selected').text();
     document.getElementById("subCategory1_selector").style.display = "block";
     document.getElementById("subCategoryAddButton2").style.display = "block";
 
     e.preventDefault();
     var result;
     category_id1 = $(this).val();
+    document.getElementById("category1").value = category_id1;
     getSubCatData1(category_id1);
 });
 
@@ -63,7 +64,8 @@ function getSubCatData1(categoryId1) {
             $.each(result, function (index, item) {
                 var itemObj = {};
                 itemObj.value = item.name;
-                itemObj.email = item.email;
+                itemObj.description = item.description;
+                itemObj.id = item.id;
                 itemObj.initials = '',
                 itemObj.initialsState = '',
                 itemObj.class = 'tagify__tag--secondary'
@@ -133,13 +135,14 @@ function bindSubCat2(subcat_data) {
 
 $(document).on('change','.profile_category2_select', function (e) {
     document.getElementById("category2_selector").style.display = "none";
-    document.getElementById("subCategory2_label").innerHTML = "Sub Category under " + $('.profile_category2_select option:selected').text();
+    document.getElementById("subCategory2_label").innerHTML = $('.profile_category2_select option:selected').text();
     document.getElementById("subCategory2_selector").style.display = "block";
     document.getElementById("subCategoryAddButton3").style.display = "block";
 
     e.preventDefault();
     var result;
     category_id2 = $(this).val();
+    document.getElementById("category2").value = category_id2;
     getSubCatData2(category_id2);
 });
 
@@ -154,8 +157,9 @@ function getSubCatData2(categoryId2) {
             $.each(result, function (index, item) {
                 var itemObj = {};
                 itemObj.value = item.name;
-                itemObj.email = item.email;
+                itemObj.description = item.description;
                 itemObj.initials = '',
+                itemObj.id = item.id;
                 itemObj.initialsState = '',
                 itemObj.class = 'tagify__tag--secondary'
                 subcategory.push(itemObj);
@@ -170,7 +174,7 @@ function getSubCatData2(categoryId2) {
 
 function addCategory3()
 {
-    $(".profile_category3_select option[value=" + category_id3 + "]").remove();
+    $(".profile_category3_select option[value=" + category_id2 + "]").remove();
     document.getElementById("subCategoryAddButton3").style.display = "none";
     document.getElementById("categorySection3").style.display = "block";
 }
@@ -219,12 +223,13 @@ function bindSubCat3(subcat_data) {
 
 $(document).on('change','.profile_category3_select', function (e) {
     document.getElementById("category3_selector").style.display = "none";
-    document.getElementById("subCategory3_label").innerHTML = "Sub Category under " + $('.profile_category3_select option:selected').text();
+    document.getElementById("subCategory3_label").innerHTML = $('.profile_category3_select option:selected').text();
     document.getElementById("subCategory3_selector").style.display = "block";
 
     e.preventDefault();
     var result;
     category_id3 = $(this).val();
+    document.getElementById("category3").value = category_id3;
     getSubCatData3(category_id3);
 });
 
@@ -239,7 +244,8 @@ function getSubCatData3(categoryId3) {
             $.each(result, function (index, item) {
                 var itemObj = {};
                 itemObj.value = item.name;
-                itemObj.email = item.email;
+                itemObj.description = item.description;
+                itemObj.id = item.id;
                 itemObj.initials = '',
                 itemObj.initialsState = '',
                 itemObj.class = 'tagify__tag--secondary'
