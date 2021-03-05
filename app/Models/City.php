@@ -19,10 +19,11 @@ class City extends Model
     }
     public function taskCreators()
     {
-        return $this->hasMany(Task::class, 'creator_city_id');
+        return $this->hasMany(TaskCreator::class);
     }
     public function taskSites()
     {
-        return $this->hasMany(Task::class, 'site_city_id');
+        return $this->hasMany(TaskWorkingLocation::class);
     }
+
 }

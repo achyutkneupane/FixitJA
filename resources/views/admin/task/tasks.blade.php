@@ -97,7 +97,7 @@ $page_title = 'Tasks';
                             <td>{{ $task->status }}</td>
                             <td>{{ $task->type }}</td>
                             <td>{!! isset($task->createdFor->name) ? $task->createdFor->name : '<span class="text-muted">N/A</span>' !!}</td>
-                            <td>{!! $task->creatorCity->name !!}</td>
+                            <td>{!! $task->creator->city->name !!}</td>
                             <td></td>
                             {{-- <td>{{ ucwords($task->sub_category->name) }}</td> --}}
                             <td>{{ $task->created_at->diffForHumans() }}</td>

@@ -54,6 +54,13 @@ var KTWizard1 = function () {
 							}
 						}
 					},
+					name: {
+						validators: {
+							notEmpty: {
+								message: 'Task Title is required'
+							}
+						}
+					},
 					type: {
 						validators: {
 							notEmpty: {
@@ -92,7 +99,7 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					name: {
+					user_name: {
 						validators: {
 							notEmpty: {
 								message: 'Your Name is required'
@@ -145,6 +152,46 @@ var KTWizard1 = function () {
 				}
 			}
 		));
+		var check = document.getElementById("locationCheck").checked;
+		if(!check)
+		{
+			_validations.push(FormValidation.formValidation(
+				_formEl,
+				{
+					fields: {
+						site_city: {
+							validators: {
+								notEmpty: {
+									message: 'Location City is required'
+								}
+							}
+						},
+						site_street_01: {
+							validators: {
+								notEmpty: {
+									message: 'Location Street is required'
+								}
+							}
+						},
+						site_province: {
+							validators: {
+								notEmpty: {
+									message: 'Location Province is required'
+								}
+							}
+						}
+					},
+					plugins: {
+						trigger: new FormValidation.plugins.Trigger(),
+						// Bootstrap Framework Integration
+						bootstrap: new FormValidation.plugins.Bootstrap({
+							//eleInvalidClass: '',
+							eleValidClass: '',
+						})
+					}
+				}
+			));
+		}
 
 		
 	}

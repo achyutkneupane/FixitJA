@@ -19,13 +19,13 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'created_for');
     }
-    public function creatorCity()
+    public function creator()
     {
-        return $this->belongsTo(City::class, 'creator_city_id');
+        return $this->hasOne(TaskCreator::class);
     }
-    public function siteCity()
+    public function location()
     {
-        return $this->belongsTo(City::class, 'site_city_id');
+        return $this->hasOne(TaskWorkingLocation::class);
     }
     public function subcategories()
     {

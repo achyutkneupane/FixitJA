@@ -32,7 +32,7 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Working Location: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span
-                                class="form-control form-control-lg form-control-solid">{{ $task->creatorCity->name }}</span>
+                                class="form-control form-control-lg form-control-solid">{{ $task->creator->city->name }}</span>
                         </div>
                     </div>
                     <div class="form-group row">

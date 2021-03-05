@@ -93,7 +93,7 @@
                                         {{-- Category 1 --}}
                                         <div class="form-group fv-plugins-icon-container" id="category1_selector">
                                             <label>Category</label>
-                                            <select name="category1" class="form-control form-control-solid form-control-lg profile_category1_select">
+                                            <select name="category1" class="form-control form-control-solid form-control-sm profile_category1_select">
                                                 @foreach($cats as $cat)
                                                 <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
                                                 @endforeach
@@ -127,7 +127,7 @@
                                             <!--begin::Select-->
                                             <div class="form-group fv-plugins-icon-container" id="category2_selector">
                                                 <label>Category</label>
-                                                <select name="category2" class="form-control form-control-solid form-control-lg profile_category2_select">
+                                                <select name="category2" class="form-control form-control-solid form-control-sm profile_category2_select">
                                                     @foreach($cats as $cat)
                                                     <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
                                                     @endforeach
@@ -163,7 +163,7 @@
                                             <!--begin::Select-->
                                             <div class="form-group fv-plugins-icon-container" id="category3_selector">
                                                 <label>Category</label>
-                                                <select name="category3" class="form-control form-control-solid form-control-lg profile_category3_select">
+                                                <select name="category3" class="form-control form-control-solid form-control-sm profile_category3_select">
                                                     @foreach($cats as $cat)
                                                     <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
                                                     @endforeach
@@ -198,157 +198,300 @@
                                 <!--begin::Wizard Step 2-->
                                 <div class="pb-5" data-wizard-type="step-content">
                                     <h4 class="mb-10 font-weight-bold text-dark">Enter Task Details</h4>
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Title</label>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="name" placeholder="Task Title">
-                                        <span class="form-text text-muted">Please enter your Phone</span>
-                                        <div class="fv-plugins-message-container"></div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Title</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="name" placeholder="Task Title">
+                                                <span class="form-text text-muted">Please enter your Task title</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Project Type</label>
+                                                <select name="type" class="form-control form-control-solid form-control-sm">
+                                                    <option value="">Select Project Type</option>
+                                                    <option value="ready to hire">Ready To Hire</option>
+                                                    <option value="planning">Required Planning and Budgeting</option>
+                                                    <option value="N/A">Not Sure Yet</option>
+                                                </select>
+                                                <span class="form-text text-muted">Please enter your project type.</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Description</label>
+                                                <textarea class="form-control form-control-solid form-control-sm" name="description" placeholder="Description" rows="7"></textarea>
+                                                <span class="form-text text-muted">Please enter your Task Description</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
                                     </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Description</label>
-                                        <textarea class="form-control form-control-solid form-control-lg" name="description" placeholder="Description"></textarea>
-                                        <span class="form-text text-muted">Please enter your Task Description</span>
-                                        <div class="fv-plugins-message-container"></div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Project Payment</label>
+                                                <select name="payment_type" class="form-control form-control-solid form-control-sm">
+                                                    <option value="">Select Payment Type</option>
+                                                    <option value="project_basis">Project Basis</option>
+                                                    <option value="hourly_basis">Hourly Basis</option>
+                                                </select>
+                                                <span class="form-text text-muted">Please enter your project payment type.</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Project Deadline</label>
+                                                <select name="deadline" class="form-control form-control-solid form-control-sm">
+                                                    <option value="">Select Payment Deadline</option>
+                                                    <option value="flexible">Flexible</option>
+                                                    <option value="asap">ASAP</option>
+                                                    <option value="within a week">Within A Week</option>
+                                                    <option value="within 2 weeks">Within Two Weeks</option>
+                                                    <option value="within a month">Within A Month</option>
+                                                    <option value="more than a month">More Than A Month</option>
+                                                    <option value="N/A">Not Sure Yet</option>
+                                                </select>
+                                                <span class="form-text text-muted">Please enter your project deadline.</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
                                     </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Project Type</label>
-                                        <select name="type" class="form-control form-control-solid form-control-lg">
-                                            <option value="">Select Project Type</option>
-                                            <option value="ready to hire">Ready To Hire</option>
-                                            <option value="planning">Required Planning and Budgeting</option>
-                                            <option value="N/A">Not Sure Yet</option>
-                                        </select>
-                                        <span class="form-text text-muted">Please enter your project type.</span>
-                                        <div class="fv-plugins-message-container"></div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Are you on site while working?</label>
+                                                <select name="is_client_on_site" class="form-control form-control-solid form-control-sm">
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                    <option value="NULL" selected>Not Sure Yet</option>
+                                                </select>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Are repair parts provided?</label>
+                                                <select name="is_repair_parts_provided" class="form-control form-control-solid form-control-sm">
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                    <option value="NULL" selected>Not Sure Yet</option>
+                                                </select>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
                                     </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Project Payment</label>
-                                        <select name="payment_type" class="form-control form-control-solid form-control-lg">
-                                            <option value="">Select Payment Type</option>
-                                            <option value="project_basis">Project Basis</option>
-                                            <option value="hourly_basis">Hourly Basis</option>
-                                        </select>
-                                        <span class="form-text text-muted">Please enter your project payment type.</span>
-                                        <div class="fv-plugins-message-container"></div>
-                                    </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Project Deadline</label>
-                                        <select name="deadline" class="form-control form-control-solid form-control-lg">
-                                            <option value="">Select Payment Deadline</option>
-                                            <option value="flexible">Flexible</option>
-                                            <option value="asap">ASAP</option>
-                                            <option value="within a week">Within A Week</option>
-                                            <option value="within 2 weeks">Within Two Weeks</option>
-                                            <option value="within a month">Within A Month</option>
-                                            <option value="more than a month">More Than A Month</option>
-                                            <option value="N/A">Not Sure Yet</option>
-                                        </select>
-                                        <span class="form-text text-muted">Please enter your project deadline.</span>
-                                        <div class="fv-plugins-message-container"></div>
-                                    </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Are you on site while working?</label>
-                                        <select name="is_client_on_site" class="form-control form-control-solid form-control-lg">
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                                            <option value="NULL" selected>Not Sure Yet</option>
-                                        </select>
-                                        <div class="fv-plugins-message-container"></div>
-                                    </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Are repair parts provided?</label>
-                                        <select name="is_repair_parts_provided" class="form-control form-control-solid form-control-lg">
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                                            <option value="NULL" selected>Not Sure Yet</option>
-                                        </select>
-                                        <div class="fv-plugins-message-container"></div>
-                                    </div>
-                                    <!--end::Input-->
                                 </div>
                                 <!--end::Wizard Step 2-->
                                 <!--begin::Wizard Step 3-->
                                 <div class="pb-5" data-wizard-type="step-content">
                                     <h4 class="mb-10 font-weight-bold text-dark">User Details</h4>
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Full Name</label>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="user_name" placeholder="Full Name" value="{{ !empty($user->name) ? $user->name : '' }}">
-                                        <span class="form-text text-muted">Please enter your Full Name</span>
-                                        <div class="fv-plugins-message-container"></div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Full Name</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="user_name" placeholder="Full Name" value="{{ !empty($user->name) ? $user->name : '' }}">
+                                                <span class="form-text text-muted">Please enter your Full Name</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Phone</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="phone" placeholder="Phone" value="{{ !empty($user->phone()) ? $user->phone() : '' }}">
+                                                <span class="form-text text-muted">Please enter your Phone</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Email</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="email" placeholder="Email" value="{{ !empty($user->email()) ? $user->email() : '' }}">
+                                                <span class="form-text text-muted">Please enter your Email</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
                                     </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Phone</label>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="phone" placeholder="Phone" value="{{ !empty($user->phone()) ? $user->phone() : '' }}">
-                                        <span class="form-text text-muted">Please enter your Phone</span>
-                                        <div class="fv-plugins-message-container"></div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label>User Address</label>
+                                        </div>
                                     </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Email</label>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="email" placeholder="Email" value="{{ !empty($user->email()) ? $user->email() : '' }}">
-                                        <span class="form-text text-muted">Please enter your Email</span>
-                                        <div class="fv-plugins-message-container"></div>
+                                    <div class="form-group row">
+                                        <div class="col-md-4">
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <!--begin::Select-->
+                                                <label>City</label>
+                                                <select class="form-control form-control-solid form-control-sm" id="citySelector" name="city">
+                                                    @foreach($cities as $index => $city)
+                                                        <option value="{{ $city->id }}" {{ ($city->id == $user->city->id) ? 'selected' : '' }}>{{ $city->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <span class="form-text text-muted">Please enter your City</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                                <!--end::Select-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <!--begin::Input-->
+                                                <label>Street Address 1(Optional)</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="street_01" placeholder="Street Address 1" value="{{ !empty($user->street_01) ? $user->street_01 : '' }}">
+                                                <span class="form-text text-muted">Please enter your Street Address</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                                <!--end::Input-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <!--begin::Input-->
+                                                <label>Street Address 2(Optional)</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="street_02" placeholder="Street Address 2" value="{{ !empty($user->street_02) ? $user->street_02 : '' }}">
+                                                <span class="form-text text-muted">Please enter your Street Address</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                                <!--end::Input-->
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Address</label>
-                                        <select class="form-control form-control-solid form-control-lg select2" id="kt_select2_1" name="city">
-                                            @foreach($cities as $city)
-                                                <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                            @endforeach
-                                        </select><br><br>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="street_01" placeholder="Street Address 1" value="{{ !empty($user->street_01) ? $user->street_01 : '' }}"><br>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="street_02" placeholder="Street Address 2" value="{{ !empty($user->street_02) ? $user->street_02 : '' }}"><br>
-                                        <span class="form-text text-muted">Please enter your Address</span>
-                                        <div class="fv-plugins-message-container"></div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>House Number or Unit(Optional)</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="house_number" placeholder="House Number or Unit">
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Postal Code(Optional)</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="postal_code" placeholder="Postal Code">
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Province</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="province" placeholder="Province">
+                                                <div class="fv-plugins-message-container"></div>
+                                                <span class="form-text text-muted">Please enter your Province</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
                                     </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>House Number or Unit</label>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="house_number" placeholder="House Number or Unit">
-                                        <div class="fv-plugins-message-container"></div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="checkbox" id="locationCheck" name="user_equal_working" onchange="workingEqualsUser()"/>
+                                            <span class="font-weight-bold">Working Location is same as User Location</span>
+                                        </div>
                                     </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Postal Code</label>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="postal_code" placeholder="Postal Code">
-                                        <div class="fv-plugins-message-container"></div>
+                                    <div id="workingLocation" class="mt-3">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Working Location</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <!--begin::Select-->
+                                                    <label>City</label>
+                                                    <select class="form-control form-control-solid form-control-sm" id="citySelector" name="site_city">
+                                                        @foreach($cities as $index => $city)
+                                                            <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <span class="form-text text-muted">Please enter your City</span>
+                                                    <div class="fv-plugins-message-container"></div>
+                                                    <!--end::Select-->
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <!--begin::Input-->
+                                                    <label>Street Address 1(Optional)</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_street_01" placeholder="Street Address 1" value="{{ !empty($user->street_01) ? $user->street_01 : '' }}">
+                                                    <span class="form-text text-muted">Please enter your Street Address</span>
+                                                    <div class="fv-plugins-message-container"></div>
+                                                    <!--end::Input-->
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <!--begin::Input-->
+                                                    <label>Street Address 2(Optional)</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_street_02" placeholder="Street Address 2" value="{{ !empty($user->street_02) ? $user->street_02 : '' }}">
+                                                    <span class="form-text text-muted">Please enter your Street Address</span>
+                                                    <div class="fv-plugins-message-container"></div>
+                                                    <!--end::Input-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <!--begin::Input-->
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <label>House Number or Unit(Optional)</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_house_number" placeholder="House Number or Unit">
+                                                    <div class="fv-plugins-message-container"></div>
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <div class="col-md-4">
+                                                <!--begin::Input-->
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <label>Postal Code(Optional)</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_postal_code" placeholder="Postal Code">
+                                                    <div class="fv-plugins-message-container"></div>
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <div class="col-md-4">
+                                                <!--begin::Input-->
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <label>Province</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_province" placeholder="Province">
+                                                    <div class="fv-plugins-message-container"></div>
+                                                    <span class="form-text text-muted">Please enter your Province</span>
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Province</label>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="province" placeholder="Province">
-                                        <div class="fv-plugins-message-container"></div>
-                                        <span class="form-text text-muted">Please enter your Province</span>
                                     </div>
-                                    <!--end::Input-->
-                                </div>
                                 <!--end::Wizard Step 3-->
                                 <!--begin::Wizard Step 4-->
                                 <div class="pb-5" data-wizard-type="step-content">
                                     <h4 class="mb-10 font-weight-bold text-dark">Review Your Entry</h4>
-                                    
+                                    <div class="d-flex align-items-center justify-content-between mb-2" id='subCats'>
+                                        <span class="font-weight-bold"></span>
+                                        <span class="text-muted"></span>
+                                    </div>
                                 </div>
                                 <!--end::Wizard Step 4-->
 
@@ -394,8 +537,8 @@
     var fixedNavbarWebsite = true;
     $(".navbar-marketing").addClass("navbar-scrolled");
     $(".navbar-marketing").removeClass("fixed-top");
-    $('#kt_select2_1').select2({
-   placeholder: "Select a City"
-  });
+    // $('#citySelector').select2({
+    //     placeholder: "Select a City"
+    // });
 </script>
 @endsection

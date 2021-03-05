@@ -26,24 +26,7 @@ class CreateTasksTable extends Migration
             $table->enum('deadline', array('N/A', 'asap', 'within a week', 'within a month', 'more than a month', 'flexible'));
             $table->enum('is_client_on_site', array('1', '0'))->nullable();
             $table->enum('is_repair_parts_provided', array('1', '0'))->nullable();
-
-            $table->string('creator_name');
-            $table->string('creator_phone');
-            $table->string('creator_email');
-            $table->unsignedBigInteger('creator_city_id');
-            $table->string('creator_street_01');
-            $table->string('creator_street_02')->nullable();
-            $table->string('creator_house_number')->nullable();
-            $table->string('creator_postal_code')->nullable();
-            $table->string('creator_province');
-            $table->enum('is_site_location_same',array('1','0'))->default('0');
-
-            $table->unsignedBigInteger('site_city_id')->nullable();
-            $table->string('site_street_01')->nullable();
-            $table->string('site_street_02')->nullable();
-            $table->string('site_house_number')->nullable();
-            $table->string('site_postal_code')->nullable();
-            $table->string('site_province')->nullable();
+            $table->boolean('user_equal_working')->nullable()->default(true);
 
             $table->unsignedBigInteger('related_task_id')->nullable();
             $table->timestamps();
@@ -51,8 +34,6 @@ class CreateTasksTable extends Migration
 
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('created_for')->references('id')->on('users');
-            $table->foreign('creator_city_id')->references('id')->on('cities');
-            $table->foreign('site_city_id')->references('id')->on('cities');
             $table->foreign('related_task_id')->references('id')->on('tasks');
         });
 
