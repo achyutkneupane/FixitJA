@@ -4,6 +4,7 @@
 //Initialize validator for dynamic changes
 var CategoryFV;
 var CertificateFV;
+var ReferencFv;
 const skills_category = {
     validators: {
         notEmpty: {
@@ -40,6 +41,30 @@ const certificateValidator = {
             type: 'image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             maxSize: 4194304,   // 4096 * 1024
             message: 'The selected file is not valid or exceeded the size limit.'
+        }
+    }
+}
+
+const referal_name = {
+    validators: {
+        notEmpty:{
+            message: 'Referable Name is required'
+        }
+    }
+}
+
+const referal_email = {
+    validators: {
+        notEmpty:{
+            message: 'Referable Email is required'
+        }
+    }
+}
+
+const referal_phone = {
+    validators:{
+        notEmpty:{
+            message: 'Referable phone is required'
         }
     }
 }
@@ -114,13 +139,7 @@ var KTWizard1 = function () {
                             }
                         }
                     },
-                    gpa: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Gpa is required'
-                            }
-                        }
-                    }
+                   
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -134,45 +153,13 @@ var KTWizard1 = function () {
         ));
 
         // Step 4
-        _validations.push(FormValidation.formValidation(
+        ReferencFv = FormValidation.formValidation(
             _formEl,
             {
-                fields: {
-                    personal_description: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Personal descrption is required'
-                            }
-                        }
-                    },
-                    hours: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Hours is required'
-                            }
-                        }
-                    },
-                    loccity: {
-                        validators: {
-                            notEmpty: {
-                                message: 'City is required'
-                            }
-                        }
-                    },
-                    locstate: {
-                        validators: {
-                            notEmpty: {
-                                message: 'State is required'
-                            }
-                        }
-                    },
-                    loccountry: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Country is required'
-                            }
-                        }
-                    }
+             fields: {
+                 'referal_name': referal_name,
+                 'referal_email': referal_email,
+                 'referal_phone' : referal_phone,
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -183,7 +170,10 @@ var KTWizard1 = function () {
                     })
                 }
             }
-        ))
+        );
+        _validations.push(ReferencFv);
+
+        /* step 5 */
         _validations.push(FormValidation.formValidation(
             _formEl,
             {
@@ -202,27 +192,9 @@ var KTWizard1 = function () {
                             }
                         }
                     },
-                    loccity: {
-                        validators: {
-                            notEmpty: {
-                                message: 'City is required'
-                            }
-                        }
-                    },
-                    locstate: {
-                        validators: {
-                            notEmpty: {
-                                message: 'State is required'
-                            }
-                        }
-                    },
-                    loccountry: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Country is required'
-                            }
-                        }
-                    }
+                    
+                  
+                   
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -235,7 +207,11 @@ var KTWizard1 = function () {
             }
         ));
 
-        // step 5
+        //step 6
+
+      
+
+        // step 7
         _validations.push(FormValidation.formValidation(
             _formEl,
             {
@@ -247,13 +223,7 @@ var KTWizard1 = function () {
                             }
                         }
                     },
-                    City: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Postcode is required'
-                            }
-                        }
-                    },
+                    
                     City: {
                         validators: {
                             notEmpty: {
@@ -261,13 +231,7 @@ var KTWizard1 = function () {
                             }
                         }
                     },
-                    locstate: {
-                        validators: {
-                            notEmpty: {
-                                message: 'State is required'
-                            }
-                        }
-                    },
+                    
                     loccountry: {
                         validators: {
                             notEmpty: {
@@ -286,57 +250,8 @@ var KTWizard1 = function () {
                 }
             }
         ));
-        //step 6
-        _validations.push(FormValidation.formValidation(
-            _formEl,
-            {
-                fields: {
-                    locaddress1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Address is required'
-                            }
-                        }
-                    },
-                    locpostcode: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Postcode is required'
-                            }
-                        }
-                    },
-                    loccity: {
-                        validators: {
-                            notEmpty: {
-                                message: 'City is required'
-                            }
-                        }
-                    },
-                    locstate: {
-                        validators: {
-                            notEmpty: {
-                                message: 'State is required'
-                            }
-                        }
-                    },
-                    loccountry: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Country is required'
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    trigger: new FormValidation.plugins.Trigger(),
-                    // Bootstrap Framework Integration
-                    bootstrap: new FormValidation.plugins.Bootstrap({
-                        //eleInvalidClass: '',
-                        eleValidClass: '',
-                    })
-                }
-            }
-        ));
+        
+      
     }
 
     var _initWizard = function () {

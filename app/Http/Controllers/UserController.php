@@ -153,7 +153,10 @@ class UserController extends Controller
 
             ]);
 
-            //dd(implode(',',$request->working_days));
+            //inserting sub_categories
+
+            $count = count($request->sub_categories);
+            dd($count);
              
             
             /* Uplaoding profile picture */
