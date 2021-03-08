@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Helpers\LogHelper;
@@ -29,70 +28,73 @@ class UserController extends Controller
     {
         $user = new User();
         $user = User::find(auth()->id());
-        if (request('password')) {
-            request()->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('emails')],
-                'password' => ['string', 'min:8'],
-                'old_password' => ['required'],
-                'phone' => ['required', 'numeric', 'min:8', Rule::unique('phones')],
-                'profile_image' => ['mimes:jpeg,png,gif,jpg', 'max:4096', 'file'],
-            ]);
-        } else
-            request()->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('emails')],
-                'old_password' => ['required'],
-                'phone' => ['required', 'numeric', 'min:8', Rule::unique('phones')],
-                'profile_image' => ['mimes:jpeg,png,gif,jpg', 'max:4096', 'file'],
-            ]);
+        if (request('password'))
+        {
+            request()
+                ->validate(['name' => ['required', 'string', 'max:255'], 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('emails') ], 'password' => ['string', 'min:8'], 'old_password' => ['required'], 'phone' => ['required', 'numeric', 'min:8', Rule::unique('phones') ], 'profile_image' => ['mimes:jpeg,png,gif,jpg', 'max:4096', 'file'], ]);
+        }
+        else request()
+            ->validate(['name' => ['required', 'string', 'max:255'], 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('emails') ], 'old_password' => ['required'], 'phone' => ['required', 'numeric', 'min:8', Rule::unique('phones') ], 'profile_image' => ['mimes:jpeg,png,gif,jpg', 'max:4096', 'file'], ]);
 
-        if (Hash::check(request('old_password'), Auth::user()->password)) {
-            if (request('password')) {
+        if (Hash::check(request('old_password') , Auth::user()
+            ->password))
+        {
+            if (request('password'))
+            {
                 $user->password = Hash::make(request('password'));
             }
-            $user->update(
-                [
-                    'name' => request('name'),
-                ]
-            );
-            $user->emails()->update([
-                'email' => request('email'),
-                'primary' => true
-            ]);
-            $user->phones()->update([
-                'email' => request('phone'),
-                'primary' => true
-            ]);
+            $user->update(['name' => request('name') , ]);
+            $user->emails()
+                ->update(['email' => request('email') , 'primary' => true]);
+            $user->phones()
+                ->update(['email' => request('phone') , 'primary' => true]);
 
-            if (request('profile_image')) {
+            if (request('profile_image'))
+            {
                 $tempPath = "";
                 $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first();
-                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first()->path;
+                if (!is_null(Document::where('user_id', Auth::user()->id)
+                    ->get()
+                    ->where('type', 'profile_picture')
+                    ->first()))
+                {
+                    $document = Document::where('user_id', Auth::user()->id)
+                        ->get()
+                        ->where('type', 'profile_picture')
+                        ->first();
+                    $tempPath = Document::where('user_id', Auth::user()->id)
+                        ->get()
+                        ->where('type', 'profile_picture')
+                        ->first()->path;
                 }
-                $document->path = request('profile_image')->store('profile_images');
+                $document->path = request('profile_image')
+                    ->store('profile_images');
                 $document->type = 'profile_picture';
-                $document->user()->associate($user->id);
+                $document->user()
+                    ->associate($user->id);
                 $document->save();
-                if ($tempPath)
-                    Storage::delete($tempPath);
+                if ($tempPath) Storage::delete($tempPath);
             }
             return redirect('/home');
-        } else {
-            return Redirect::back()->withErrors(['old_password' => 'Old password did not match.'])->withInput();
+        }
+        else
+        {
+            return Redirect::back()->withErrors(['old_password' => 'Old password did not match.'])
+                ->withInput();
         }
     }
     public function profile()
     {
-        $user = User::with('emails', 'phones')->find(Auth::user()->id)->first();
+        $user = User::with('emails', 'phones')->find(Auth::user()
+            ->id)
+            ->first();
 
         return view('pages.profile', compact('user'));
     }
     public function show($id)
     {
-        if (User::find($id) == Auth::user()) {
+        if (User::find($id) == Auth::user())
+        {
             return redirect()->route('viewProfile');
         }
         $user = User::with('emails', 'phones')->find($id);
@@ -103,17 +105,16 @@ class UserController extends Controller
         $users = User::with('emails', 'phones')->get();
         return view('admin.profile.users', compact('users'));
     }
-     public function updateprofile1()
+    public function updateprofile1()
     {
-        
+
         return view('pages.createProfileWizard');
     }
 
-  
-
     public function getprofileImage(Request $request)
     {
-        $document = Document::where('user_id', Auth::user()->id)->get();
+        $document = Document::where('user_id', Auth::user()->id)
+            ->get();
         $category = Category::with('sub_categories')->get();
         return view('pages.createProfileWizard', compact('document', 'category'));
     }
@@ -126,95 +127,134 @@ class UserController extends Controller
     }
     public function addprofiledetails(Request $request)
     {
-        try {
-            
-             $user  = new User();
-            $user  = User::find(Auth::user()->id);
-            $request->validate([
-                'skills_category' => ['required'],
-                'sub_categories' => ['required'],
-                'certificate' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-                'expereince'  => ['required'],
-                'educationinstutional_name' => ['required'],
-                'degree'  => ['required'],
-                'start_date' => ['required'],
-                'end_date'   =>['required'],
-                'gpa' => ['required'],
-                'reference' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-                'police_report' => ['nullable'],
-                'personal_description' => ['required'],
-                'hours' => ['required'],
-                'working_days' => ['nullable'],
-                'long_distance' => ['nullable'],
-                'total distance' => ['nullable'],
-                'street' => ['required'],
-                'house_number' => ['nullable'],
-                'city' => ['required'],
-                'profile' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
+        try
+        {
+
+            $user = new User();
+            $user = User::find(Auth::user()->id);
+            $request->validate(['skills_category' => ['required'], 'sub_categories' => ['required'], 'certificate' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'], 'experience' => ['nullable'], 'educationinstutional_name' => ['required'], 'degree' => ['required'], 'start_date' => ['required'], 'end_date' => ['required'], 'reference' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'], 'police_report' => ['nullable'], 'personal_description' => ['required'], 'hours' => ['required'], 'working_days' => ['nullable'], 'long_distance' => ['nullable'], 'total distance' => ['nullable'], 'street' => ['required'], 'house_number' => ['nullable'], 'city' => ['required'], 'profile' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
+
+            ], ['skills_category' => ['required'], 'sub_categories' => ['required'], 'certificate' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
 
             ]);
 
-            //dd(implode(',',$request->working_days));
-             
-            
-            /* Uplaoding profile picture */
-           if (request('profile')) {
+            if (request('profile'))
+            {
                 $tempPath = "";
                 $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first();
-                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first()->path;
+                if (!is_null(Document::where('user_id', Auth::user()->id)
+                    ->get()
+                    ->where('type', 'profile_picture')
+                    ->first()))
+                {
+                    $document = Document::where('user_id', Auth::user()->id)
+                        ->get()
+                        ->where('type', 'profile_picture')
+                        ->first();
+                    $tempPath = Document::where('user_id', Auth::user()->id)
+                        ->get()
+                        ->where('type', 'profile_picture')
+                        ->first()->path;
                 }
-                $document->path = request('profile')->store('profile');
+                $document->path = request('profile')
+                    ->store('profile');
                 //dd(request('profile')->store('profile'));
                 $document->type = 'profile_picture';
-                $document->user()->associate($user->id);
+                $document->user()
+                    ->associate($user->id);
                 $document->save();
-                if ($tempPath)
-                    Storage::delete($tempPath);
+                if ($tempPath) Storage::delete($tempPath);
             };
 
             //dd("hello");
+            /*Uploading certificate */
+            if (request('certificate'))
+            {
+                $tempPath1 = "";
+                $document = new Document();
+                if (!is_null(Document::where('user_id', Auth::user()->id)
+                    ->get()
+                    ->where('type', 'other')
+                    ->first()))
+                {
+                    $document = Document::where('user_id', Auth::user()->id)
+                        ->get()
+                        ->where('type', 'other')
+                        ->first();
+                    $tempPath1 = Document::where('user_id', Auth::user()->id)
+                        ->get()
+                        ->where('type', 'other')
+                        ->first()->path;
+                }
+                dd($tempPath1);
+                $document->path = request('certificate')
+                    ->store('certificate');
+                //dd(request('certificate')->store('certificate'));
+                $document->type = 'other';
+                $document->user()
+                    ->associate($user->id);
+                $document->save();
+                if ($tempPath1) Storage::delete($tempPath1);
+            };
 
-          /*Uploading certificate */
-          if (request('certificate'))
-          {
-              $tempPath1 = "";
-              $document = new Document();
-              if(!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first())){
-                  $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
-                  $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
-              }
-              $document->path = request('certificate')->store('certificate');
-              //dd(request('certificate')->store('certificate'));
-              $document->type = 'other';
-              $document->user()->associate($user->id);
-              $document->save();
-              if($tempPath1)
-                  Storage::delete($tempPath1);
-          };
+            /* uploading Referenece */
+            if (request('reference'))
+            {
+                $tempPath2 = "";
+                $document = new Document();
+                if (!is_null(Document::where('user_id', Auth::user()->id)
+                    ->get()
+                    ->where('type', 'reference_letter')
+                    ->first()))
+                {
+                    $document = Document::where('user_id', Auth::user()->id)
+                        ->get()
+                        ->where('type', 'reference_letter')
+                        ->first();
+                    $tempPath1 = Document::where('user_id', Auth::user()->id)
+                        ->get()
+                        ->where('type', 'reference_letter')
+                        ->first()->path;
+                }
+                $document->path = request('reference')
+                    ->store('reference');
+                //dd(request('reference')->store('reference'));
+                $document->type = 'reference_letter';
+                $document->user()
+                    ->associate($user->id);
+                $document->save();
+                if ($tempPath2) Storage::delete($tempPath2);
 
-          /* uploading Referenece */
-          if (request('reference')){
-              $tempPath2 = "";
-              $document = new Document();
-              if(!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first())){
-                  $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first();
-                  $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first()->path;
-              }
-              $document->path = request('reference')->store('reference');
-              //dd(request('reference')->store('reference'));
-              $document->type = 'reference_letter';
-              $document->user()->associate($user->id);
-              $document->save();
-              if($tempPath2)
-              Storage::delete($tempPath2);
-
-          }
-           
-           
-
+            }
+            /* Inserting  certificate*/
+            // dd($request->certificate);
+            /* Inserting Sub category*/
+            $subcat = '';
+            dd($request);
+            for ($i = 0;$i < count($request->input('sub_categories'));$i++)
+            {
+                $subcat = $request->input('sub_categories');
+            }
+            //dd($subcat);
             
+
+            $profile_subcategories = new Collection();
+            foreach (json_decode($request->sub_categories) as $user_subcategories)
+            {
+                if (empty($user_subcategories->id))
+                {
+                    dd("i am not empty");
+                    $cat = Category::find($subcat)->sub_categories()
+                        ->create(['name' => $user_subcategories->value, 'description' => 'Proposed Category']);
+                    $cat->status = "proposed";
+                    $cat->save();
+                    $profile_subcategories->push(SubCategory::find($cat->id));
+                }
+                else
+                {
+                    $profile_subcategories->push(SubCategory::find($user_subcategories->id));
+                }
+            }
             $education = new Education();
             $education->education_instution_name = $request->educationinstutional_name;
             $education->degree = $request->degree;
@@ -226,92 +266,90 @@ class UserController extends Controller
             $education_user = new EducationUser();
             $education_user->user_id = Auth::user()->id;
             $education_user->education_id = $education->id;
-            $education_user->save(); 
-            
+            $education_user->save();
 
             //$user->areas_covering = $skills->id;
             $user->experience = $request->expereince;
 
-            // logic for the radio button 
-            if($request->police_report == "1")
+            // logic for the radio button
+            if ($request->police_report == "1")
             {
                 $user->is_police_record = 1;
 
             }
-            elseif($request->police_report == "0")
+            elseif ($request->police_report == "0")
             {
                 $user->is_police_record = 0;
 
             }
 
-             if($request->is_travelling == "1")
+            if ($request->is_travelling == "1")
             {
                 $user->is_travelling = 1;
 
             }
-            elseif($request->is_travelling == "0")
+            elseif ($request->is_travelling == "0")
             {
                 $user->is_travelling = 0;
 
             }
 
-            /* Converting skills array */
-             $skillArray = array();
-            foreach (json_decode($request->sub_categories) as $category) {
-             array_push($skillArray , $category->value);
-        }
+            // inserting skills
+            
 
-            
-            //dd($request->sub_categories);
-          
-     
-       
-        $subcategory = new SubCategory();
-        dd($skillArray);
-        $skill = implode(',', $skillArray);
-        $subcategory->name = $skill;
-       
-        $subcategory->description ="working";
-        $subcategory->category_id = $request->skills_category;
-        $subcategory->save();
-            
+            // $subcategory = new SubCategory();
+            // dd($skillArray);
+            // $skill = implode(',', $skillArray);
+            // $subcategory->name = $skill;
+
+            // $subcategory->description = "working";
+            // $subcategory->category_id = $request->skills_category;
+            // $subcategory->save();
+
             /* converting  days array */
-           $dayArray = array();
-           foreach (json_decode($request->working_days) as $days) {
-            array_push($dayArray, $days->value);
-        }
+            $dayArray = array();
+            foreach (json_decode($request->working_days) as $days)
+            {
+                array_push($dayArray, $days->value);
+            }
             //dd(implode(',',$dayArray));
-           
             $user->hours = $request->hours;
 
-            $user->days = implode(',',$dayArray) ;
+            $user->days = implode(',', $dayArray);
 
-           
-            
-             $user->introduction = $request->personal_description;
+            //dd($profile_subcategories);
+            $user->areas_covering = $profile_subcategories;
+            $user->introduction = $request->personal_description;
             $user->street_01 = $request->street;
             $user->street_02 = $request->house_number;
             $user->city_id = 1;
             $user->save();
-            Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function($m){
-                 $m->to(auth()->user()->email())->subject('Thank you for submitting your details');
+            Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user
+                ->email], function ($m)
+            {
+                $m->to(auth()->user()->email()->subject('Thank you for submitting your details'));
             });
             return redirect('/profile');
-        } catch (Throwable $e) {
-            
+        }
+        catch(Throwable $e)
+        {
+
             dd($e);
-            return redirect()->route('profileWizard')->withInput();
+            return redirect()->route('profileWizard')
+                ->withInput();
         }
     }
 
     public function security()
     {
-        $user = User::with('emails', 'phones')->find(Auth::user()->id);
+        $user = User::with('emails', 'phones')->find(Auth::user()
+            ->id);
         return view('admin.profile.security', compact('user'));
     }
     public function viewSecurity($id)
     {
-        if (User::find($id) == Auth::user()) {
+        if (User::find($id) == Auth::user())
+        {
             return redirect()->route('accountSecurity');
         }
         $user = User::with('emails', 'phones')->find($id);
@@ -320,26 +358,34 @@ class UserController extends Controller
     public function changePassword(Request $request)
     {
         $user = User::find(auth()->id());
-        if (!Hash::check($request->old_password, $user->password)) {
+        if (!Hash::check($request->old_password, $user->password))
+        {
             ToastHelper::showToast("Old Password doesn't match.", "error");
-            return redirect()->route('accountSecurity')->withInput($request->input());
-        } else {
+            return redirect()
+                ->route('accountSecurity')
+                ->withInput($request->input());
+        }
+        else
+        {
             $user->password = Hash::make($request->new_password);
             $user->save();
             ToastHelper::showToast("Password has been changed.");
-            return redirect()->route('accountSecurity');
+            return redirect()
+                ->route('accountSecurity');
         }
     }
     public function addEmail(Request $request)
     {
         $user = User::with('emails')->find($request->user);
-        try {
-            $email = $request->validate([
-                'email' => ['required', 'string', 'email', 'unique:emails,email', 'max:255'],
-            ]);
-            $user->emails()->create($email);
+        try
+        {
+            $email = $request->validate(['email' => ['required', 'string', 'email', 'unique:emails,email', 'max:255'], ]);
+            $user->emails()
+                ->create($email);
             return redirect()->back();
-        } catch (Throwable $e) {
+        }
+        catch(Throwable $e)
+        {
             dd($e);
             LogHelper::store('Category', $e);
             return redirect()->back();
@@ -351,7 +397,8 @@ class UserController extends Controller
         $user->status = "deactivated";
         $user->save();
         ToastHelper::showToast('Account successfully deactivated.');
-        return redirect()->route('logout');
+        return redirect()
+            ->route('logout');
     }
     public function deleteUser()
     {
@@ -359,7 +406,8 @@ class UserController extends Controller
         $user->status = "deleted";
         $user->save();
         ToastHelper::showToast('Account successfully deleted.');
-        return redirect()->route('logout');
+        return redirect()
+            ->route('logout');
     }
 
     public function changeStatus(Request $request)
@@ -368,7 +416,8 @@ class UserController extends Controller
         $user->status = $request->status;
         $user->save();
         ToastHelper::showToast('User Status Changed.');
-        return redirect()->back();
+        return redirect()
+            ->back();
     }
 
     public function profileSkills()
@@ -379,7 +428,8 @@ class UserController extends Controller
     }
     public function userSkills($id)
     {
-        if (User::find($id) == Auth::user()) {
+        if (User::find($id) == Auth::user())
+        {
             return redirect()->route('profileSkills');
         }
         $user = User::find($id);
@@ -388,8 +438,10 @@ class UserController extends Controller
     }
     public function editProfile()
     {
-        $user = User::with('emails', 'phones')->find(auth()->id());
+        $user = User::with('emails', 'phones')->find(auth()
+            ->id());
         $cities = City::all();
         return view('pages.editProfile', compact('user', 'cities'));
     }
 }
+
