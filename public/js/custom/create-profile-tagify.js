@@ -58,9 +58,10 @@ function getSubCatData(categoryId, subcatid) {
     var subcategory = new Array();
     $.ajax({
         type: "GET",
-        url: '/profile/' + categoryId,
+        url: 'api/category/' + categoryId,
         dataType: 'json',
         success: function (result) {
+            console.log(result);
             $.each(result, function (index, item) {
                 var itemObj = {};
                 itemObj.value = item.name,
@@ -69,6 +70,8 @@ function getSubCatData(categoryId, subcatid) {
                 itemObj.initialsState = '',
                 itemObj.class = 'tagify__tag--primary'
                 subcategory.push(itemObj);
+
+                console.log(subcategory);
             });
              bindSubCat1(subcategory, subcatid);
         }
