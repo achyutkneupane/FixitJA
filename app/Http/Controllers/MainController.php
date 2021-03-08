@@ -65,6 +65,7 @@ class MainController extends Controller
     public function addProject(Request $request)
     {
         // Classify Sub-Categories
+        dd($request);
         $task_subcategories = new Collection();
         foreach(json_decode($request->sub_categories1) as $subCat) {
             if(empty($subCat->id)){

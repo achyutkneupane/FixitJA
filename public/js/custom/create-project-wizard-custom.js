@@ -1,5 +1,22 @@
 "use strict";
 
+var CategoryProjectWizardFV;
+const skills_category_project_wizard = {
+    validators: {
+        notEmpty: {
+            message: 'Category is required'
+        }
+    }
+}
+
+const sub_categories_project_wizard = {
+    validators: {
+        notEmpty: {
+            message: 'Sub-category is required'
+        }
+    }
+}
+
 // Class definition
 var KTWizard1 = function () {
 	// Base elements
@@ -12,39 +29,23 @@ var KTWizard1 = function () {
 	var _initValidation = function () {
 		// Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
 		// Step 1
-		_validations.push(FormValidation.formValidation(
-			_formEl,
-			{
-				fields: {
-					// category1: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Category is required'
-					// 		}
-					// 	}
-					// },
-					// sub_categories1: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Sub-category is required'
-					// 		}
-					// 	}
-					// }
-				},
-				plugins: {
-					trigger: new FormValidation.plugins.Trigger(),
-					// Bootstrap Framework Integration
-					bootstrap: new FormValidation.plugins.Bootstrap({
-						//eleInvalidClass: '',
-						eleValidClass: '',
-					}),
+        CategoryProjectWizardFV = FormValidation.formValidation(
+            _formEl,
+            {
+                fields: {
 
-					alias: new FormValidation.plugins.Alias({
-						checkIfRequired: 'callback',
-					}),
-				}
-			}
-		));
+                },
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    // Bootstrap Framework Integration
+                    bootstrap: new FormValidation.plugins.Bootstrap({
+                        //eleInvalidClass: '',
+                        eleValidClass: '',
+                    })
+                }
+            }
+        );
+        _validations.push(CategoryProjectWizardFV);
 
 		// Step 2
 		_validations.push(FormValidation.formValidation(
@@ -84,20 +85,46 @@ var KTWizard1 = function () {
 							}
 						}
 					},
-					// payment_type: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Project Payment Type is required'
-					// 		}
-					// 	}
-					// },
-					// deadline: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Project Deadline is required'
-					// 		}
-					// 	}
-					// }
+					payment_type: {
+						validators: {
+							checkIfRequired: {
+								message: 'Payment type is required',
+								callback: function(input) {
+									$("#paymentTypeId").text($("select[name='payment_type'] option:selected").text());
+									return !!input.value;
+								},
+							}
+						}
+					},
+					deadline: {
+						validators: {
+							checkIfRequired: {
+								message: 'Project Deadline is required',
+								callback: function(input) {
+									$("#projectDeadlineId").text($("select[name='deadline'] option:selected").text());
+									return !!input.value;
+								},
+							}
+						}
+					},
+					is_client_on_site: {
+						validators: {
+							checkIfRequired: {
+								callback: function(input) {
+									$("#onSiteId").text($("select[name='is_client_on_site'] option:selected").text());
+								},
+							}
+						}
+					},
+					is_repair_parts_provided: {
+						validators: {
+							checkIfRequired: {
+								callback: function(input) {
+									$("#repairPartId").text($("select[name='is_repair_parts_provided'] option:selected").text());
+								},
+							}
+						}
+					}
 				},
 				plugins: {
 					trigger: new FormValidation.plugins.Trigger(),
@@ -119,41 +146,70 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					// user_name: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your Name is required'
-					// 		}
-					// 	}
-					// },
-					// phone: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your Phone is required'
-					// 		}
-					// 	}
-					// },
-					// email: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your Email is required'
-					// 		}
-					// 	}
-					// },
-					// city: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your City is required'
-					// 		}
-					// 	}
-					// },
-					// street_01: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your Street Address is required'
-					// 		}
-					// 	}
-					// },
+					user_name: {
+						validators: {
+							checkIfRequired: {
+								message: 'Your Name is required',
+								callback: function(input) {
+									$("#userNameId").text(input.value);
+									return !!input.value;
+								},
+							}
+						}
+					},
+					phone: {
+						validators: {
+							checkIfRequired: {
+								message: 'Your Phone is required',
+								callback: function(input) {
+									$("#userPhoneId").text(input.value);
+									return !!input.value;
+								},
+							}
+						}
+					},
+					email: {
+						validators: {
+							checkIfRequired: {
+								message: 'Your Email is required',
+								callback: function(input) {
+									$("#userEmailId").text(input.value);
+									return !!input.value;
+								},
+							}
+						}
+					},
+					city: {
+						validators: {
+							checkIfRequired: {
+								message: 'Your City is required',
+								callback: function(input) {
+									$("#userCityId").text($("select[name='city'] option:selected").text());
+									return !!input.value;
+								},
+							}
+						}
+					},
+					street_01: {
+						validators: {
+							checkIfRequired: {
+								message: 'Your Street Address is required',
+								callback: function(input) {
+									$("#userStreet1Id").text(input.value);
+									return !!input.value;
+								},
+							}
+						}
+					},
+					street_02: {
+						validators: {
+							checkIfRequired: {
+								callback: function(input) {
+									$("#userStreet2Id").text(input.value);
+								},
+							}
+						}
+					},
 					// province: {
 					// 	validators: {
 					// 		notEmpty: {
@@ -206,6 +262,8 @@ var KTWizard1 = function () {
 				}
 			}
 		));
+
+
 	}
 
 	var _initWizard = function () {
@@ -232,7 +290,7 @@ var KTWizard1 = function () {
 						KTUtil.scrollTop();
 					} else {
 						Swal.fire({
-							text: "Sorry, looks like there are some errors detected, please try again.",
+							text: "Please fill all the required fields.",
 							icon: "error",
 							buttonsStyling: false,
 							confirmButtonText: "Ok, got it!",
