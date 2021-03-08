@@ -133,12 +133,11 @@ class UserController extends Controller
                 'skills_category' => ['required'],
                 'sub_categories' => ['required'],
                 'certificate' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-                'expereince'  => ['required'],
+                'experience'  => ['nullable'],
                 'educationinstutional_name' => ['required'],
                 'degree'  => ['required'],
                 'start_date' => ['required'],
                 'end_date'   =>['required'],
-                'gpa' => ['required'],
                 'reference' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
                 'police_report' => ['nullable'],
                 'personal_description' => ['required'],
@@ -151,15 +150,19 @@ class UserController extends Controller
                 'city' => ['required'],
                 'profile' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
 
-            ]);
+         
+            ],
+        [
+            'skills_category' => ['required'],
+            'sub_categories' => ['required'],
+            'certificate' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
 
-            //inserting sub_categories
+        ]);
 
-            $count = count($request->sub_categories);
-            dd($count);
-             
+      
+           
             
-            /* Uplaoding profile picture */
+        
            if (request('profile')) {
                 $tempPath = "";
                 $document = new Document();
@@ -187,6 +190,7 @@ class UserController extends Controller
                   $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
                   $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
               }
+              dd($tempPath1);
               $document->path = request('certificate')->store('certificate');
               //dd(request('certificate')->store('certificate'));
               $document->type = 'other';
@@ -213,10 +217,35 @@ class UserController extends Controller
               Storage::delete($tempPath2);
 
           }
-           
-           
+          /* Inserting  certificate*/
+         // dd($request->certificate);
 
-            
+          /* Inserting Sub category*/
+          $subcat = '';
+          dd($request->sub_categories);
+          for( $i =0; $i < count($request->input('sub_categories')); $i++){
+               $subcat =$request->input('sub_categories');
+          }
+          //dd($subcat);
+
+        
+
+          $profile_subcategories = new Collection();
+          foreach(json_decode($request->sub_categories) as $user_subcategories){
+              if(empty($user_subcategories->id)){
+                  dd("i am not empty");
+                  $cat = Category::find($subcat)->sub_categories()->create([
+                      'name' => $user_subcategories->value,
+                      'description' => 'Proposed Category'
+                  ]);
+                  $cat->status = "proposed";
+                  $cat->save();
+                  $profile_subcategories->push(SubCategory::find($cat->id));
+              }
+              else{
+                  $profile_subcategories->push(SubCategory::find($user_subcategories->id));
+              }
+          }
             $education = new Education();
             $education->education_instution_name = $request->educationinstutional_name;
             $education->degree = $request->degree;
@@ -257,24 +286,12 @@ class UserController extends Controller
 
             }
 
-            /* Converting skills array */
-             $skillArray = array();
-            foreach (json_decode($request->sub_categories) as $category) {
-             array_push($skillArray , $category->value);
-        }
-
-            
-            //dd($request->sub_categories);
+              // inserting skills 
+          
+        
           
      
        
-        $subcategory = new SubCategory();+
-        $skill = implode(',', $skillArray);
-        $subcategory->name = $skill;
-       
-        $subcategory->description ="working";
-        $subcategory->category_id = $request->skills_category;
-        $subcategory->save();
             
             /* converting  days array */
            $dayArray = array();
@@ -287,9 +304,9 @@ class UserController extends Controller
 
             $user->days = implode(',',$dayArray) ;
 
-           
-            
-             $user->introduction = $request->personal_description;
+           //dd($profile_subcategories);
+            $user->areas_covering = $profile_subcategories;
+            $user->introduction = $request->personal_description;
             $user->street_01 = $request->street;
             $user->street_02 = $request->house_number;
             $user->city_id = 1;

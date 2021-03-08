@@ -208,6 +208,32 @@ var KTWizard1 = function () {
         ));
 
         //step 6
+        _validations.push(FormValidation.formValidation(
+            _formEl,
+            {
+                fields: {
+                    profile: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Profile image is required'
+                            }
+                        }
+                    },
+                  
+                    
+                  
+                   
+                },
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    // Bootstrap Framework Integration
+                    bootstrap: new FormValidation.plugins.Bootstrap({
+                        //eleInvalidClass: '',
+                        eleValidClass: '',
+                    })
+                }
+            }
+        ));
 
       
 

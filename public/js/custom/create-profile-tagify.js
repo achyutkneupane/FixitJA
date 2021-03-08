@@ -63,7 +63,8 @@ function getSubCatData(categoryId, subcatid) {
         success: function (result) {
             $.each(result, function (index, item) {
                 var itemObj = {};
-                itemObj.value = item.name;
+                itemObj.value = item.name,
+                itemObj.id = item.id,
                 itemObj.initials = '',
                 itemObj.initialsState = '',
                 itemObj.class = 'tagify__tag--primary'

@@ -143,7 +143,7 @@ $("#add_btn").click(function (e) {
             '  <label>Sub category</label> ' +
             ' <div id = "divTagify' + subcatid + '"> ' +
             '  <input id="' + subcatid + '" ' +
-            ' class="form-control" name="sub_categories' + count + '" ' +
+            ' class="form-control" name="sub_categories[]' + count + '" ' +
             ' placeholder="Add sub-categories"> ' +
             ' <div class="mt-3 text-muted">Select multiple ' +
             ' subcategories. If you don see ' +
@@ -225,7 +225,7 @@ $("#add_more_reference").click(function(e){
                     ' </div> ' +
                     ' </div> ' +
                     ' <div class="card-footer bg-transparent py-5"> ' +
-                    ' <button type="button" name="referenceCard' + count + '" countValue=' + count + ' id="remove_btn1" class="btn btn-danger remove-accordian1">Remove</button>' +
+                    ' <button type="button" name="referenceCard' + count + '" countValue1=' + count + ' id="remove_btn1" class="btn btn-danger remove-accordian_remove">Remove</button>' +
                    '</div>'+
             '</div>'
 
@@ -255,13 +255,13 @@ $("#add_more_reference").click(function(e){
 })
 
 //Removing  add Referneces
-$(document).on("click", ".remove-accordian1", function (e) {
+$(document).on("click", ".remove-accordian_remove", function (e) {
     e.stopImmediatePropagation();
     e.preventDefault();
     $("#" + $(this).attr('name')).remove();
-    ReferencFv.removeField('referal_name' + $(this).attr('countValue') + '')
-        .removeField('referal_email' + $(this).attr('countValue') + '')
-        .removeField('referal_phone' + $(this).attr('countValue') + '');
+    ReferencFv.removeField('referal_name' + $(this).attr('countValue1') + '')
+        .removeField('referal_email' + $(this).attr('countValue1') + '')
+        .removeField('referal_phone' + $(this).attr('countValue1') + '');
 
         if ($(".card-reference-accordion").length < 3) {
             $("#add_more_reference").show();
