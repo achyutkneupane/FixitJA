@@ -1,5 +1,4 @@
 function bindSubCat1(data, subcat) {
-    console.log(subcat);
     var toEl = document.getElementById(subcat);
         var tagifyTo = new Tagify(toEl, {
         delimiters: ", ", // add new tags when a comma or a space character is entered
@@ -42,15 +41,15 @@ function bindSubCat1(data, subcat) {
 
 // var select_category = $(this).attr('selectcategoryid');
 $(document).on('change','.category-select', function (e) {
+    e.stopImmediatePropagation();
     e.preventDefault();
-    var result;
     var subcatid = this.getAttribute('subcatid');
+    console.log(subcatid);
     if($('#divTagify'+subcatid+'').find('tags').length > 0){
         $('#divTagify'+subcatid+'').find('tags').remove();
     }
-    
+
     var category_id = $(this).val();
-    console.log(category_id);
     getSubCatData(category_id, subcatid);
 });
 
@@ -62,7 +61,6 @@ function getSubCatData(categoryId, subcatid) {
         url: '/profile/' + categoryId,
         dataType: 'json',
         success: function (result) {
-            console.log(result);
             $.each(result, function (index, item) {
                 var itemObj = {};
                 itemObj.value = item.name;
