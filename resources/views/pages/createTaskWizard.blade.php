@@ -488,9 +488,23 @@
                                 <!--begin::Wizard Step 4-->
                                 <div class="pb-5" data-wizard-type="step-content">
                                     <h4 class="mb-10 font-weight-bold text-dark">Review Your Entry</h4>
-                                    <div class="d-flex align-items-center justify-content-between mb-2" id='subCats'>
-                                        <span class="font-weight-bold"></span>
-                                        <span class="text-muted"></span>
+                                    <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                        <div class="col-md-12">
+                                            <span class="font-weight-bold">Subcategories: </span>
+                                            <span class="text-muted" id='subCatsId'></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Task Title: </span>
+                                            <span class="text-muted" id='taskTitleId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Task Description: </span>
+                                            <span class="text-muted" id='taskDescriptionId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Task Description: </span>
+                                            <span class="text-muted" id='taskTypeId'>N/A</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <!--end::Wizard Step 4-->
