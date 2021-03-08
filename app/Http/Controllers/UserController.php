@@ -229,32 +229,30 @@ class UserController extends Controller
             /* Inserting  certificate*/
             // dd($request->certificate);
             /* Inserting Sub category*/
-            $subcat = '';
-            dd($request);
-            for ($i = 0;$i < count($request->input('sub_categories'));$i++)
-            {
-                $subcat = $request->input('sub_categories');
+            /* By Achyut Neupane */
+            $subcatCollector = collect();
+            $user_subcategories = collect();
+            foreach($request->sub_categories as $subCatEncoded) {
+                $subcatCollector->push(json_decode($subCatEncoded));
             }
-            //dd($subcat);
-            
+            foreach($subcatCollector as $index => $subcat) {
+                foreach($subcat as $sub) {
+                    if(empty($sub->id))
+                    {
+                        $cat = Category::find($request->skill_category[$index])->sub_categories()->create([
+                            'name' => $sub->value,
+                            'description' => 'Proposed Category'
+                        ]);
+                        $cat->status = "proposed";
+                        $cat->save();
+                        $user_subcategories->push(SubCategory::find($cat->id));
+                    }
+                    else
+                        $user_subcategories->push(SubCategory::find($sub->id));
+                }
+            }
+            /* End Inserting Sub Category */
 
-            $profile_subcategories = new Collection();
-            foreach (json_decode($request->sub_categories) as $user_subcategories)
-            {
-                if (empty($user_subcategories->id))
-                {
-                    dd("i am not empty");
-                    $cat = Category::find($subcat)->sub_categories()
-                        ->create(['name' => $user_subcategories->value, 'description' => 'Proposed Category']);
-                    $cat->status = "proposed";
-                    $cat->save();
-                    $profile_subcategories->push(SubCategory::find($cat->id));
-                }
-                else
-                {
-                    $profile_subcategories->push(SubCategory::find($user_subcategories->id));
-                }
-            }
             $education = new Education();
             $education->education_instution_name = $request->educationinstutional_name;
             $education->degree = $request->degree;
@@ -297,15 +295,6 @@ class UserController extends Controller
             // inserting skills
             
 
-            // $subcategory = new SubCategory();
-            // dd($skillArray);
-            // $skill = implode(',', $skillArray);
-            // $subcategory->name = $skill;
-
-            // $subcategory->description = "working";
-            // $subcategory->category_id = $request->skills_category;
-            // $subcategory->save();
-
             /* converting  days array */
             $dayArray = array();
             foreach (json_decode($request->working_days) as $days)
@@ -317,13 +306,12 @@ class UserController extends Controller
 
             $user->days = implode(',', $dayArray);
 
-            //dd($profile_subcategories);
-            $user->areas_covering = $profile_subcategories;
             $user->introduction = $request->personal_description;
             $user->street_01 = $request->street;
             $user->street_02 = $request->house_number;
             $user->city_id = 1;
             $user->save();
+            $user->subcategories()->attach($user_subcategories);
             Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user
                 ->email], function ($m)
             {
