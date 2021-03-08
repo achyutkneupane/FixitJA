@@ -67,6 +67,7 @@ Route::get('/security/deactivate', [App\Http\Controllers\UserController::class, 
 Route::get('/security/delete', [App\Http\Controllers\UserController::class, 'deleteUser'])->middleware('auth')->name('deleteUser');
 Route::get('/security/{id}', [App\Http\Controllers\UserController::class, 'viewSecurity'])->middleware('auth', 'checkIfAdmin')->name('viewAccountSecurity');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
+Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
 
 
 // Route for about page
@@ -85,7 +86,7 @@ Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addpr
 Route::get('/profile/{id}', [App\Http\Controllers\CategoryController::class, 'getSubCategory']);
 Route::get('/category_data', [App\Http\Controllers\CategoryController::class, 'getCategory']);
 //Route for creating new project wizard
-Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
+Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
 //Route for viewing all categories
 Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 

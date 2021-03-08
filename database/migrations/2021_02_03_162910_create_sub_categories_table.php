@@ -17,8 +17,8 @@ class CreateSubCategoriesTable extends Migration
         Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
-            $table->enum('status', array('active', 'proposed'))->default('active');
+            $table->text('description')->nullable();
+            $table->string('status')->default('active');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
@@ -34,6 +34,7 @@ class CreateSubCategoriesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('sub_category_id')->references('id')->on('sub_categories');
         });
+
     }
 
     /**

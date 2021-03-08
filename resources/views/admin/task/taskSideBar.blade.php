@@ -32,8 +32,9 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold">Category:</span>
-                    <span
-                        class="text-muted">{{ $task->sub_category->name }}({{ $task->sub_category->category->name }})</span>
+                    {!! isset($task->createdFor->name) ? $task->createdFor->name : '<span class="text-muted">N/A</span>' !!}
+                    {{-- <span
+                        class="text-muted">{{ $task->sub_category->name }}({{ $task->sub_category->category->name }})</span> --}}
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold">Created:</span>
