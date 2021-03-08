@@ -25,14 +25,14 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Created For: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span
-                                class="form-control form-control-lg form-control-solid">{{ $task->createdFor->name }}</span>
+                                class="form-control form-control-lg form-control-solid">{!! isset($task->createdFor->name) ? $task->createdFor->name : '<span class="text-muted">N/A</span>' !!}</span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Working Location: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span
-                                class="form-control form-control-lg form-control-solid">{{ $task->working_location }}</span>
+                                class="form-control form-control-lg form-control-solid">{{ $task->creator->city->name }}</span>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -41,8 +41,10 @@
                             <span class="form-control form-control-lg form-control-solid">
                                 @if ($task->is_client_on_site == 1)
                                     On Site
-                                @else
+                                @elseif ($task->is_client_on_site == 0)
                                     Not On Site
+                                @else
+                                    <span class="text-muted">N/A</span>
                                 @endif
                             </span>
                         </div>
@@ -53,8 +55,10 @@
                             <span class="form-control form-control-lg form-control-solid">
                                 @if ($task->is_repair_parts_provided == 1)
                                     Provided
-                                @else
+                                @elseif ($task->is_client_on_site == 0)
                                     Not Provided
+                                @else
+                                    <span class="text-muted">N/A</span>
                                 @endif
                             </span>
                         </div>

@@ -69,7 +69,6 @@ $(document).ready(function () {
     $('#selectstartdate').on("change", function (e) {
         var now = new Date();
         var selectedDate = new Date($(this).val());
-        console.log(selectedDate);
 
 
         if (selectedDate > now) {
@@ -85,7 +84,6 @@ $(document).ready(function () {
 
         var now = new Date();
         var selectedDate = new Date($(this).val());
-        console.log(selectedDate);
 
 
         if (selectedDate > now) {

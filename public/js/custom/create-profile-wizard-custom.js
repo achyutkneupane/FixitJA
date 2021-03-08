@@ -181,7 +181,7 @@ var KTWizard1 = function () {
                     personal_description: {
                         validators: {
                             notEmpty: {
-                                message: 'Personal descrption is required'
+                                message: 'Personal description is required'
                             }
                         }
                     },

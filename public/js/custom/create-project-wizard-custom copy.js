@@ -16,20 +16,20 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					// category1: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Category is required'
-					// 		}
-					// 	}
-					// },
-					// sub_categories1: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Sub-category is required'
-					// 		}
-					// 	}
-					// }
+					category1: {
+						validators: {
+							notEmpty: {
+								message: 'Category is required'
+							}
+						}
+					},
+					sub_categories1: {
+						validators: {
+							notEmpty: {
+								message: 'Sub-category is required'
+							}
+						}
+					}
 				},
 				plugins: {
 					trigger: new FormValidation.plugins.Trigger(),
@@ -37,11 +37,7 @@ var KTWizard1 = function () {
 					bootstrap: new FormValidation.plugins.Bootstrap({
 						//eleInvalidClass: '',
 						eleValidClass: '',
-					}),
-
-					alias: new FormValidation.plugins.Alias({
-						checkIfRequired: 'callback',
-					}),
+					})
 				}
 			}
 		));
@@ -51,53 +47,53 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					name: {
-						validators: {
-							checkIfRequired: {
-								message: 'Task Title is required',
-								callback: function(input) {
-									$("#taskTitleId").text(input.value);
-									return !!input.value;
-								},
-							}
-						}
-					},
 					description: {
 						validators: {
-							checkIfRequired: {
-								message: 'Task Description is required',
-								callback: function(input) {
-									$("#taskDescriptionId").text(input.value);
-									return !!input.value;
-								},
+							notEmpty: {
+								message: 'Project Description is required'
 							}
 						}
 					},
-					type: {
+					weight: {
 						validators: {
-							checkIfRequired: {
-								message: 'Project type is required',
-								callback: function(input) {
-									$("#taskTypeId").text($("select[name='type'] option:selected").text());
-									return !!input.value;
-								},
+							notEmpty: {
+								message: 'Package weight is required'
+							},
+							digits: {
+								message: 'The value added is not valid'
 							}
 						}
 					},
-					// payment_type: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Project Payment Type is required'
-					// 		}
-					// 	}
-					// },
-					// deadline: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Project Deadline is required'
-					// 		}
-					// 	}
-					// }
+					width: {
+						validators: {
+							notEmpty: {
+								message: 'Package width is required'
+							},
+							digits: {
+								message: 'The value added is not valid'
+							}
+						}
+					},
+					height: {
+						validators: {
+							notEmpty: {
+								message: 'Package height is required'
+							},
+							digits: {
+								message: 'The value added is not valid'
+							}
+						}
+					},
+					packagelength: {
+						validators: {
+							notEmpty: {
+								message: 'Package length is required'
+							},
+							digits: {
+								message: 'The value added is not valid'
+							}
+						}
+					}
 				},
 				plugins: {
 					trigger: new FormValidation.plugins.Trigger(),
@@ -105,11 +101,7 @@ var KTWizard1 = function () {
 					bootstrap: new FormValidation.plugins.Bootstrap({
 						//eleInvalidClass: '',
 						eleValidClass: '',
-					}),
-
-					alias: new FormValidation.plugins.Alias({
-						checkIfRequired: 'callback',
-					}),
+					})
 				}
 			}
 		));
@@ -119,78 +111,27 @@ var KTWizard1 = function () {
 			_formEl,
 			{
 				fields: {
-					// user_name: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your Name is required'
-					// 		}
-					// 	}
-					// },
-					// phone: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your Phone is required'
-					// 		}
-					// 	}
-					// },
-					// email: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your Email is required'
-					// 		}
-					// 	}
-					// },
-					// city: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your City is required'
-					// 		}
-					// 	}
-					// },
-					// street_01: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your Street Address is required'
-					// 		}
-					// 	}
-					// },
-					// province: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your Province is required'
-					// 		}
-					// 	}
-					// },
-					// site_city: {
-					// 	validators: {
-					// 		checkIfRequired: {
-					// 			message: 'Working City is required',
-					// 			callback: function(input) {
-					// 				return workingEqualsUser() || !!input.value;
-					// 			},
-					// 		}
-					// 	}
-					// },
-					// site_street_01: {
-					// 	validators: {
-					// 		checkIfRequired: {
-					// 			message: 'Working Street is required',
-					// 			callback: function(input) {
-					// 				return workingEqualsUser() || !!input.value;
-					// 			},
-					// 		}
-					// 	}
-					// },
-					// site_province: {
-					// 	validators: {
-					// 		checkIfRequired: {
-					// 			message: 'Working Perish is required',
-					// 			callback: function(input) {
-					// 				return workingEqualsUser() || !!input.value;
-					// 			},
-					// 		}
-					// 	}
-					// }
+					delivery: {
+						validators: {
+							notEmpty: {
+								message: 'Delivery type is required'
+							}
+						}
+					},
+					packaging: {
+						validators: {
+							notEmpty: {
+								message: 'Packaging type is required'
+							}
+						}
+					},
+					preferreddelivery: {
+						validators: {
+							notEmpty: {
+								message: 'Preferred delivery window is required'
+							}
+						}
+					}
 				},
 				plugins: {
 					trigger: new FormValidation.plugins.Trigger(),
@@ -198,14 +139,64 @@ var KTWizard1 = function () {
 					bootstrap: new FormValidation.plugins.Bootstrap({
 						//eleInvalidClass: '',
 						eleValidClass: '',
-					}),
-
-					alias: new FormValidation.plugins.Alias({
-						checkIfRequired: 'callback',
-					}),
+					})
 				}
 			}
 		));
+
+		// Step 4
+		_validations.push(FormValidation.formValidation(
+			_formEl,
+			{
+				fields: {
+					locaddress1: {
+						validators: {
+							notEmpty: {
+								message: 'Address is required'
+							}
+						}
+					},
+					locpostcode: {
+						validators: {
+							notEmpty: {
+								message: 'Postcode is required'
+							}
+						}
+					},
+					loccity: {
+						validators: {
+							notEmpty: {
+								message: 'City is required'
+							}
+						}
+					},
+					locstate: {
+						validators: {
+							notEmpty: {
+								message: 'State is required'
+							}
+						}
+					},
+					loccountry: {
+						validators: {
+							notEmpty: {
+								message: 'Country is required'
+							}
+						}
+					}
+				},
+				plugins: {
+					trigger: new FormValidation.plugins.Trigger(),
+					// Bootstrap Framework Integration
+					bootstrap: new FormValidation.plugins.Bootstrap({
+						//eleInvalidClass: '',
+						eleValidClass: '',
+					})
+				}
+			}
+		));
+
+		
 	}
 
 	var _initWizard = function () {
@@ -284,6 +275,7 @@ var KTWizard1 = function () {
 			});
 		});
 	}
+
 	return {
 		// public functions
 		init: function () {
