@@ -134,7 +134,7 @@ class MainController extends Controller
         $creator->street_02 = $request->street_02;
         $creator->house_number = $request->house_number;
         $creator->postal_code = $request->postal_code;
-        $creator->province = $request->province;
+        $creator->perish = $request->perish;
         $task->creator()->save($creator);
 
         //Task Location Store
@@ -145,7 +145,7 @@ class MainController extends Controller
             $location->street_02 = $request->site_street_02;
             $location->house_number = $request->site_house_number;
             $location->postal_code = $request->site_postal_code;
-            $location->province = $request->site_province;
+            $location->perish = $request->site_perish;
             $task->location()->save($location);
         }
 

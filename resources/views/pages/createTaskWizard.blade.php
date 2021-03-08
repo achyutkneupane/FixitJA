@@ -95,7 +95,7 @@
                                             <div class="card card-category-accordion-project-wizard" id="subCategoryTemplate_selector">
                                                 <div class="card-header">
                                                     <div class="card-title" data-toggle="collapse" data-target="#collapseSubCatTemplate" id="subCategoryTemplateTitleDiv">
-                                                        <span class="category-title" id="projectWizardCategoryTemplateTitle"></span>
+                                                        <span class="category-title" id="projectWizardCategoryTemplateTitle">Select Category</span>
                                                     </div>
                                                 </div>
                                                 <div id="collapseSubCatTemplate" class="collapse show">
@@ -115,7 +115,7 @@
 
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <div id="divTagifykt_tagify_subCat_project_wizard_Template" style="display:none">
-                                                                <!-- <input type="hidden" name="categoryTemplate" id="categoryTemplate"> -->
+                                                                <label>Select Sub-Categories</label>
                                                                 <input id="kt_tagify_subCat_project_wizard_Template" class="form-control" name="sub_categoriesTemplate" placeholder="Add sub-categories">
                                                             </div>
                                                             <!-- <div class="fv-plugins-message-container"></div> -->
@@ -247,7 +247,7 @@
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Full Name</label>
-                                                <input type="text" class="form-control form-control-solid form-control-sm" name="user_name" placeholder="Full Name" value="{{ !empty($user->name) ? $user->name : '' }}">
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="user_name" placeholder="Full Name" value="{{ !empty($user) ? $user->name : '' }}">
                                                 <span class="form-text text-muted">Please enter your Full Name</span>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
@@ -257,7 +257,8 @@
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Phone</label>
-                                                <input type="text" class="form-control form-control-solid form-control-sm" name="phone" placeholder="Phone" value="{{ !empty($user->phone()) ? $user->phone() : '' }}">
+
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="phone" placeholder="Phone" value="{{ !empty($user) ? $user->phone() : '' }}">
                                                 <span class="form-text text-muted">Please enter your Phone</span>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
@@ -267,7 +268,7 @@
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Email</label>
-                                                <input type="text" class="form-control form-control-solid form-control-sm" name="email" placeholder="Email" value="{{ !empty($user->email()) ? $user->email() : '' }}">
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="email" placeholder="Email" value="{{ !empty($user) ? $user->email() : '' }}">
                                                 <span class="form-text text-muted">Please enter your Email</span>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
@@ -275,7 +276,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <label>User Address</label>
                                         </div>
                                     </div>
@@ -286,7 +287,7 @@
                                                 <label>City</label>
                                                 <select class="form-control form-control-solid form-control-sm" id="citySelector" name="city">
                                                     @foreach($cities as $index => $city)
-                                                    <option value="{{ $city->id }}" {{ ($city->id == $user->city->id) ? 'selected' : '' }}>{{ $city->name }}</option>
+                                                    <option value="{{ $city->id }}" {{ ( !empty($user) && $city->id == $user->city->id) ? 'selected' : '' }}>{{ $city->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 <span class="form-text text-muted">Please enter your City</span>
@@ -297,8 +298,8 @@
                                         <div class="col-md-4">
                                             <div class="form-group fv-plugins-icon-container">
                                                 <!--begin::Input-->
-                                                <label>Street Address 1(Optional)</label>
-                                                <input type="text" class="form-control form-control-solid form-control-sm" name="street_01" placeholder="Street Address 1" value="{{ !empty($user->street_01) ? $user->street_01 : '' }}">
+                                                <label>Street Address 1</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="street_01" placeholder="Street Address 1" value="{{ !empty($user) ? $user->street_01 : '' }}">
                                                 <span class="form-text text-muted">Please enter your Street Address</span>
                                                 <div class="fv-plugins-message-container"></div>
                                                 <!--end::Input-->
@@ -308,7 +309,7 @@
                                             <div class="form-group fv-plugins-icon-container">
                                                 <!--begin::Input-->
                                                 <label>Street Address 2(Optional)</label>
-                                                <input type="text" class="form-control form-control-solid form-control-sm" name="street_02" placeholder="Street Address 2" value="{{ !empty($user->street_02) ? $user->street_02 : '' }}">
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="street_02" placeholder="Street Address 2" value="{{ !empty($user) ? $user->street_02 : '' }}">
                                                 <span class="form-text text-muted">Please enter your Street Address</span>
                                                 <div class="fv-plugins-message-container"></div>
                                                 <!--end::Input-->
@@ -337,10 +338,10 @@
                                         <div class="col-md-4">
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
-                                                <label>Province</label>
-                                                <input type="text" class="form-control form-control-solid form-control-sm" name="province" placeholder="Province">
+                                                <label>Perish</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="perish" placeholder="Perish">
                                                 <div class="fv-plugins-message-container"></div>
-                                                <span class="form-text text-muted">Please enter your Province</span>
+                                                <span class="form-text text-muted">Please enter your Perish</span>
                                             </div>
                                             <!--end::Input-->
                                         </div>
@@ -353,7 +354,7 @@
                                     </div>
                                     <div id="workingLocation" class="mt-3">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <label>Working Location</label>
                                             </div>
                                         </div>
@@ -375,8 +376,8 @@
                                             <div class="col-md-4">
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <!--begin::Input-->
-                                                    <label>Street Address 1(Optional)</label>
-                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_street_01" placeholder="Street Address 1" value="{{ !empty($user->street_01) ? $user->street_01 : '' }}">
+                                                    <label>Street Address 1</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_street_01" placeholder="Street Address 1">
                                                     <span class="form-text text-muted">Please enter your Street Address</span>
                                                     <div class="fv-plugins-message-container"></div>
                                                     <!--end::Input-->
@@ -386,7 +387,7 @@
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <!--begin::Input-->
                                                     <label>Street Address 2(Optional)</label>
-                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_street_02" placeholder="Street Address 2" value="{{ !empty($user->street_02) ? $user->street_02 : '' }}">
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_street_02" placeholder="Street Address 2">
                                                     <span class="form-text text-muted">Please enter your Street Address</span>
                                                     <div class="fv-plugins-message-container"></div>
                                                     <!--end::Input-->
@@ -415,10 +416,10 @@
                                             <div class="col-md-4">
                                                 <!--begin::Input-->
                                                 <div class="form-group fv-plugins-icon-container">
-                                                    <label>Province</label>
-                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_province" placeholder="Province">
+                                                    <label>Perish</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_perish" placeholder="Perish">
                                                     <div class="fv-plugins-message-container"></div>
-                                                    <span class="form-text text-muted">Please enter your Province</span>
+                                                    <span class="form-text text-muted">Please enter your Perish</span>
                                                 </div>
                                                 <!--end::Input-->
                                             </div>
@@ -428,12 +429,11 @@
                                 <!--end::Wizard Step 3-->
                                 <!--begin::Wizard Step 4-->
                                 <div class="pb-5" data-wizard-type="step-content">
-                                    <h4 class="mb-10 font-weight-bold text-dark">Review Your Entry</h4>
                                     <div class="d-flex align-items-center justify-content-between mb-2 row">
-                                        <h5>Project Details</h5>
+                                        <h3 class="col-md-12 my-3">Project Details</h3>
                                         <div class="col-md-12">
                                             <span class="font-weight-bold">Subcategories: </span>
-                                            <span class="text-muted" id='subCatsId'></span>
+                                            <span class="text-muted" id='subCatsId'>N/A</span>
                                         </div>
                                         <div class="col-md-6">
                                             <span class="font-weight-bold">Task Title: </span>
@@ -462,6 +462,78 @@
                                         <div class="col-md-6">
                                             <span class="font-weight-bold">Are repair parts provided? </span>
                                             <span class="text-muted" id='repairPartId'>N/A</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                        <h3 class="col-md-12 my-3">User Details</h3>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Name: </span>
+                                            <span class="text-muted" id='userNameId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Email: </span>
+                                            <span class="text-muted" id='userEmailId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Phone: </span>
+                                            <span class="text-muted" id='userPhoneId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">City: </span>
+                                            <span class="text-muted" id='userCityId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Street Address 1: </span>
+                                            <span class="text-muted" id='userStreet1Id'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Street Address 2: </span>
+                                            <span class="text-muted" id='userStreet1Id'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">House Number: </span>
+                                            <span class="text-muted" id='userHouseNumberId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Postal Code: </span>
+                                            <span class="text-muted" id='userPostalCodeId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Perish: </span>
+                                            <span class="text-muted" id='userPerishId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="font-weight-bold">Working Location is same as User Location: </span>
+                                            <span class="text-muted" id='workingEqualUserId'>N/A</span>
+                                        </div>
+                                    </div>
+                                    <div class="workingLocationReview" style="display:block;">
+                                        <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                            <h3 class="col-md-12 my-3">Working Location</h3>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">City: </span>
+                                                <span class="text-muted" id='workingCityId'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Street Address 1: </span>
+                                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Street Address 2: </span>
+                                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">House Number: </span>
+                                                <span class="text-muted" id='workingHouseNumberId'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Postal Code: </span>
+                                                <span class="text-muted" id='workingPostalCodeId'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Perish: </span>
+                                                <span class="text-muted" id='workingPerishId'>N/A</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -503,8 +575,12 @@
 @endsection
 {{-- Scripts Section --}}
 @section('scripts')
-<script src="{{ asset('js/custom/create-project-wizard-custom.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/custom/create-project-tagify.js') }}" type="text/javascript"></script>
+<script
+    src="{{ asset('js/custom/create-project-wizard-custom.js') }}" type="text/javascript">
+</script>
+<script
+    src="{{ asset('js/custom/create-project-tagify.js') }}" type="text/javascript">
+</script>
 <script>
     var fixedNavbarWebsite = true;
     $(".navbar-marketing").addClass("navbar-scrolled");

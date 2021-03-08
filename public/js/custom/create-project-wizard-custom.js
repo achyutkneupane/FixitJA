@@ -210,43 +210,95 @@ var KTWizard1 = function () {
 							}
 						}
 					},
-					// province: {
-					// 	validators: {
-					// 		notEmpty: {
-					// 			message: 'Your Province is required'
-					// 		}
-					// 	}
-					// },
-					// site_city: {
-					// 	validators: {
-					// 		checkIfRequired: {
-					// 			message: 'Working City is required',
-					// 			callback: function(input) {
-					// 				return workingEqualsUser() || !!input.value;
-					// 			},
-					// 		}
-					// 	}
-					// },
-					// site_street_01: {
-					// 	validators: {
-					// 		checkIfRequired: {
-					// 			message: 'Working Street is required',
-					// 			callback: function(input) {
-					// 				return workingEqualsUser() || !!input.value;
-					// 			},
-					// 		}
-					// 	}
-					// },
-					// site_province: {
-					// 	validators: {
-					// 		checkIfRequired: {
-					// 			message: 'Working Perish is required',
-					// 			callback: function(input) {
-					// 				return workingEqualsUser() || !!input.value;
-					// 			},
-					// 		}
-					// 	}
-					// }
+					house_number: {
+						validators: {
+							checkIfRequired: {
+								callback: function(input) {
+									$("#userHouseNumberId").text(input.value);
+								},
+							}
+						}
+					},
+					postal_code: {
+						validators: {
+							checkIfRequired: {
+								callback: function(input) {
+									$("#userPostalCodeId").text(input.value);
+								},
+							}
+						}
+					},
+					perish: {
+						validators: {
+							checkIfRequired: {
+								message: 'Your Perish is required',
+								callback: function(input) {
+									$("#userPerishId").text(input.value);
+									return !!input.value;
+								},
+							}
+						}
+					},
+					site_city: {
+						validators: {
+							checkIfRequired: {
+								message: 'Working City is required',
+								callback: function(input) {
+									$("#workingCityId").text($("select[name='site_city'] option:selected").text());
+									return workingEqualsUser() || !!input.value;
+								},
+							}
+						}
+					},
+					site_street_01: {
+						validators: {
+							checkIfRequired: {
+								message: 'Working Street is required',
+								callback: function(input) {
+									$("#workingStreet1Id").text(input.value);
+									return workingEqualsUser() || !!input.value;
+								},
+							}
+						}
+					},
+					site_street_02: {
+						validators: {
+							checkIfRequired: {
+								callback: function(input) {
+									$("#workingStreet2Id").text(input.value);
+								},
+							}
+						}
+					},
+					site_house_number: {
+						validators: {
+							checkIfRequired: {
+								callback: function(input) {
+									$("#workingHouseNumberId").text(input.value);
+								},
+							}
+						}
+					},
+					site_postal_code: {
+						validators: {
+							checkIfRequired: {
+								callback: function(input) {
+									$("#workingPostalCodeId").text(input.value);
+								},
+							}
+						}
+					},
+					site_perish: {
+						validators: {
+							checkIfRequired: {
+								message: 'Site Perish is required',
+								callback: function(input) {
+									$("#workingPerishId").text(input.value);
+									return workingEqualsUser() || !!input.value;
+								},
+							}
+						}
+					}
 				},
 				plugins: {
 					trigger: new FormValidation.plugins.Trigger(),
@@ -258,6 +310,8 @@ var KTWizard1 = function () {
 
 					alias: new FormValidation.plugins.Alias({
 						checkIfRequired: 'callback',
+						removeWorking: 'callback',
+						showWorking: 'callback',
 					}),
 				}
 			}

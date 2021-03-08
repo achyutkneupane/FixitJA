@@ -431,11 +431,15 @@ $(document).on("click", ".remove-accordian-project-wizard", function (e) {
 function workingEqualsUser() {
     var check = document.getElementById("locationCheck").checked;
     if (!check) {
-        document.getElementById("workingLocation").style.display = "block";
+        $(".workingLocationReview").css({display: "block"});
+        $("#workingLocation").css({display: "block"});
+        $("#workingEqualUserId").text("No");
 		return check;
     }
     else {
-        document.getElementById("workingLocation").style.display = "none";
+        $(".workingLocationReview").css({display: "none"});
+        $("#workingLocation").css({display: "none"});
+        $("#workingEqualUserId").text("Yes");
         return check;
     }
 }
