@@ -255,15 +255,16 @@ function getSubCatData3(categoryId3) {
         }
     });
 }
-
 function workingEqualsUser() {
     var check = document.getElementById("locationCheck").checked;
     if(!check)
     {
         document.getElementById("workingLocation").style.display = "block";
+        return check;
     }
     else
     {
         document.getElementById("workingLocation").style.display = "none";
+        return check;
     }
 }

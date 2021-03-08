@@ -195,25 +195,13 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Category</label>
-<<<<<<< HEAD
-                                                    <select name="skills_category[]" subcatid="kt_tagify_subcategory"
-                                                        id="selected_catgeory1"
-                                                        class="form-control form-control-solid form-control-lg category-select">
-                                                        <option value="">Select Category </option>
-=======
                                                     <select name="skills_category" subcatid="kt_tagify_subcategory" id="selected_catgeory1" class="form-control form-control-solid form-control-lg category-select">
                                                         <option value="">Select Category</option>
->>>>>>> development_profile_wizard
                                                         @foreach ($category as $cate)
                                                         <option value="{{ $cate->id }}">{{ $cate->name }}
                                                         </option>
                                                         @endforeach
                                                     </select>
-<<<<<<< HEAD
-                                                    <div class="fv-plugins-message-container"></div>
-
-=======
->>>>>>> development_profile_wizard
                                                 </div>
                                                 <!--end::Select-->
                                                 <!--begin::Select-->
