@@ -1,5 +1,22 @@
 "use strict";
 
+var CategoryProjectWizardFV;
+const skills_category_project_wizard = {
+    validators: {
+        notEmpty: {
+            message: 'Category is required'
+        }
+    }
+}
+
+const sub_categories_project_wizard = {
+    validators: {
+        notEmpty: {
+            message: 'Sub-category is required'
+        }
+    }
+}
+
 // Class definition
 var KTWizard1 = function () {
 	// Base elements
@@ -12,35 +29,23 @@ var KTWizard1 = function () {
 	var _initValidation = function () {
 		// Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
 		// Step 1
-		_validations.push(FormValidation.formValidation(
-			_formEl,
-			{
-				fields: {
-					category1: {
-						validators: {
-							notEmpty: {
-								message: 'Category is required'
-							}
-						}
-					},
-					sub_categories1: {
-						validators: {
-							notEmpty: {
-								message: 'Sub-category is required'
-							}
-						}
-					}
-				},
-				plugins: {
-					trigger: new FormValidation.plugins.Trigger(),
-					// Bootstrap Framework Integration
-					bootstrap: new FormValidation.plugins.Bootstrap({
-						//eleInvalidClass: '',
-						eleValidClass: '',
-					})
-				}
-			}
-		));
+        CategoryProjectWizardFV = FormValidation.formValidation(
+            _formEl,
+            {
+                fields: {
+
+                },
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    // Bootstrap Framework Integration
+                    bootstrap: new FormValidation.plugins.Bootstrap({
+                        //eleInvalidClass: '',
+                        eleValidClass: '',
+                    })
+                }
+            }
+        );
+        _validations.push(CategoryProjectWizardFV);
 
 		// Step 2
 		_validations.push(FormValidation.formValidation(
@@ -190,7 +195,7 @@ var KTWizard1 = function () {
 			}
 		));
 
-		
+
 	}
 
 	var _initWizard = function () {
@@ -217,7 +222,7 @@ var KTWizard1 = function () {
 						KTUtil.scrollTop();
 					} else {
 						Swal.fire({
-							text: "Sorry, looks like there are some errors detected, please try again.",
+							text: "Please fill all the required fields.",
 							icon: "error",
 							buttonsStyling: false,
 							confirmButtonText: "Ok, got it!",
