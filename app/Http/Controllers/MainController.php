@@ -65,11 +65,10 @@ class MainController extends Controller
     public function addProject(Request $request)
     {
         // Classify Sub-Categories
-        dd($request);
         $task_subcategories = new Collection();
         foreach(json_decode($request->sub_categories1) as $subCat) {
             if(empty($subCat->id)){
-                $cat = Category::find($request->category1)->sub_categories()->create([
+                $cat = Category::find($request->categoryTemplate1)->sub_categories()->create([
                     'name' => $subCat->value,
                     'description' => 'Proposed Category'
                 ]);
@@ -83,7 +82,7 @@ class MainController extends Controller
         if(!empty($request->sub_categories2)){
             foreach(json_decode($request->sub_categories2) as $subCat) {
                 if(empty($subCat->id)){
-                    $cat = Category::find($request->category2)->sub_categories()->create([
+                    $cat = Category::find($request->categoryTemplate2)->sub_categories()->create([
                         'name' => $subCat->value,
                         'description' => 'Proposed Category'
                     ]);
@@ -97,7 +96,7 @@ class MainController extends Controller
             if(!empty($request->sub_categories3)){
                 foreach(json_decode($request->sub_categories3) as $subCat) {
                     if(empty($subCat->id)){
-                        $cat = Category::find($request->category3)->sub_categories()->create([
+                        $cat = Category::find($request->categoryTemplate3)->sub_categories()->create([
                             'name' => $subCat->value,
                             'description' => 'Proposed Category'
                         ]);
@@ -113,7 +112,7 @@ class MainController extends Controller
 
         // Task Store
         $task = new Task();
-        $task->created_by = auth()->id();
+        $task->created_by = auth()->id() ? auth()->id() : 1;
         $task->name = $request->name;
         $task->description = $request->description;
         $task->type = $request->type;

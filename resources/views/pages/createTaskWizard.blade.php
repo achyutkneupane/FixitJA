@@ -433,7 +433,7 @@
                                         <h3 class="col-md-12 my-3">Project Details</h3>
                                         <div class="col-md-12">
                                             <span class="font-weight-bold">Subcategories: </span>
-                                            <span class="text-muted" id='subCatsId'>N/A</span>
+                                            <span class="text-muted text-capitalize" id='subCatsId'></span>
                                         </div>
                                         <div class="col-md-6">
                                             <span class="font-weight-bold">Task Title: </span>

@@ -1,19 +1,33 @@
+// By Achyut Neupane
+
 "use strict";
 
 var CategoryProjectWizardFV;
 const skills_category_project_wizard = {
     validators: {
-        notEmpty: {
-            message: 'Category is required'
-        }
+		checkIfRequired: {
+			message: 'Category is required',
+			callback: function(input) {
+				$("#catsId").text(input.value);
+				return !!input.value;
+			},
+		}
     }
 }
 
 const sub_categories_project_wizard = {
     validators: {
-        notEmpty: {
-            message: 'Sub-category is required'
-        }
+		checkIfRequired: {
+			message: 'Sub-Category is required',
+			callback: function(input) {
+				const subArray = JSON.parse(input.value);
+				subArray.forEach((element,index) => {
+					console.log(input);
+						$("#subCatsId").append(element.value + "<br>");
+				});
+				return !!input.value;
+			},
+		}
     }
 }
 
@@ -41,7 +55,11 @@ var KTWizard1 = function () {
                     bootstrap: new FormValidation.plugins.Bootstrap({
                         //eleInvalidClass: '',
                         eleValidClass: '',
-                    })
+                    }),
+
+					alias: new FormValidation.plugins.Alias({
+						checkIfRequired: 'callback',
+					}),
                 }
             }
         );
