@@ -22,7 +22,6 @@ const sub_categories_project_wizard = {
 			callback: function(input) {
 				const subArray = JSON.parse(input.value);
 				subArray.forEach((element,index) => {
-					console.log(input);
 						$("#subCatsId").append(element.value + "<br>");
 				});
 				return !!input.value;

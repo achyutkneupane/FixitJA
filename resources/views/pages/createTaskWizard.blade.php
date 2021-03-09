@@ -131,6 +131,7 @@
                                         <div id="divProjectWizardCategory">
 
                                         </div>
+                                        <input type="hidden" id="totalCatList" name="totalCatList">
                                         <input type="button" class="mr-auto ml-2 btn btn-primary mt-5" value="Add More Category " id="subCategoryAddButtonProjectWizard">
                                     </div>
                                     <div class="mt-3 text-muted">Select multiple subcategories. If you don't see your option just create one.</div>
@@ -181,8 +182,8 @@
                                                 <label>Project Payment</label>
                                                 <select name="payment_type" class="form-control form-control-solid form-control-sm">
                                                     <option value="">Select Payment Type</option>
-                                                    <option value="project_basis">Project Basis</option>
-                                                    <option value="hourly_basis">Hourly Basis</option>
+                                                    <option value="project basis">Project Basis</option>
+                                                    <option value="hourly basis">Hourly Basis</option>
                                                 </select>
                                                 <span class="form-text text-muted">Please enter your project payment type.</span>
                                                 <div class="fv-plugins-message-container"></div>

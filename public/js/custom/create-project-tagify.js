@@ -102,7 +102,7 @@ function AddCategoryProjectWizard() {
         projectWizardCount++;
         const cloneProjectWizardCategory = $("#templateProjectWizardCategory").clone();
         cloneProjectWizardCategory.attr("id", "ProjectWizardCategory" + projectWizardCount);
-
+        $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "'+projectWizardCount+'"},');
 
         var categoryCard = cloneProjectWizardCategory.find("#subCategoryTemplate_selector");
         categoryCard.attr("id", "subCategory_selector" + projectWizardCount);
@@ -175,6 +175,7 @@ $(document).on("click", ".remove-accordian-project-wizard", function (e) {
     if ($(".card-category-accordion-project-wizard").length < 4) {
         $("#subCategoryAddButtonProjectWizard").show();
     }
+    $("#totalCatList").val($("#totalCatList").val().replace('{"fieldId": "'+$(this).attr('count-value')+'"},',''));
 })
 
 function workingEqualsUser() {
