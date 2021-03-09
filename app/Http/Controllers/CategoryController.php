@@ -136,11 +136,11 @@ class CategoryController extends Controller
         return view('admin.proposed', compact('cats'));
     }
 
-    public function getCategory($id)
+    public function getCategory()
     {
        
-     $cat  =  Category::with(['sub_categories'])->find($id);
-     return $cat->sub_categories;
+     $cat  =  Category::with('sub_categories')->get();
+     return response($cat);
 
     }
 }

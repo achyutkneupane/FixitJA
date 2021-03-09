@@ -123,40 +123,73 @@ class UserController extends Controller
         $file->move($dir, $filename);
         return $filename;
     }
-    public function addprofiledetails(Request $request)
+
+    public function  rules()
     {
-        try {
-            
-             $user  = new User();
-            $user  = User::find(Auth::user()->id);
-            $request->validate([
-                'skills_category' => ['required'],
-                'sub_categories' => ['required'],
-                'certificate' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-                'expereince'  => ['required'],
+        $rules = [
+              
                 'educationinstutional_name' => ['required'],
                 'degree'  => ['required'],
                 'start_date' => ['required'],
                 'end_date'   =>['required'],
-                'gpa' => ['required'],
-                'reference' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-                'police_report' => ['nullable'],
                 'personal_description' => ['required'],
                 'hours' => ['required'],
-                'working_days' => ['nullable'],
-                'long_distance' => ['nullable'],
-                'total distance' => ['nullable'],
                 'street' => ['required'],
-                'house_number' => ['nullable'],
-                'city' => ['required'],
-                'profile' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
+                'cities' => ['required'],
 
-            ]);
+        ];
+        if($this->$request->get('reference')){
+            foreach($this->$request->get('reference') as $key => $val)
+            {
+                 $request->validate([
+                      
+                      "reference. '+ $key+'" => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
+                     
 
-           //dd(implode(',',$request->working_days));
-             
+                 ]);
+                    
+
+
+                 
+
+            }
+        }
+
+            if($this->$request->get('skills_category')){
+            foreach($this->$request->get('skills_category') as $key => $val)
+            {
+                 $request->validate([
+                      "skills_category.'+ $key+'" => ['required'],
+                      "sub_categories.'+ $key+'"  => ['required'],
+                      "certificate. '+ $key+'" => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
+                      "expereince. ' +$key +'" =>['required'],
+
+                 ]);
+                    
+
+
+                 
+
+            }
+
             
-            /* Uplaoding profile picture */
+        }
+
+        addprofiledetails($rules);
+
+
+    }
+    public function addprofiledetails(Request $request)
+    {
+      
+        try {
+            
+             $user  = new User();
+            $user  = User::find(Auth::user()->id);
+
+            //dd($request);
+            
+
            if (request('profile')) {
                 $tempPath = "";
                 $document = new Document();
@@ -210,6 +243,53 @@ class UserController extends Controller
               Storage::delete($tempPath2);
 
           }
+
+        
+
+             $subcatCollector = collect();
+            $user_subcategories = collect();
+            dd($request);
+            foreach($request->sub_categories as $subCatEncoded) {
+                $subcatCollector->push(json_decode($subCatEncoded));
+            }
+
+
+             foreach(json_decode($request->sub_categories) as $subCatEncoded) {
+                if(empty($subCatEncoded->id))
+                {
+
+                
+                  $cat = Category::find($request->skill_category[$index])->sub_categories()->create([
+                            'name' => $sub->value,
+                            'description' => 'Proposed Category'
+                        ]);
+                        $cat->status = "proposed";
+                        $cat->save();
+                        $user_subcategories->push(SubCategory::find($cat->id));
+                    }
+                    else
+                        $user_subcategories->push(SubCategory::find($subCatEncoded->id));
+                }
+                
+            
+            dd($user_subcategories);
+              
+
+           
+               
+            
+            
+           
+
+            
+            
+           
+
+            
+
+
+           
+            
            
            
 
@@ -255,23 +335,7 @@ class UserController extends Controller
             }
 
             /* Converting skills array */
-             $skillArray = array();
-            foreach (json_decode($request->sub_categories) as $category) {
-             array_push($skillArray , $category->value);
-        }
-
-            
-            //dd($request->sub_categories);
-          
-     
-       
-        $subcategory = new SubCategory();+  
-        $skill = implode(',', $skillArray);
-        $subcategory->name = $skill;
-       
-        $subcategory->description ="working";
-        $subcategory->category_id = $request->skills_category;
-        $subcategory->save();
+           
             
             /* converting  days array */
            $dayArray = array();

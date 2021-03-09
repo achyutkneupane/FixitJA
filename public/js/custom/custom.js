@@ -86,7 +86,7 @@ $(document).ready(function () {
         var selectedDate = new Date($(this).val());
 
 
-        if (selectedDate > now) {
+        if (selectedDate > now  ) {
             $(this).val(dateControler.currentDate)
         } else {
             dateControler.currentDate = $(this).val();
@@ -110,7 +110,7 @@ $(document).ready(function () {
 $("#add_btn").click(function (e) {
     e.stopImmediatePropagation();
     if ($(".card-category-accordion").length < 3) {
-        count++;
+       count++;
         var selectcategoryid = "selected_catgeory" + count;
         var subcatid = "kt_tagify_subcategory" + count;
         var viewcategory = "categoryTitle" + selectcategoryid;
@@ -129,7 +129,7 @@ $("#add_btn").click(function (e) {
             ' <div class="card-body">' +
             ' <div class="form-group fv-plugins-icon-container"> ' +
             ' <label>Category</label> ' +
-            ' <select name="skills_category' + count + '" subcatid="' + subcatid + '" id= "' + selectcategoryid + '"`  ' +
+            ' <select name="skills_category' + count + '[]" subcatid="' + subcatid + '" id= "' + selectcategoryid + '"`  ' +
             '  class="form-control form-control-solid form-control-lg category-select"> ' +
             '  <option value="">Select Category</option> ' +
             category_select +
@@ -141,7 +141,7 @@ $("#add_btn").click(function (e) {
             '  <label>Sub category</label> ' +
             ' <div id = "divTagify' + subcatid + '"> ' +
             '  <input id="' + subcatid + '" ' +
-            ' class="form-control" name="sub_categories[]' + count + '" ' +
+            ' class="form-control" name="sub_categories' + count + '[]" ' +
             ' placeholder="Add sub-categories"> ' +
             ' <div class="mt-3 text-muted">Select multiple ' +
             ' subcategories. If you don see ' +
@@ -206,17 +206,17 @@ $("#add_more_reference").click(function(e){
                      '<div class="card-body">'+
                      '<div class="form-group">'+
                      '<label class="font-size-h6 font-weight-bolder text-dark">Referal Name'+
-                     '<input type="text" id="refname" class="form-control"  type="text" name="referal_name'+ count +'" placeholder="Referal Name" value="">'+
+                     '<input type="text" id="refname" class="form-control"  type="text" name="referal_name'+ count +'[]" placeholder="Referal Name" value="">'+
                      '</label>'+
                     '</div>'+
                     '<div class="form-group">'+
                         '<label class="font-size-h6 font-weight-bolder text-dark">Referal Email'+
-                            '<input type="email" id="refemail" class="form-control"  type="email" name="referal_email'+ count +'" placeholder="Referal Email" value="">'+
+                            '<input type="email" id="refemail" class="form-control"  type="email" name="referal_email'+ count +'[]" placeholder="Referal Email" value="">'+
                         '</label>'+
                     '</div>'+
                     '<div class="form-group">'+
                         '<label class="font-size-h6 font-weight-bolder text-dark">Referal Contact Number'+
-                            '<input type="text" id="refphone" class="form-control"  type="text" name="referal_phone'+ count +'" placeholder="Referal Contact Number" value="">'+
+                            '<input type="text" id="refphone" class="form-control"  type="text" name="referal_phone'+ count +'[]" placeholder="Referal Contact Number" value="">'+
                         '</label>'+
                     '</div>'+
                     ' <div class="fv-plugins-message-container"> ' +
@@ -309,11 +309,11 @@ function LoadWizardData(wizard) {
 
             var certificateFile = cloneCertificateAccordion.find("#certificateFile");
             certificateFile.attr("id", "certificateFile" + index);
-            certificateFile.attr("name", "certificate" + index);
+            certificateFile.attr("name", "certificate[]" + index);
 
             var certificateExp = cloneCertificateAccordion.find("#certificateExp");
             certificateExp.attr("id", "certificateExp" + index);
-            certificateExp.attr("name", "experience" + index);
+            certificateExp.attr("name", "experience[]" + index);
 
             var accordionCertificate = cloneCertificateAccordion.find("#accordionCertificate");
             accordionCertificate.attr("id", "accordionCertificate" + index);
