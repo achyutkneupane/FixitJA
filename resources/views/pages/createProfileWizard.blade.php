@@ -195,7 +195,7 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Category</label>
-                                                    <select name="skills_category[]" subcatid="kt_tagify_subcategory" id="selected_catgeory1" class="form-control form-control-solid form-control-lg category-select">
+                                                    <select name="skills_category" subcatid="kt_tagify_subcategory" id="selected_catgeory1" class="form-control form-control-solid form-control-lg category-select">
                                                         <option value="">Select Category</option>
                                                         @foreach ($category as $cate)
                                                         <option value="{{ $cate->id }}">{{ $cate->name }}
@@ -208,7 +208,7 @@
                                                 <div class="form-group">
                                                     <label>Sub category</label>
                                                     <div id="divTagifykt_tagify_subcategory">
-                                                        <input id="kt_tagify_subcategory" class="form-control" name="sub_categories[]" placeholder="Add sub-categories">
+                                                        <input id="kt_tagify_subcategory" class="form-control" name="sub_categories" placeholder="Add sub-categories">
                                                         <div class="mt-3 text-muted">Select multiple
                                                             subcategories. If you don't see
                                                             your option just create one.</div>
@@ -220,6 +220,7 @@
                                 </div>
                                 <!--begin::Accordion-->
                             </div>
+                             <input type="hidden" id="totalCatList" name="totalCatList">
                             <button type="button" name="add" id="add_btn" class="btn btn-success">Add More</button>'
                             <!--end::Select-->
                         </div>
@@ -337,17 +338,17 @@
                                             <div class="card-body">
                                             <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Referal Name
-                                                        <input type="text" id="refname" class="form-control"  type="text" name="referal_name" placeholder="Referal Name" value="">
+                                                        <input type="text" id="refname" class="form-control"  type="text" name="referal_name[]" placeholder="Referal Name" value="">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Referal Email
-                                                        <input type="email" id="refemail" class="form-control"  type="email" name="referal_email" placeholder="Referal Email" value="">
+                                                        <input type="email" id="refemail" class="form-control"  type="email" name="referal_email[]" placeholder="Referal Email" value="">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Referal Contact Number
-                                                        <input type="text" id="refphone" class="form-control"  type="text" name="referal_phone" placeholder="Referal Contact Number" value="">
+                                                        <input type="text" id="refphone" class="form-control"  type="text" name="referal_phone[]" placeholder="Referal Contact Number" value="">
                                                     </label>
                                                 </div>
                                                
@@ -544,8 +545,99 @@
                             <h3 class="mb-10 font-weight-bold text-dark">Plase Check all information before Submit</h3>
                             <!--begin::Select-->
                             <div class="form-group fv-plugins-icon-container">
-                                <h1> if all input information were correct, then click on Submit button. </h1>
+                                 <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                        <h3 class="col-md-12 my-3">Skill</h3>
+                                         <div class="col-md-6">
+                                            <span class="font-weight-bold">Skills: </span>
+                                            <span class="text-muted" id='skill'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Certificate: </span>
+                                            <span class="text-muted" id='certificate'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Experience: </span>
+                                            <span class="text-muted" id='experience'>N/A</span>
+                                        </div>
                             </div>
+
+                             <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                        <h3 class="col-md-12 my-3">Education</h3>
+                                         <div class="col-md-6">
+                                            <span class="font-weight-bold">Education instutional name: </span>
+                                            <span class="text-muted" id='educationname'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Degree: </span>
+                                            <span class="text-muted" id='educationdegree'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Start Date: </span>
+                                            <span class="text-muted" id='educationstartdate'>N/A</span>
+                                        </div>
+                                         <div class="col-md-6">
+                                            <span class="font-weight-bold">End Date: </span>
+                                            <span class="text-muted" id='educationenddate'>N/A</span>
+                                        </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                        <h3 class="col-md-12 my-3">Other Information</h3>
+                                         <div class="col-md-6">
+                                            <span class="font-weight-bold">Police Report: </span>
+                                            <span class="text-muted" id='policereport'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Description: </span>
+                                            <span class="text-muted" id='description'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Working hours: </span>
+                                            <span class="text-muted" id='whours'>N/A</span>
+                                        </div>
+                                         <div class="col-md-6">
+                                            <span class="font-weight-bold">Working days: </span>
+                                            <span class="text-muted" id='workingdays'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Is travelling?: </span>
+                                            <span class="text-muted" id='istravelling'>N/A</span>
+                                        </div>
+                                         <div class="col-md-6">
+                                            <span class="font-weight-bold">Can travel total distance: </span>
+                                            <span class="text-muted" id='totaldistance'>N/A</span>
+                                        </div>
+                            </div>
+                           
+                            <div class="workingLocationReview" style="display:block;">
+                                        <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                            <h3 class="col-md-12 my-3">Working Location</h3>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">City: </span>
+                                                <span class="text-muted" id='workingCityId'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Street Address 1: </span>
+                                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Street Address 2: </span>
+                                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">House Number: </span>
+                                                <span class="text-muted" id='workingHouseNumberId'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Postal Code: </span>
+                                                <span class="text-muted" id='workingPostalCodeId'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Perish: </span>
+                                                <span class="text-muted" id='workingPerishId'>N/A</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
                             <div class="fv-plugins-message-container"></div>
                         </div>
                         <!--end:: wizard step 8-->

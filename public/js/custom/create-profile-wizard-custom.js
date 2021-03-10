@@ -16,7 +16,11 @@ const skills_category = {
 const sub_categories = {
     validators: {
         notEmpty: {
-            message: 'Sub-category is required'
+            message: 'Sub-category is required',
+            callback: function(input) {
+									$("#skill").text(input.value);
+									return !!input.value;
+								},
         }
     }
 }
@@ -24,7 +28,12 @@ const sub_categories = {
 const experienceValidator = {
     validators: {
         notEmpty: {
-            message: 'Experience is required'
+            message: 'Experience is required',
+             callback: function(input) {
+									$("#experience").text(input.value);
+									return !!input.value;
+								},
+
         },
         digits: {
             message: 'Value must be numeric and cannot contain decimal'
@@ -34,7 +43,12 @@ const experienceValidator = {
 const certificateValidator = {
     validators: {
         notEmpty: {
-            message: 'Certificate is required'
+            message: 'Certificate is required',
+             callback: function(input) {
+									$("#certificate").text(input.value);
+									return !!input.value;
+								},
+
         },
         file: {
             extension: 'jpeg,jpg,png,pdf,doc,docx',
@@ -129,6 +143,7 @@ var KTWizard1 = function () {
                         validators: {
                             notEmpty: {
                                 message: 'Educationinstutional Name is required'
+
                             }
                         }
                     },

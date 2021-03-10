@@ -186,11 +186,39 @@ class UserController extends Controller
             
              $user  = new User();
             $user  = User::find(Auth::user()->id);
-
             //dd($request);
+           
+            $Subb = "[".$request->totalCatList."]";
+            $Subb = str_replace('},]','}]',$Subb);
+            dd($Subb);
+            $user_subcategories = new Collection();
+            $new = collect();
+            foreach(json_decode($Subb) as $subCattArray) {
+                $subCatt = 'sub_categories'. $subCattArray->fieldId;
+                $categoryy = 'categoryTemplate'. $subCattArray->fieldId;
+                dd($request->$subCatt,$subCattArray);
+                foreach(json_decode($request->$subCatt) as $subCat){
+                    if(empty($subCat->id)){
+                    $cat = Category::find($request->$categoryy)->sub_categories()->create([
+                        'name' => $subCat->value,
+                        'description' => 'Proposed Category'
+                    ]);
+                    $cat->status = "proposed";
+                    $cat->save();
+                    $user_subcategories->push(SubCategory::find($cat->id));
+                }
+                else
+                    $user_subcategories->push(SubCategory::find($subCat->id));
+            }
+                
+           
+           
             
-
-           if (request('profile')) {
+        }
+           
+        
+       
+         if (request('profile')) {
                 $tempPath = "";
                 $document = new Document();
                 if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first())) {
@@ -226,102 +254,31 @@ class UserController extends Controller
                   Storage::delete($tempPath1);
           };
 
-          /* uploading Referenece */
-          if (request('reference')){
-              $tempPath2 = "";
-              $document = new Document();
-              if(!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first())){
-                  $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first();
-                  $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first()->path;
-              }
-              $document->path = request('reference')->store('reference');
-              //dd(request('reference')->store('reference'));
-              $document->type = 'reference_letter';
-              $document->user()->associate($user->id);
-              $document->save();
-              if($tempPath2)
-              Storage::delete($tempPath2);
-
-          }
-
-        
-
-             $subcatCollector = collect();
-            $user_subcategories = collect();
-            dd($request);
-            foreach($request->sub_categories as $subCatEncoded) {
-                $subcatCollector->push(json_decode($subCatEncoded));
-            }
-
-
-             foreach(json_decode($request->sub_categories) as $subCatEncoded) {
-                if(empty($subCatEncoded->id))
-                {
-
-                
-                  $cat = Category::find($request->skill_category[$index])->sub_categories()->create([
-                            'name' => $sub->value,
-                            'description' => 'Proposed Category'
-                        ]);
-                        $cat->status = "proposed";
-                        $cat->save();
-                        $user_subcategories->push(SubCategory::find($cat->id));
-                    }
-                    else
-                        $user_subcategories->push(SubCategory::find($subCatEncoded->id));
-                }
-                
-            
-            dd($user_subcategories);
-              
-
-           
-               
-            
-            
-           
-
-            
-            
-           
-
-            
-
-
-           
-            
-           
-           
-
-            
-            $education = new Education();
+         
+           $education = new Education();
             $education->education_instution_name = $request->educationinstutional_name;
             $education->degree = $request->degree;
             $education->start_date = $request->start_date;
             $education->end_date = $request->end_date;
-            $education->gpa = $request->gpa;
             $education->save();
 
             $education_user = new EducationUser();
             $education_user->user_id = Auth::user()->id;
             $education_user->education_id = $education->id;
-            $education_user->save(); 
-            
-
-            //$user->areas_covering = $skills->id;
-            $user->experience = $request->expereince;
-
-            // logic for the radio button */
-            if($request->police_report == "1")
-            {
+            $education_user->save();
+          
+         // logic for the radio button */
+            if($request->police_report == "1") {
                 $user->is_police_record = 1;
-
-            }
+                }
+           
             elseif($request->police_report == "0")
             {
                 $user->is_police_record = 0;
 
             }
+
+            
 
              if($request->is_travelling == "1")
             {
@@ -333,33 +290,32 @@ class UserController extends Controller
                 $user->is_travelling = 0;
 
             }
+        
 
-            /* Converting skills array */
-           
-            
+
+         
             /* converting  days array */
            $dayArray = array();
            foreach (json_decode($request->working_days) as $days) {
             array_push($dayArray, $days->value);
         }
-            //dd(implode(',',$dayArray));
-           
-            $user->hours = $request->hours;
-
-            $user->days = implode(',',$dayArray) ;
-
-           
-            
-             $user->introduction = $request->personal_description;
-            $user->street_01 = $request->street;
-            $user->street_02 = $request->house_number;
-            $user->city_id = 1;
-            $user->save();
-            Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function($m){
+          $user->hours = $request->hours;
+          $user->days = implode(',',$dayArray) ;
+          $user->introduction = $request->personal_description;
+          dd($user_subcategories);
+          $user->areas_covering()->attach($user_subcategories);
+          $user->experience = implode(',',$request->experience);
+          $user->street_01 = $request->street;
+          $user->street_02 = $request->house_number;
+          $user->city_id = 1;
+          $user->save();
+          Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function($m){
                  $m->to(Auth::user()->email)
           ->subject('Thank you for submitting your details');
             });
             return redirect('/profile');
+
+    
         } catch (Throwable $e) {
             
             dd($e);
@@ -367,7 +323,7 @@ class UserController extends Controller
         }
     }
 
-    public function security()
+ public function security()
     {
         $user = User::with('emails', 'phones')->find(Auth::user()->id);
         return view('admin.profile.security', compact('user'));
@@ -456,3 +412,61 @@ class UserController extends Controller
         return view('pages.editProfile', compact('user', 'cities'));
     }
 }
+
+
+          
+         
+
+     
+
+                    
+                   
+               
+        
+        
+
+           
+            
+
+          
+          
+
+
+
+            
+              
+
+           
+               
+            
+            
+           
+
+            
+            
+           
+
+            
+
+
+           
+            
+           
+           
+
+            
+           
+            
+
+          
+
+           
+
+           
+           
+           
+           
+           
+            
+
+   

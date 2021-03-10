@@ -111,6 +111,7 @@ $("#add_btn").click(function (e) {
     e.stopImmediatePropagation();
     if ($(".card-category-accordion").length < 3) {
        count++;
+        $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "'+count+'"},');  
         var selectcategoryid = "selected_catgeory" + count;
         var subcatid = "kt_tagify_subcategory" + count;
         var viewcategory = "categoryTitle" + selectcategoryid;
@@ -129,7 +130,7 @@ $("#add_btn").click(function (e) {
             ' <div class="card-body">' +
             ' <div class="form-group fv-plugins-icon-container"> ' +
             ' <label>Category</label> ' +
-            ' <select name="skills_category' + count + '[]" subcatid="' + subcatid + '" id= "' + selectcategoryid + '"`  ' +
+            ' <select name="skills_category' + count + '" subcatid="' + subcatid + '" id= "' + selectcategoryid + '"`  ' +
             '  class="form-control form-control-solid form-control-lg category-select"> ' +
             '  <option value="">Select Category</option> ' +
             category_select +
@@ -141,7 +142,7 @@ $("#add_btn").click(function (e) {
             '  <label>Sub category</label> ' +
             ' <div id = "divTagify' + subcatid + '"> ' +
             '  <input id="' + subcatid + '" ' +
-            ' class="form-control" name="sub_categories' + count + '[]" ' +
+            ' class="form-control" name="sub_categories' + count + '" ' +
             ' placeholder="Add sub-categories"> ' +
             ' <div class="mt-3 text-muted">Select multiple ' +
             ' subcategories. If you don see ' +
