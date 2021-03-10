@@ -9,8 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Category extends Model
 {
     use HasFactory;
+     
     protected $guarded = [];
-    public function subcategories()
+   
+    public function sub_categories()
     {
         return $this->hasMany(SubCategory::class);
     }

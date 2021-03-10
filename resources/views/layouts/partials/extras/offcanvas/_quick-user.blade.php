@@ -92,7 +92,6 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
                     </div>
                 </div>
             </a>
-
             <a href="{{ route('viewProfile') }}" class="navi-item">
                 <div class="navi-link">
                     <div class="symbol symbol-40 bg-light mr-3">

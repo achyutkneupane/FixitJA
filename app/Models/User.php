@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\CacheHelper;
 
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -18,6 +19,8 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+   
     protected $fillable = [
         'name',
         'email',
@@ -29,7 +32,10 @@ class User extends Authenticatable
         'website',
         'experience',
         'profile_image',
-        'verification_code'
+        'verification_code',
+        'certificate',
+         'profile',
+         
     ];
 
     /**

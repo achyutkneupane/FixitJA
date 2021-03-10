@@ -31,7 +31,7 @@
                         <div class="col-lg-9 col-xl-6">
                             <select class="form-control select2" id="kt_select2_1" name="address">
                                 @foreach ($cities as $city)
-                                    <option value="{{ $city->id }}">
+                                    <option value="{{ $city->id }}" {{ ($city->id == $user->city->id) ? 'selected' : '' }}>
                                         {{ $city->name }}
                                     </option>
                                 @endforeach

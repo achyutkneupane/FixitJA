@@ -17,3 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Auth::routes();
+Route::get('/category/{id}', [App\Http\Controllers\SubCategoryController::class,'list']);
+Route::post('/addprofile',[App\Http\Controller\UserController::class, 'updateprofile']);
+// Added by Achyut Neupane
+Route::prefix('/admin')->group(function () {
+    Route::post('/add_category', [App\Http\Controllers\CategoryController::class, 'store']);
+    Route::put('/edit_category/{id}', [App\Http\Controllers\CategoryController::class, 'update']);
+    Route::get('/delete_category/{id}', [App\Http\Controllers\CategoryController::class, 'destroy']);
+    Route::post('/add_sub_category', [App\Http\Controllers\SubCategoryController::class, 'store']);
+    Route::put('/edit_sub_category/{id}', [App\Http\Controllers\SubCategoryController::class, 'update']);
+    Route::get('/delete_sub_category/{id}', [App\Http\Controllers\SubCategoryController::class, 'destroy']);
+});

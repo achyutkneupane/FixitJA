@@ -3,6 +3,8 @@
 use App\Http\Controllers\GeneralUserController;
 use App\Http\Controllers\IndividualContractorController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +30,7 @@ Route::post('/reset-password', [App\Http\Controllers\Auth\ResetPasswordControlle
 Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 // Added by Achyut Neupane
 Route::get('/login', function () {
@@ -64,6 +67,7 @@ Route::get('/security/deactivate', [App\Http\Controllers\UserController::class, 
 Route::get('/security/delete', [App\Http\Controllers\UserController::class, 'deleteUser'])->middleware('auth')->name('deleteUser');
 Route::get('/security/{id}', [App\Http\Controllers\UserController::class, 'viewSecurity'])->middleware('auth', 'checkIfAdmin')->name('viewAccountSecurity');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
+Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
 
 
 // Route for about page
@@ -72,10 +76,35 @@ Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
 Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
 //Route for faqs page
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
+//Route for profile wizard
+Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->name('profileWizard');
+Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
+Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
+
+
+
+Route::get('/profile/{id}', [App\Http\Controllers\CategoryController::class, 'getSubCategory']);
+Route::get('/category_data', [App\Http\Controllers\CategoryController::class, 'getCategory']);
 //Route for creating new project wizard
-Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject']);
+Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
 //Route for viewing all categories
 Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
+
+Route::get('/hello',  [App\Http\Controllers\CategoryController::class, 'getCategory']);
+//Route for the addding education qualification
+
+
+
+
+// for skilled worker
+
+
+
+Route::get('/addeducation', [App\Http\Controllers\UserController::class, 'addeducation']);
+
+
+
+
 
 
 

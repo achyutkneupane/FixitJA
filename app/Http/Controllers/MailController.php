@@ -11,7 +11,7 @@ use App\Helpers\LogHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerifyEmail;
-use Carbon\Exceptions\Exception;
+use App\Mail\ResponseEmail;
 
 class MailController extends Controller
 {
@@ -31,4 +31,29 @@ class MailController extends Controller
             LogHelper::store('Mail', $ex);
         }
     }
+
+
+
+
+public static function sendResponseEmail($name, $email)
+{
+     $subject = "About profile details";
+        $data =  [
+            'name' => $name,
+            
+            
+
+        ];
+
+        try{
+        Mail::send('mail.responseemail', $data, function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
+    }
+
+catch (Exception $ex){
+    dd($ex);
+}
+
+}
 }
