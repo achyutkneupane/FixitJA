@@ -13,6 +13,7 @@ use App\Models\SubCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -124,61 +125,6 @@ class UserController extends Controller
         return $filename;
     }
 
-    public function  rules()
-    {
-        $rules = [
-              
-                'educationinstutional_name' => ['required'],
-                'degree'  => ['required'],
-                'start_date' => ['required'],
-                'end_date'   =>['required'],
-                'personal_description' => ['required'],
-                'hours' => ['required'],
-                'street' => ['required'],
-                'cities' => ['required'],
-
-        ];
-        if($this->$request->get('reference')){
-            foreach($this->$request->get('reference') as $key => $val)
-            {
-                 $request->validate([
-                      
-                      "reference. '+ $key+'" => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-                     
-
-                 ]);
-                    
-
-
-                 
-
-            }
-        }
-
-            if($this->$request->get('skills_category')){
-            foreach($this->$request->get('skills_category') as $key => $val)
-            {
-                 $request->validate([
-                      "skills_category.'+ $key+'" => ['required'],
-                      "sub_categories.'+ $key+'"  => ['required'],
-                      "certificate. '+ $key+'" => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-                      "expereince. ' +$key +'" =>['required'],
-
-                 ]);
-                    
-
-
-                 
-
-            }
-
-            
-        }
-
-        addprofiledetails($rules);
-
-
-    }
     public function addprofiledetails(Request $request)
     {
       
@@ -186,9 +132,13 @@ class UserController extends Controller
             
              $user  = new User();
             $user  = User::find(Auth::user()->id);
-            //dd($request);
+           dd($request->all());
+
+            
+          
+              
            
-            $Subb = "[".$request->totalCatList."]";
+            /*$Subb = "[".$request->totalCatList."]";
             $Subb = str_replace('},]','}]',$Subb);
             dd($Subb);
             $user_subcategories = new Collection();
@@ -214,7 +164,7 @@ class UserController extends Controller
            
            
             
-        }
+        }*/
            
         
        
@@ -225,8 +175,7 @@ class UserController extends Controller
                     $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first();
                     $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first()->path;
                 }
-                $document->path = request('profile')->store('profile');
-                //dd(request('profile')->store('profile'));
+                $document->path = request('profile')->store('userprofile');
                 $document->type = 'profile_picture';
                 $document->user()->associate($user->id);
                 $document->save();
@@ -234,10 +183,16 @@ class UserController extends Controller
                     Storage::delete($tempPath);
             };
 
-            //dd("hello");
 
-          /*Uploading certificate */
-          if (request('certificate'))
+            /* for certificate*/
+
+       
+
+            
+
+
+         
+          if (request('certificate0'))
           {
               $tempPath1 = "";
               $document = new Document();
@@ -245,8 +200,8 @@ class UserController extends Controller
                   $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
                   $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
               }
-              $document->path = request('certificate')->store('certificate');
-              //dd(request('certificate')->store('certificate'));
+              $document->path = request('certificate0')->store('certificate');
+              dd(request('certificate0')->store('certificate'));
               $document->type = 'other';
               $document->user()->associate($user->id);
               $document->save();
@@ -302,8 +257,7 @@ class UserController extends Controller
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
-          dd($user_subcategories);
-          $user->areas_covering()->attach($user_subcategories);
+          //$user->areas_covering()->attach($user_subcategories);
           $user->experience = implode(',',$request->experience);
           $user->street_01 = $request->street;
           $user->street_02 = $request->house_number;

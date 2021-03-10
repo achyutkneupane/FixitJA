@@ -98,11 +98,13 @@ $(document).ready(function () {
 
     /*  for  Range slider */
     var slider = document.getElementById("myRange");
-    var output = document.getElementById("demo");
-    output.innerHTML = slider.value;
+    if(slider){
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
 
-    slider.oninput = function () {
-        output.innerHTML = this.value;
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }
     }
 });
 
@@ -197,27 +199,27 @@ $("#add_more_reference").click(function(e){
         count++;
 
         $("#accordion_reference").append(
-            '<div class="card card-reference-accordion" id="referenceCard ' + count + '">'+
+            '<div class="card card-reference-accordion" id="referenceCard' + count + '">'+
             '<div class="card-header">'+
                 '<div class="card-title" data-toggle="collapse' + count + '" data-target="#collapse2">'+
                     '<span class="glyphicon glyphicon-remove-circle pull-right "></span>'+
                     '</div>'+
                     '</div>'+
-                    '<div id="collapse2 ' + count + '" class="collapse show" data-parent="#accordionExample3">'+
+                    '<div id="collapseReference' + count + '" class="collapse show" data-parent="#accordionExample3">'+
                      '<div class="card-body">'+
                      '<div class="form-group">'+
                      '<label class="font-size-h6 font-weight-bolder text-dark">Referal Name'+
-                     '<input type="text" id="refname" class="form-control"  type="text" name="referal_name'+ count +'[]" placeholder="Referal Name" value="">'+
+                     '<input type="text" id="refname" class="form-control"  type="text" name="referal_name'+ count +'" placeholder="Referal Name" value="">'+
                      '</label>'+
                     '</div>'+
                     '<div class="form-group">'+
                         '<label class="font-size-h6 font-weight-bolder text-dark">Referal Email'+
-                            '<input type="email" id="refemail" class="form-control"  type="email" name="referal_email'+ count +'[]" placeholder="Referal Email" value="">'+
+                            '<input type="email" id="refemail" class="form-control"  type="email" name="referal_email'+ count +'" placeholder="Referal Email" value="">'+
                         '</label>'+
                     '</div>'+
                     '<div class="form-group">'+
                         '<label class="font-size-h6 font-weight-bolder text-dark">Referal Contact Number'+
-                            '<input type="text" id="refphone" class="form-control"  type="text" name="referal_phone'+ count +'[]" placeholder="Referal Contact Number" value="">'+
+                            '<input type="text" id="refphone" class="form-control"  type="text" name="referal_phone'+ count +'" placeholder="Referal Contact Number" value="">'+
                         '</label>'+
                     '</div>'+
                     ' <div class="fv-plugins-message-container"> ' +
@@ -302,6 +304,7 @@ function LoadWizardData(wizard) {
 
             const cloneCertificateAccordion = $("#templateCertificate").clone();
             cloneCertificateAccordion.attr("id", "certificateAccordion" + index);
+             $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+ index +'"},');  
             cloneCertificateAccordion.show();
 
             var cardTitle = cloneCertificateAccordion.find("#certificateCategoryTitle");
@@ -310,11 +313,12 @@ function LoadWizardData(wizard) {
 
             var certificateFile = cloneCertificateAccordion.find("#certificateFile");
             certificateFile.attr("id", "certificateFile" + index);
-            certificateFile.attr("name", "certificate[]" + index);
+            certificateFile.attr("name", "certificate" + index); 
+            
 
             var certificateExp = cloneCertificateAccordion.find("#certificateExp");
             certificateExp.attr("id", "certificateExp" + index);
-            certificateExp.attr("name", "experience[]" + index);
+            certificateExp.attr("name", "experience" + index);
 
             var accordionCertificate = cloneCertificateAccordion.find("#accordionCertificate");
             accordionCertificate.attr("id", "accordionCertificate" + index);
