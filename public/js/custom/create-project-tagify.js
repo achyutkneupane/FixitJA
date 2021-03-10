@@ -1,11 +1,13 @@
 // var category_id1, category_id2, category_id3;
 var projectWizardCount = 0;
+var selectedCategoryData = {};
 $(document).ready(function () {
     AddCategoryProjectWizard();
 });
 $(document).on('change', '.project_category_select', function (e) {
     e.stopImmediatePropagation();
     e.preventDefault();
+    selectedCategoryData[$(this).attr("id")] = $(this).val();
     var category_id = $(this).val();
     var subcatid = this.getAttribute('subcatid');
     if (!category_id) {
@@ -13,7 +15,6 @@ $(document).on('change', '.project_category_select', function (e) {
         $('#divTagify' + subcatid).hide();
         return;
     }
-
     var data = $(this).children("option:selected").text();
     $("#projectWizardCategoryTitle" + $(this).attr('id') + "").html(data);
 
@@ -21,12 +22,21 @@ $(document).on('change', '.project_category_select', function (e) {
     if ($('#divTagify' + subcatid + '').find('tags').length > 0) {
         $('#divTagify' + subcatid + '').find('tags').remove();
     }
-
+    updateAllCategorySelect();
     CategoryProjectWizardFV.addField($("#" + subcatid).attr("name"), sub_categories_project_wizard);
-
     getSubCatData(category_id, subcatid);
 });
 
+//update category in all select after changes --Mahesh
+function updateAllCategorySelect() {
+    $( ".project_category_select" ).each(function() {
+        var selectID = $(this).attr("id");
+        $("#" + selectID + " option").prop("disabled", false);
+        $.each(selectedCategoryData, function (id, val) {
+            $("#" + selectID + " option[value="+ val +"]").prop("disabled", true);
+        });
+    });
+}
 
 function getSubCatData(categoryId, subcatid) {
     var subcategory = new Array();
@@ -102,7 +112,7 @@ function AddCategoryProjectWizard() {
         projectWizardCount++;
         const cloneProjectWizardCategory = $("#templateProjectWizardCategory").clone();
         cloneProjectWizardCategory.attr("id", "ProjectWizardCategory" + projectWizardCount);
-        $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "'+projectWizardCount+'"},');
+        $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "' + projectWizardCount + '"},');
 
         var categoryCard = cloneProjectWizardCategory.find("#subCategoryTemplate_selector");
         categoryCard.attr("id", "subCategory_selector" + projectWizardCount);
@@ -168,27 +178,31 @@ $(document).on("click", ".remove-accordian-project-wizard", function (e) {
     e.stopImmediatePropagation();
     e.preventDefault();
     CategoryProjectWizardFV.removeField('categoryTemplate' + $(this).attr('count-value'));
-    if($("#divTagifykt_tagify_subCat_project_wizard" + $(this).attr('count-value')).is(':visible')){
+    if ($("#divTagifykt_tagify_subCat_project_wizard" + $(this).attr('count-value')).is(':visible')) {
         CategoryProjectWizardFV.removeField('sub_categories' + $(this).attr('count-value'));
     }
     $("#" + $(this).attr('categoryInfo')).remove();
     if ($(".card-category-accordion-project-wizard").length < 4) {
         $("#subCategoryAddButtonProjectWizard").show();
     }
-    $("#totalCatList").val($("#totalCatList").val().replace('{"fieldId": "'+$(this).attr('count-value')+'"},',''));
+
+    selectedCategoryData['categorySelect' + $(this).attr('count-value')] = "-1";
+    updateAllCategorySelect();
+
+    $("#totalCatList").val($("#totalCatList").val().replace('{"fieldId": "' + $(this).attr('count-value') + '"},', ''));
 })
 
 function workingEqualsUser() {
     var check = document.getElementById("locationCheck").checked;
     if (!check) {
-        $(".workingLocationReview").css({display: "block"});
-        $("#workingLocation").css({display: "block"});
+        $(".workingLocationReview").css({ display: "block" });
+        $("#workingLocation").css({ display: "block" });
         $("#workingEqualUserId").text("No");
-		return check;
+        return check;
     }
     else {
-        $(".workingLocationReview").css({display: "none"});
-        $("#workingLocation").css({display: "none"});
+        $(".workingLocationReview").css({ display: "none" });
+        $("#workingLocation").css({ display: "none" });
         $("#workingEqualUserId").text("Yes");
         return check;
     }
