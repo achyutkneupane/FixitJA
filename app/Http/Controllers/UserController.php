@@ -195,52 +195,36 @@ class UserController extends Controller
             $skills_certificate = new Collection;
             $skills_experince = new Collection();
             foreach(json_decode($Certificate1) as $certificateArray){
-               
-                
-                
-                $certificate_new = 'certificate'. $certificateArray->fieldId;
-                $document->path = request($certificate_new)->store('certificate');
-                //$document->type = 'certificate'.$certificateArray;
-                //dd($document->type);
-                if(!empty($document->path)){
-
-                    $skills_certificate->push($document->path);
-                }  
-                              
+                $document = new Document();
+                $tempPath = "";
+                $id = $certificateArray->fieldId;
+                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first())) {
+                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first();
+                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first()->path;
+                }
+                $certificate_new = 'certificate'.$id;
+                $document->path = request($certificate_new)->store('certificates');
+                $document->type = 'certificate'.$id;
+                $document->user()->associate($user->id);
+                $document->save();
+                if ($tempPath)
+                    Storage::delete($tempPath);
             }
-            $document->path()->attach($skills_certificate);
-            $document->type = "other";
-            $document->save();
-               
+             $Expereince = "[".$request->totalCertificateList."]";
             
-
-            /* refernce */
-            $Experince = "[".$request->totalRefernenceList."]";
+            $Expereince1 = str_replace('},]','}]',$Expereince);
             
-            $Experince1 = str_replace('},]','}]',$Experince );
-            
-            
+            $skills_certificate = new Collection;
             $skills_experince = new Collection();
-            foreach(json_decode($Experince1) as $experienceArray){
-               
-                
-                
-                $refernence_new = 'experience'. $experienceArray->fieldId;
-                $user->experience = request($certificate_new);
-                //$document->type = 'certificate'.$certificateArray;
-                //dd($document->type);
-                if(!empty($user->experience)){
 
-                    $skills_experince->push($user->experience);
-                }  
-                              
+             foreach(json_decode($Expereince1) as $expereinceArray){
+               
+                $id = $expereinceArray->fieldId;
+                $experience_new = 'experience'.$id;
+                $user->experience = $request->$experience_new;
+                $user->save();
+                
             }
-             $user->experience()->attach($skills_experince);
-             $user->save();
-               
-
-            
-
             
            $education = new Education();
             $education->education_instution_name = $request->educationinstutional_name;
@@ -295,10 +279,15 @@ class UserController extends Controller
           $user->street_01 = $request->street;
           $user->street_02 = $request->house_number;
           $user->city_id = 1;
+          $user->areas_covering()->associate($user_subcategories);
           $user->status = "pending";
           $user->save();
+          Mail::send('mail.responseemail', compact('request'), function($message) use ($request)
+            {
+                $message->to($request->email, $request->name)->subject('Profile Created');
+            });
 
-          $user->subcategories()->attach($user_subcategories);
+          
          
             return redirect('/profile');
 
