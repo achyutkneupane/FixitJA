@@ -2,160 +2,39 @@
 @section('content')
 <div class="container py-10">
     <div class="row">
-        <h1 class="font-weight-bolder text-uppercase m-auto py-5">All Our Categories</h1>
+        <h1 class="font-weight-bolder text-uppercase m-auto py-5 float-center">All Our Categories</h1>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 1
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 2
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 3
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                </div>
-            </div>
-        </div>
+        <span class="float-right">{{ $categories->links() }}</span>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 4
-                        </h3>
+    @foreach($categories as $category)
+        @if($loop->index % 3 == 0)
+        <div class="row">
+        @endif
+            <div class="col-md-4">
+                <div class="card card-custom gutter-b custom-card-bg-color">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h3 class="card-label">
+                                {{ ucwords($category->name) }}
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @if($category->sub_categories->count() != 0)
+                        @foreach($category->sub_categories as $subCategory)
+                            <li>{{ $subCategory->name }}</li>
+                        @endforeach
+                        @else
+                            No sub-categories inside <b>{{ ucwords($category->name) }}</b>
+                        @endif
                     </div>
                 </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
             </div>
+        @if($loop->index % 3 == 2 || $loop->last)
         </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 5
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 6
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 7
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 8
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 9
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
-            </div>
-        </div>
-    </div>
+        @endif
+    @endforeach
 </div>
 @auth
 @if (config('layout.extras.user.layout') == 'offcanvas')
