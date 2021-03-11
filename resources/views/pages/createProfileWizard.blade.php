@@ -257,6 +257,7 @@
                                                         <input type="text" id="certificateExp" class="form-control" category="category-name" type="number" placeholder="Years" value="">
                                                     </label>
                                                 </div>
+                                                 <input type="hidden" id="totalCertificateList" name="totalCertificateList">
                                             </div>
                                         </div>
                                     </div>
@@ -560,7 +561,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Working hours: </span>
-                                        <span class="text-muted" id='whours'>N/A</span>
+                                        <span class="text-muted" id='hours'>N/A</span>
                                     </div>
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Working days: </span>
@@ -578,7 +579,7 @@
 
                                 <div class="workingLocationReview" style="display:block;">
                                     <div class="d-flex align-items-center justify-content-between mb-2 row">
-                                        <h3 class="col-md-12 my-3">Working Location</h3>
+                                        <h3 class="col-md-12 my-3">Address</h3>
                                         <div class="col-md-6">
                                             <span class="font-weight-bold">City: </span>
                                             <span class="text-muted" id='workingCityId'>N/A</span>

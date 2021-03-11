@@ -66,12 +66,13 @@ $(document).ready(function () {
     var dateControler = {
         currentDate: null
     }
+    var selectedsDate;
     $('#selectstartdate').on("change", function (e) {
         var now = new Date();
-        var selectedDate = new Date($(this).val());
+        selectedsDate = new Date($(this).val());
 
 
-        if (selectedDate > now) {
+        if (selectedsDate > now) {
             $(this).val(dateControler.currentDate)
         } else {
             dateControler.currentDate = $(this).val();
@@ -83,10 +84,10 @@ $(document).ready(function () {
     $('#selectenddate').on("change", function (e) {
 
         var now = new Date();
-        var selectedDate = new Date($(this).val());
+        var selectedeDate = new Date($(this).val());
 
 
-        if (selectedDate > now  ) {
+        if (selectedeDate > now && selectedeDate < selectedsDate  ) {
             $(this).val(dateControler.currentDate)
         } else {
             dateControler.currentDate = $(this).val();
@@ -302,16 +303,21 @@ function LoadWizardData(wizard) {
         categorySelected = [];
         $.each($(".category-title"), function (index, value) {
 
+           
+
             const cloneCertificateAccordion = $("#templateCertificate").clone();
             cloneCertificateAccordion.attr("id", "certificateAccordion" + index);
-             $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+ index +'"},');  
+            
             cloneCertificateAccordion.show();
+            $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+index+'"},');
+             
 
             var cardTitle = cloneCertificateAccordion.find("#certificateCategoryTitle");
             cardTitle.html(value.innerHTML);
             cardTitle.attr("id", "certificateCategoryTitle" + index);
 
             var certificateFile = cloneCertificateAccordion.find("#certificateFile");
+           
             certificateFile.attr("id", "certificateFile" + index);
             certificateFile.attr("name", "certificate" + index); 
             
