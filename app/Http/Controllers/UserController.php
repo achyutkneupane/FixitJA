@@ -133,6 +133,33 @@ class UserController extends Controller
              $user  = new User();
             $user  = User::find(Auth::user()->id);
             //dd($request->all());
+             $Subb = "[".$request->totalCatList."]";
+            $Subb = str_replace('},]','}]',$Subb);
+            $user_subcategories = new Collection();
+            $new = collect();
+            foreach(json_decode($Subb) as $subCattArray) {
+                $subCatt = 'sub_categories'. $subCattArray->fieldId;
+                $categoryy = 'skills_category'. $subCattArray->fieldId;
+                foreach(json_decode($request->$subCatt) as $subCat){
+                    
+                    if(empty($subCat->id)){
+                    $cat = Category::find($request->$categoryy)->sub_categories()->create([
+                        'name' => $subCat->value,
+                        'description' => 'Proposed Category'
+                    ]);
+                    $cat->status = "proposed";
+                    $cat->save();
+                    $user_subcategories->push(SubCategory::find($cat->id));
+                }
+                else
+                    $user_subcategories->push(SubCategory::find($subCat->id));
+            }
+                
+           
+           
+            
+        }
+        dd($user_subcategories);
            
           
 
