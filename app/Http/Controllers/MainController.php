@@ -136,8 +136,9 @@ class MainController extends Controller
     }
     public function categories()
     {
+        $categories = Category::with('sub_categories')->get();
         $page_title = 'Categories';
         $page_description = 'This is view all categories page';
-        return view('pages.categories', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+        return view('pages.categories', compact('page_title', 'page_description', 'categories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
 }

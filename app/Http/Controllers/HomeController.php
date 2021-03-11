@@ -27,13 +27,16 @@ class HomeController extends Controller
     public function index()
     {
         $documents = Document::where('user_id', Auth::user()->id)->get();
+        $categories = Category::with('sub_categories')->get();
+       
         return view(
-            'pages.home',
+            'pages.home', compact('categories'),
             [
                 'loggedUser' => User::find(Auth::user()->id)->with('emails', 'phones')->first(),
                 'documents' => $documents,
                 'show_navbar' => true
-            ]
+            ],
+            
         );
     }
 }

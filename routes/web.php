@@ -32,6 +32,7 @@ Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update'])
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+
 // Added by Achyut Neupane
 Route::get('/login', function () {
     return view('auth.login');
