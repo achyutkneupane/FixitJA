@@ -160,7 +160,7 @@ class UserController extends Controller
             
         }
         
-         //dd($user_subcategories);  
+        
           
 
            
@@ -189,7 +189,7 @@ class UserController extends Controller
 
             /* for certificate*/
 
-           $Certificate = "[".$request->totalCertificateList."]";
+           /*$Certificate = "[".$request->totalCertificateList."]";
            $Certificate1 = str_replace('},]','}]',$Certificate);
             
             $skills_certificate = new Collection();
@@ -221,7 +221,7 @@ class UserController extends Controller
 
             /* refernce */
             
-            foreach(json_decode($Certificate) as $certificateArray){
+            /*foreach(json_decode($Certificate) as $certificateArray){
                 $new_certificate = 'certificate'. $certificateArray->fieldId;
                 $new_experience = 'experience'. $certificateArray->fieldId;
                 if($new_experience){
@@ -246,7 +246,7 @@ class UserController extends Controller
             $document->path()->attach($skills_certificate)->store('other');
             $document->type = 'other';
             $document->user()->associate($user->id);
-            $document->save();
+            $document->save();*/
 
                     
                 
@@ -381,18 +381,17 @@ class UserController extends Controller
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
-          //$user->areas_covering()->attach($user_subcategories);
-          $user->experience()->attach($skills_experince);
+          
+          //$user->experience()->attach($skills_experince);
          
           $user->street_01 = $request->street;
           $user->street_02 = $request->house_number;
           $user->city_id = 1;
           $user->status = "pending";
           $user->save();
-          Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function($m){
-                 $m->to(Auth::user()->email)
-          ->subject('Thank you for submitting your details');
-            });
+
+          $user->subcategories()->attach($user_subcategories);
+         
             return redirect('/profile');
 
     
