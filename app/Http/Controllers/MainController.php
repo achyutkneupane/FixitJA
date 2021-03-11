@@ -147,7 +147,7 @@ class MainController extends Controller
             $location->province = $request->site_province;
             $task->location()->save($location);
         }
-
+        dd($task_subcategories);
         $task->subcategories()->attach($task_subcategories);
         return redirect()->route('viewTask',$task->id);
     }

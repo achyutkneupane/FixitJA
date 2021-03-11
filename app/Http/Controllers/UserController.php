@@ -188,35 +188,19 @@ class UserController extends Controller
 
 
             /* for certificate*/
-
-           $Certificate = "[".$request->totalCertificateList."]";
-           $Certificate1 = str_replace('},]','}]',$Certificate);
-            
+            $Certificate = "[".$request->totalCertificateList."]";
+            $Certificate1 = str_replace('},]','}]',$Certificate);
             $skills_certificate = new Collection();
             $skills_experince = new Collection();
-            $new_certificate = collect();
-            $new_reference = collect();
             foreach(json_decode($Certificate1) as $certificateArray){
                 $certificate_new = 'certificate'. $certificateArray->fieldId;
-                $experience_new = 'experience'. $certificateArray->fieldId;
-                foreach(json_decode($request->$certificate_new) as $subCertificate){
-                    if(!empty($subCertificate)){
+                $document->path = request($certificate_new)->store('certificate');
+                $document->type = 'certificate'.$certificateArray;
+                if(!empty($subCertificate)){
 
-                        $skills_certificate->push($subCertificate);
-                    
-                    }
-                                    
-                }
-                    
-                    
-
-                
-                
+                    $skills_certificate->push($subCertificate);
+                }                  
             }
-            dd($skills_certificate);
-           
-        
-            dd($skills_certificate);
             
 
             /* refernce */

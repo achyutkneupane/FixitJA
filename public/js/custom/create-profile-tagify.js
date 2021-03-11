@@ -44,7 +44,6 @@ $(document).on('change','.category-select', function (e) {
     e.stopImmediatePropagation();
     e.preventDefault();
     var subcatid = this.getAttribute('subcatid');
-    console.log(subcatid);
     if($('#divTagify'+subcatid+'').find('tags').length > 0){
         $('#divTagify'+subcatid+'').find('tags').remove();
     }
@@ -61,7 +60,6 @@ function getSubCatData(categoryId, subcatid) {
         url: '/api/category/' + categoryId,
         dataType: 'json',
         success: function (result) {
-            console.log(result);
             $.each(result, function (index, item) {
                 var itemObj = {};
                 itemObj.value = item.name;
@@ -71,8 +69,6 @@ function getSubCatData(categoryId, subcatid) {
                 itemObj.initialsState = '',
                 itemObj.class = 'tagify__tag--secondary'
                 subcategory.push(itemObj);
-
-                console.log(subcategory);
             });
              bindSubCat1(subcategory, subcatid);
         }

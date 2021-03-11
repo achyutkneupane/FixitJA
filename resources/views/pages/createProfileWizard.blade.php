@@ -257,13 +257,13 @@
                                                         <input type="text" id="certificateExp" class="form-control" category="category-name" type="number" placeholder="Years" value="">
                                                     </label>
                                                 </div>
-                                                 <input type="hidden" id="totalCertificateList" name="totalCertificateList">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" id="totalCertificateList" name="totalCertificateList">
                         <!--end::Wizard Step 2-->
 
                         <!--begin::Wizard Step 3-->
