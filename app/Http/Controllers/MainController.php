@@ -14,6 +14,7 @@ use App\Models\TaskWorkingLocation;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class MainController extends Controller
 {
@@ -65,24 +66,16 @@ class MainController extends Controller
     public function addProject(Request $request)
     {
         // Classify Sub-Categories
+        $Subb = "[".$request->totalCatList."]";
+        $Subb = str_replace('},]','}]',$Subb);
         $task_subcategories = new Collection();
-        foreach(json_decode($request->sub_categories1) as $subCat) {
-            if(empty($subCat->id)){
-                $cat = Category::find($request->category1)->sub_categories()->create([
-                    'name' => $subCat->value,
-                    'description' => 'Proposed Category'
-                ]);
-                $cat->status = "proposed";
-                $cat->save();
-                $task_subcategories->push(SubCategory::find($cat->id));
-            }
-            else
-                $task_subcategories->push(SubCategory::find($subCat->id));
-        }
-        if(!empty($request->sub_categories2)){
-            foreach(json_decode($request->sub_categories2) as $subCat) {
+        $new = collect();
+        foreach(json_decode($Subb) as $subCattArray) {
+            $subCatt = 'sub_categories'. $subCattArray->fieldId;
+            $categoryy = 'categoryTemplate'. $subCattArray->fieldId;
+            foreach(json_decode($request->$subCatt) as $subCat){
                 if(empty($subCat->id)){
-                    $cat = Category::find($request->category2)->sub_categories()->create([
+                    $cat = Category::find($request->$categoryy)->sub_categories()->create([
                         'name' => $subCat->value,
                         'description' => 'Proposed Category'
                     ]);
@@ -93,26 +86,10 @@ class MainController extends Controller
                 else
                     $task_subcategories->push(SubCategory::find($subCat->id));
             }
-            if(!empty($request->sub_categories3)){
-                foreach(json_decode($request->sub_categories3) as $subCat) {
-                    if(empty($subCat->id)){
-                        $cat = Category::find($request->category3)->sub_categories()->create([
-                            'name' => $subCat->value,
-                            'description' => 'Proposed Category'
-                        ]);
-                        $cat->status = "proposed";
-                        $cat->save();
-                        $task_subcategories->push(SubCategory::find($cat->id));
-                    }
-                    else
-                        $task_subcategories->push(SubCategory::find($subCat->id));
-                }
-            }
         }
-
         // Task Store
         $task = new Task();
-        $task->created_by = auth()->id();
+        $task->created_by = auth()->id() ? auth()->id() : 1;
         $task->name = $request->name;
         $task->description = $request->description;
         $task->type = $request->type;
@@ -133,7 +110,7 @@ class MainController extends Controller
         $creator->street_02 = $request->street_02;
         $creator->house_number = $request->house_number;
         $creator->postal_code = $request->postal_code;
-        $creator->province = $request->province;
+        $creator->perish = $request->perish;
         $task->creator()->save($creator);
 
         //Task Location Store
@@ -144,17 +121,24 @@ class MainController extends Controller
             $location->street_02 = $request->site_street_02;
             $location->house_number = $request->site_house_number;
             $location->postal_code = $request->site_postal_code;
-            $location->province = $request->site_province;
+            $location->perish = $request->site_perish;
             $task->location()->save($location);
         }
         dd($task_subcategories);
         $task->subcategories()->attach($task_subcategories);
+        $city1 = City::find($request->city)->name;
+        $site_city = City::find($request->site_city)->name;
+        Mail::send('mail.createTask', compact('request','task_subcategories','city1','site_city'), function($message) use ($request)
+            {
+                $message->to($request->email, $request->name)->subject('Task Created');
+            });
         return redirect()->route('viewTask',$task->id);
     }
     public function categories()
     {
         $page_title = 'Categories';
         $page_description = 'This is view all categories page';
-        return view('pages.categories', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+        $categories = Category::with('sub_categories')->paginate(6);
+        return view('pages.categories', compact('page_title', 'page_description','categories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
 }

@@ -21,7 +21,7 @@ class CreateTasksTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->enum('type', array('N/A', 'ready to hire', 'planning', 'budgeting'));
-            $table->enum('payment_type', array('project_basis','hourly_basis'));
+            $table->enum('payment_type', array('project basis','hourly basis'));
             $table->enum('status', array('completed', 'new', 'pending', 'assigned'))->default('new');
             $table->enum('deadline', array('N/A', 'asap', 'within a week', 'within a month', 'more than a month', 'flexible'));
             $table->enum('is_client_on_site', array('1', '0'))->nullable();
