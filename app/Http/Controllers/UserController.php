@@ -185,148 +185,62 @@ class UserController extends Controller
                 if ($tempPath)
                     Storage::delete($tempPath);
             };
-            
+           
 
             /* for certificate*/
-
-           $Certificate = "[".$request->totalCertificateList."]";
-           $Certificate1 = str_replace('},]','}]',$Certificate);
-           
+            $Certificate = "[".$request->totalCertificateList."]";
             
-            $skills_certificate = new Collection();
+            $Certificate1 = str_replace('},]','}]',$Certificate);
+            
+            $skills_certificate = new Collection;
             $skills_experince = new Collection();
-            $new_certificate = collect();
-            $new_reference = collect();
             foreach(json_decode($Certificate1) as $certificateArray){
-                dd($certificateArray);
+               
+                
                 
                 $certificate_new = 'certificate'. $certificateArray->fieldId;
-                $document->path = request($certificateArray)->store('certificate');
-                
+                $document->path = request($certificate_new)->store('certificate');
+                //$document->type = 'certificate'.$certificateArray;
+                //dd($document->type);
+                if(!empty($document->path)){
 
-                if(!empty($certificate_new)){
-
-                    $new_certificate->push($document->path);
-                }                  
+                    $skills_certificate->push($document->path);
+                }  
+                              
             }
-            dd($new_certificate);
-                
+            $document->path()->attach($skills_certificate);
+            $document->type = "other";
+            $document->save();
+               
             
 
             /* refernce */
+            $Experince = "[".$request->totalRefernenceList."]";
             
-            /*foreach(json_decode($Certificate) as $certificateArray){
-                $new_certificate = 'certificate'. $certificateArray->fieldId;
-                $new_experience = 'experience'. $certificateArray->fieldId;
-                if($new_experience){
-                    foreach(json_decode($request->new_experience) as $subRefernces){
-                        if(!empty($subRefernces)){
-
-                            $skills_experince->push($subRefernces);
-                            
-                           
-                        
-                    }
-                                    
-                }
-                    
-                    
-
-                }
-                
-            }
-
-            $document = new Document();
-            $document->path()->attach($skills_certificate)->store('other');
-            $document->type = 'other';
-            $document->user()->associate($user->id);
-            $document->save();*/
-
-                    
-                
-               
+            $Experince1 = str_replace('},]','}]',$Experince );
+            
+            
+            $skills_experince = new Collection();
+            foreach(json_decode($Experince1) as $experienceArray){
                
                 
+                
+                $refernence_new = 'experience'. $experienceArray->fieldId;
+                $user->experience = request($certificate_new);
+                //$document->type = 'certificate'.$certificateArray;
+                //dd($document->type);
+                if(!empty($user->experience)){
+
+                    $skills_experince->push($user->experience);
+                }  
+                              
+            }
+             $user->experience()->attach($skills_experince);
+             $user->save();
                
-                
-                    
-                
-                   
-                
-                
-           
-            
-            
-            
-            
-            
-           
 
-             /*if (request('certificate0')) {
-                
-                
-                $tempPath0 = "";
-                $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
-                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
-                }
-                $document->path = request('certificate0')->store('certificate');
-                $document->type = 'other';
-                $document->user()->associate($user->id);
-                $document->save();
-                if ($tempPath0)
-                    Storage::delete($tempPath0);
-              
             
-            }
-            if (request('certificate1')) {
-                
-                
-                $tempPath1 = "";
-                $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
-                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
-                }
-                $document->path = request('certificate1')->store('certificate');
-                $document->type = 'other';
-                $document->user()->associate($user->id);
-                $document->save();
-                if ($tempPath1)
-                    Storage::delete($tempPath1);
-              
-            
-            }
-            if (request('certificate2')) {
-                
-                
-                $tempPath2 = "";
-                $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
-                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
-                }
-                $document->path = request('certificate2')->store('certificate');
-                $document->type = 'other';
-                $document->user()->associate($user->id);
-                $document->save();
-                if ($tempPath2)
-                    Storage::delete($tempPath2);
-              
-            
-            }
 
-            if($request->experience0){
-                 $user->experience = $request->experience0;
-            }
-            if($request->experience1){
-                 $user->experience = $request->experience1;
-            }
-            if($request->experience2){
-                 $user->experience = $request->experience2;
-            }*/
-           
             
            $education = new Education();
             $education->education_instution_name = $request->educationinstutional_name;

@@ -56,7 +56,6 @@ $(document).ready(function () {
             success: function (data) {
 
                 data = JSON.parse(data);
-                console.log(data)
                 $('#choosencategory').val(data.name);
             }
         });
@@ -115,11 +114,9 @@ $("#add_btn").click(function (e) {
     if ($(".card-category-accordion").length < 3) {
        count++;
         $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "'+count+'"},');
-        console.log($("#totalCatList").val());
         var selectcategoryid = "selected_catgeory" + count;
         var subcatid = "kt_tagify_subcategory" + count;
         var viewcategory = "categoryTitle" + selectcategoryid;
-        console.log(selectcategoryid);
         var category_select = "";
         $.each(category_data, function (index, item) {
             category_select = category_select + ('<option value="' + item.id + '">' + item.name + ' </option>');
@@ -304,15 +301,12 @@ function LoadWizardData(wizard) {
         });
         categorySelected = [];
         $.each($(".category-title"), function (index, value) {
-
-           
-
+            console.log($("#totalCertificateList").val());
+            $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+index+'"},');
             const cloneCertificateAccordion = $("#templateCertificate").clone();
             cloneCertificateAccordion.attr("id", "certificateAccordion" + index);
             
             cloneCertificateAccordion.show();
-            $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+index+'"},');
-             
 
             var cardTitle = cloneCertificateAccordion.find("#certificateCategoryTitle");
             cardTitle.html(value.innerHTML);
