@@ -159,7 +159,7 @@ class UserController extends Controller
            
             
         }
-        
+       
         
           
 
@@ -185,38 +185,32 @@ class UserController extends Controller
                 if ($tempPath)
                     Storage::delete($tempPath);
             };
-
+            
 
             /* for certificate*/
 
-           /*$Certificate = "[".$request->totalCertificateList."]";
+           $Certificate = "[".$request->totalCertificateList."]";
            $Certificate1 = str_replace('},]','}]',$Certificate);
+           
             
             $skills_certificate = new Collection();
             $skills_experince = new Collection();
             $new_certificate = collect();
             $new_reference = collect();
             foreach(json_decode($Certificate1) as $certificateArray){
+                dd($certificateArray);
+                
                 $certificate_new = 'certificate'. $certificateArray->fieldId;
-                $experience_new = 'experience'. $certificateArray->fieldId;
-                foreach(json_decode($request->$certificate_new) as $subCertificate){
-                    if(!empty($subCertificate)){
-
-                        $skills_certificate->push($subCertificate);
-                    
-                    }
-                                    
-                }
-                    
-                    
-
+                $document->path = request($certificateArray)->store('certificate');
                 
-                
+
+                if(!empty($certificate_new)){
+
+                    $new_certificate->push($document->path);
+                }                  
             }
-            dd($skills_certificate);
-           
-        
-            dd($skills_certificate);
+            dd($new_certificate);
+                
             
 
             /* refernce */
