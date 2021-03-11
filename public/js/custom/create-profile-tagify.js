@@ -18,7 +18,7 @@ function bindSubCat1(data, subcat) {
                         html += '       </span>';
                         html += '       <div class="d-flex flex-column">';
                         html += '           <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">' + (tagData.value ? tagData.value : '') + '</a>';
-                        html += '           <span class="text-muted font-weight-bold">' + (tagData.email ? tagData.email : '') + '</span>';
+                        html += '           <span class="text-muted font-weight-bold">' + (tagData.description ? tagData.description : '') + '</span>';
                         html += '       </div>';
                         html += '   </div>';
                         html += '</div>';
@@ -58,16 +58,21 @@ function getSubCatData(categoryId, subcatid) {
     var subcategory = new Array();
     $.ajax({
         type: "GET",
-        url: '/profile/' + categoryId,
+        url: '/api/category/' + categoryId,
         dataType: 'json',
         success: function (result) {
+            console.log(result);
             $.each(result, function (index, item) {
                 var itemObj = {};
                 itemObj.value = item.name;
+                itemObj.description = item.description;
+                itemObj.id = item.id;
                 itemObj.initials = '',
                 itemObj.initialsState = '',
-                itemObj.class = 'tagify__tag--primary'
+                itemObj.class = 'tagify__tag--secondary'
                 subcategory.push(itemObj);
+
+                console.log(subcategory);
             });
              bindSubCat1(subcategory, subcatid);
         }

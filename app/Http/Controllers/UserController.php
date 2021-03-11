@@ -15,7 +15,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -123,39 +122,100 @@ class UserController extends Controller
         $file->move($dir, $filename);
         return $filename;
     }
-    public function addprofiledetails(Request $request)
+
+    public function  rules()
     {
-        try {
-            $user = User::find(Auth::user()->id);
-            $request->validate([
-                'skills_category' => ['required'],
-                'sub_categories' => ['required'],
-                'certificate' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-                'expereince'  => ['required'],
+        $rules = [
+              
                 'educationinstutional_name' => ['required'],
                 'degree'  => ['required'],
                 'start_date' => ['required'],
-                'end_date'   => ['required'],
-                'gpa' => ['required'],
-                'reference' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-                'police_report' => ['nullable'],
+                'end_date'   =>['required'],
                 'personal_description' => ['required'],
                 'hours' => ['required'],
-                'working_days' => ['nullable'],
-                'long_distance' => ['nullable'],
-                'total distance' => ['nullable'],
                 'street' => ['required'],
-                'house_number' => ['nullable'],
-                'city' => ['required'],
-                'profile' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
+                'cities' => ['required'],
 
-            ]);
+        ];
+        if($this->$request->get('reference')){
+            foreach($this->$request->get('reference') as $key => $val)
+            {
+                 $request->validate([
+                      
+                      "reference. '+ $key+'" => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
+                     
 
-            //dd(implode(',',$request->working_days));
+                 ]);
+                    
 
 
-            /* Uplaoding profile picture */
-            if (request('profile')) {
+                 
+
+            }
+        }
+
+            if($this->$request->get('skills_category')){
+            foreach($this->$request->get('skills_category') as $key => $val)
+            {
+                 $request->validate([
+                      "skills_category.'+ $key+'" => ['required'],
+                      "sub_categories.'+ $key+'"  => ['required'],
+                      "certificate. '+ $key+'" => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
+                      "expereince. ' +$key +'" =>['required'],
+
+                 ]);
+                    
+
+
+                 
+
+            }
+
+            
+        }
+
+        addprofiledetails($rules);
+
+
+    }
+    public function addprofiledetails(Request $request)
+    {
+      
+        try {
+            
+             $user  = new User();
+            $user  = User::find(Auth::user()->id);
+            //dd($request);
+           
+            $Subb = "[".$request->totalCatList."]";
+            $Subb = str_replace('},]','}]',$Subb);
+            $user_subcategories = new Collection();
+            $new = collect();
+            foreach(json_decode($Subb) as $subCattArray) {
+                $subCatt = 'sub_categories'. $subCattArray->fieldId;
+                $categoryy = 'skills_category'. $subCattArray->fieldId;
+                foreach(json_decode($request->$subCatt) as $subCat){
+                    if(empty($subCat->id)){
+                    $cat = Category::find($request->$categoryy)->sub_categories()->create([
+                        'name' => $subCat->value,
+                        'description' => 'Proposed Category'
+                    ]);
+                    $cat->status = "proposed";
+                    $cat->save();
+                    $user_subcategories->push(SubCategory::find($cat->id));
+                }
+                else
+                    $user_subcategories->push(SubCategory::find($subCat->id));
+            }
+                
+           
+           
+            
+        }
+           
+        
+       
+         if (request('profile')) {
                 $tempPath = "";
                 $document = new Document();
                 if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first())) {
@@ -173,115 +233,81 @@ class UserController extends Controller
 
             //dd("hello");
 
-            /*Uploading certificate */
-            if (request('certificate')) {
-                $tempPath1 = "";
-                $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
-                    $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
-                }
-                $document->path = request('certificate')->store('certificate');
-                //dd(request('certificate')->store('certificate'));
-                $document->type = 'other';
-                $document->user()->associate($user->id);
-                $document->save();
-                if ($tempPath1)
-                    Storage::delete($tempPath1);
-            };
+          /*Uploading certificate */
+          if (request('certificate'))
+          {
+              $tempPath1 = "";
+              $document = new Document();
+              if(!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first())){
+                  $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
+                  $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
+              }
+              $document->path = request('certificate')->store('certificate');
+              //dd(request('certificate')->store('certificate'));
+              $document->type = 'other';
+              $document->user()->associate($user->id);
+              $document->save();
+              if($tempPath1)
+                  Storage::delete($tempPath1);
+          };
 
-            /* uploading Referenece */
-            if (request('reference')) {
-                $tempPath2 = "";
-                $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first();
-                    $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first()->path;
-                }
-                $document->path = request('reference')->store('reference');
-                //dd(request('reference')->store('reference'));
-                $document->type = 'reference_letter';
-                $document->user()->associate($user->id);
-                $document->save();
-                if ($tempPath2)
-                    Storage::delete($tempPath2);
-            }
-
-
-
-
-            $education = new Education();
+         
+           $education = new Education();
             $education->education_instution_name = $request->educationinstutional_name;
             $education->degree = $request->degree;
             $education->start_date = $request->start_date;
             $education->end_date = $request->end_date;
-            $education->gpa = $request->gpa;
             $education->save();
 
             $education_user = new EducationUser();
             $education_user->user_id = Auth::user()->id;
             $education_user->education_id = $education->id;
             $education_user->save();
-
-
-            //$user->areas_covering = $skills->id;
-            $user->experience = $request->expereince;
-
-            // logic for the radio button 
-            if ($request->police_report == "1") {
+          
+         // logic for the radio button */
+            if($request->police_report == "1") {
                 $user->is_police_record = 1;
-            } elseif ($request->police_report == "0") {
+                }
+           
+            elseif($request->police_report == "0")
+            {
                 $user->is_police_record = 0;
             }
 
-            if ($request->is_travelling == "1") {
+            
+
+             if($request->is_travelling == "1")
+            {
                 $user->is_travelling = 1;
             } elseif ($request->is_travelling == "0") {
                 $user->is_travelling = 0;
             }
-
-            /* Converting skills array */
-            $skillArray = array();
-            foreach (json_decode($request->sub_categories) as $category) {
-                array_push($skillArray, $category->value);
-            }
+        
 
 
-            //dd($request->sub_categories);
-
-
-
-            $subcategory = new SubCategory();
-            dd($skillArray);
-            $skill = implode(',', $skillArray);
-            $subcategory->name = $skill;
-
-            $subcategory->description = "working";
-            $subcategory->category_id = $request->skills_category;
-            $subcategory->save();
-
+         
             /* converting  days array */
-            $dayArray = array();
-            foreach (json_decode($request->working_days) as $days) {
-                array_push($dayArray, $days->value);
-            }
-            //dd(implode(',',$dayArray));
-
-            $user->hours = $request->hours;
-
-            $user->days = implode(',', $dayArray);
-
-
-
-            $user->introduction = $request->personal_description;
-            $user->street_01 = $request->street;
-            $user->street_02 = $request->house_number;
-            $user->city_id = 1;
-            $user->save();
-            Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function ($m) {
-                $m->to(auth()->user()->email())->subject('Thank you for submitting your details');
+           $dayArray = array();
+           foreach (json_decode($request->working_days) as $days) {
+            array_push($dayArray, $days->value);
+        }
+          $user->hours = $request->hours;
+          $user->days = implode(',',$dayArray) ;
+          $user->introduction = $request->personal_description;
+          dd($user_subcategories);
+          $user->areas_covering()->attach($user_subcategories);
+          $user->experience = implode(',',$request->experience);
+          $user->street_01 = $request->street;
+          $user->street_02 = $request->house_number;
+          $user->city_id = 1;
+          $user->save();
+          Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function($m){
+                 $m->to(Auth::user()->email)
+          ->subject('Thank you for submitting your details');
             });
             return redirect('/profile');
+
+    
         } catch (Throwable $e) {
 
             dd($e);
@@ -289,7 +315,7 @@ class UserController extends Controller
         }
     }
 
-    public function security()
+ public function security()
     {
         $user = User::with('emails', 'phones')->find(Auth::user()->id);
         return view('admin.profile.security', compact('user'));
@@ -455,4 +481,65 @@ class UserController extends Controller
         }
         return redirect()->route('viewProfile');
     }
+    public function emptyPage() {
+        return view('pages.emptyFile');
+    }
 }
+
+
+          
+         
+
+     
+
+                    
+                   
+               
+        
+        
+
+           
+            
+
+          
+          
+
+
+
+            
+              
+
+           
+               
+            
+            
+           
+
+            
+            
+           
+
+            
+
+
+           
+            
+           
+           
+
+            
+           
+            
+
+          
+
+           
+
+           
+           
+           
+           
+           
+            
+
+   

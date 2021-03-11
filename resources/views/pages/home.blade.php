@@ -12,7 +12,7 @@ $page_title = 'Dashboard';
                 <h3 class="text-white font-weight-bolder my-7">Create your home project now</h3>
                 <p class="text-muted font-size-lg mb-7">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa accusamus error tempore facere, officiis numquam voluptatum. Beatae similique ea, sed nam consectetur esse quia totam error ab? Accusantium, eaque ea?
                 </p>
-                <a href="#" class="btn btn-primary font-weight-bold px-6 py-3">Create Project</a>
+                <a href="{{ route('createProject') }}" class="btn btn-primary font-weight-bold px-6 py-3">Create Project</a>
             </div>
         </div>
         <!--end::Body-->
@@ -27,12 +27,13 @@ $page_title = 'Dashboard';
                 </p>
                 <p class="text-white font-size-lg mb-7" style="width: 80%;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa accusamus error tempore facere, officiis numquam voluptatum. Beatae similique ea, sed nam consectetur esse quia totam error ab? Accusantium, eaque ea?
                 </p>
-                <a href="#" class="btn btn-warning font-weight-bold py-2 px-6">Join Now</a>
+                <a href="{{ route('profileWizard') }}" class="btn btn-warning font-weight-bold py-2 px-6">Join Now</a>
             </div>
         </div>
     </div>
     <!--end::Engage Widget 6-->
 </div>
+{{-- @userIsContractor($loggedUser)
 <div class="col-xl-12">
     <!--begin::Engage Widget 7-->
     <div class="card card-custom card-stretch gutter-b">
@@ -48,6 +49,7 @@ $page_title = 'Dashboard';
     </div>
     <!--end::Engage Widget 7-->
 </div>
+@enduserIsContractor
 <div class="col-xl-12">
     <!--begin::Engage Widget 7-->
     <div class="card card-custom card-stretch gutter-b">
@@ -62,5 +64,5 @@ $page_title = 'Dashboard';
         </div>
     </div>
     <!--end::Engage Widget 7-->
-</div>
+</div> --}}
 @endsection

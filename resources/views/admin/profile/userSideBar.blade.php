@@ -25,7 +25,7 @@
             </div>
             <!--end::User-->
             <!--begin::Contact-->
-            <div class="mb-10 text-center">
+            {{-- <div class="mb-10 text-center">
                 <a href="#" class="btn btn-icon btn-circle btn-light-facebook mr-2">
                     <i class="socicon-facebook"></i>
                 </a>
@@ -35,27 +35,26 @@
                 <a href="#" class="btn btn-icon btn-circle btn-light-google">
                     <i class="socicon-google"></i>
                 </a>
-            </div>
+            </div> --}}
             <!--end::Contact-->
             <!--begin::Nav-->
             <a href="{{ Auth::user()->id === $user->id ? route('viewProfile') : route('viewUser', $user->id) }}"
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileIsActive) ? 'active' : '' }}">User
                 Information</a>
-            @if ($user->type == 'individual_contractor')
-                <a href="#"
+            @userIsContractor($user)
+                <a href="{{ Auth::user()->id === $user->id ? route('viewDocuments') : route('viewUserDocuments', $user->id) }}"
                     class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileDocumentIsActive) ? 'active' : '' }}">User
                     Documents</a>
                 <a href="{{ Auth::user()->id === $user->id ? route('profileSkills') : route('userSkills', $user->id) }}"
                     class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileSkillIsActive) ? 'active' : '' }}">Skills</a>
-                <a href="#"
+                <a href="{{ Auth::user()->id === $user->id ? route('viewEducations') : route('viewUserEducations', $user->id) }}"
                     class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileEducationIsActive) ? 'active' : '' }}">Education</a>
-
-                <a href="#"
+                <a href="{{ Auth::user()->id === $user->id ? route('viewReferences') : route('viewUserReferences', $user->id) }}"
                     class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileReferenceIsActive) ? 'active' : '' }}">References</a>
-                <a href="#"
+                {{-- <a href="#"
                     class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profilePaymentIsActive) ? 'active' : '' }}">Payment
-                    Details</a>
-            @endif
+                    Details</a> --}}
+            @enduserIsContractor
             <a href="{{ Auth::user()->id === $user->id ? route('accountSecurity') : route('viewAccountSecurity', $user->id) }}"
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileAccountIsActive) ? 'active' : '' }}">Account
                 Settings</a>

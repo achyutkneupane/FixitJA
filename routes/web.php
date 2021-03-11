@@ -56,15 +56,20 @@ Route::prefix('/task')->group(function () {
 });
 Route::prefix('/profile')->group(function () {
     Route::get('/', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
+    Route::get('/documents', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewDocuments');
+    Route::get('/education', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewEducations');
+    Route::get('/reference', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferences');
     Route::get('/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->middleware('auth')->name('editProfile');
     Route::get('/skills', [App\Http\Controllers\UserController::class, 'profileSkills'])->middleware('auth')->name('profileSkills');
-
 });
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
-Route::prefix('/user')->group(function () {
-    Route::get('/{id}/edit', [App\Http\Controllers\UserController::class, 'editUserProfile'])->middleware('auth')->name('editUserProfile');
-    Route::get('/{id}/skills', [App\Http\Controllers\UserController::class, 'userSkills'])->middleware('auth')->name('userSkills');
-    Route::get('/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
+Route::prefix('/user/{id}')->group(function () {
+    Route::get('/', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
+    Route::get('/edit', [App\Http\Controllers\UserController::class, 'editUserProfile'])->middleware('auth')->name('editUserProfile');
+    Route::get('/skills', [App\Http\Controllers\UserController::class, 'userSkills'])->middleware('auth')->name('userSkills');
+    Route::get('/documents', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewUserDocuments');
+    Route::get('/education', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewUserEducations');
+    Route::get('/reference', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewUserReferences');
 });
 Route::prefix('/error_log')->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'error_log'])->middleware('auth', 'checkIfAdmin')->name('viewErrorLog');
@@ -87,6 +92,9 @@ Route::prefix('/project/create')->group(function(){
     Route::post('/', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
 });
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
+
+
+
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
