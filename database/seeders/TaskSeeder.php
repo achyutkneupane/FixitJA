@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SubCategory;
 use Illuminate\Database\Seeder;
 use App\Models\Task;
 use App\Models\User;
@@ -20,6 +21,8 @@ class TaskSeeder extends Seeder
             $task->assignedBy()->attach($users);
             $users = User::inRandomOrder()->where('id', '!=', '1')->take(rand(2, 10))->pluck('id');
             $task->assignedTo()->attach($users);
+            $subCat = SubCategory::inRandomOrder()->take(rand(4,7))->pluck('id');
+            $task->subcategories()->attach($subCat);
         }
     }
 }

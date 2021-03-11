@@ -1,5 +1,16 @@
 @extends('layouts.app')
 @section('content')
+@if(!empty(session()->get('catId')))
+<script>
+var sessionCatId = {{ session()->get('catId') }};
+</script>
+@elseif(!empty(session()->get('subCatId')))
+<script>
+var sessionCatId = 'NULL';
+var sessionSubCatId = {{ session()->get('subCatId') }};
+var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
+</script>
+@endif
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container">
@@ -83,81 +94,156 @@
                     <div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
                         <div class="col-xl-12 col-xxl-7">
                             <!--begin::Wizard Form-->
-                            <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form">
+                            <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="POST" action="{{ route('addProject') }}">
+                                @csrf
                                 <!--begin::Wizard Step 1-->
                                 <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
-                                    <h3 class="mb-10 font-weight-bold text-dark">Enter your category details</h3>
+                                    <h3 class="mb-10 font-weight-bold text-dark">Enter your task category</h3>
                                     <!--begin::Select-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Category</label>
-                                        <select name="category" class="form-control form-control-solid form-control-lg">
-                                            <option value="">Select</option>
-                                            <option value="AF">Category 1</option>
-                                            <option value="AX">Category 2</option>
-                                            <option value="AL">Category 3</option>
-                                            <option value="DZ">Category 4</option>
-                                        </select>
-                                        <div class="fv-plugins-message-container"></div>
-                                    </div>
-                                    <!--end::Select-->
-                                    <!--begin::Select-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Sub category</label>
-                                        <div>
-                                            <input id="kt_tagify_custom" class="form-control tagify" name="sub_categories" placeholder="Add sub-categories">
-                                            <div class="mt-3 text-muted">Select multiple subcategories. If you don't see your option just create one.</div>
+                                    <div class="accordion accordion-solid accordion-toggle-plus" id="accordionSubCat">
+                                        {{-- Start Template Category --}}
+                                        <div id="templateProjectWizardCategory" style="display: none;">
+                                            <div class="card card-category-accordion-project-wizard" id="subCategoryTemplate_selector">
+                                                <div class="card-header">
+                                                    <div class="card-title" data-toggle="collapse" data-target="#collapseSubCatTemplate" id="subCategoryTemplateTitleDiv">
+                                                        <span class="category-title" id="projectWizardCategoryTemplateTitle">Select Category</span>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseSubCatTemplate" class="collapse show">
+                                                    <div class="card-body">
+                                                        <div class="form-group fv-plugins-icon-container">
+                                                            <label>Category</label>
+                                                            <select id="categorySelectTemplate" subcatid="kt_tagify_subCat_project_wizard_Template" name="categoryTemplate" class="form-control form-control-solid form-control-sm project_category_select">
+                                                                <option value="">Select Category</option>
+                                                                @foreach($cats as $cat)
+                                                                <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <!-- <div class="fv-plugins-message-container"></div> -->
+                                                        <!--end::Select-->
+                                                        <!--begin::Select-->
+
+                                                        <div class="form-group fv-plugins-icon-container">
+                                                            <div id="divTagifykt_tagify_subCat_project_wizard_Template" style="display:none">
+                                                                <label>Select Sub-Categories</label>
+                                                                <input id="kt_tagify_subCat_project_wizard_Template" class="form-control" name="sub_categoriesTemplate" placeholder="Add sub-categories">
+                                                            </div>
+                                                            <!-- <div class="fv-plugins-message-container"></div> -->
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Select-->
+                                                </div>
+                                                <div class="card-footer bg-transparent py-5" id="project_wizard_footer">
+                                                    <button type="button" count-value="-1" id="remove_btn_project_wizard" category-accordion="subCategoryTemplate_selector" class="btn btn-danger remove-accordian-project-wizard">Remove</button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="fv-plugins-message-container"></div>
+                                        <div id="divProjectWizardCategory">
+
+                                        </div>
+                                        <input type="hidden" id="totalCatList" name="totalCatList">
+                                        <input type="button" class="mr-auto ml-2 btn btn-primary mt-5" value="Add More Category " id="subCategoryAddButtonProjectWizard">
                                     </div>
-                                    <!--end::Select-->
+                                    <div class="mt-3 text-muted">Select multiple subcategories. If you don't see your option just create one.</div>
                                 </div>
                                 <!--end::Wizard Step 1-->
                                 <!--begin::Wizard Step 2-->
                                 <div class="pb-5" data-wizard-type="step-content">
-                                    <h4 class="mb-10 font-weight-bold text-dark">Enter the Details of your Delivery</h4>
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Package Details</label>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="package" placeholder="Package Details" value="Complete Workstation (Monitor, Computer, Keyboard &amp; Mouse)">
-                                        <span class="form-text text-muted">Please enter your Pakcage Details.</span>
-                                        <div class="fv-plugins-message-container"></div>
-                                    </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Package Weight in KG</label>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="weight" placeholder="Package Weight" value="25">
-                                        <span class="form-text text-muted">Please enter your Package Weight in KG.</span>
-                                        <div class="fv-plugins-message-container"></div>
-                                    </div>
-                                    <!--end::Input-->
+                                    <h4 class="mb-10 font-weight-bold text-dark">Enter Task Details</h4>
                                     <div class="row">
-                                        <div class="col-xl-4">
+                                        <div class="col-md-6">
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
-                                                <label>Package Width in CM</label>
-                                                <input type="text" class="form-control form-control-solid form-control-lg" name="width" placeholder="Package Width" value="110">
-                                                <span class="form-text text-muted">Please enter your Package Width in CM.</span>
+                                                <label>Title</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="name" placeholder="Task Title">
+                                                <span class="form-text text-muted">Please enter your Task title</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Project Type</label>
+                                                <select name="type" class="form-control form-control-solid form-control-sm">
+                                                    <option value="">Select Project Type</option>
+                                                    <option value="ready to hire">Ready To Hire</option>
+                                                    <option value="planning">Required Planning and Budgeting</option>
+                                                    <option value="N/A">Not Sure Yet</option>
+                                                </select>
+                                                <span class="form-text text-muted">Please enter your project type.</span>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
                                             <!--end::Input-->
                                         </div>
-                                        <div class="col-xl-4">
+                                        <div class="col-md-6">
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
-                                                <label>Package Height in CM</label>
-                                                <input type="text" class="form-control form-control-solid form-control-lg" name="height" placeholder="Package Height" value="90">
-                                                <span class="form-text text-muted">Please enter your Package Height in CM.</span>
+                                                <label>Description</label>
+                                                <textarea class="form-control form-control-solid form-control-sm" name="description" placeholder="Description" rows="7"></textarea>
+                                                <span class="form-text text-muted">Please enter your Task Description</span>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
                                             <!--end::Input-->
                                         </div>
-                                        <div class="col-xl-4">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
-                                                <label>Package Length in CM</label>
-                                                <input type="text" class="form-control form-control-solid form-control-lg" name="packagelength" placeholder="Package Length" value="150">
-                                                <span class="form-text text-muted">Please enter your Package Length in CM.</span>
+                                                <label>Project Payment</label>
+                                                <select name="payment_type" class="form-control form-control-solid form-control-sm">
+                                                    <option value="">Select Payment Type</option>
+                                                    <option value="project basis">Project Basis</option>
+                                                    <option value="hourly basis">Hourly Basis</option>
+                                                </select>
+                                                <span class="form-text text-muted">Please enter your project payment type.</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Project Deadline</label>
+                                                <select name="deadline" class="form-control form-control-solid form-control-sm">
+                                                    <option value="">Select Payment Deadline</option>
+                                                    <option value="flexible">Flexible</option>
+                                                    <option value="asap">ASAP</option>
+                                                    <option value="within a week">Within A Week</option>
+                                                    <option value="within 2 weeks">Within Two Weeks</option>
+                                                    <option value="within a month">Within A Month</option>
+                                                    <option value="more than a month">More Than A Month</option>
+                                                    <option value="N/A">Not Sure Yet</option>
+                                                </select>
+                                                <span class="form-text text-muted">Please enter your project deadline.</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Are you on site while working?</label>
+                                                <select name="is_client_on_site" class="form-control form-control-solid form-control-sm">
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                    <option value="NULL" selected>Not Sure Yet</option>
+                                                </select>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Are repair parts provided?</label>
+                                                <select name="is_repair_parts_provided" class="form-control form-control-solid form-control-sm">
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                    <option value="NULL" selected>Not Sure Yet</option>
+                                                </select>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
                                             <!--end::Input-->
@@ -167,356 +253,299 @@
                                 <!--end::Wizard Step 2-->
                                 <!--begin::Wizard Step 3-->
                                 <div class="pb-5" data-wizard-type="step-content">
-                                    <h4 class="mb-10 font-weight-bold text-dark">Select your Services</h4>
-                                    <!--begin::Select-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Delivery Type</label>
-                                        <select name="delivery" class="form-control form-control-solid form-control-lg">
-                                            <option value="">Select a Service Type Option</option>
-                                            <option value="overnight" selected="selected">Overnight Delivery (within 48 hours)</option>
-                                            <option value="express">Express Delivery (within 5 working days)</option>
-                                            <option value="basic">Basic Delivery (within 5 - 10 working days)</option>
-                                        </select>
-                                        <div class="fv-plugins-message-container"></div>
+                                    <h4 class="mb-10 font-weight-bold text-dark">User Details</h4>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Full Name</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="user_name" placeholder="Full Name" value="{{ !empty($user) ? $user->name : '' }}">
+                                                <span class="form-text text-muted">Please enter your Full Name</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Phone</label>
+
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="phone" placeholder="Phone" value="{{ !empty($user) ? $user->phone() : '' }}">
+                                                <span class="form-text text-muted">Please enter your Phone</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Email</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="email" placeholder="Email" value="{{ !empty($user) ? $user->email() : '' }}">
+                                                <span class="form-text text-muted">Please enter your Email</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
                                     </div>
-                                    <!--end::Select-->
-                                    <!--begin::Select-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Packaging Type</label>
-                                        <select name="packaging" class="form-control form-control-solid form-control-lg">
-                                            <option value="">Select a Packaging Type Option</option>
-                                            <option value="regular" selected="selected">Regular Packaging</option>
-                                            <option value="oversized">Oversized Packaging</option>
-                                            <option value="fragile">Fragile Packaging</option>
-                                            <option value="frozen">Frozen Packaging</option>
-                                        </select>
-                                        <div class="fv-plugins-message-container"></div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>User Address</label>
+                                        </div>
                                     </div>
-                                    <!--end::Select-->
-                                    <!--begin::Select-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Preferred Delivery Window</label>
-                                        <select name="preferreddelivery" class="form-control form-control-solid form-control-lg">
-                                            <option value="">Select a Preferred Delivery Option</option>
-                                            <option value="morning" selected="selected">Morning Delivery (8:00AM - 11:00AM)</option>
-                                            <option value="afternoon">Afternoon Delivery (11:00AM - 3:00PM)</option>
-                                            <option value="evening">Evening Delivery (3:00PM - 7:00PM)</option>
-                                        </select>
-                                        <div class="fv-plugins-message-container"></div>
+                                    <div class="form-group row">
+                                        <div class="col-md-4">
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <!--begin::Select-->
+                                                <label>City</label>
+                                                <select class="form-control form-control-solid form-control-sm" id="citySelector" name="city">
+                                                    @foreach($cities as $index => $city)
+                                                    <option value="{{ $city->id }}" {{ ( !empty($user) && $city->id == $user->city->id) ? 'selected' : '' }}>{{ $city->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <span class="form-text text-muted">Please enter your City</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                                <!--end::Select-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <!--begin::Input-->
+                                                <label>Street Address 1</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="street_01" placeholder="Street Address 1" value="{{ !empty($user) ? $user->street_01 : '' }}">
+                                                <span class="form-text text-muted">Please enter your Street Address</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                                <!--end::Input-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <!--begin::Input-->
+                                                <label>Street Address 2(Optional)</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="street_02" placeholder="Street Address 2" value="{{ !empty($user) ? $user->street_02 : '' }}">
+                                                <span class="form-text text-muted">Please enter your Street Address</span>
+                                                <div class="fv-plugins-message-container"></div>
+                                                <!--end::Input-->
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!--end::Select-->
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>House Number or Unit(Optional)</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="house_number" placeholder="House Number or Unit">
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Postal Code(Optional)</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="postal_code" placeholder="Postal Code">
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Perish</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="perish" placeholder="Perish">
+                                                <div class="fv-plugins-message-container"></div>
+                                                <span class="form-text text-muted">Please enter your Perish</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="checkbox" id="locationCheck" name="user_equal_working" onchange="workingEqualsUser()" />
+                                            <span class="font-weight-bold">Working Location is same as User Location</span>
+                                        </div>
+                                    </div>
+                                    <div id="workingLocation" class="mt-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Working Location</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <!--begin::Select-->
+                                                    <label>City</label>
+                                                    <select class="form-control form-control-solid form-control-sm" id="citySelector" name="site_city">
+                                                        @foreach($cities as $index => $city)
+                                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <span class="form-text text-muted">Please enter your City</span>
+                                                    <div class="fv-plugins-message-container"></div>
+                                                    <!--end::Select-->
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <!--begin::Input-->
+                                                    <label>Street Address 1</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_street_01" placeholder="Street Address 1">
+                                                    <span class="form-text text-muted">Please enter your Street Address</span>
+                                                    <div class="fv-plugins-message-container"></div>
+                                                    <!--end::Input-->
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <!--begin::Input-->
+                                                    <label>Street Address 2(Optional)</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_street_02" placeholder="Street Address 2">
+                                                    <span class="form-text text-muted">Please enter your Street Address</span>
+                                                    <div class="fv-plugins-message-container"></div>
+                                                    <!--end::Input-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <!--begin::Input-->
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <label>House Number or Unit(Optional)</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_house_number" placeholder="House Number or Unit">
+                                                    <div class="fv-plugins-message-container"></div>
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <div class="col-md-4">
+                                                <!--begin::Input-->
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <label>Postal Code(Optional)</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_postal_code" placeholder="Postal Code">
+                                                    <div class="fv-plugins-message-container"></div>
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <div class="col-md-4">
+                                                <!--begin::Input-->
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <label>Perish</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_perish" placeholder="Perish">
+                                                    <div class="fv-plugins-message-container"></div>
+                                                    <span class="form-text text-muted">Please enter your Perish</span>
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!--end::Wizard Step 3-->
                                 <!--begin::Wizard Step 4-->
                                 <div class="pb-5" data-wizard-type="step-content">
-                                    <h4 class="mb-10 font-weight-bold text-dark">Setup Your Delivery Location</h4>
-                                    <!--begin::Input-->
-                                    <div class="form-group fv-plugins-icon-container">
-                                        <label>Address Line 1</label>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="locaddress1" placeholder="Address Line 1" value="Address Line 1">
-                                        <span class="form-text text-muted">Please enter your Address.</span>
-                                        <div class="fv-plugins-message-container"></div>
-                                    </div>
-                                    <!--end::Input-->
-                                    <!--begin::Input-->
-                                    <div class="form-group">
-                                        <label>Address Line 2</label>
-                                        <input type="text" class="form-control form-control-solid form-control-lg" name="locaddress2" placeholder="Address Line 2" value="Address Line 2">
-                                        <span class="form-text text-muted">Please enter your Address.</span>
-                                    </div>
-                                    <!--end::Input-->
-                                    <div class="row">
-                                        <div class="col-xl-6">
-                                            <!--begin::Input-->
-                                            <div class="form-group fv-plugins-icon-container">
-                                                <label>Postcode</label>
-                                                <input type="text" class="form-control form-control-solid form-control-lg" name="locpostcode" placeholder="Postcode" value="3072">
-                                                <span class="form-text text-muted">Please enter your Postcode.</span>
-                                                <div class="fv-plugins-message-container"></div>
-                                            </div>
-                                            <!--end::Input-->
+                                    <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                        <h3 class="col-md-12 my-3">Project Details</h3>
+                                        <div class="col-md-12">
+                                            <span class="font-weight-bold">Subcategories: </span>
+                                            <span class="text-muted text-capitalize" id='subCatsId'></span>
                                         </div>
-                                        <div class="col-xl-6">
-                                            <!--begin::Input-->
-                                            <div class="form-group fv-plugins-icon-container">
-                                                <label>City</label>
-                                                <input type="text" class="form-control form-control-solid form-control-lg" name="loccity" placeholder="City" value="Preston">
-                                                <span class="form-text text-muted">Please enter your City.</span>
-                                                <div class="fv-plugins-message-container"></div>
-                                            </div>
-                                            <!--end::Input-->
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Task Title: </span>
+                                            <span class="text-muted" id='taskTitleId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Task Description: </span>
+                                            <span class="text-muted" id='taskDescriptionId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Project Type: </span>
+                                            <span class="text-muted" id='taskTypeId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Payment Type: </span>
+                                            <span class="text-muted" id='paymentTypeId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Project Deadline: </span>
+                                            <span class="text-muted" id='projectDeadlineId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Are you on site while working? </span>
+                                            <span class="text-muted" id='onSiteId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Are repair parts provided? </span>
+                                            <span class="text-muted" id='repairPartId'>N/A</span>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xl-6">
-                                            <!--begin::Input-->
-                                            <div class="form-group fv-plugins-icon-container">
-                                                <label>State</label>
-                                                <input type="text" class="form-control form-control-solid form-control-lg" name="locstate" placeholder="State" value="VIC">
-                                                <span class="form-text text-muted">Please enter your State.</span>
-                                                <div class="fv-plugins-message-container"></div>
-                                            </div>
-                                            <!--end::Input-->
+                                    <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                        <h3 class="col-md-12 my-3">User Details</h3>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Name: </span>
+                                            <span class="text-muted" id='userNameId'>N/A</span>
                                         </div>
-                                        <div class="col-xl-6">
-                                            <!--begin::Select-->
-                                            <div class="form-group fv-plugins-icon-container">
-                                                <label>Country</label>
-                                                <select name="loccountry" class="form-control form-control-solid form-control-lg">
-                                                    <option value="">Select</option>
-                                                    <option value="AF">Afghanistan</option>
-                                                    <option value="AX">Åland Islands</option>
-                                                    <option value="AL">Albania</option>
-                                                    <option value="DZ">Algeria</option>
-                                                    <option value="AS">American Samoa</option>
-                                                    <option value="AD">Andorra</option>
-                                                    <option value="AO">Angola</option>
-                                                    <option value="AI">Anguilla</option>
-                                                    <option value="AQ">Antarctica</option>
-                                                    <option value="AG">Antigua and Barbuda</option>
-                                                    <option value="AR">Argentina</option>
-                                                    <option value="AM">Armenia</option>
-                                                    <option value="AW">Aruba</option>
-                                                    <option value="AU" selected="selected">Australia</option>
-                                                    <option value="AT">Austria</option>
-                                                    <option value="AZ">Azerbaijan</option>
-                                                    <option value="BS">Bahamas</option>
-                                                    <option value="BH">Bahrain</option>
-                                                    <option value="BD">Bangladesh</option>
-                                                    <option value="BB">Barbados</option>
-                                                    <option value="BY">Belarus</option>
-                                                    <option value="BE">Belgium</option>
-                                                    <option value="BZ">Belize</option>
-                                                    <option value="BJ">Benin</option>
-                                                    <option value="BM">Bermuda</option>
-                                                    <option value="BT">Bhutan</option>
-                                                    <option value="BO">Bolivia, Plurinational State of</option>
-                                                    <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
-                                                    <option value="BA">Bosnia and Herzegovina</option>
-                                                    <option value="BW">Botswana</option>
-                                                    <option value="BV">Bouvet Island</option>
-                                                    <option value="BR">Brazil</option>
-                                                    <option value="IO">British Indian Ocean Territory</option>
-                                                    <option value="BN">Brunei Darussalam</option>
-                                                    <option value="BG">Bulgaria</option>
-                                                    <option value="BF">Burkina Faso</option>
-                                                    <option value="BI">Burundi</option>
-                                                    <option value="KH">Cambodia</option>
-                                                    <option value="CM">Cameroon</option>
-                                                    <option value="CA">Canada</option>
-                                                    <option value="CV">Cape Verde</option>
-                                                    <option value="KY">Cayman Islands</option>
-                                                    <option value="CF">Central African Republic</option>
-                                                    <option value="TD">Chad</option>
-                                                    <option value="CL">Chile</option>
-                                                    <option value="CN">China</option>
-                                                    <option value="CX">Christmas Island</option>
-                                                    <option value="CC">Cocos (Keeling) Islands</option>
-                                                    <option value="CO">Colombia</option>
-                                                    <option value="KM">Comoros</option>
-                                                    <option value="CG">Congo</option>
-                                                    <option value="CD">Congo, the Democratic Republic of the</option>
-                                                    <option value="CK">Cook Islands</option>
-                                                    <option value="CR">Costa Rica</option>
-                                                    <option value="CI">Côte d'Ivoire</option>
-                                                    <option value="HR">Croatia</option>
-                                                    <option value="CU">Cuba</option>
-                                                    <option value="CW">Curaçao</option>
-                                                    <option value="CY">Cyprus</option>
-                                                    <option value="CZ">Czech Republic</option>
-                                                    <option value="DK">Denmark</option>
-                                                    <option value="DJ">Djibouti</option>
-                                                    <option value="DM">Dominica</option>
-                                                    <option value="DO">Dominican Republic</option>
-                                                    <option value="EC">Ecuador</option>
-                                                    <option value="EG">Egypt</option>
-                                                    <option value="SV">El Salvador</option>
-                                                    <option value="GQ">Equatorial Guinea</option>
-                                                    <option value="ER">Eritrea</option>
-                                                    <option value="EE">Estonia</option>
-                                                    <option value="ET">Ethiopia</option>
-                                                    <option value="FK">Falkland Islands (Malvinas)</option>
-                                                    <option value="FO">Faroe Islands</option>
-                                                    <option value="FJ">Fiji</option>
-                                                    <option value="FI">Finland</option>
-                                                    <option value="FR">France</option>
-                                                    <option value="GF">French Guiana</option>
-                                                    <option value="PF">French Polynesia</option>
-                                                    <option value="TF">French Southern Territories</option>
-                                                    <option value="GA">Gabon</option>
-                                                    <option value="GM">Gambia</option>
-                                                    <option value="GE">Georgia</option>
-                                                    <option value="DE">Germany</option>
-                                                    <option value="GH">Ghana</option>
-                                                    <option value="GI">Gibraltar</option>
-                                                    <option value="GR">Greece</option>
-                                                    <option value="GL">Greenland</option>
-                                                    <option value="GD">Grenada</option>
-                                                    <option value="GP">Guadeloupe</option>
-                                                    <option value="GU">Guam</option>
-                                                    <option value="GT">Guatemala</option>
-                                                    <option value="GG">Guernsey</option>
-                                                    <option value="GN">Guinea</option>
-                                                    <option value="GW">Guinea-Bissau</option>
-                                                    <option value="GY">Guyana</option>
-                                                    <option value="HT">Haiti</option>
-                                                    <option value="HM">Heard Island and McDonald Islands</option>
-                                                    <option value="VA">Holy See (Vatican City State)</option>
-                                                    <option value="HN">Honduras</option>
-                                                    <option value="HK">Hong Kong</option>
-                                                    <option value="HU">Hungary</option>
-                                                    <option value="IS">Iceland</option>
-                                                    <option value="IN">India</option>
-                                                    <option value="ID">Indonesia</option>
-                                                    <option value="IR">Iran, Islamic Republic of</option>
-                                                    <option value="IQ">Iraq</option>
-                                                    <option value="IE">Ireland</option>
-                                                    <option value="IM">Isle of Man</option>
-                                                    <option value="IL">Israel</option>
-                                                    <option value="IT">Italy</option>
-                                                    <option value="JM">Jamaica</option>
-                                                    <option value="JP">Japan</option>
-                                                    <option value="JE">Jersey</option>
-                                                    <option value="JO">Jordan</option>
-                                                    <option value="KZ">Kazakhstan</option>
-                                                    <option value="KE">Kenya</option>
-                                                    <option value="KI">Kiribati</option>
-                                                    <option value="KP">Korea, Democratic People's Republic of</option>
-                                                    <option value="KR">Korea, Republic of</option>
-                                                    <option value="KW">Kuwait</option>
-                                                    <option value="KG">Kyrgyzstan</option>
-                                                    <option value="LA">Lao People's Democratic Republic</option>
-                                                    <option value="LV">Latvia</option>
-                                                    <option value="LB">Lebanon</option>
-                                                    <option value="LS">Lesotho</option>
-                                                    <option value="LR">Liberia</option>
-                                                    <option value="LY">Libya</option>
-                                                    <option value="LI">Liechtenstein</option>
-                                                    <option value="LT">Lithuania</option>
-                                                    <option value="LU">Luxembourg</option>
-                                                    <option value="MO">Macao</option>
-                                                    <option value="MK">Macedonia, the former Yugoslav Republic of</option>
-                                                    <option value="MG">Madagascar</option>
-                                                    <option value="MW">Malawi</option>
-                                                    <option value="MY">Malaysia</option>
-                                                    <option value="MV">Maldives</option>
-                                                    <option value="ML">Mali</option>
-                                                    <option value="MT">Malta</option>
-                                                    <option value="MH">Marshall Islands</option>
-                                                    <option value="MQ">Martinique</option>
-                                                    <option value="MR">Mauritania</option>
-                                                    <option value="MU">Mauritius</option>
-                                                    <option value="YT">Mayotte</option>
-                                                    <option value="MX">Mexico</option>
-                                                    <option value="FM">Micronesia, Federated States of</option>
-                                                    <option value="MD">Moldova, Republic of</option>
-                                                    <option value="MC">Monaco</option>
-                                                    <option value="MN">Mongolia</option>
-                                                    <option value="ME">Montenegro</option>
-                                                    <option value="MS">Montserrat</option>
-                                                    <option value="MA">Morocco</option>
-                                                    <option value="MZ">Mozambique</option>
-                                                    <option value="MM">Myanmar</option>
-                                                    <option value="NA">Namibia</option>
-                                                    <option value="NR">Nauru</option>
-                                                    <option value="NP">Nepal</option>
-                                                    <option value="NL">Netherlands</option>
-                                                    <option value="NC">New Caledonia</option>
-                                                    <option value="NZ">New Zealand</option>
-                                                    <option value="NI">Nicaragua</option>
-                                                    <option value="NE">Niger</option>
-                                                    <option value="NG">Nigeria</option>
-                                                    <option value="NU">Niue</option>
-                                                    <option value="NF">Norfolk Island</option>
-                                                    <option value="MP">Northern Mariana Islands</option>
-                                                    <option value="NO">Norway</option>
-                                                    <option value="OM">Oman</option>
-                                                    <option value="PK">Pakistan</option>
-                                                    <option value="PW">Palau</option>
-                                                    <option value="PS">Palestinian Territory, Occupied</option>
-                                                    <option value="PA">Panama</option>
-                                                    <option value="PG">Papua New Guinea</option>
-                                                    <option value="PY">Paraguay</option>
-                                                    <option value="PE">Peru</option>
-                                                    <option value="PH">Philippines</option>
-                                                    <option value="PN">Pitcairn</option>
-                                                    <option value="PL">Poland</option>
-                                                    <option value="PT">Portugal</option>
-                                                    <option value="PR">Puerto Rico</option>
-                                                    <option value="QA">Qatar</option>
-                                                    <option value="RE">Réunion</option>
-                                                    <option value="RO">Romania</option>
-                                                    <option value="RU">Russian Federation</option>
-                                                    <option value="RW">Rwanda</option>
-                                                    <option value="BL">Saint Barthélemy</option>
-                                                    <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
-                                                    <option value="KN">Saint Kitts and Nevis</option>
-                                                    <option value="LC">Saint Lucia</option>
-                                                    <option value="MF">Saint Martin (French part)</option>
-                                                    <option value="PM">Saint Pierre and Miquelon</option>
-                                                    <option value="VC">Saint Vincent and the Grenadines</option>
-                                                    <option value="WS">Samoa</option>
-                                                    <option value="SM">San Marino</option>
-                                                    <option value="ST">Sao Tome and Principe</option>
-                                                    <option value="SA">Saudi Arabia</option>
-                                                    <option value="SN">Senegal</option>
-                                                    <option value="RS">Serbia</option>
-                                                    <option value="SC">Seychelles</option>
-                                                    <option value="SL">Sierra Leone</option>
-                                                    <option value="SG">Singapore</option>
-                                                    <option value="SX">Sint Maarten (Dutch part)</option>
-                                                    <option value="SK">Slovakia</option>
-                                                    <option value="SI">Slovenia</option>
-                                                    <option value="SB">Solomon Islands</option>
-                                                    <option value="SO">Somalia</option>
-                                                    <option value="ZA">South Africa</option>
-                                                    <option value="GS">South Georgia and the South Sandwich Islands</option>
-                                                    <option value="SS">South Sudan</option>
-                                                    <option value="ES">Spain</option>
-                                                    <option value="LK">Sri Lanka</option>
-                                                    <option value="SD">Sudan</option>
-                                                    <option value="SR">Suriname</option>
-                                                    <option value="SJ">Svalbard and Jan Mayen</option>
-                                                    <option value="SZ">Swaziland</option>
-                                                    <option value="SE">Sweden</option>
-                                                    <option value="CH">Switzerland</option>
-                                                    <option value="SY">Syrian Arab Republic</option>
-                                                    <option value="TW">Taiwan, Province of China</option>
-                                                    <option value="TJ">Tajikistan</option>
-                                                    <option value="TZ">Tanzania, United Republic of</option>
-                                                    <option value="TH">Thailand</option>
-                                                    <option value="TL">Timor-Leste</option>
-                                                    <option value="TG">Togo</option>
-                                                    <option value="TK">Tokelau</option>
-                                                    <option value="TO">Tonga</option>
-                                                    <option value="TT">Trinidad and Tobago</option>
-                                                    <option value="TN">Tunisia</option>
-                                                    <option value="TR">Turkey</option>
-                                                    <option value="TM">Turkmenistan</option>
-                                                    <option value="TC">Turks and Caicos Islands</option>
-                                                    <option value="TV">Tuvalu</option>
-                                                    <option value="UG">Uganda</option>
-                                                    <option value="UA">Ukraine</option>
-                                                    <option value="AE">United Arab Emirates</option>
-                                                    <option value="GB">United Kingdom</option>
-                                                    <option value="US">United States</option>
-                                                    <option value="UM">United States Minor Outlying Islands</option>
-                                                    <option value="UY">Uruguay</option>
-                                                    <option value="UZ">Uzbekistan</option>
-                                                    <option value="VU">Vanuatu</option>
-                                                    <option value="VE">Venezuela, Bolivarian Republic of</option>
-                                                    <option value="VN">Viet Nam</option>
-                                                    <option value="VG">Virgin Islands, British</option>
-                                                    <option value="VI">Virgin Islands, U.S.</option>
-                                                    <option value="WF">Wallis and Futuna</option>
-                                                    <option value="EH">Western Sahara</option>
-                                                    <option value="YE">Yemen</option>
-                                                    <option value="ZM">Zambia</option>
-                                                    <option value="ZW">Zimbabwe</option>
-                                                </select>
-                                                <div class="fv-plugins-message-container"></div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Email: </span>
+                                            <span class="text-muted" id='userEmailId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Phone: </span>
+                                            <span class="text-muted" id='userPhoneId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">City: </span>
+                                            <span class="text-muted" id='userCityId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Street Address 1: </span>
+                                            <span class="text-muted" id='userStreet1Id'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Street Address 2: </span>
+                                            <span class="text-muted" id='userStreet1Id'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">House Number: </span>
+                                            <span class="text-muted" id='userHouseNumberId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Postal Code: </span>
+                                            <span class="text-muted" id='userPostalCodeId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Perish: </span>
+                                            <span class="text-muted" id='userPerishId'>N/A</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="font-weight-bold">Working Location is same as User Location: </span>
+                                            <span class="text-muted" id='workingEqualUserId'>N/A</span>
+                                        </div>
+                                    </div>
+                                    <div class="workingLocationReview" style="display:block;">
+                                        <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                            <h3 class="col-md-12 my-3">Working Location</h3>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">City: </span>
+                                                <span class="text-muted" id='workingCityId'>N/A</span>
                                             </div>
-                                            <!--end::Select-->
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Street Address 1: </span>
+                                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Street Address 2: </span>
+                                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">House Number: </span>
+                                                <span class="text-muted" id='workingHouseNumberId'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Postal Code: </span>
+                                                <span class="text-muted" id='workingPostalCodeId'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Perish: </span>
+                                                <span class="text-muted" id='workingPerishId'>N/A</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -558,11 +587,18 @@
 @endsection
 {{-- Scripts Section --}}
 @section('scripts')
-<script src="{{ asset('js/custom/create-project-wizard-custom.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/custom/create-project-tagify.js') }}" type="text/javascript"></script>
+<script
+    src="{{ asset('js/custom/create-project-wizard-custom.js') }}" type="text/javascript">
+</script>
+<script
+    src="{{ asset('js/custom/create-project-tagify.js') }}" type="text/javascript">
+</script>
 <script>
     var fixedNavbarWebsite = true;
     $(".navbar-marketing").addClass("navbar-scrolled");
     $(".navbar-marketing").removeClass("fixed-top");
+    // $('#citySelector').select2({
+    //     placeholder: "Select a City"
+    // });
 </script>
 @endsection

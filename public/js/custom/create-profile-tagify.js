@@ -1,5 +1,4 @@
 function bindSubCat1(data, subcat) {
-    console.log(subcat);
     var toEl = document.getElementById(subcat);
         var tagifyTo = new Tagify(toEl, {
         delimiters: ", ", // add new tags when a comma or a space character is entered
@@ -40,34 +39,20 @@ function bindSubCat1(data, subcat) {
 
 }
 
+// var select_category = $(this).attr('selectcategoryid');
+$(document).on('change','.category-select', function (e) {
+    e.stopImmediatePropagation();
+    e.preventDefault();
+    var subcatid = this.getAttribute('subcatid');
+    console.log(subcatid);
+    if($('#divTagify'+subcatid+'').find('tags').length > 0){
+        $('#divTagify'+subcatid+'').find('tags').remove();
+    }
 
-$("#selected_catgeory1").on('change', function (e) {
-    e.preventDefault();
-    var result;
-    console.log($(this).attr("subcatid"));
-    
     var category_id = $(this).val();
-    console.log(category_id);
-    getSubCatData(category_id, this.getAttribute('subcatid'));
+    getSubCatData(category_id, subcatid);
 });
-$("#selected_catgeory2").on('change', function (e) {
-    e.preventDefault();
-    var result;
-    console.log($(this).attr("subcatid"));
-    
-    var category_id = $(this).val();
-    console.log(category_id);
-    getSubCatData(category_id, this.getAttribute('subcatid'));
-});
-$("#selected_catgeory3").on('change', function (e) {
-    e.preventDefault();
-    var result;
-    console.log($(this).attr("subcatid"));
-    
-    var category_id = $(this).val();
-    console.log(category_id);
-    getSubCatData(category_id, this.getAttribute('subcatid'));
-});
+
 
 function getSubCatData(categoryId, subcatid) {
     var subcategory = new Array();
@@ -76,7 +61,6 @@ function getSubCatData(categoryId, subcatid) {
         url: '/profile/' + categoryId,
         dataType: 'json',
         success: function (result) {
-            console.log(result);
             $.each(result, function (index, item) {
                 var itemObj = {};
                 itemObj.value = item.name;

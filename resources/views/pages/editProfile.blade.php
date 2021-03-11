@@ -38,7 +38,7 @@
                             <select class="form-control select2" name="city_id" required>
                                 <option label="Label"></option>
                                 @foreach ($cities as $city)
-                                    <option value="{{ $city->id }}"{{ $city->id == $user->city->id ? ' selected' : ''}}>
+                                    <option value="{{ $city->id }}" {{ ($city->id == $user->city->id) ? 'selected' : '' }}>
                                         {{ $city->name }}
                                     </option>
                                 @endforeach
