@@ -142,13 +142,11 @@ class UserController extends Controller
            
             /*$Subb = "[".$request->totalCatList."]";
             $Subb = str_replace('},]','}]',$Subb);
-            dd($Subb);
             $user_subcategories = new Collection();
             $new = collect();
             foreach(json_decode($Subb) as $subCattArray) {
                 $subCatt = 'sub_categories'. $subCattArray->fieldId;
-                $categoryy = 'categoryTemplate'. $subCattArray->fieldId;
-                dd($request->$subCatt,$subCattArray);
+                $categoryy = 'skills_category'. $subCattArray->fieldId;
                 foreach(json_decode($request->$subCatt) as $subCat){
                     if(empty($subCat->id)){
                     $cat = Category::find($request->$categoryy)->sub_categories()->create([

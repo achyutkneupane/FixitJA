@@ -108,13 +108,14 @@ $(document).ready(function () {
         }
     }
 });
-
 //Adding more category
+$("#totalCatList").val('{"fieldId": ""},');
 $("#add_btn").click(function (e) {
     e.stopImmediatePropagation();
     if ($(".card-category-accordion").length < 3) {
        count++;
-        $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "'+count+'"},');  
+        $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "'+count+'"},');
+        console.log($("#totalCatList").val());
         var selectcategoryid = "selected_catgeory" + count;
         var subcatid = "kt_tagify_subcategory" + count;
         var viewcategory = "categoryTitle" + selectcategoryid;
@@ -163,6 +164,7 @@ $("#add_btn").click(function (e) {
         //adding dynamic validator
         CategoryFV.addField('skills_category' + count + '', skills_category)
             .addField('sub_categories' + count + '', sub_categories);
+        
         if ($(".card-category-accordion").length == 3) {
             $("#add_btn").hide();
         }
@@ -188,6 +190,7 @@ $(document).on("click", ".remove-accordian", function (e) {
     $("#" + $(this).attr('name')).remove();
     CategoryFV.removeField('skills_category' + $(this).attr('countValue') + '')
         .removeField('sub_categories' + $(this).attr('countValue') + '');
+    $("#totalCatList").val($("#totalCatList").val().replace('{"fieldId": "'+$(this).attr('countValue')+'"},',''));
     if ($(".card-category-accordion").length < 3) {
         $("#add_btn").show();
     }
@@ -264,7 +267,6 @@ $(document).on("click", ".remove-accordian_remove", function (e) {
     ReferencFv.removeField('referal_name' + $(this).attr('countValue1') + '')
         .removeField('referal_email' + $(this).attr('countValue1') + '')
         .removeField('referal_phone' + $(this).attr('countValue1') + '');
-
         if ($(".card-reference-accordion").length < 3) {
             $("#add_more_reference").show();
         }
