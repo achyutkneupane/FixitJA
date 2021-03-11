@@ -193,15 +193,22 @@ class UserController extends Controller
             $skills_certificate = new Collection();
             $skills_experince = new Collection();
             foreach(json_decode($Certificate1) as $certificateArray){
-                $certificate_new = 'certificate'. $certificateArray->fieldId;
-                $document->path = request($certificate_new)->store('certificate');
-                $document->type = 'certificate'.$certificateArray;
-                if(!empty($subCertificate)){
-
-                    $skills_certificate->push($subCertificate);
-                }                  
+                $document = new Document();
+                $tempPath = "";
+                $id = $certificateArray->fieldId;
+                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first())) {
+                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first();
+                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first()->path;
+                }
+                $certificate_new = 'certificate'.$id;
+                $document->path = request($certificate_new)->store('certificates');
+                $document->type = 'certificate'.$id;
+                $document->user()->associate($user->id);
+                $document->save();
+                if ($tempPath)
+                    Storage::delete($tempPath);
             }
-            
+            dd("Test");
 
             /* refernce */
             
