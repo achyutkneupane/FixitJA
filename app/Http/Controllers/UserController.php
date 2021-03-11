@@ -159,8 +159,8 @@ class UserController extends Controller
            
             
         }
-        dd($user_subcategories);
-           
+        
+         //dd($user_subcategories);  
           
 
            
@@ -189,9 +189,8 @@ class UserController extends Controller
 
             /* for certificate*/
 
-            $Certificate = "[".$request->totalCertificateList."]";
-           
-            $Certificate1 = str_replace('},]','}]',$Certificate);
+           $Certificate = "[".$request->totalCertificateList."]";
+           $Certificate1 = str_replace('},]','}]',$Certificate);
             
             $skills_certificate = new Collection();
             $skills_experince = new Collection();
@@ -200,7 +199,7 @@ class UserController extends Controller
             foreach(json_decode($Certificate1) as $certificateArray){
                 $certificate_new = 'certificate'. $certificateArray->fieldId;
                 $experience_new = 'experience'. $certificateArray->fieldId;
-                foreach(json_decode($request->certificate_new) as $subCertificate){
+                foreach(json_decode($request->$certificate_new) as $subCertificate){
                     if(!empty($subCertificate)){
 
                         $skills_certificate->push($subCertificate);
@@ -215,6 +214,10 @@ class UserController extends Controller
                 
             }
             dd($skills_certificate);
+           
+        
+            dd($skills_certificate);
+            
 
             /* refernce */
             
