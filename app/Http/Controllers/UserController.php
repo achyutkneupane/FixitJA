@@ -126,13 +126,7 @@ class UserController extends Controller
     public function addprofiledetails(Request $request)
     {
         try {
-
-<<<<<<< HEAD
-             $user  = new User();
-=======
-            $user  = new User();
->>>>>>> development_notification_and_category
-            $user  = User::find(Auth::user()->id);
+            $user = User::find(Auth::user()->id);
             $request->validate([
                 'skills_category' => ['required'],
                 'sub_categories' => ['required'],

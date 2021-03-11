@@ -41,7 +41,7 @@
             <a href="{{ Auth::user()->id === $user->id ? route('viewProfile') : route('viewUser', $user->id) }}"
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileIsActive) ? 'active' : '' }}">User
                 Information</a>
-            @if ($user->type == 'admin' || $user->type == 'individual_contractor')
+            @if ($user->type == 'individual_contractor')
                 <a href="#"
                     class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileDocumentIsActive) ? 'active' : '' }}">User
                     Documents</a>
