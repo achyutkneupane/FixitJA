@@ -27,7 +27,11 @@ class HomeController extends Controller
     public function index()
     {
         $documents = Document::where('user_id', Auth::user()->id)->get();
-        $categories = Category::with('sub_categories')->get();
+        $cate = Category::with('sub_categories')->get();
+        $categories = 
+                
+       
+       
        
         return view(
             'pages.home', compact('categories'),

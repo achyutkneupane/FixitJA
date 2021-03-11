@@ -32,13 +32,16 @@
                                 <div class="row">
                                     @foreach($categories as $cat)
                                     <div class="col-lg-6">
-                                        <h6 class="dropdown-header text-primary">{{ $cat->name }}</h6>
-                                        <a class="dropdown-item" href="landing-app-mobile.html">Sub Category 1 - 1</a><a
-                                            class="dropdown-item" href="landing-app-desktop.html">Sub Category 1 - 2</a>
+                                        <h6 class="dropdown-header text-primary">{{ $cat->name}}</h6>
+                                        <a class="dropdown-item" href="landing-app-mobile.html">{{ $cat->name}}</a><a
+                                            class="dropdown-item" href="landing-app-desktop.html">{{ $cat->name}}</a>
                                         <div class="dropdown-divider border-0"></div>
+                                        </div>
+                                        @endforeach
                                         
-                                    </div>
-                                    @endforeach
+                                       
+                                    
+                                   
                                     
                                 </div>
                             </div>

@@ -88,6 +88,7 @@ Route::get('/profile/{id}', [App\Http\Controllers\CategoryController::class, 'ge
 Route::get('/category_data', [App\Http\Controllers\CategoryController::class, 'getCategory']);
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
+Route::get('/project/create/{id}', [App\Http\Controllers\MainController::class, 'createProject']);
 //Route for viewing all categories
 Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 

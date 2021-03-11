@@ -105,6 +105,7 @@
                                                             <select id="categorySelectTemplate" subcatid="kt_tagify_subCat_project_wizard_Template" name="categoryTemplate" class="form-control form-control-solid form-control-sm project_category_select">
                                                                 <option value="">Select Category</option>
                                                                 @foreach($cats as $cat)
+                                                                
                                                                 <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
                                                                 @endforeach
                                                             </select>
