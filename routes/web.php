@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
-
 Auth::routes(['verify' => true]);
 Route::get('verify/{verification_code}/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyUser']);
 Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
@@ -31,7 +30,6 @@ Route::post('/reset-password', [App\Http\Controllers\Auth\ResetPasswordControlle
 Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 
 // Added by Achyut Neupane
@@ -69,8 +67,13 @@ Route::get('/security/deactivate', [App\Http\Controllers\UserController::class, 
 Route::get('/security/delete', [App\Http\Controllers\UserController::class, 'deleteUser'])->middleware('auth')->name('deleteUser');
 Route::get('/security/{id}', [App\Http\Controllers\UserController::class, 'viewSecurity'])->middleware('auth', 'checkIfAdmin')->name('viewAccountSecurity');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
+//Route for creating new project wizard
+Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
+Route::get('/project/create/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProjectWithCat');
+Route::get('/project/create/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
+//Route for viewing all categories
+Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
-
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
@@ -80,20 +83,17 @@ Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 //Route for profile wizard
 Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->name('profileWizard');
-Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
+Route::get('/profile/init/category/{catId}', [App\Http\Controllers\UserController::class, 'updateprofile1'])->name('profileWizard');
+Route::get('/profile/init/sub_category/{subCatId}', [App\Http\Controllers\UserController::class, 'updateprofilewithSub'])->name('profileWizardWithSub');
+// Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
 
 
 
 Route::get('/profile/{id}', [App\Http\Controllers\CategoryController::class, 'getSubCategory']);
 Route::get('/category_data', [App\Http\Controllers\CategoryController::class, 'getCategory']);
-//Route for creating new project wizard
-Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
-Route::get('/project/create/{id}', [App\Http\Controllers\MainController::class, 'createProject']);
-//Route for viewing all categories
-Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 
-
+Route::get('/hello',  [App\Http\Controllers\CategoryController::class, 'getCategory']);
 //Route for the addding education qualification
 
 
@@ -104,7 +104,6 @@ Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'cate
 
 
 Route::get('/addeducation', [App\Http\Controllers\UserController::class, 'addeducation']);
-Route::get('/hello',  [App\Http\Controllers\HomeController::class, 'hello']);
 
 
 

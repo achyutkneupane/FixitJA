@@ -103,20 +103,23 @@ class UserController extends Controller
         $users = User::with('emails', 'phones')->get();
         return view('admin.profile.users', compact('users'));
     }
-     public function updateprofile1()
-    {
-        
-        return view('pages.createProfileWizard');
-    }
-
-  
-
-    public function getprofileImage(Request $request)
+     public function updateprofile1($catId = NULL)
     {
         $document = Document::where('user_id', Auth::user()->id)->get();
         $category = Category::with('sub_categories')->get();
+        if($catId != NULL)
+            session()->flash('catId',$catId);
         return view('pages.createProfileWizard', compact('document', 'category'));
     }
+    public function updateprofilewithSub($subCatId = NULL)
+   {
+    $document = Document::where('user_id', Auth::user()->id)->get();
+    $category = Category::with('sub_categories')->get();
+    $subs = SubCategory::all();
+       if($subCatId != NULL)
+           session()->flash('subCatId',$subCatId);
+       return view('pages.createProfileWizard', compact('document', 'category','subs'));
+   }
 
     public function uploadfile($file, $dir)
     {

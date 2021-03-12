@@ -1,3 +1,9 @@
+if(sessionCatId != 'NULL') {
+    $(".category-select").val(sessionCatId).change();
+}
+else if(sessionSubCatId) {
+    $(".category-select").val(sessionsubCatCatId).change();
+}
 function bindSubCat1(data, subcat) {
     var toEl = document.getElementById(subcat);
         var tagifyTo = new Tagify(toEl, {
@@ -36,7 +42,15 @@ function bindSubCat1(data, subcat) {
             maxItems: 5
         }
     });
-
+    if(sessionSubCatId) {
+        console.log(element);
+        data.forEach((element,index) => {
+            if(element.id === sessionSubCatId)
+            {
+                tagifyTo.addTags([element]);
+            }
+    });
+    }
 }
 
 // var select_category = $(this).attr('selectcategoryid');
@@ -58,7 +72,7 @@ function getSubCatData(categoryId, subcatid) {
     var subcategory = new Array();
     $.ajax({
         type: "GET",
-        url: '/profile/' + categoryId,
+        url: '/api/category/' + categoryId,
         dataType: 'json',
         success: function (result) {
             $.each(result, function (index, item) {
@@ -66,6 +80,7 @@ function getSubCatData(categoryId, subcatid) {
                 itemObj.value = item.name;
                 itemObj.initials = '',
                 itemObj.initialsState = '',
+                itemObj.id = item.id,
                 itemObj.class = 'tagify__tag--primary'
                 subcategory.push(itemObj);
             });

@@ -36,11 +36,11 @@
         
                                     <div class="col-lg-6">
                                     
-                                        <h6 class="dropdown-header text-primary">{{ $cat->name}}</h6>
+                                        <h6 class="dropdown-header text-primary"><a href="{{ route('profileWizard',$cat->id) }}">{{ $cat->name}}</a></h6>
                                          @if($cat->sub_categories->count() != 0)
                                          @foreach($cat->sub_categories as $subCategory)
                         
-                                        <a class="dropdown-item" href="landing-app-mobile.html">{{ $subCategory->name}}</a>
+                                        <a class="dropdown-item" href="{{ route('profileWizardWithSub',$subCategory->id) }}">{{ $subCategory->name}}</a>
                                         @endforeach
                                          @else
                                          No sub-categories inside <b>{{ ucwords($cat->name) }}</b>
