@@ -92,6 +92,7 @@ function bindSubCat(data, subcat) {
             tagData.class = 'tagify__tag tagify__tag--primary';
         },
         dropdown: {
+            searchKeys:['value','description'],
             classname: "color-blue",
             enabled: 0,
             maxItems: 5
@@ -103,7 +104,11 @@ function bindSubCat(data, subcat) {
             {
                 tagifyTo.addTags([element]);
             }
+<<<<<<< HEAD
     });
+=======
+        });
+>>>>>>> development
     }
 }
 

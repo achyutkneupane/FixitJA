@@ -36,6 +36,10 @@ var KTDatatableHtmlTableDemo = (function () {
                     // callback function support for column rendering
                     template: function template(row) {
                         var status = {
+                            new: {
+                                title: "New",
+                                class: " label label-info label-inline mr-2",
+                            },
                             pending: {
                                 title: "Pending",
                                 class: " label label-info label-inline mr-2",

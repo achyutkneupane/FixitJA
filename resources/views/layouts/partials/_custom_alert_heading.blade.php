@@ -3,7 +3,7 @@
     <div class="alert-icon"><i class="{{$alert_type == 'danger' ? 'flaticon-warning' : 'flaticon-info'}}"></i></div>
     <div class="alert-text">{{$content}}</div>
     @if($has_button)
-    <a href="#" class="btn btn-primary font-weight-bold px-5 py-3">{{$button_text}}</a>
+    <a href="{{ $button_link }}" class="btn btn-primary font-weight-bold px-5 py-3">{{$button_text}}</a>
     @endif
     <div class="alert-close">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">

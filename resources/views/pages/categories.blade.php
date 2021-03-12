@@ -2,160 +2,34 @@
 @section('content')
 <div class="container py-10">
     <div class="row">
-        <h1 class="font-weight-bolder text-uppercase m-auto py-5">All Our Categories</h1>
+        <h1 class="font-weight-bolder text-uppercase m-auto py-5 float-center">All Our Categories</h1>
     </div>
     <div class="row">
+    @foreach($categories as $category)
         <div class="col-md-4">
             <div class="card card-custom gutter-b custom-card-bg-color">
                 <div class="card-header">
                     <div class="card-title">
                         <h3 class="card-label">
-                            Category 1
+                            <a href="{{ route('createProjectWithCat',$category->id) }}">{{ ucwords($category->name) }}</a>
                         </h3>
                     </div>
                 </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 2
-                        </h3>
+                <div class="card-body" id="sublist">
+                    @if($category->sub_categories->count() != 0)
+                    <div class="SubCategory">
+                        @foreach($category->sub_categories as $subCategory)
+                            <li><a href="{{ route('createProjectWithSub',$subCategory->id) }}">{{ ucwords($subCategory->name) }}</a></li>
+                        @endforeach
                     </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 3
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
+                    @else
+                        No sub-categories inside <b>{{ ucwords($category->name) }}</b>
+                    @endif
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 4
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 5
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 6
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 7
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 8
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-custom gutter-b custom-card-bg-color">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="card-label">
-                            Category 9
-                        </h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <li>sub-category 1</li>
-                    <li>sub-category 2</li>
-                    <li>sub-category 3</li>
-                    <li>sub-category 4</li>
-                </div>
-            </div>
-        </div>
-    </div>
+    @endforeach
+</div>
 </div>
 @auth
 @if (config('layout.extras.user.layout') == 'offcanvas')
@@ -163,7 +37,22 @@
 @endif
 @endauth
 @endsection
+@section('styles')
+<style>
+    .card a {
+        color: $link-color;
+        text-decoration: none;
+    }
+    .card a:hover {
+        color: blue;
+        text-decoration: underline !important;
+    }
+</style>
+@endsection
 @section('scripts')
+<script
+    src="{{ asset('js/custom/custom_show_categories.js') }}" type="text/javascript">
+</script>
 <script>
     var fixedNavbarWebsite = true;
     $(".navbar-marketing").addClass("navbar-scrolled");

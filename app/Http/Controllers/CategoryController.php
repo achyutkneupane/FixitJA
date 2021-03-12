@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use DB;
 use Throwable;
 
 use function PHPSTORM_META\map;
@@ -29,7 +28,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::with('sub_categories')->get();
-        return view('admin.category', compact('categories'));
+        return view('admin.category',  compact('categories'));
     }
 
     public function getCategory1()
@@ -55,27 +54,6 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-  public function getCategory(){
-       $category = Category::with('sub_categories')->get();
-       return response()->json($category);
-
-       
-       
-       
-
-    }
-
-    public function getSubCategory($id){
-        $sub_category = DB::table('sub_categories')
-        ->select('sub_categories.name')
-        ->where('category_id', $id)
-        ->get();
-        
-        
-        //dd($sub_category);
-          return response()->json($sub_category);
-
-    }
     public function store(Request $request)
     {
         try {
@@ -100,7 +78,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        
+        //
     }
 
     /**
@@ -163,5 +141,13 @@ class CategoryController extends Controller
     {
         $cats = SubCategory::where('status','proposed')->get();
         return view('admin.proposed', compact('cats'));
+    }
+
+    public function getCategory()
+    {
+       
+     $cat  =  Category::with('sub_categories')->get();
+     return response($cat);
+
     }
 }

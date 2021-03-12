@@ -56,7 +56,6 @@ $(document).ready(function () {
             success: function (data) {
 
                 data = JSON.parse(data);
-                console.log(data)
                 $('#choosencategory').val(data.name);
             }
         });
@@ -66,13 +65,13 @@ $(document).ready(function () {
     var dateControler = {
         currentDate: null
     }
+    var selectedsDate;
     $('#selectstartdate').on("change", function (e) {
         var now = new Date();
-        var selectedDate = new Date($(this).val());
-        console.log(selectedDate);
+        selectedsDate = new Date($(this).val());
 
 
-        if (selectedDate > now) {
+        if (selectedsDate > now) {
             $(this).val(dateControler.currentDate)
         } else {
             dateControler.currentDate = $(this).val();
@@ -84,11 +83,10 @@ $(document).ready(function () {
     $('#selectenddate').on("change", function (e) {
 
         var now = new Date();
-        var selectedDate = new Date($(this).val());
-        console.log(selectedDate);
+        var selectedeDate = new Date($(this).val());
 
 
-        if (selectedDate > now) {
+        if (selectedeDate < selectedsDate  ) {
             $(this).val(dateControler.currentDate)
         } else {
             dateControler.currentDate = $(this).val();
@@ -103,20 +101,21 @@ $(document).ready(function () {
     var output = document.getElementById("demo");
     output.innerHTML = slider;
 
-    slider.oninput = function () {
-        output.innerHTML = this.value;
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }
     }
 });
-
 //Adding more category
+$("#totalCatList").val('{"fieldId": ""},');
 $("#add_btn").click(function (e) {
     e.stopImmediatePropagation();
     if ($(".card-category-accordion").length < 3) {
-        count++;
+       count++;
+        $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "'+count+'"},');
         var selectcategoryid = "selected_catgeory" + count;
         var subcatid = "kt_tagify_subcategory" + count;
         var viewcategory = "categoryTitle" + selectcategoryid;
-        console.log(selectcategoryid);
         var category_select = "";
         $.each(category_data, function (index, item) {
             category_select = category_select + ('<option value="' + item.id + '">' + item.name + ' </option>');
@@ -161,6 +160,7 @@ $("#add_btn").click(function (e) {
         //adding dynamic validator
         CategoryFV.addField('skills_category' + count + '', skills_category)
             .addField('sub_categories' + count + '', sub_categories);
+        
         if ($(".card-category-accordion").length == 3) {
             $("#add_btn").hide();
         }
@@ -186,10 +186,93 @@ $(document).on("click", ".remove-accordian", function (e) {
     $("#" + $(this).attr('name')).remove();
     CategoryFV.removeField('skills_category' + $(this).attr('countValue') + '')
         .removeField('sub_categories' + $(this).attr('countValue') + '');
+    $("#totalCatList").val($("#totalCatList").val().replace('{"fieldId": "'+$(this).attr('countValue')+'"},',''));
     if ($(".card-category-accordion").length < 3) {
         $("#add_btn").show();
     }
 })
+
+//Adding more Reference
+$("#add_more_reference").click(function(e){
+    e.stopImmediatePropagation();
+    if ($(".card-reference-accordion").length < 3){
+        count++;
+
+        $("#accordion_reference").append(
+            '<div class="card card-reference-accordion" id="referenceCard' + count + '">'+
+            '<div class="card-header">'+
+                '<div class="card-title" data-toggle="collapse' + count + '" data-target="#collapse2">'+
+                    '<span class="glyphicon glyphicon-remove-circle pull-right "></span>'+
+                    '</div>'+
+                    '</div>'+
+                    '<div id="collapseReference' + count + '" class="collapse show" data-parent="#accordionExample3">'+
+                     '<div class="card-body">'+
+                     '<div class="form-group">'+
+                     '<label class="font-size-h6 font-weight-bolder text-dark">Referal Name'+
+                     '<input type="text" id="refname" class="form-control"  type="text" name="referal_name'+ count +'" placeholder="Referal Name" value="">'+
+                     '</label>'+
+                    '</div>'+
+                    '<div class="form-group">'+
+                        '<label class="font-size-h6 font-weight-bolder text-dark">Referal Email'+
+                            '<input type="email" id="refemail" class="form-control"  type="email" name="referal_email'+ count +'" placeholder="Referal Email" value="">'+
+                        '</label>'+
+                    '</div>'+
+                    '<div class="form-group">'+
+                        '<label class="font-size-h6 font-weight-bolder text-dark">Referal Contact Number'+
+                            '<input type="text" id="refphone" class="form-control"  type="text" name="referal_phone'+ count +'" placeholder="Referal Contact Number" value="">'+
+                        '</label>'+
+                    '</div>'+
+                    ' <div class="fv-plugins-message-container"> ' +
+                    ' </div> ' +
+                    ' </div> ' +
+                    ' <div class="card-footer bg-transparent py-5"> ' +
+                    ' <button type="button" name="referenceCard' + count + '" countValue1=' + count + ' id="remove_btn1" class="btn btn-danger remove-accordian_remove">Remove</button>' +
+                   '</div>'+
+            '</div>'
+
+
+        )
+
+        //Adding dynamic validator
+        ReferencFv.addField('referal_name' + count + '', referal_name)
+         .addField('referal_email' + count + '', referal_email)
+         .addField('referal_phone' + count + '', referal_phone);
+        if ($(".card-reference-accordion").length == 3) {
+            $("#add_more_reference").hide();
+        }
+    }
+    else{
+        Swal.fire({
+            text: "Cannot add more than 3 references!",
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+                confirmButton: "btn font-weight-bold btn-primary",
+            }
+        });
+
+    }
+})
+
+//Removing  add Referneces
+$(document).on("click", ".remove-accordian_remove", function (e) {
+    e.stopImmediatePropagation();
+    e.preventDefault();
+    $("#" + $(this).attr('name')).remove();
+    ReferencFv.removeField('referal_name' + $(this).attr('countValue1') + '')
+        .removeField('referal_email' + $(this).attr('countValue1') + '')
+        .removeField('referal_phone' + $(this).attr('countValue1') + '');
+        if ($(".card-reference-accordion").length < 3) {
+            $("#add_more_reference").show();
+        }
+
+
+        
+
+   
+})
+
 
 //Adding selected category in the accordion title
 $(document).on('change', '.category-select', function (e) {
@@ -217,9 +300,11 @@ function LoadWizardData(wizard) {
         });
         categorySelected = [];
         $.each($(".category-title"), function (index, value) {
-
+            console.log($("#totalCertificateList").val());
+            $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+index+'"},');
             const cloneCertificateAccordion = $("#templateCertificate").clone();
             cloneCertificateAccordion.attr("id", "certificateAccordion" + index);
+            
             cloneCertificateAccordion.show();
 
             var cardTitle = cloneCertificateAccordion.find("#certificateCategoryTitle");
@@ -227,8 +312,10 @@ function LoadWizardData(wizard) {
             cardTitle.attr("id", "certificateCategoryTitle" + index);
 
             var certificateFile = cloneCertificateAccordion.find("#certificateFile");
+           
             certificateFile.attr("id", "certificateFile" + index);
-            certificateFile.attr("name", "certificate" + index);
+            certificateFile.attr("name", "certificate" + index); 
+            
 
             var certificateExp = cloneCertificateAccordion.find("#certificateExp");
             certificateExp.attr("id", "certificateExp" + index);
