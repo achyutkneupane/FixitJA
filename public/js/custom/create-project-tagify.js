@@ -104,7 +104,7 @@ function bindSubCat(data, subcat) {
             {
                 tagifyTo.addTags([element]);
             }
-    });
+        });
     }
 }
 
@@ -179,7 +179,7 @@ function AddCategoryProjectWizard() {
             }
         });
     }
-    if(sessionCatId) {
+    if(sessionCatId != 'NULL') {
         $("#categorySelect1").val(sessionCatId).change();
     }
     else if(sessionSubCatId) {

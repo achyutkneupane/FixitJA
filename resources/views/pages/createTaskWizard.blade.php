@@ -11,7 +11,7 @@ var sessionCatId = {{ session()->get('catId') }};
 <script>
 var sessionCatId = 'NULL';
 var sessionSubCatId = {{ session()->get('subCatId') }};
-var sessionSubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
+var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
 </script>
 @endif
 <div class="d-flex flex-column-fluid">
