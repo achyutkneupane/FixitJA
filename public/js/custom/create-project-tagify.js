@@ -92,12 +92,19 @@ function bindSubCat(data, subcat) {
             tagData.class = 'tagify__tag tagify__tag--primary';
         },
         dropdown: {
+            searchKeys:['value','description'],
             classname: "color-blue",
             enabled: 0,
             maxItems: 5
         }
     });
-
+    if(sessionSubCatId) {
+        data.forEach((element) => {
+            if(sessionSubCatId == element.id) {
+                $("#" + subcat).val(element);
+            }
+        });
+    }
 }
 
 //Adding more category
@@ -171,7 +178,7 @@ function AddCategoryProjectWizard() {
             }
         });
     }
-    if(sessionCatId != 'NULL') {
+    if(sessionCatId) {
         $("#categorySelect1").val(sessionCatId).change();
     }
     else if(sessionSubCatId) {

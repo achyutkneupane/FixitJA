@@ -40,6 +40,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('notApproved', function () {
             return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "pending";
         });
+        Blade::if('isReviewing', function(){
+            return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "reviewing";
+        });
         Blade::if('isAdmin', function () {
             return auth()->user() && auth()->user()->type == "admin";
         });

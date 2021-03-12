@@ -91,6 +91,9 @@ Route::prefix('/project/create')->group(function(){
     Route::get('/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
     Route::post('/', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
 });
+Route::get('/review', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReviews');
+Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferrals');
+Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 
 
