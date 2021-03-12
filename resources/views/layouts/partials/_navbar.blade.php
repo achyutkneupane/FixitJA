@@ -30,17 +30,17 @@
                             <div class="col-lg-7 p-lg-5 p-5">
                                 <h2>Popular Categories</h2>
                                 <div class="row">
-                                 @if($categories->count() != 0)
-                                    @foreach($categories as $cat)
+                                 @if($categories ->count() != 0)
+                                    @foreach($categories  as $cat)
                                     
         
                                     <div class="col-lg-6">
                                     
-                                        <h6 class="dropdown-header text-primary"><a href="{{ route('profileWizard',$cat->id) }}">{{ $cat->name}}</a></h6>
+                                        <h6 class="dropdown-header text-primary"><a href="{{ route('createProjectWithCat',$cat->id) }}">{{ $cat->name}}</a></h6>
                                          @if($cat->sub_categories->count() != 0)
                                          @foreach($cat->sub_categories as $subCategory)
                         
-                                        <a class="dropdown-item" href="{{ route('profileWizardWithSub',$subCategory->id) }}">{{ $subCategory->name}}</a>
+                                        <a class="dropdown-item" href="{{ route('createProjectWithSub',$subCategory->id) }}">{{ $subCategory->name}}</a>
                                         @endforeach
                                          @else
                                          No sub-categories inside <b>{{ ucwords($cat->name) }}</b>

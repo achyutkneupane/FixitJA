@@ -101,7 +101,7 @@ $(document).ready(function () {
     /*  for  Range slider */
     var slider = document.getElementById("myRange");
     var output = document.getElementById("demo");
-    output.innerHTML = slider.value;
+    output.innerHTML = slider;
 
     slider.oninput = function () {
         output.innerHTML = this.value;

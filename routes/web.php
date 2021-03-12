@@ -69,8 +69,8 @@ Route::get('/security/{id}', [App\Http\Controllers\UserController::class, 'viewS
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
-Route::get('/project/create/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProjectWithCat');
-Route::get('/project/create/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
+Route::get('/project/create/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'updateprofile1'])->name('createProjectWithCat');
+Route::get('/project/create/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'updateprofilewithSub'])->name('createProjectWithSub');
 //Route for viewing all categories
 Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
@@ -83,8 +83,7 @@ Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 //Route for profile wizard
 Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->name('profileWizard');
-Route::get('/profile/init/category/{catId}', [App\Http\Controllers\UserController::class, 'updateprofile1'])->name('profileWizard');
-Route::get('/profile/init/sub_category/{subCatId}', [App\Http\Controllers\UserController::class, 'updateprofilewithSub'])->name('profileWizardWithSub');
+
 // Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
 

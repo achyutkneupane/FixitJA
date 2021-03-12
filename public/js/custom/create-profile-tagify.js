@@ -1,11 +1,9 @@
-if(sessionCatId != 'NULL') {
-    $(".category-select").val(sessionCatId).change();
-}
-else if(sessionSubCatId) {
-    $(".category-select").val(sessionsubCatCatId).change();
-}
+
+
 function bindSubCat1(data, subcat) {
-    var toEl = document.getElementById(subcat);
+
+       var toEl = document.getElementById(subcat);
+       console.log(window.sessionCatId);
         var tagifyTo = new Tagify(toEl, {
         delimiters: ", ", // add new tags when a comma or a space character is entered
         maxTags: 10,
@@ -42,16 +40,11 @@ function bindSubCat1(data, subcat) {
             maxItems: 5
         }
     });
-    if(sessionSubCatId) {
-        console.log(element);
-        data.forEach((element,index) => {
-            if(element.id === sessionSubCatId)
-            {
-                tagifyTo.addTags([element]);
-            }
-    });
-    }
+   
+   
+    
 }
+
 
 // var select_category = $(this).attr('selectcategoryid');
 $(document).on('change','.category-select', function (e) {

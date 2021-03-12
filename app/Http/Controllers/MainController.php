@@ -146,4 +146,21 @@ class MainController extends Controller
         $page_description = 'This is view all categories page';
         return view('pages.categories', compact('page_title', 'page_description', 'categories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
+     public function updateprofile1($catId = NULL)
+    {
+        $document = Document::where('user_id', Auth::user()->id)->get();
+        $category = Category::with('sub_categories')->get();
+        if($catId != NULL)
+            session()->flash('catId',$catId);
+        return view('pages.createTaskWizard', compact('document', 'category'));
+    }
+    public function updateprofilewithSub($subCatId = NULL)
+   {
+    $document = Document::where('user_id', Auth::user()->id)->get();
+    $category = Category::with('sub_categories')->get();
+    $subs = SubCategory::all();
+       if($subCatId != NULL)
+           session()->flash('subCatId',$subCatId);
+       return view('pages.createTaskWizard', compact('document', 'category','subs'));
+   }
 }
