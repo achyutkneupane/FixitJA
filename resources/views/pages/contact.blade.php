@@ -21,7 +21,7 @@
     </header>
     <section class="bg-white py-website-10">
         <div class="container-website">
-            <div class="row mb-5">
+            {{--<div class="row mb-5">
                 <div class="col-lg-4 mb-5">
                     <a class="card-website card-website-link border-top border-top-lg border-primary lift text-center o-visible h-100" href="#!">
                         <div class="card-website-body">
@@ -98,19 +98,19 @@
                     <h2>Can't find the answer you need?</h2>
                     <p class="lead mb-5">Contact us and we'll get back to you as soon as possible with a solution to whatever issues you're having with SB UI Kit Pro.</p>
                 </div>
-            </div>
+            </div>--}}
             <div class="row align-items-center mb-10">
                 <div class="col-lg-4 text-center mb-5 mb-lg-0">
-                    <div class="section-preheading">Message Us</div>
-                    <a href="#!">Start a chat!</a>
+                    <div class="section-preheading">WhatsApp Us</div>
+                    <a>1-437-771-5337 </a>
                 </div>
                 <div class="col-lg-4 text-center mb-5 mb-lg-0">
                     <div class="section-preheading">Call Anytime</div>
-                    <a href="#!">(555) 565-1846</a>
+                    <a>1-844-200-0161 | 1-876-527-0157</a>
                 </div>
                 <div class="col-lg-4 text-center">
                     <div class="section-preheading">Email Us</div>
-                    <a href="#!">support@startbootstrap.com</a>
+                    <a>support@fixitja.com</a>
                 </div>
             </div>
             <form action="{{ route('submitContact') }}" method="POST">
