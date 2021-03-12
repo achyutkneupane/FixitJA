@@ -8,34 +8,29 @@ jQuery(document).ready(function () {
             whitelist: [
                 {
                     value: 'Monday',
-                    initials: '',
-                    initialsState: '',
-                    pic: './assets/media/users/100_11.jpg',
+                    
+                   
                     class: 'tagify__tag--primary'
                 }, {
                     value: 'Tuesday',
                     
-                    initials: 'SS',
-                    initialsState: 'warning',
-                    pic: ''
+                    
+                    
                 }, {
                     value: 'Wesneday',
                     
-                    initials: '',
-                    initialsState: '',
-                    pic: './assets/media/users/100_6.jpg'
+                   
+                    
                 }, {
                     value: 'Thursday',
                     
-                    initials: '',
-                    initialsState: '',
-                    pic: './assets/media/users/100_8.jpg'
+                  
+                    
                 }, {
                     value: 'Friday',
                 
-                    initials: '',
-                    initialsState: '',
-                    pic: './assets/media/users/100_9.jpg'
+                   
+                    
                 }
             
                 ],
@@ -47,7 +42,7 @@ jQuery(document).ready(function () {
                         html += '<div class="tagify__dropdown__item">';
                         html += '   <div class="d-flex align-items-center">';
                         html += '       <span class="symbol sumbol-' + (tagData.initialsState ? tagData.initialsState : '') + ' mr-2">';
-                        html += '           <span class="symbol-label" style="background-image: url(\'' + (tagData.pic ? tagData.pic : '') + '\')">' + (tagData.initials ? tagData.initials : '') + '</span>';
+                     
                         html += '       </span>';
                         html += '       <div class="d-flex flex-column">';
                         html += '           <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">' + (tagData.value ? tagData.value : '') + '</a>';

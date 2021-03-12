@@ -23,7 +23,12 @@
                             <div class="col-lg-7 p-lg-5 p-5">
                                 <h2>Popular Categories</h2>
                                 <div class="row">
+                                 @if($categories ->count() != 0)
+                                    @foreach($categories  as $cat)
+                                    
+        
                                     <div class="col-lg-6">
+<<<<<<< HEAD
                                         <h6 class="dropdown-header text-primary">Category 1</h6>
                                         <a class="dropdown-item" href="landing-app-mobile.html">Sub Category 1 - 1</a><a class="dropdown-item" href="landing-app-desktop.html">Sub Category 1 - 2</a>
                                         <div class="dropdown-divider border-0"></div>
@@ -53,8 +58,45 @@
                                             5 - 5</a><a class="dropdown-item" href="header-nav-only.html">Sub Category 5
                                             - 6</a>
                                     </div>
+=======
+                                    
+                                        <h6 class="dropdown-header text-primary"><a href="{{ route('createProjectWithCat',$cat->id) }}">{{ $cat->name}}</a></h6>
+                                         @if($cat->sub_categories->count() != 0)
+                                         @foreach($cat->sub_categories as $subCategory)
+                        
+                                        <a class="dropdown-item" href="{{ route('createProjectWithSub',$subCategory->id) }}">{{ $subCategory->name}}</a>
+                                        @endforeach
+                                         @else
+                                         No sub-categories inside <b>{{ ucwords($cat->name) }}</b>
+                                          @endif
+                       
+                            
+                       
+                                        <div class="dropdown-divider border-0"></div>
+                                       
+                                        
+                                        
+                                            </div>
+                                            
+                                                  @endforeach
+                                                  @endif
+                                                  
+ 
+     
+     
+                                        
+                                       
+                                    
+                                   
+                                    
+>>>>>>> development
                                 </div>
+                                
+       
+           
+        
                             </div>
+                            
                         </div>
                     </div>
                 </li>

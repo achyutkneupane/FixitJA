@@ -17,7 +17,7 @@ class CreateDocumentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('path');
-            $table->enum('type',array('reference_letter', 'profile_picture', 'police_record', 'other'));
+            $table->string('type');
             $table->string('description')->nullable();
             $table->timestamps();
 
