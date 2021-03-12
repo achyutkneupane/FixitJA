@@ -55,11 +55,11 @@ class VerificationController extends Controller
             return redirect()->route('home');
         }
     }
-    public function resendVerifyEmail($email)
+    public function resendVerifyEmail()
     {
-        $user = User::find(Auth::user()->id);
+        $user = auth()->user();
         if ($user != null) {
-            MailController::sendVerifyEmail($user->name, $email, $user->verification_code);
+            MailController::sendVerifyEmail($user->name, $user->email(), $user->verification_code);
             ToastHelper::showToast('Verification email sent successfully.');
             return redirect()->route('home');
         }

@@ -19,7 +19,6 @@ class CreateEducationTable extends Migration
             $table->string('degree');
             $table->string('start_date');
             $table->string('end_date');
-            $table->float('gpa');
             $table->timestamps();
         });
     }

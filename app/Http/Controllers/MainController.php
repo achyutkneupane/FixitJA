@@ -124,7 +124,7 @@ class MainController extends Controller
             $location->perish = $request->site_perish;
             $task->location()->save($location);
         }
-
+        dd($task_subcategories);
         $task->subcategories()->attach($task_subcategories);
         $city1 = City::find($request->city)->name;
         $site_city = City::find($request->site_city)->name;
@@ -138,6 +138,7 @@ class MainController extends Controller
     {
         $page_title = 'Categories';
         $page_description = 'This is view all categories page';
-        return view('pages.categories', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+        $categories = Category::with('sub_categories')->paginate(6);
+        return view('pages.categories', compact('page_title', 'page_description','categories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
 }

@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
             $table->integer('hours')->nullable();
             $table->unsignedBigInteger('subscription_id')->nullable();
             $table->enum('type', array('admin', 'individual_contractor', 'business', 'general_user'))->nullable();
-            $table->enum('status', array('pending', 'active', 'suspended', 'blocked', 'deactivated', 'deleted'))->default('pending');
+            $table->enum('status', array('new','pending', 'active', 'suspended', 'blocked', 'deactivated', 'deleted'))->default('new');
 
             $table->string('verification_code');
 
