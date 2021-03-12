@@ -95,10 +95,13 @@ Route::get('/review', [App\Http\Controllers\UserController::class, 'emptyPage'])
 Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferrals');
 Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
-Route::post('/contact', [App\Http\Controllers\MainController::class, 'submitContact'])->name('submitContact');
-Route::get('/services',[App\Http\Controllers\MainController::class, 'services'])->name('services');
-Route::get('/hiring_process',[App\Http\Controllers\MainController::class, 'hiringProcess'])->name('hiringProcess');
-Route::get('/how_it_works',[App\Http\Controllers\MainController::class, 'howItWorks'])->name('howItWorks');
+//Route for creating new project wizard
+Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
+Route::get('/project/create/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'updateprofile1'])->name('createProjectWithCat');
+Route::get('/project/create/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'updateprofilewithSub'])->name('createProjectWithSub');
+//Route for viewing all categories
+Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
+Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
@@ -109,7 +112,8 @@ Route::post('/contact', [App\Http\Controllers\MainController::class, 'submitCont
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 //Route for profile wizard
 Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->name('profileWizard');
-Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
+
+// Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
 
 

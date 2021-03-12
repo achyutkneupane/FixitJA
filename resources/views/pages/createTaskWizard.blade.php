@@ -118,7 +118,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                             <label>Category</label>
                                                             <select id="categorySelectTemplate" subcatid="kt_tagify_subCat_project_wizard_Template" name="categoryTemplate" class="form-control form-control-solid form-control-sm project_category_select">
                                                                 <option value="">Select Category</option>
-                                                                @foreach($cats as $cat)
+                                                                @foreach($category as $cat)
+                                                                
                                                                 <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
                                                                 @endforeach
                                                             </select>
@@ -301,9 +302,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                 <!--begin::Select-->
                                                 <label>City</label>
                                                 <select class="form-control form-control-solid form-control-sm" id="citySelector" name="city">
-                                                    @foreach($cities as $index => $city)
-                                                    <option value="{{ $city->id }}" {{ ( !empty($user) && $city->id == $user->city->id) ? 'selected' : '' }}>{{ $city->name }}</option>
-                                                    @endforeach
+                                                  
                                                 </select>
                                                 <span class="form-text text-muted">Please enter your City</span>
                                                 <div class="fv-plugins-message-container"></div>
@@ -379,9 +378,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                     <!--begin::Select-->
                                                     <label>City</label>
                                                     <select class="form-control form-control-solid form-control-sm" id="citySelector" name="site_city">
-                                                        @foreach($cities as $index => $city)
-                                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                                        @endforeach
+                                                       
                                                     </select>
                                                     <span class="form-text text-muted">Please enter your City</span>
                                                     <div class="fv-plugins-message-container"></div>

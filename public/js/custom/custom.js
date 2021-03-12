@@ -98,9 +98,8 @@ $(document).ready(function () {
 
     /*  for  Range slider */
     var slider = document.getElementById("myRange");
-    if(slider){
-        var output = document.getElementById("demo");
-        output.innerHTML = slider.value;
+    var output = document.getElementById("demo");
+    output.innerHTML = slider;
 
         slider.oninput = function () {
             output.innerHTML = this.value;
