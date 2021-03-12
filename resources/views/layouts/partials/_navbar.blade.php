@@ -4,26 +4,19 @@
         <a class="navbar-brand text-white" href="/">
             <img src="{{ asset('images/logo.png') }}" class="img-logo d-inline-block align-top logo-fixitja" alt="">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                data-feather="menu"></i></button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mr-lg-5">
-                <li class="nav-item"><a class="nav-link" href="index.html">Build your project</a></li>
+                <li class="nav-item"><a class="nav-link" href="/project/create">Build your project</a></li>
                 <li class="nav-item dropdown dropdown-xl no-caret">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownDemos" href="#" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories<i
-                            class="fas fa-chevron-right dropdown-arrow"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right animated--fade-in-up mr-lg-n25 mr-xl-n15"
-                        aria-labelledby="navbarDropdownDemos">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownDemos" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories<i class="fas fa-chevron-right dropdown-arrow"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right animated--fade-in-up mr-lg-n25 mr-xl-n15" aria-labelledby="navbarDropdownDemos">
                         <div class="row no-gutters">
-                            <div class="col-lg-5 p-lg-3 bg-img-cover overlay overlay-primary overlay-70 d-none d-lg-block"
-                                style="background-image: url({{ asset('images/website/mainbg.jpg') }})">
+                            <div class="col-lg-5 p-lg-3 bg-img-cover overlay overlay-primary overlay-70 d-none d-lg-block" style="background-image: url({{ asset('images/website/mainbg.jpg') }})">
                                 <div class="d-flex-website h-100 w-100 align-items-center justify-content-center">
                                     <div class="text-white text-center z-1">
                                         <div class="mb-3">There are more categories for you.</div>
-                                        <a class="btn-website btn-website-white btn-website-sm text-primary font-weight-500"
-                                            href="/categories/all">View All Categories</a>
+                                        <a class="btn-website btn-website-white btn-website-sm text-primary font-weight-500" href="/categories/all">View All Categories</a>
                                     </div>
                                 </div>
                             </div>
@@ -32,8 +25,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <h6 class="dropdown-header text-primary">Category 1</h6>
-                                        <a class="dropdown-item" href="landing-app-mobile.html">Sub Category 1 - 1</a><a
-                                            class="dropdown-item" href="landing-app-desktop.html">Sub Category 1 - 2</a>
+                                        <a class="dropdown-item" href="landing-app-mobile.html">Sub Category 1 - 1</a><a class="dropdown-item" href="landing-app-desktop.html">Sub Category 1 - 2</a>
                                         <div class="dropdown-divider border-0"></div>
                                         <h6 class="dropdown-header text-primary">Category 2</h6>
                                         <a class="dropdown-item" href="landing-multipurpose.html">Sub Category 2 -
@@ -51,12 +43,10 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <h6 class="dropdown-header text-primary">Category 4</h6>
-                                        <a class="dropdown-item" href="landing-resume.html">Sub Category 4 - 1</a><a
-                                            class="dropdown-item" href="landing-portfolio.html">Sub Category 4 - 2</a>
+                                        <a class="dropdown-item" href="landing-resume.html">Sub Category 4 - 1</a><a class="dropdown-item" href="landing-portfolio.html">Sub Category 4 - 2</a>
                                         <div class="dropdown-divider border-0"></div>
                                         <h6 class="dropdown-header text-primary">Category 5</h6>
-                                        <a class="dropdown-item" href="header-basic.html">Sub Category 5 - 1</a><a
-                                            class="dropdown-item" href="header-basic-signup.html">Sub Category 5 -
+                                        <a class="dropdown-item" href="header-basic.html">Sub Category 5 - 1</a><a class="dropdown-item" href="header-basic-signup.html">Sub Category 5 -
                                             2</a><a class="dropdown-item" href="header-graphic.html">Sub Category 5 -
                                             3</a><a class="dropdown-item" href="header-graphic-signup.html">Sub Category
                                             5 - 4</a><a class="dropdown-item" href="header-inner-page.html">Sub Category
@@ -126,19 +116,23 @@
                         >
                     </div>
                 </li> -->
-            </ul>
-            @guest
-                @if (Route::has('login'))
+                @guest
+                <li class="nav-item dropdown no-caret">
+                    @if (Route::has('login'))
                     <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/login">Login</a>
-                @endif
+                    @endif
 
-                @if (Route::has('register'))
-                    <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/register">Sign Up<i class="ml-2"
-                            data-feather="arrow-right"></i></a>
-                @endif
-            @endguest
+                    @if (Route::has('register'))
+                    <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/register">Sign Up</a>
+                    <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/register">Business</i></a>
+                    <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/register">Become Our Fixician<i class="ml-2" data-feather="arrow-right"></i></a>
+                    @endif
+                    @endguest
+                </li>
+            </ul>
+
             @auth
-                <!-- <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/home">Account</a>
+            <!-- <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/home">Account</a>
                                     <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">Logout
@@ -147,23 +141,21 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form> -->
-                <div class="topbar-item">
-                    <div class="btn btn-icon w-auto d-flex-website align-items-center btn-lg px-2"
-                        id="kt_quick_user_toggle">
-                        <span class="font-weight-bold font-size-base d-none d-md-inline mr-1"
-                            style="color: #fff;">Hi,</span>
-                        <span class="font-weight-bolder font-size-base d-none d-md-inline mr-3"
-                            style="color: #fff;">{{ Auth::user()->first_name() }}</span>
-                        <span class="symbol symbol-35 symbol-light-success">
-                            <span
-                                class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->first_name(), 0, 1) }}{{ substr(Auth::user()->last_name(), 0, 1) }}</span>
-                        </span>
-                    </div>
+            <div class="topbar-item">
+                <div class="btn btn-icon w-auto d-flex-website align-items-center btn-lg px-2" id="kt_quick_user_toggle">
+                    <span class="font-weight-bold font-size-base d-none d-md-inline mr-1" style="color: #fff;">Hi,</span>
+                    <span class="font-weight-bolder font-size-base d-none d-md-inline mr-3" style="color: #fff;">{{ Auth::user()->first_name() }}</span>
+                    <span class="symbol symbol-35 symbol-light-success">
+                        <span class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->first_name(), 0, 1) }}{{ substr(Auth::user()->last_name(), 0, 1) }}</span>
+                    </span>
                 </div>
-
             </div>
-        @endauth
 
+        </div>
+        @if (config('layout.extras.user.layout') == 'offcanvas')
+        @include('layouts.partials.extras.offcanvas._quick-user')
+        @endif
+        @endauth
     </div>
     </div>
 </nav>

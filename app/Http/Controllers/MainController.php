@@ -50,6 +50,14 @@ class MainController extends Controller
         $page_description = 'This is frequently asked questions page';
         return view('pages.faqs', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
     }
+
+    public function underConstruction()
+    {
+        $page_title = 'Under Construction';
+        $page_description = 'This is page under construction';
+        return view('pages.underConstruction', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => false]);
+    }
+
     public function createProject()
     {
         $page_title = 'Create Project Wizard';

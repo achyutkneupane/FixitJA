@@ -9,7 +9,7 @@
                 <div class="col-lg-6" data-aos="fade-up">
                     <div class="row align-items-center">
                         <h1 class="page-header-title">Find Best Fixician to Work On Any Project</h1>
-                        <p class="page-header-text mb-5">We are commited to provide you our best service and best Fixicians to help with your projects.</p>
+                        <p class="page-header-text mb-5">Trusted local Pros available to address your home or business projects – Simple Click, create project and be impressed.</p>
                     </div>
                     <div class="row">
                         <div class="col-9" style="padding: 0;">
@@ -92,8 +92,9 @@
                         <div class="d-flex-website flex-column-website align-items-start flex-grow-1">
                             <div class="flex-grow-1">
                                 <a href="#" class="text-white font-weight-bolder font-size-h3">How FixitJA works?</a>
-                                <p class="text-white opacity-75 font-weight-bold mt-3 custom-paragraph custom-paragraph-width-80">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                            </div>
+                                <p class="text-white opacity-75 font-weight-bold mt-3 custom-paragraph custom-paragraph-width-80">
+                                The focus of this site is on the skilled self-employed individuals working as independent contractors (IC) who prefer the world of being independent entrepreneurs rather than people seeking full time employment with other businesses.
+                                </div>
                             <a href="#" class="btn btn-link btn-link-white font-weight-bold">Read More
                                 <span class="svg-icon svg-icon-lg svg-icon-white">
                                     <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
@@ -316,13 +317,6 @@
     </div>
 </section>
 <hr class="m-0" />
-@auth
-@if (config('layout.extras.user.layout') == 'offcanvas')
-@include('layouts.partials.extras.offcanvas._quick-user')
-@endif
-@endauth
-
-
 <!-- @include('layouts.partials._footer') -->
 
 
