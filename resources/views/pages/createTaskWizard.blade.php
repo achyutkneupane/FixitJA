@@ -1,5 +1,19 @@
 @extends('layouts.app')
 @section('content')
+<script>
+    var sessionCatId,sessionSubCatId;
+</script>
+@if(!empty(session()->get('catId')))
+<script>
+var sessionCatId = {{ session()->get('catId') }};
+</script>
+@elseif(!empty(session()->get('subCatId')))
+<script>
+var sessionCatId = 'NULL';
+var sessionSubCatId = {{ session()->get('subCatId') }};
+var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
+</script>
+@endif
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container">

@@ -67,8 +67,13 @@ Route::get('/security/deactivate', [App\Http\Controllers\UserController::class, 
 Route::get('/security/delete', [App\Http\Controllers\UserController::class, 'deleteUser'])->middleware('auth')->name('deleteUser');
 Route::get('/security/{id}', [App\Http\Controllers\UserController::class, 'viewSecurity'])->middleware('auth', 'checkIfAdmin')->name('viewAccountSecurity');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
+//Route for creating new project wizard
+Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
+Route::get('/project/create/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProjectWithCat');
+Route::get('/project/create/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
+//Route for viewing all categories
+Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
-
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
@@ -85,10 +90,6 @@ Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addpr
 
 Route::get('/profile/{id}', [App\Http\Controllers\CategoryController::class, 'getSubCategory']);
 Route::get('/category_data', [App\Http\Controllers\CategoryController::class, 'getCategory']);
-//Route for creating new project wizard
-Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
-//Route for viewing all categories
-Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 
 Route::get('/hello',  [App\Http\Controllers\CategoryController::class, 'getCategory']);
 //Route for the addding education qualification
