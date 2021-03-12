@@ -16,14 +16,14 @@
                     <div class="card-header">
                         <div class="card-title">
                             <h3 class="card-label">
-                                {{ ucwords($category->name) }}
+                                <a href="{{ route('createProjectWithCat',$category->id) }}" class="text-black">{{ ucwords($category->name) }}</a>
                             </h3>
                         </div>
                     </div>
                     <div class="card-body">
                         @if($category->sub_categories->count() != 0)
                         @foreach($category->sub_categories as $subCategory)
-                            <li>{{ $subCategory->name }}</li>
+                            <li><a href="{{ route('createProjectWithSub',$subCategory->id) }}" class="text-black">{{ ucwords($subCategory->name) }}</a></li>
                         @endforeach
                         @else
                             No sub-categories inside <b>{{ ucwords($category->name) }}</b>

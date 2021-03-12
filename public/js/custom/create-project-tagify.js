@@ -97,7 +97,14 @@ function bindSubCat(data, subcat) {
             maxItems: 5
         }
     });
-
+    if(sessionSubCatId) {
+        data.forEach((element,index) => {
+            if(element.id === sessionSubCatId)
+            {
+                tagifyTo.addTags([element]);
+            }
+    });
+    }
 }
 
 //Adding more category
@@ -171,6 +178,12 @@ function AddCategoryProjectWizard() {
             }
         });
     }
+    if(sessionCatId != 'NULL') {
+        $("#categorySelect1").val(sessionCatId).change();
+    }
+    else if(sessionSubCatId) {
+        $("#categorySelect1").val(sessionsubCatCatId).change();
+    }
 }
 
 //Removing added category
@@ -188,7 +201,6 @@ $(document).on("click", ".remove-accordian-project-wizard", function (e) {
 
     selectedCategoryData['categorySelect' + $(this).attr('count-value')] = "-1";
     updateAllCategorySelect();
-
     $("#totalCatList").val($("#totalCatList").val().replace('{"fieldId": "' + $(this).attr('count-value') + '"},', ''));
 })
 

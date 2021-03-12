@@ -11,6 +11,7 @@ use App\Models\SubCategory;
 use App\Models\Task;
 use App\Models\TaskCreator;
 use App\Models\TaskWorkingLocation;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -50,8 +51,10 @@ class MainController extends Controller
         $page_description = 'This is frequently asked questions page';
         return view('pages.faqs', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
     }
-    public function createProject()
+    public function createProject($catId = NULL)
     {
+        if(!empty($catId))
+            session()->flash('catId',$catId);
         $page_title = 'Create Project Wizard';
         $page_description = 'This is create project wizard page';
         $user = Auth::user();
@@ -61,7 +64,21 @@ class MainController extends Controller
             return view('pages.createTaskWizard', compact('page_title', 'page_description','cats','cities','user'), ["show_sidebar" => false, "show_navbar" => true]);
         else
             return view('pages.createTaskWizard', compact('page_title', 'page_description','cats','cities'), ["show_sidebar" => false, "show_navbar" => true]);
-
+    }
+    public function createProjectwithSub($subCatId = NULL)
+    {
+        if(!empty($subCatId))
+            session()->flash('subCatId',$subCatId);
+        $page_title = 'Create Project Wizard';
+        $page_description = 'This is create project wizard page';
+        $user = Auth::user();
+        $cats = Category::with('sub_categories')->get();
+        $subs = SubCategory::all();
+        $cities = City::get();
+        if(!empty(auth()->user()))
+            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities','user'), ["show_sidebar" => false, "show_navbar" => true]);
+        else
+            return view('pages.createTaskWizard', compact('page_title','subs', 'page_description','subs','cats','cities'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function addProject(Request $request)
     {
