@@ -20,7 +20,7 @@ class MainController extends Controller
 {
     public function home()
     {
-        $users = User::limit(6)->where('type','individual_contractor')->get();
+        $users = User::limit(6)->where('type','individual_contractor')->withCount('subcategories')->orderBy('subcategories_count','DESC')->get();
         $documents = DB::table('users')
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
