@@ -30,21 +30,48 @@
                             <div class="col-lg-7 p-lg-5 p-5">
                                 <h2>Popular Categories</h2>
                                 <div class="row">
+                                 @if($categories->count() != 0)
                                     @foreach($categories as $cat)
+                                    
+        
                                     <div class="col-lg-6">
+                                    
                                         <h6 class="dropdown-header text-primary">{{ $cat->name}}</h6>
-                                        <a class="dropdown-item" href="landing-app-mobile.html">{{ $cat->name}}</a><a
-                                            class="dropdown-item" href="landing-app-desktop.html">{{ $cat->name}}</a>
-                                        <div class="dropdown-divider border-0"></div>
-                                        </div>
+                                         @if($cat->sub_categories->count() != 0)
+                                         @foreach($cat->sub_categories as $subCategory)
+                        
+                                        <a class="dropdown-item" href="landing-app-mobile.html">{{ $subCategory->name}}</a>
                                         @endforeach
+                                         @else
+                                         No sub-categories inside <b>{{ ucwords($cat->name) }}</b>
+                                          @endif
+                       
+                            
+                       
+                                        <div class="dropdown-divider border-0"></div>
+                                       
+                                        
+                                        
+                                            </div>
+                                            
+                                                  @endforeach
+                                                  @endif
+                                                  
+ 
+     
+     
                                         
                                        
                                     
                                    
                                     
                                 </div>
+                                
+       
+           
+        
                             </div>
+                            
                         </div>
                     </div>
                 </li>

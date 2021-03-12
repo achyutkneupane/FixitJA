@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
+
 Auth::routes(['verify' => true]);
 Route::get('verify/{verification_code}/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyUser']);
 Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
@@ -92,7 +93,7 @@ Route::get('/project/create/{id}', [App\Http\Controllers\MainController::class, 
 //Route for viewing all categories
 Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 
-Route::get('/hello',  [App\Http\Controllers\CategoryController::class, 'getCategory']);
+
 //Route for the addding education qualification
 
 
@@ -103,6 +104,7 @@ Route::get('/hello',  [App\Http\Controllers\CategoryController::class, 'getCateg
 
 
 Route::get('/addeducation', [App\Http\Controllers\UserController::class, 'addeducation']);
+Route::get('/hello',  [App\Http\Controllers\HomeController::class, 'hello']);
 
 
 

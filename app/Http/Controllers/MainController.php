@@ -25,7 +25,7 @@ class MainController extends Controller
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
-        $categories = Category::with('sub_categories')->get();
+         $categories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
 
 
             // dd($documents->where('type','profile_picture')->where('id','1')->first()->path);
