@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
@@ -27,13 +29,24 @@ class HomeController extends Controller
     public function index()
     {
         $documents = Document::where('user_id', Auth::user()->id)->get();
+       
         return view(
-            'pages.home',
+            'pages.home', 
             [
                 'loggedUser' => auth()->user()->with('emails', 'phones')->find(Auth::user()->id),
                 'documents' => $documents,
-                'show_navbar' => true
-            ]
+                'show_navbar' => true,
+               
+                
+            ],
+            
         );
     }
+
+    public function hello()
+    {
+         $categories1 = Category::limit(6)->with('sub_categories')->get();
+         dd($categories1);
+    }
+    
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -67,5 +68,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('userIsContractor', function ($user) {
             return auth()->user() && $user->type == "individual_contractor";
         });
+        view()->share('navbarCategories', Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get());
     }
 }

@@ -30,41 +30,48 @@
                             <div class="col-lg-7 p-lg-5 p-5">
                                 <h2>Popular Categories</h2>
                                 <div class="row">
+                                 @if($navbarCategories->count() != 0)
+                                    @foreach($navbarCategories as $cat)
+                                    
+        
                                     <div class="col-lg-6">
-                                        <h6 class="dropdown-header text-primary">Category 1</h6>
-                                        <a class="dropdown-item" href="landing-app-mobile.html">Sub Category 1 - 1</a><a
-                                            class="dropdown-item" href="landing-app-desktop.html">Sub Category 1 - 2</a>
+                                    
+                                        <h6 class="dropdown-header text-primary"><a href="{{ route('createProjectWithCat',$cat->id) }}">{{ $cat->name}}</a></h6>
+                                         @if($cat->sub_categories->count() != 0)
+                                         @foreach($cat->sub_categories as $subCategory)
+                        
+                                        <a class="dropdown-item" href="{{ route('createProjectWithSub',$subCategory->id) }}">{{ $subCategory->name}}</a>
+                                        @endforeach
+                                         @else
+                                         No sub-categories inside <b>{{ ucwords($cat->name) }}</b>
+                                          @endif
+                       
+                            
+                       
                                         <div class="dropdown-divider border-0"></div>
-                                        <h6 class="dropdown-header text-primary">Category 2</h6>
-                                        <a class="dropdown-item" href="landing-multipurpose.html">Sub Category 2 -
-                                            1</a><a class="dropdown-item" href="landing-agency.html">Sub Category 2 -
-                                            2</a><a class="dropdown-item" href="landing-press.html">Sub Category 2 -
-                                            3</a><a class="dropdown-item" href="landing-directory.html">Sub Category 2 -
-                                            4</a><a class="dropdown-item" href="landing-rental.html">Sub Category 2 -
-                                            5</a><a class="dropdown-item" href="landing-real-estate.html">Sub Category 2
-                                            - 6</a><a class="dropdown-item" href="landing-classifieds.html">Sub Category
-                                            2 - 7</a>
-                                        <div class="dropdown-divider border-0"></div>
-                                        <h6 class="dropdown-header text-primary">Category 3</h6>
-                                        <a class="dropdown-item" href="landing-lead-capture.html">Sub Category 3 - 1</a>
-                                        <div class="dropdown-divider border-0 d-lg-none"></div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <h6 class="dropdown-header text-primary">Category 4</h6>
-                                        <a class="dropdown-item" href="landing-resume.html">Sub Category 4 - 1</a><a
-                                            class="dropdown-item" href="landing-portfolio.html">Sub Category 4 - 2</a>
-                                        <div class="dropdown-divider border-0"></div>
-                                        <h6 class="dropdown-header text-primary">Category 5</h6>
-                                        <a class="dropdown-item" href="header-basic.html">Sub Category 5 - 1</a><a
-                                            class="dropdown-item" href="header-basic-signup.html">Sub Category 5 -
-                                            2</a><a class="dropdown-item" href="header-graphic.html">Sub Category 5 -
-                                            3</a><a class="dropdown-item" href="header-graphic-signup.html">Sub Category
-                                            5 - 4</a><a class="dropdown-item" href="header-inner-page.html">Sub Category
-                                            5 - 5</a><a class="dropdown-item" href="header-nav-only.html">Sub Category 5
-                                            - 6</a>
-                                    </div>
+                                       
+                                        
+                                        
+                                            </div>
+                                            
+                                                  @endforeach
+                                                  @endif
+                                                  
+ 
+     
+     
+                                        
+                                       
+                                    
+                                   
+                                    
                                 </div>
+                                
+       
+           
+        
                             </div>
+                            
                         </div>
                     </div>
                 </li>

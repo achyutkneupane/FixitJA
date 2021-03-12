@@ -22,11 +22,12 @@ class MainController extends Controller
 {
     public function home()
     {
-        $users = User::all();
+        $users = User::limit(6)->where('type','individual_contractor')->withCount('subcategories')->orderBy('subcategories_count','DESC')->get();
         $documents = DB::table('users')
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
+        //dd($documents->where('type','profile_picture')->where('id','12')->first());
         $categories = Category::get(['id','name']);
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
@@ -100,7 +101,7 @@ class MainController extends Controller
         session()->flash('catId',$request->catId);
         return redirect()->route('createProject');
     }
-    public function createProjectwithSub($subCatId = NULL)
+    public function createProjectwithSub($subCatId)
     {
         if(!empty($subCatId))
             session()->flash('subCatId',$subCatId);
@@ -179,9 +180,26 @@ class MainController extends Controller
     }
     public function categories()
     {
+        $categories = Category::with('sub_categories')->get();
         $page_title = 'Categories';
         $page_description = 'This is view all categories page';
-        $categories = Category::with('sub_categories')->get();
-        return view('pages.categories', compact('page_title', 'page_description','categories'), ["show_sidebar" => false, "show_navbar" => true]);
+        return view('pages.categories', compact('page_title', 'page_description', 'categories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
+     public function updateprofile1($catId = NULL)
+    {
+        $document = Document::where('user_id', Auth::user()->id)->get();
+        $category = Category::with('sub_categories')->get();
+        if($catId != NULL)
+            session()->flash('catId',$catId);
+        return view('pages.createTaskWizard', compact('document', 'category'));
+    }
+    public function updateprofilewithSub($subCatId = NULL)
+   {
+    $document = Document::where('user_id', Auth::user()->id)->get();
+    $category = Category::with('sub_categories')->get();
+    $subs = SubCategory::all();
+       if($subCatId != NULL)
+           session()->flash('subCatId',$subCatId);
+       return view('pages.createTaskWizard', compact('document', 'category','subs'));
+   }
 }
