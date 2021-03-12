@@ -31,11 +31,17 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('notVerified', function () {
             return auth()->user() && empty(auth()->user()->email_verified_at);
         });
+        Blade::if('isVerified', function () {
+            return auth()->user() && !empty(auth()->user()->email_verified_at);
+        });
         Blade::if('formToBeFilled', function () {
             return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "new";
         });
         Blade::if('notApproved', function () {
             return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "pending";
+        });
+        Blade::if('isReviewing', function(){
+            return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "reviewing";
         });
         Blade::if('isAdmin', function () {
             return auth()->user() && auth()->user()->type == "admin";
@@ -57,6 +63,9 @@ class AppServiceProvider extends ServiceProvider
         });
         Blade::if('onlyForRespectiveUser', function ($id) {
             return auth()->user() && (auth()->user() == User::find($id));
+        });
+        Blade::if('userIsContractor', function ($user) {
+            return auth()->user() && $user->type == "individual_contractor";
         });
     }
 }

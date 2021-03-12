@@ -50,6 +50,27 @@ return [
             'admin' => true
         ],
         [
+            'title' => 'Reviews',
+            'root' => false,
+            'icon' => 'flaticon-customer', // flaticon-*
+            'page' => '/review',
+            'new-tab' => false,
+        ],
+        [
+            'title' => 'Referrals',
+            'root' => false,
+            'icon' => 'flaticon-network', // flaticon-*
+            'page' => '/referral',
+            'new-tab' => false,
+        ],
+        [
+            'title' => 'Subscriptions',
+            'root' => false,
+            'icon' => 'flaticon-user-add', // flaticon-*
+            'page' => '/subscription',
+            'new-tab' => false
+        ],
+        [
             'section' => 'Account & Privacy',
         ],
         [

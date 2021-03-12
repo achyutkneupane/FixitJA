@@ -381,9 +381,90 @@ class UserController extends Controller
     }
     public function editProfile()
     {
-        $user = User::with('emails', 'phones')->find(auth()->id());
+        $user = User::find(auth()->id());
         $cities = City::all();
         return view('pages.editProfile', compact('user', 'cities'));
+    }
+
+    public function putEditProfile(Request $request)
+    {
+        $user = User::find(auth()->id());
+        try {
+            $request->validate([
+                'gender' => 'required',
+                'city_id' => 'required',
+                'street_01' => 'required',
+                'street_02' => '',
+                'companyname' => '',
+                'experience' => '',
+                'website' => '',
+                'is_travelling' => 'required',
+                'is_police_record' => 'required'
+            ]);
+            $user->gender = $request->gender;
+            $user->city_id = $request->city_id;
+            $user->street_01 = $request->street_01;
+            $user->street_02 = $request->street_02;
+            $user->companyname = $request->companyname;
+            $user->experience = $request->experience;
+            $user->website = $request->website;
+            $user->is_travelling = $request->is_travelling;
+            $user->is_police_record = $request->is_police_record;
+            $user->save();
+            ToastHelper::showToast('Profile has been updated');
+            return redirect()->route('viewProfile');
+        } catch(Throwable $e) {
+            dd($e);
+            ToastHelper::showToast('Profile cannot be updated.','error');
+            LogHelper::store('User',$e);
+        }
+    }
+
+    public function editUserProfile($id)
+    {
+        if (User::find($id) == Auth::user()) {
+            return redirect()->route('editProfile');
+        }
+        $user = User::find($id);
+        $cities = City::all();
+        return view('pages.editProfile', compact('user', 'cities'));
+    }
+
+    public function putEditUserProfile(Request $request,$id)
+    {
+        $user = User::find($id);
+        try {
+            $request->validate([
+                'gender' => 'required',
+                'city_id' => 'required',
+                'street_01' => 'required',
+                'street_02' => '',
+                'companyname' => '',
+                'experience' => '',
+                'website' => '',
+                'is_travelling' => 'required',
+                'is_police_record' => 'required'
+            ]);
+            $user->gender = $request->gender;
+            $user->city_id = $request->city_id;
+            $user->street_01 = $request->street_01;
+            $user->street_02 = $request->street_02;
+            $user->companyname = $request->companyname;
+            $user->experience = $request->experience;
+            $user->website = $request->website;
+            $user->is_travelling = $request->is_travelling;
+            $user->is_police_record = $request->is_police_record;
+            $user->save();
+            ToastHelper::showToast('Profile has been updated');
+        } catch(Throwable $e) {
+            dd($e);
+            ToastHelper::showToast('Profile cannot be updated.','error');
+            LogHelper::store('User',$e);
+        }
+        return redirect()->route('viewProfile');
+    }
+    public function emptyPage() {
+        return view('pages.emptyFile');
     }
 }
 
