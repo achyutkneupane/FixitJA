@@ -96,9 +96,6 @@ Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'
 Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 
-
-
-
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
 //Route for contact us page
