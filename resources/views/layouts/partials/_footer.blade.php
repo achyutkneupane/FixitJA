@@ -26,9 +26,9 @@
                             <ul class="list-unstyled mb-0">
                                 <li class="mb-2"><a href="/about">About the comapany</a></li>
                                 <li class="mb-2"><a href="/underconstruction">Fixician Directory</a></li>
-                                <li class="mb-2"><a href="#!">Services</a></li>
-                                <li class="mb-2"><a href="#!">How it works</a></li>
-                                <li class="mb-2"><a href="#!">Hiring Process</a></li>
+                                <li class="mb-2"><a href="/underconstruction">Services</a></li>
+                                <li class="mb-2"><a href="/underconstruction">How it works</a></li>
+                                <li class="mb-2"><a href="/underconstruction">Hiring Process</a></li>
                             </ul>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
