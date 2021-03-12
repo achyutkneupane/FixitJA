@@ -102,9 +102,6 @@ class UserController extends Controller
         $users = User::with('emails', 'phones')->get();
         return view('admin.profile.users', compact('users'));
     }
-<<<<<<< HEAD
-     public function updateprofile1($catId = NULL)
-=======
     public function updateprofile1()
     {
 
@@ -114,7 +111,6 @@ class UserController extends Controller
 
 
     public function getprofileImage(Request $request)
->>>>>>> development
     {
         $document = Document::where('user_id', Auth::user()->id)->get();
         $category = Category::with('sub_categories')->get();

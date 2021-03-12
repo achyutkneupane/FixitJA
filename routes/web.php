@@ -90,6 +90,7 @@ Route::prefix('/project/create')->group(function(){
     Route::get('/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProjectwithCat'])->name('createProjectWithCat');
     Route::get('/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
     Route::post('/', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
+    Route::post('/form', [App\Http\Controllers\MainController::class, 'categoryRequest'])->name('categoryRequest');
 });
 Route::get('/review', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReviews');
 Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferrals');
