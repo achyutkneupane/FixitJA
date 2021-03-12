@@ -141,7 +141,7 @@ class MainController extends Controller
             $location->perish = $request->site_perish;
             $task->location()->save($location);
         }
-
+        dd($task_subcategories);
         $task->subcategories()->attach($task_subcategories);
         $city1 = City::find($request->city)->name;
         $site_city = City::find($request->site_city)->name;

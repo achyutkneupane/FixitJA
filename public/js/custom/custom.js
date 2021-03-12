@@ -56,7 +56,6 @@ $(document).ready(function () {
             success: function (data) {
 
                 data = JSON.parse(data);
-                console.log(data)
                 $('#choosencategory').val(data.name);
             }
         });
@@ -66,12 +65,13 @@ $(document).ready(function () {
     var dateControler = {
         currentDate: null
     }
+    var selectedsDate;
     $('#selectstartdate').on("change", function (e) {
         var now = new Date();
-        var selectedDate = new Date($(this).val());
+        selectedsDate = new Date($(this).val());
 
 
-        if (selectedDate > now) {
+        if (selectedsDate > now) {
             $(this).val(dateControler.currentDate)
         } else {
             dateControler.currentDate = $(this).val();
@@ -83,10 +83,10 @@ $(document).ready(function () {
     $('#selectenddate').on("change", function (e) {
 
         var now = new Date();
-        var selectedDate = new Date($(this).val());
+        var selectedeDate = new Date($(this).val());
 
 
-        if (selectedDate > now  ) {
+        if (selectedeDate < selectedsDate  ) {
             $(this).val(dateControler.currentDate)
         } else {
             dateControler.currentDate = $(this).val();
@@ -98,11 +98,13 @@ $(document).ready(function () {
 
     /*  for  Range slider */
     var slider = document.getElementById("myRange");
-    var output = document.getElementById("demo");
-    output.innerHTML = slider.value;
+    if(slider){
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
 
-    slider.oninput = function () {
-        output.innerHTML = this.value;
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }
     }
 });
 //Adding more category
@@ -112,11 +114,9 @@ $("#add_btn").click(function (e) {
     if ($(".card-category-accordion").length < 3) {
        count++;
         $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "'+count+'"},');
-        console.log($("#totalCatList").val());
         var selectcategoryid = "selected_catgeory" + count;
         var subcatid = "kt_tagify_subcategory" + count;
         var viewcategory = "categoryTitle" + selectcategoryid;
-        console.log(selectcategoryid);
         var category_select = "";
         $.each(category_data, function (index, item) {
             category_select = category_select + ('<option value="' + item.id + '">' + item.name + ' </option>');
@@ -200,27 +200,27 @@ $("#add_more_reference").click(function(e){
         count++;
 
         $("#accordion_reference").append(
-            '<div class="card card-reference-accordion" id="referenceCard ' + count + '">'+
+            '<div class="card card-reference-accordion" id="referenceCard' + count + '">'+
             '<div class="card-header">'+
                 '<div class="card-title" data-toggle="collapse' + count + '" data-target="#collapse2">'+
                     '<span class="glyphicon glyphicon-remove-circle pull-right "></span>'+
                     '</div>'+
                     '</div>'+
-                    '<div id="collapse2 ' + count + '" class="collapse show" data-parent="#accordionExample3">'+
+                    '<div id="collapseReference' + count + '" class="collapse show" data-parent="#accordionExample3">'+
                      '<div class="card-body">'+
                      '<div class="form-group">'+
                      '<label class="font-size-h6 font-weight-bolder text-dark">Referal Name'+
-                     '<input type="text" id="refname" class="form-control"  type="text" name="referal_name'+ count +'[]" placeholder="Referal Name" value="">'+
+                     '<input type="text" id="refname" class="form-control"  type="text" name="referal_name'+ count +'" placeholder="Referal Name" value="">'+
                      '</label>'+
                     '</div>'+
                     '<div class="form-group">'+
                         '<label class="font-size-h6 font-weight-bolder text-dark">Referal Email'+
-                            '<input type="email" id="refemail" class="form-control"  type="email" name="referal_email'+ count +'[]" placeholder="Referal Email" value="">'+
+                            '<input type="email" id="refemail" class="form-control"  type="email" name="referal_email'+ count +'" placeholder="Referal Email" value="">'+
                         '</label>'+
                     '</div>'+
                     '<div class="form-group">'+
                         '<label class="font-size-h6 font-weight-bolder text-dark">Referal Contact Number'+
-                            '<input type="text" id="refphone" class="form-control"  type="text" name="referal_phone'+ count +'[]" placeholder="Referal Contact Number" value="">'+
+                            '<input type="text" id="refphone" class="form-control"  type="text" name="referal_phone'+ count +'" placeholder="Referal Contact Number" value="">'+
                         '</label>'+
                     '</div>'+
                     ' <div class="fv-plugins-message-container"> ' +
@@ -301,9 +301,11 @@ function LoadWizardData(wizard) {
         });
         categorySelected = [];
         $.each($(".category-title"), function (index, value) {
-
+            console.log($("#totalCertificateList").val());
+            $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+index+'"},');
             const cloneCertificateAccordion = $("#templateCertificate").clone();
             cloneCertificateAccordion.attr("id", "certificateAccordion" + index);
+            
             cloneCertificateAccordion.show();
 
             var cardTitle = cloneCertificateAccordion.find("#certificateCategoryTitle");
@@ -311,12 +313,14 @@ function LoadWizardData(wizard) {
             cardTitle.attr("id", "certificateCategoryTitle" + index);
 
             var certificateFile = cloneCertificateAccordion.find("#certificateFile");
+           
             certificateFile.attr("id", "certificateFile" + index);
-            certificateFile.attr("name", "certificate[]" + index);
+            certificateFile.attr("name", "certificate" + index); 
+            
 
             var certificateExp = cloneCertificateAccordion.find("#certificateExp");
             certificateExp.attr("id", "certificateExp" + index);
-            certificateExp.attr("name", "experience[]" + index);
+            certificateExp.attr("name", "experience" + index);
 
             var accordionCertificate = cloneCertificateAccordion.find("#accordionCertificate");
             accordionCertificate.attr("id", "accordionCertificate" + index);

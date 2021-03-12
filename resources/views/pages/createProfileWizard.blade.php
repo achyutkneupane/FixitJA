@@ -220,7 +220,7 @@
                                 </div>
                                 <!--begin::Accordion-->
                             </div>
-                             <input type="hidden" id="totalCatList" name="totalCatList">
+                            <input type="hidden" id="totalCatList" name="totalCatList">
                             <button type="button" name="add" id="add_btn" class="btn btn-success">Add More</button>'
                             <!--end::Select-->
                         </div>
@@ -247,14 +247,14 @@
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Certificate (PDF, DOC, JPEG, PNG)
                                                         <div class="col-md-12">
                                                             <div class="dropzone dropzone-default dropzone-primary">
-                                                                <div class="dropzone-msg dz-message needsclick"><input id="certificateFile" type="file" category="category-name" name="certificate[]" accept=".png, .jpg, .jpeg, .pdf, .docx"></div>
+                                                                <div class="dropzone-msg dz-message needsclick"><input id="certificateFile" type="file" category="category-name" accept=".png, .jpg, .jpeg, .pdf, .docx"></div>
                                                             </div>
                                                         </div>
                                                     </label class="col-form-label">
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Experience
-                                                        <input type="text" id="certificateExp" class="form-control" category="category-name" type="number" name="experience[]" placeholder="Years" value="">
+                                                        <input type="text" id="certificateExp" class="form-control" category="category-name" type="number" placeholder="Years" value="">
                                                     </label>
                                                 </div>
                                             </div>
@@ -263,6 +263,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" id="totalCertificateList" name="totalCertificateList">
                         <!--end::Wizard Step 2-->
 
                         <!--begin::Wizard Step 3-->
@@ -279,7 +280,7 @@
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Degree</label>
 
-                                <select class="form-control" id="user_type" name="degree" value="{{old('degree')}}">
+                                <select class="form-control" id="degree_wizard_profile" name="degree" value="{{old('degree')}}">
                                     <option value="">Select</option>
                                     <option value="Secondary level" id="type1">Secondary level</option>
                                     <option value="Higher Secondary level" id="type2">Higher Secondary level
@@ -310,11 +311,10 @@
                                     <!--end::Form Group-->
                                     <!--end::Form Group-->
                                     <!--begin::Form Group-->
-                                   
+
                                     <!--end::Form Group-->
                                     <!--begin::Action-->
                                 </div>
-                                <div class="fv-plugins-message-container"></div>
                             </div>
                         </div>
                         <!--end::Wizard Step 3-->
@@ -323,37 +323,37 @@
                         <div class="pb-5" data-wizard-type="step-content">
                             <h4 class="mb-10 font-weight-bold text-dark">Reference certificate for each selected
                                 skills category</h4>
-                                <!--begin::Select-->
+                            <!--begin::Select-->
                             <div class="card-body">
                                 <!--begin::Accordion-->
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_reference">
-                                    <div class="card card-reference-accordion" id="referenceCard">
+                                    <div class="card card-reference-accordion" id="referenceCard1">
                                         <div class="card-header">
-                                            <div class="card-title" data-toggle="collapse" data-target="#collapse2">
+                                            <div class="card-title" data-toggle="collapse" data-target="#collapseReference1">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
-                                                
+
                                             </div>
                                         </div>
-                                        <div id="collapse2" class="collapse show" data-parent="#accordionExample3">
+                                        <div id="collapseReference1" class="collapse show" data-parent="#accordionExample3">
                                             <div class="card-body">
-                                            <div class="form-group">
+                                                <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Referal Name
-                                                        <input type="text" id="refname" class="form-control"  type="text" name="referal_name[]" placeholder="Referal Name" value="">
+                                                        <input type="text" id="refname" class="form-control" type="text" name="referal_name" placeholder="Referal Name" value="">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Referal Email
-                                                        <input type="email" id="refemail" class="form-control"  type="email" name="referal_email[]" placeholder="Referal Email" value="">
+                                                        <input type="email" id="refemail" class="form-control" type="email" name="referal_email" placeholder="Referal Email" value="">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Referal Contact Number
-                                                        <input type="text" id="refphone" class="form-control"  type="text" name="referal_phone[]" placeholder="Referal Contact Number" value="">
+                                                        <input type="text" id="refphone" class="form-control" type="text" name="referal_phone" placeholder="Referal Contact Number" value="">
                                                     </label>
                                                 </div>
-                                               
-                                            
-                                                
+
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -362,10 +362,10 @@
                             </div>
                             <button type="button" name="add_reference" id="add_more_reference" class="btn btn-success">Add More References</button>
 
-                            
-                            
-                            </div>
-                       
+
+
+                        </div>
+
                         <!--end::Wizard Step 4-->
 
                         <!--begin::Wizard Step 5 -->
@@ -386,7 +386,6 @@
 
                                 </div>
                             </div>
-                            <div class="fv-plugins-message-container"></div>
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">8.Write short description about yoursel
@@ -394,14 +393,12 @@
                                     <textarea class="form-control" id="exampleTextarea" rows="3" name="personal_description"></textarea>
                                 </div>
                             </div>
-                            <div class="fv-plugins-message-container"></div>
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">9. How many working hours per week?
                                         <input type="text" class=" form-control " name="hours" placeholder="enter your work hours" rows="1" />
                                 </div>
                             </div>
-                            <div class="fv-plugins-message-container"></div>
 
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="col-9 col-form-label">10. What are the days you are working?
@@ -415,7 +412,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="fv-plugins-message-container"></div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="col-9 col-form-label">11. Are you willing to travel long distace?</label>
                                 <div class="radio-inline">
@@ -427,7 +423,6 @@
                                         <span></span>No</label>
                                 </div>
                             </div>
-                            <div class="fv-plugins-message-container"></div>
 
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
@@ -438,7 +433,6 @@
                                         </div>
                                 </div>
                             </div>
-                            <div class="fv-plugins-message-container"></div>
                         </div>
                         <!--end::Wizard Step 5-->
 
@@ -449,31 +443,27 @@
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="col-9 col-form-label"></label>
                                 <div class="col-lg-9 col-xl-6">
-                                    <div class="image-input" id="kt_image_3">
-                                        <div class="image-input-wrapper" style="">
-                                           
-                                        </div>
+                                    <div class="image-input image-input-empty image-input-outline" id="kt_image_5" style="background-image: url({{asset('media/users/blank.png')}});">
+                                        <div class="image-input-wrapper"></div>
+
                                         <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
                                             <i class="fa fa-pen icon-sm text-muted"></i>
-                                            <input type="file" name="profile" accept=".png, .jpg, .jpeg" value="
-                                                    @if(!is_null($document->where('type','profile_picture')->first()))
-                                                    {{ asset('storage/'.$document->where('type','profile_picture')->first()->path)}}
-                                                    @else
-                                                    {{asset('images/unknown-avatar.png') }}
-                                                    @endif
-                                                " alt="Admin" class="rounded-circle object-fit-scale-down" width="150" height="150" />
-                                           
+                                            <input type="file" name="profile" id="file" accept=".png, .jpg, .jpeg" value="" />
+                                            <input type="hidden" name="profile_avatar_remove" />
                                         </label>
+
                                         <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
                                             <i class="ki ki-bold-close icon-xs text-muted"></i>
                                         </span>
+
+                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove avatar">
+                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                        </span>
                                     </div>
-                                    <span class="form-text text-muted">Allowed file types: png, jpg, jpeg.</span>
                                 </div>
-
-
                             </div>
-                            <div class="fv-plugins-message-container"></div>
+
+
                         </div>
                         <!--end::wizard step 6-->
 
@@ -483,60 +473,40 @@
                             <!--begin::Select-->
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Parishes</label>
-                               <select name="parishes" class="form-control form-control-solid form-control-lg category-select">
+                                <select name="parishes" class="form-control form-control-solid form-control-lg category-select">
                                     <option value="Saint Catherine">Saint Catherine</option>
                                     <option value="Clarendon">Clarendon</option>
                                     <option value="Liguanea (St Andrew)">Liguanea (St Andrew)</option>
                                     <option value="Saint Thomas">Saint Thomas</option>
-                                     <option value="Port Royal">Port Royal</option>
-                                      <option value="Saint John">Saint John</option>
-                                       <option value="Saint David">Saint David</option>
-                                       </select>
-                                        
-                                    
-
+                                    <option value="Port Royal">Port Royal</option>
+                                    <option value="Saint John">Saint John</option>
+                                    <option value="Saint David">Saint David</option>
+                                </select>
                             </div>
-                            <div class="fv-plugins-message-container"></div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>City</label>
-                               <select name="cities" class="form-control form-control-solid form-control-lg category-select"> >
+                                <select name="cities" class="form-control form-control-solid form-control-lg category-select"> >
                                     <option value="Barbican">Barbican</option>
                                     <option value="Allerdyce">Allerdyce</option>
                                     <option value="Cherry Gardens">Cherry Gardens</option>
                                     <option value="Tivoli Gardens">Tivoli Gardens</option>
-                                     <option value="Red Hills">Red Hills</option>
-                                      <option value="Mountain View">Mountain View</option>
-                                       <option value="Forest Hills">Forest Hills</option>
-                                       </select>
-                                        
-                                    
-
+                                    <option value="Red Hills">Red Hills</option>
+                                    <option value="Mountain View">Mountain View</option>
+                                    <option value="Forest Hills">Forest Hills</option>
+                                </select>
                             </div>
-
-                             
-                            <div class="fv-plugins-message-container"></div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Street</label>
                                 <input type="text" name="street" class="form-control" placeholder="Enter your street" />
                             </div>
-
-                            <div class="fv-plugins-message-container"></div>
-
                             <div class="form-group fv-plugins-icon-container">
                                 <label>House Number or Unit (Optional)</label>
                                 <input type="text" name="house_number" class="form-control " placeholder="Enter your House number" />
                             </div>
-
-                            <div class="fv-plugins-message-container"></div>
-
                             <div class="form-group fv-plugins-icon-container">
                                 <label> Postal Code (Optional)</label>
                                 <input type="text" name="postal_code" class="form-control" placeholder="Enter your  Postal Code (Optional)" />
                             </div>
-
-                            
-                           
-                            <div class="fv-plugins-message-container"></div>
                         </div>
                         <!--end:: wizard step 7-->
 
@@ -545,100 +515,98 @@
                             <h3 class="mb-10 font-weight-bold text-dark">Plase Check all information before Submit</h3>
                             <!--begin::Select-->
                             <div class="form-group fv-plugins-icon-container">
-                                 <div class="d-flex align-items-center justify-content-between mb-2 row">
-                                        <h3 class="col-md-12 my-3">Skill</h3>
-                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Skills: </span>
-                                            <span class="text-muted" id='skill'>N/A</span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Certificate: </span>
-                                            <span class="text-muted" id='certificate'>N/A</span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Experience: </span>
-                                            <span class="text-muted" id='experience'>N/A</span>
-                                        </div>
-                            </div>
+                                <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                    <h3 class="col-md-12 my-3">Skill</h3>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Skills: </span>
+                                        <span class="text-muted" id='skill'>N/A</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Certificate: </span>
+                                        <span class="text-muted" id='certificate'>N/A</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Experience: </span>
+                                        <span class="text-muted" id='experience'>N/A</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                    <h3 class="col-md-12 my-3">Education</h3>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Education instutional name: </span>
+                                        <span class="text-muted" id='educationname'>N/A</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Degree: </span>
+                                        <span class="text-muted" id='educationdegree'>N/A</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Start Date: </span>
+                                        <span class="text-muted" id='educationstartdate'>N/A</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">End Date: </span>
+                                        <span class="text-muted" id='educationenddate'>N/A</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                    <h3 class="col-md-12 my-3">Other Information</h3>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Police Report: </span>
+                                        <span class="text-muted" id='policereport'>N/A</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Description: </span>
+                                        <span class="text-muted" id='description'>N/A</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Working hours: </span>
+                                        <span class="text-muted" id='hours'>N/A</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Working days: </span>
+                                        <span class="text-muted" id='workingdays'>N/A</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Is travelling?: </span>
+                                        <span class="text-muted" id='istravelling'>N/A</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="font-weight-bold">Can travel total distance: </span>
+                                        <span class="text-muted" id='totaldistance'>N/A</span>
+                                    </div>
+                                </div>
 
-                             <div class="d-flex align-items-center justify-content-between mb-2 row">
-                                        <h3 class="col-md-12 my-3">Education</h3>
-                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Education instutional name: </span>
-                                            <span class="text-muted" id='educationname'>N/A</span>
+                                <div class="workingLocationReview" style="display:block;">
+                                    <div class="d-flex align-items-center justify-content-between mb-2 row">
+                                        <h3 class="col-md-12 my-3">Address</h3>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">City: </span>
+                                            <span class="text-muted" id='workingCityId'>N/A</span>
                                         </div>
                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Degree: </span>
-                                            <span class="text-muted" id='educationdegree'>N/A</span>
+                                            <span class="font-weight-bold">Street Address 1: </span>
+                                            <span class="text-muted" id='workingStreet1Id'>N/A</span>
                                         </div>
                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Start Date: </span>
-                                            <span class="text-muted" id='educationstartdate'>N/A</span>
-                                        </div>
-                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">End Date: </span>
-                                            <span class="text-muted" id='educationenddate'>N/A</span>
-                                        </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mb-2 row">
-                                        <h3 class="col-md-12 my-3">Other Information</h3>
-                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Police Report: </span>
-                                            <span class="text-muted" id='policereport'>N/A</span>
+                                            <span class="font-weight-bold">Street Address 2: </span>
+                                            <span class="text-muted" id='workingStreet1Id'>N/A</span>
                                         </div>
                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Description: </span>
-                                            <span class="text-muted" id='description'>N/A</span>
+                                            <span class="font-weight-bold">House Number: </span>
+                                            <span class="text-muted" id='workingHouseNumberId'>N/A</span>
                                         </div>
                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Working hours: </span>
-                                            <span class="text-muted" id='whours'>N/A</span>
-                                        </div>
-                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Working days: </span>
-                                            <span class="text-muted" id='workingdays'>N/A</span>
+                                            <span class="font-weight-bold">Postal Code: </span>
+                                            <span class="text-muted" id='workingPostalCodeId'>N/A</span>
                                         </div>
                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Is travelling?: </span>
-                                            <span class="text-muted" id='istravelling'>N/A</span>
-                                        </div>
-                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Can travel total distance: </span>
-                                            <span class="text-muted" id='totaldistance'>N/A</span>
-                                        </div>
-                            </div>
-                           
-                            <div class="workingLocationReview" style="display:block;">
-                                        <div class="d-flex align-items-center justify-content-between mb-2 row">
-                                            <h3 class="col-md-12 my-3">Working Location</h3>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">City: </span>
-                                                <span class="text-muted" id='workingCityId'>N/A</span>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">Street Address 1: </span>
-                                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">Street Address 2: </span>
-                                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">House Number: </span>
-                                                <span class="text-muted" id='workingHouseNumberId'>N/A</span>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">Postal Code: </span>
-                                                <span class="text-muted" id='workingPostalCodeId'>N/A</span>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">Perish: </span>
-                                                <span class="text-muted" id='workingPerishId'>N/A</span>
-                                            </div>
+                                            <span class="font-weight-bold">Perish: </span>
+                                            <span class="text-muted" id='workingPerishId'>N/A</span>
                                         </div>
                                     </div>
-                                    </div>
-                            <div class="fv-plugins-message-container"></div>
+                                </div>
+                            </div>
                         </div>
                         <!--end:: wizard step 8-->
 
@@ -684,7 +652,6 @@
 
 
 <script src="{{ asset('js/custom/create-workingdays-tagify.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/pages/crud/file-upload/image-input.js') }}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
 <script>
@@ -692,4 +659,29 @@
     $(".navbar-marketing").addClass("navbar-scrolled");
     $(".navbar-marketing").removeClass("fixed-top");
 </script>
+
+<script>
+    var avatar5 = new KTImageInput('kt_image_5');
+
+    avatar5.on('cancel', function(imageInput) {
+        swal.fire({
+            
+        });
+    });
+
+    avatar5.on('change', function(imageInput) {
+        swal.fire({
+           
+            
+        });
+    });
+
+    avatar5.on('remove', function(imageInput) {
+        swal.fire({
+            
+            
+        });
+    });
+</script>
+
 @endsection
