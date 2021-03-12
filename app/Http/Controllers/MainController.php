@@ -40,6 +40,24 @@ class MainController extends Controller
         $page_description = 'This is about us page';
         return view('pages.about', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
     }
+    public function services()
+    {
+        $page_title = 'Services';
+        $page_description = 'This is services page';
+        return view('pages.services', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
+    public function howItWorks()
+    {
+        $page_title = 'How It Works';
+        $page_description = 'This is description about how FixitJA Works';
+        return view('pages.howItWorks', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
+    public function hiringProcess()
+    {
+        $page_title = 'Hiring process';
+        $page_description = 'This is page about Hiring Process';
+        return view('pages.hiringProcess', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
     public function contact()
     {
         $page_title = 'Contact';
