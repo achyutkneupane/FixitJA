@@ -78,6 +78,36 @@
     font-size: 1rem;
 }
 
-.custom-card-bg-color{
-    /* background-color: lightgray; */
-}
+.middle-under-construction {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: white;
+    padding: 1rem;
+  }
+
+  .bgimg-under-construction {
+    height: 100%;
+  }
+
+  .middle-under-construction > div > h1 {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 3rem;
+  }
+
+  .middle-under-construction > div {
+      padding: 1rem;
+  }
+
+  .middle-under-construction > a {
+    color: rgb(9, 112, 247) !important;
+    text-decoration: underline !important;
+  }
+
+  .under-construction-image-middle{
+      width: 20rem;
+  }
+
