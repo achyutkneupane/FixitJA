@@ -87,7 +87,7 @@ Route::prefix('/security')->group(function () {
 });
 Route::prefix('/project/create')->group(function(){
     Route::get('/', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
-    Route::get('/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProjectWithCat');
+    Route::get('/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProjectwithCat'])->name('createProjectWithCat');
     Route::get('/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
     Route::post('/', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
 });

@@ -51,24 +51,8 @@ class MainController extends Controller
         $page_description = 'This is frequently asked questions page';
         return view('pages.faqs', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
     }
-    public function createProject($catId = NULL)
+    public function createProject()
     {
-        if(!empty($catId))
-            session()->flash('catId',$catId);
-        $page_title = 'Create Project Wizard';
-        $page_description = 'This is create project wizard page';
-        $user = Auth::user();
-        $cats = Category::with('sub_categories')->get();
-        $cities = City::get();
-        if(!empty(auth()->user()))
-            return view('pages.createTaskWizard', compact('page_title', 'page_description','cats','cities','user'), ["show_sidebar" => false, "show_navbar" => true]);
-        else
-            return view('pages.createTaskWizard', compact('page_title', 'page_description','cats','cities'), ["show_sidebar" => false, "show_navbar" => true]);
-    }
-    public function createProjectwithSub($subCatId = NULL)
-    {
-        if(!empty($subCatId))
-            session()->flash('subCatId',$subCatId);
         $page_title = 'Create Project Wizard';
         $page_description = 'This is create project wizard page';
         $user = Auth::user();
@@ -78,7 +62,19 @@ class MainController extends Controller
         if(!empty(auth()->user()))
             return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities','user'), ["show_sidebar" => false, "show_navbar" => true]);
         else
-            return view('pages.createTaskWizard', compact('page_title','subs', 'page_description','subs','cats','cities'), ["show_sidebar" => false, "show_navbar" => true]);
+            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
+    public function createProjectwithCat($catId)
+    {
+        if(!empty($catId))
+            session()->flash('catId',$catId);
+        return redirect()->route('createProject');
+    }
+    public function createProjectwithSub($subCatId = NULL)
+    {
+        if(!empty($subCatId))
+            session()->flash('subCatId',$subCatId);
+        return redirect()->route('createProject');
     }
     public function addProject(Request $request)
     {
@@ -155,7 +151,7 @@ class MainController extends Controller
     {
         $page_title = 'Categories';
         $page_description = 'This is view all categories page';
-        $categories = Category::with('sub_categories')->paginate(6);
+        $categories = Category::with('sub_categories')->get();
         return view('pages.categories', compact('page_title', 'page_description','categories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
 }
