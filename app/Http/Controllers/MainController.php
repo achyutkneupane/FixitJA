@@ -79,7 +79,6 @@ class MainController extends Controller
         $page_description = 'This is frequently asked questions page';
         return view('pages.faqs', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
     }
-<<<<<<< HEAD
 
     public function underConstruction()
     {
@@ -88,19 +87,16 @@ class MainController extends Controller
         return view('pages.underConstruction', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => false]);
     }
 
-    public function createProject()
-=======
     public function createProject($id = null)
->>>>>>> development
     {
         $page_title = 'Create Project Wizard';
         $page_description = 'This is create project wizard page';
         $user = Auth::user();
-        
+
         $cats = Category::with('sub_categories')->get();
-        
-        
-       
+
+
+
         $cities = City::get();
         if(!empty(auth()->user()))
             return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities','user'), ["show_sidebar" => false, "show_navbar" => true]);
