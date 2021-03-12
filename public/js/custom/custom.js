@@ -86,7 +86,7 @@ $(document).ready(function () {
         var selectedeDate = new Date($(this).val());
 
 
-        if (selectedeDate > now && selectedeDate < selectedsDate  ) {
+        if (selectedeDate < selectedsDate  ) {
             $(this).val(dateControler.currentDate)
         } else {
             dateControler.currentDate = $(this).val();

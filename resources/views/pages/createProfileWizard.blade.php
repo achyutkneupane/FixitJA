@@ -448,7 +448,7 @@
 
                                         <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
                                             <i class="fa fa-pen icon-sm text-muted"></i>
-                                            <input type="file" name="profile" id="file" accept=".png, .jpg, .jpeg" />
+                                            <input type="file" name="profile" id="file" accept=".png, .jpg, .jpeg" value="" />
                                             <input type="hidden" name="profile_avatar_remove" />
                                         </label>
 
