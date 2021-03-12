@@ -66,7 +66,7 @@ class MainController extends Controller
     public function submitContact(Request $request){
         Mail::send('mail.contactMail', compact('request'), function($message) use ($request)
         {
-            $message->subject('Contact Us | FixitJA')->from($request->email,$request->name)->to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+            $message->subject('Contact Us | FixitJA')->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
         });
         ToastHelper::showToast('Email Sent Successfully');
         return redirect()->back();
