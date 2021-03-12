@@ -20,14 +20,14 @@ class MainController extends Controller
 {
     public function home()
     {
-        $users = User::all();
+        $users = User::limit(6)->where('type','individual_contractor')->get();
         $documents = DB::table('users')
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
 
 
-            // dd($documents->where('type','profile_picture')->where('id','1')->first()->path);
+        //dd($documents->where('type','profile_picture')->where('id','12')->first());
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
         return view('pages.welcome', compact('page_title', 'page_description'), ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
