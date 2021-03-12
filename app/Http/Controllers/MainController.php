@@ -27,12 +27,10 @@ class MainController extends Controller
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
-
-
-            // dd($documents->where('type','profile_picture')->where('id','1')->first()->path);
+        $categories = Category::get(['id','name']);
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
-        return view('pages.welcome', compact('page_title', 'page_description'), ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
+        return view('pages.welcome', compact('page_title', 'page_description','categories'), ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
     }
     public function about()
     {
@@ -95,6 +93,11 @@ class MainController extends Controller
     {
         if(!empty($catId))
             session()->flash('catId',$catId);
+        return redirect()->route('createProject');
+    }
+    public function categoryRequest(Request $request)
+    {
+        session()->flash('catId',$request->catId);
         return redirect()->route('createProject');
     }
     public function createProjectwithSub($subCatId = NULL)
