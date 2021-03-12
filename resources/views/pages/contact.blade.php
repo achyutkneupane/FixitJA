@@ -113,12 +113,22 @@
                     <a href="#!">support@startbootstrap.com</a>
                 </div>
             </div>
-            <form>
+            <form action="{{ route('submitContact') }}" method="POST">
+                @csrf
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label class="text-dark" for="inputName">Full name</label><input class="form-control-website py-website-4" id="inputName" type="text" placeholder="Full name"></div>
-                    <div class="form-group col-md-6"><label class="text-dark" for="inputEmail">Email</label><input class="form-control-website py-website-4" id="inputEmail" type="email" placeholder="name@example.com"></div>
+                    <div class="form-group col-md-6">
+                        <label class="text-dark" for="inputName">Full name</label>
+                        <input class="form-control-website py-website-4" id="inputName" type="text" name="name" placeholder="Full name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="text-dark" for="inputEmail">Email</label>
+                        <input class="form-control-website py-website-4" id="inputEmail" type="email" name="email" placeholder="name@example.com" required>
+                    </div>
                 </div>
-                <div class="form-group"><label class="text-dark" for="inputMessage">Message</label><textarea class="form-control-website py-website-3" id="inputMessage" type="text" placeholder="Enter your message..." rows="4"></textarea></div>
+                <div class="form-group">
+                    <label class="text-dark" for="inputMessage">Message</label>
+                    <textarea class="form-control-website py-website-3" id="inputMessage" type="text" name="message" placeholder="Enter your message..." rows="5" required></textarea>
+                </div>
                 <div class="text-center"><button class="btn btn-primary mt-4" type="submit">Submit Request</button></div>
             </form>
         </div>

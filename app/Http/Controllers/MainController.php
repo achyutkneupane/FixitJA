@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ToastHelper;
 use App\Models\Category;
 use App\Models\City;
 use Illuminate\Http\Request;
@@ -44,6 +45,14 @@ class MainController extends Controller
         $page_title = 'Contact';
         $page_description = 'This is contact us page';
         return view('pages.contact', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
+    public function submitContact(Request $request){
+        Mail::send('mail.contactMail', compact('request'), function($message) use ($request)
+        {
+            $message->subject('Contact Us | FixitJA')->from($request->email,$request->name)->to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+        });
+        ToastHelper::showToast('Email Sent Successfully');
+        return redirect()->back();
     }
     public function faqs()
     {

@@ -100,6 +100,7 @@ Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationContr
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
 //Route for contact us page
 Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
+Route::post('/contact', [App\Http\Controllers\MainController::class, 'submitContact'])->name('submitContact');
 //Route for faqs page
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 //Route for profile wizard
