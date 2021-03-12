@@ -99,11 +99,12 @@ function bindSubCat(data, subcat) {
         }
     });
     if(sessionSubCatId) {
-        data.forEach((element) => {
-            if(sessionSubCatId == element.id) {
-                $("#" + subcat).val(element);
+        data.forEach((element,index) => {
+            if(element.id === sessionSubCatId)
+            {
+                tagifyTo.addTags([element]);
             }
-        });
+    });
     }
 }
 

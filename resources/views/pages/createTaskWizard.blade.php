@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <script>
-    var sessionCatId,sessionSubCatId,sessionSubCatCatId;
+    var sessionCatId,sessionSubCatId;
 </script>
 @if(!empty(session()->get('catId')))
 <script>
