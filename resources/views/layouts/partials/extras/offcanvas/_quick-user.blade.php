@@ -23,9 +23,7 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
                 ->documents->where('type', 'profile_picture')
                 ->first()
                 ))
-                <div class="symbol-label" style="background-image:url('{{ asset('storage/'.
-                    Auth::user()->documents->where('type', 'profile_picture')->first()->path,
-                    )}}')">
+                <div class="symbol-label" style="background-image:url('{{ asset('storage/'.Auth::user()->documents->where('type', 'profile_picture')->first()->path)}}')">
                 </div>
                 @else
                 <div class="symbol-label" style="background-image:url('{{ asset('images/unknown-avatar.png') }}')"></div>
