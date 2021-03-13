@@ -9,7 +9,7 @@
                 <div class="col-lg-6" data-aos="fade-up">
                     <div class="row align-items-center">
                         <h1 class="page-header-title">Find Best Fixician to Work On Any Project</h1>
-                        <p class="page-header-text mb-5">We are commited to provide you our best service and best Fixicians to help with your projects.</p>
+                        <p class="page-header-text mb-5">Trusted local pros (Fixician) available to address your home or business projects – Simple Click, create project and be impressed.</p>
                     </div>
                     <form action="{{ route('categoryRequest') }}" method="POST">
                         @csrf
@@ -50,7 +50,8 @@
                         <div class="d-flex-website flex-column-website align-items-start flex-grow-1">
                             <div class="flex-grow-1">
                                 <a href="#" class="text-white font-weight-bolder font-size-h3">How FixitJA works?</a>
-                                <p class="text-white opacity-75 font-weight-bold mt-3 custom-paragraph custom-paragraph-width-80">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                <p class="text-white opacity-75 font-weight-bold mt-3 custom-paragraph custom-paragraph-width-80">
+                                    The focus of this site is on the skilled self-employed individuals working as independent contractors (IC) who prefer the world of being independent entrepreneurs rather than people seeking full time employment with other businesses.
                             </div>
                             <a href="#" class="btn btn-link btn-link-white font-weight-bold">Read More
                                 <span class="svg-icon svg-icon-lg svg-icon-white">
@@ -72,9 +73,13 @@
         </div>
         <div class="row justify-content-center text-center mb-2">
             <div class="col-lg-8 py-website-5" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
-                <a class="btn-website btn-website-teal font-weight-500 mb-3" href="#!">Get Started Now!</a>
+                <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/project/create">Get Started Now!</a>
                 <h2 class="text-black">No need to create an account to place your project</h2>
-                <p class="lead text-black-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p class="lead text-black-50">
+                    We have made it very easy to place your project in our FixitJA system.
+                    Enter your information and within few steps you are ready to submit your request.
+                    We will contact you once your request is submitted for further process.
+                </p>
             </div>
         </div>
         <div class="row justify-content-center text-center py-website-5">
@@ -83,7 +88,7 @@
         <div class="p-5" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
             <div class="row justify-content-center text-center mb-2">
                 <div class="col-lg-8 mb-3">
-                    <a class="btn-website btn-website-teal font-weight-500 mb-3" href="#!">Create An Account</a>
+                    <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/register">Create An Account</a>
                     <h2 class="text-black">For more convinience in your project</h2>
                 </div>
             </div>
@@ -91,17 +96,24 @@
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i data-feather="file-plus"></i></div>
                     <h3>Place a project</h3>
-                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="mb-0">
+                        Placing your project is very easy and can be accoplished in few steps.
+                        All your have to give is your project information.
+                    </p>
                 </div>
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i data-feather="list"></i></div>
                     <h3>Track your project</h3>
-                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="mb-0">
+                        Once your are sighned up with us, all of your project can be tracked and status can be viewed in the dashboard.
+                    </p>
                 </div>
                 <div class="col-lg-4">
                     <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i data-feather="edit"></i></div>
                     <h3>Review our services</h3>
-                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="mb-0">
+                        Your review & feedback is very important for us to improve and to make our system more better in future.
+                    </p>
                 </div>
             </div>
         </div>
@@ -137,7 +149,9 @@
                         <div class="d-flex-website flex-column-website align-items-start flex-grow-1">
                             <div class="flex-grow-1">
                                 <a href="#" class="text-white font-weight-bolder font-size-h3">What is our hiring process?</a>
-                                <p class="text-white opacity-75 font-weight-bold mt-3 custom-paragraph-width-60">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                <p class="text-white opacity-75 font-weight-bold mt-3 custom-paragraph-width-60">
+                                    FixitJA uses an extensive screening process to screen skilled workers. We perform screening when a skilled worker applies to join our network and, if they are accepted, whenever concerns are brought to our attention, we assure you it will be investigated and where necessary action taken to remedy your concerns.
+                                </p>
                             </div>
                             <a href="#" class="btn btn-link btn-link-white font-weight-bold">Read More
                                 <span class="svg-icon svg-icon-lg svg-icon-white">
@@ -159,45 +173,86 @@
         </div>
         <div class="row justify-content-center text-center">
             <div class="col-lg-8">
-                <a class="btn-website btn-website-teal font-weight-500 mb-3" href="#!">Become Our Fixician</a>
+                <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/register">Become Our Fixician</a>
                 <h2 class="text-white">Use your skills and earn money</h2>
-                <p class="lead text-white-50 mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua!</p>
+                <p class="lead text-white-50 mb-5">
+                    Enter information about you and your skills in very easily guided steps and start taking projects.
+                </p>
             </div>
         </div>
         <div class="row my-10">
             <div class="col-lg-3 mb-5">
-                <div class="text-center">
-                    <div class="text-white mb-3"><i class="flaticon2-user-1 icon-3x"></i></i></div>
+                <div class="text-center float-lg-left">
+                    <div class="text-white mb-3">
+                        <i class="flaticon2-user-1 icon-3x">
+                        </i>
+                    </div>
                     <div class="ml-4">
                         <h5 class="text-white">Create your account</h5>
-                        <p class="text-white-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <!-- <p class="text-white-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> -->
                     </div>
                 </div>
+                <span class="svg-icon svg-icon-xl float-right mt-5">
+                    <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                            <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1"></rect>
+                            <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
+                            </path>
+                        </g>
+                    </svg>
+                    <!--end::Svg Icon-->
+                </span>
             </div>
             <div class="col-lg-3 mb-5">
-                <div class="text-center">
+                <div class="text-center float-lg-left">
                     <div class="text-white mb-3"><i class="flaticon-folder-1 icon-3x"></i></div>
                     <div class="ml-4">
                         <h5 class="text-white">Submit Your Application</h5>
-                        <p class="text-white-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                        <!-- <p class="text-white-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p> -->
                     </div>
                 </div>
+                <span class="svg-icon svg-icon-xl float-right mt-5">
+                    <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                            <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1"></rect>
+                            <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
+                            </path>
+                        </g>
+                    </svg>
+                    <!--end::Svg Icon-->
+                </span>
             </div>
             <div class="col-lg-3 mb-5">
-                <div class="text-center">
+                <div class="text-center float-lg-left">
                     <div class="text-white mb-3"><i class="flaticon-list-1 icon-3x"></i></div>
                     <div class="ml-4">
                         <h5 class="text-white">Background Check</h5>
-                        <p class="text-white-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                        <!-- <p class="text-white-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p> -->
                     </div>
                 </div>
+                <span class="svg-icon svg-icon-xl float-right mt-5">
+                    <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                            <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1"></rect>
+                            <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
+                            </path>
+                        </g>
+                    </svg>
+                    <!--end::Svg Icon-->
+                </span>
             </div>
             <div class="col-lg-3 mb-5">
-                <div class="text-center">
+                <div class="text-center float-lg-left">
                     <div class="text-white mb-3"><i class="flaticon-coins icon-3x"></i></div>
                     <div class="ml-4">
                         <h5 class="text-white">Start Earning</h5>
-                        <p class="text-white-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                        <!-- <p class="text-white-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p> -->
                     </div>
                 </div>
             </div>
@@ -214,29 +269,21 @@
 <section class="bg-white pt-website-10">
     <div class="container-website">
         <div class="row">
-            <div class="col-lg-6 mb-lg-n10 mb-5 mb-lg-0 z-1">
-                <a class="card-website text-decoration-none h-100 lift" href="#!">
+            <div class="col-lg-12 mb-lg-n10 mb-5 mb-lg-0 z-1">
+                <a class="card-website text-decoration-none h-100 lift" href="https://cumbv.com" target="_blank">
                     <div class="card-website-body py-website-5">
                         <div class="testimonial p-lg-5">
                             <div class="testimonial-brand text-gray-400">
-                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500.01 816.05">
-                                    <title>google</title>
-                                    <path d="M307.89.07h22.23c77.18,1.68,153.1,32.72,207.63,87.67-20.13,20.55-40.69,40.27-60.4,60.82-30.62-27.68-67.53-49.08-107.8-56.63C310,79.35,245.81,90.68,195.89,124.65c-54.53,35.66-91.44,96.06-99.41,160.66-8.81,63.76,9.22,130.87,50.75,180.37,39.85,48.23,100.67,78.44,163.59,80.53,58.73,3.36,120-14.68,162.75-55.79,33.56-28.94,49.08-73,54.11-115.77-69.63,0-139.26.42-208.89,0V288.24H612c15.1,92.7-6.71,197.15-77.18,263.43-47,47-112,74.66-178.28,80.11-64.17,6.3-130.45-5.87-187.5-36.91C100.67,558.38,46.14,496.72,19.3,424.15-5.87,357.45-6.29,282,17.2,214.84,38.59,153.6,79.7,99.48,132.55,61.73,183.31,24.4,245,3.85,307.89.07Z" transform="translate(0.01 -0.07)" />
-                                    <path d="M1989.93,21.88h89.77v599c-29.78,0-60,.42-89.77-.42.42-199.25,0-398.91,0-598.58Z" transform="translate(0.01 -0.07)" />
-                                    <path d="M811.66,229.52C867,219,927,230.78,972.73,263.91c41.53,29.37,70.47,75.51,79.28,125.84,11.33,58.31-2.93,122.07-40.68,168.21-40.69,51.59-107.39,79.28-172.4,75.08-59.57-3.35-117.45-33.14-152.69-81.79-39.85-53.69-49.5-127.52-27.68-190.44,21.81-67.53,83.47-119.13,153.1-131.29m12.58,79.7a112.72,112.72,0,0,0-58.72,37.33c-40.69,48.66-38.17,127.93,6.71,173.24,25.59,26,64.18,38.17,99.83,31,33.14-5.88,62.08-28.11,78-57.47,27.69-49.92,19.72-118.71-22.65-157.72-27.26-25.17-67.11-35.65-103.19-26.42Z" transform="translate(0.01 -0.07)" />
-                                    <path d="M1256.29,229.52c63.34-12.17,132.55,5.45,180,49.91,77.18,69.22,85.57,198.83,19.72,278.53-39.85,50.33-104.45,78-168.21,75.08-60.82-1.68-120.8-31.88-156.88-81.79-40.69-54.95-49.49-130.46-26.42-194.63,23.07-65.44,83.47-115.36,151.84-127.1m12.59,79.7a114.63,114.63,0,0,0-58.73,36.91c-40.27,47.82-38.59,125.84,4.62,171.56,25.58,27.26,65.43,40.69,102.34,33.14,32.72-6.29,62.08-28.11,78-57.47,27.27-50.33,19.3-119.13-23.49-158.14-27.26-25.16-67.11-35.23-102.76-26Z" transform="translate(0.01 -0.07)" />
-                                    <path d="M1633.39,253.85c48.24-30.2,112.42-38.59,164.43-12.59,16.36,7.13,29.78,19.3,42.78,31.46.42-11.32,0-23.07.42-34.81,28.11.42,56.21,0,84.74.42v370c-.42,55.79-14.69,114.94-55,155.62-44,44.89-111.58,58.73-172.4,49.5-65-9.65-121.65-57-146.82-117,25.17-12.16,51.6-21.81,77.6-33.14,14.69,34.4,44.47,63.76,81.8,70.47s80.54-2.51,104.87-33.55c26-31.88,26-75.51,24.74-114.52-19.29,18.88-41.52,35.66-68.37,42-58.3,16.36-122.48-3.78-167.36-43.21-45.31-39.43-72.15-100.25-69.64-160.65,1.26-68.37,39.85-134.23,98.16-169.88m86.83,53.69c-25.59,4.19-49.5,18.46-65.86,38.17-39.43,47-39.43,122.06.42,168.2,22.65,27.27,59.15,42.37,94.38,38.6,33.14-3.36,63.76-24.33,80.12-53.28,27.68-49.07,23.07-115.77-14.26-158.55-23.07-26.43-60-39.43-94.8-33.14Z" transform="translate(0.01 -0.07)" />
-                                    <path d="M2187.5,275.24c50.34-47,127.94-62.92,192.53-38.17,61.25,23.07,100.26,81.37,120,141.36-91,37.75-181.63,75.08-272.65,112.83,12.58,23.91,31.88,45.72,57.88,54.53,36.5,13,80.12,8.39,110.74-15.94,12.17-9.22,21.82-21.39,31-33.13,23.07,15.52,46.14,30.62,69.21,46.14-32.71,49.07-87.66,83.47-146.81,88.92-65.43,8-135.06-17.19-177.43-68.37-69.63-80.54-62.92-215.6,15.52-288.17m44.88,77.6c-14.26,20.55-20.13,45.72-19.71,70.47q91.23-37.76,182.46-75.92c-10.06-23.49-34.39-37.75-59.14-41.53C2296.14,298.73,2254.61,320.12,2232.38,352.84Z" transform="translate(0.01 -0.07)" />
-                                </svg>
+                                <img src="{{asset('images/cumbv-logo.png')}}" width="200px">
                             </div>
-                            <p class="testimonial-quote text-primary">&quot;Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut error vel omnis adipisci. Ad nam officiis sapiente dicta incidunt harum.&quot;</p>
-                            <div class="testimonial-name">Adam Hall</div>
-                            <div class="testimonial-position">Head of Engineering</div>
+                            <p class="testimonial-quote text-primary">&quot;We are pleased to have a partnership with FixijJA and their dedication to create a new oppurtunity to skilled workers and also for the public to easily accomplish their work.&quot;</p>
+                            <div class="testimonial-name">Claude Powell</div>
+                            <div class="testimonial-position">Business Development Manager</div>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col-lg-6 mb-lg-n10 z-1">
+            <!-- <div class="col-lg-6 mb-lg-n10 z-1">
                 <a class="card-website text-decoration-none h-100 lift" href="#!">
                     <div class="card-website-body py-website-5">
                         <div class="testimonial p-lg-5">
@@ -252,11 +299,11 @@
                         </div>
                     </div>
                 </a>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="svg-border-rounded text-light">
-        <!-- Rounded SVG Border--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor">
             <path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0" />
         </svg>
     </div>
@@ -269,18 +316,14 @@
                 <h4>Ready to get started?</h4>
                 <p class="lead mb-5 mb-lg-0 text-gray-500">Get in touch or create an account.</p>
             </div>
-            <div class="col-lg-6 text-lg-right"><a class="btn-website btn-website-primary font-weight-500 mr-3 my-website-2" href="#!">Contact Us</a><a class="btn-website btn-website-white font-weight-500 my-website-2 shadow" href="#!">Create Account</a></div>
+            <div class="col-lg-6 text-lg-right">
+                <a class="btn-website btn-website-primary font-weight-500 mr-3 my-website-2" href="/contact">Contact Us</a>
+                <a class="btn-website btn-website-white font-weight-500 my-website-2 shadow" href="/register">Create Account</a>
+            </div>
         </div>
     </div>
 </section>
 <hr class="m-0" />
-@auth
-@if (config('layout.extras.user.layout') == 'offcanvas')
-@include('layouts.partials.extras.offcanvas._quick-user')
-@endif
-@endauth
-
-
 <!-- @include('layouts.partials._footer') -->
 
 
