@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerifyEmail;
 use App\Mail\ResponseEmail;
+use Exception;
 
 class MailController extends Controller
 {
@@ -21,7 +22,7 @@ class MailController extends Controller
         $data =  [
             'name' => $name,
             'verification_code' => $verification_code,
-
+            'email' => $email
         ];
         try {
             Mail::send('auth.verifyuser', $data, function ($message) use ($email, $subject) {

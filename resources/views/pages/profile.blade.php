@@ -14,11 +14,11 @@
             $page_title = 'User Overview';
         @endphp
     @endif
-    {{-- @isAdminOrUser($user->id)
+    @isAdminOrUser($user->id)
     @php
     $subhead_button = [['class' => 'primary', 'text' => 'Edit', 'link' => $user->id == auth()->id() ? route('editProfile') : route('editUserProfile', $user->id)]];
     @endphp
-    @endisAdminOrUser --}}
+    @endisAdminOrUser
     <div class="row">
         @include('admin.profile.userSideBar', $user)
         <div class="col-lg-8">

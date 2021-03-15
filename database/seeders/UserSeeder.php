@@ -40,10 +40,10 @@ class UserSeeder extends Seeder
             'website' => 'https://www.kumberland.com',
             'city_id' => '7',
             'password' => Hash::make('Kumberland@123'),
-            'email_verified_at' => now(),
-            'verification_code' => sha1(time()),
-            'status' => 'active',
-            'type' => 'admin'
+            'email_verified_at' => NULL,
+            'verification_code' => sha1(sha1(time())),
+            'status' => 'new',
+            'type' => 'general_user'
         ]);
         $user->emails()->create([
             'email' => 'aneupane@kumberland.com',
@@ -53,5 +53,24 @@ class UserSeeder extends Seeder
             'phone' => '9860323771',
             'primary' => true
         ]);
+        // $user = User::create([
+        //     'name' => 'Claude Powell',
+        //     'companyname' => 'Kumberland Inc.',
+        //     'website' => 'https://www.kumberland.com',
+        //     'city_id' => '7',
+        //     'password' => Hash::make('Kumberland@123'),
+        //     'email_verified_at' => now(),
+        //     'verification_code' => sha1(time()),
+        //     'status' => 'active',
+        //     'type' => 'admin'
+        // ]);
+        // $user->emails()->create([
+        //     'email' => 'claude@kumberland.com',
+        //     'primary' => true
+        // ]);
+        // $user->phones()->create([
+        //     'phone' => '5270157',
+        //     'primary' => true
+        // ]);
     }
 }
