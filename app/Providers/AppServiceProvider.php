@@ -36,13 +36,13 @@ class AppServiceProvider extends ServiceProvider
             return auth()->user() && !empty(auth()->user()->email_verified_at);
         });
         Blade::if('formToBeFilled', function () {
-            return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "new";
+            return auth()->user() && auth()->user()->type == "individual_contractor" && auth()->user()->status == "new";
         });
         Blade::if('notApproved', function () {
-            return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "pending";
+            return auth()->user() && auth()->user()->type == "individual_contractor" && auth()->user()->status == "pending";
         });
         Blade::if('isReviewing', function(){
-            return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "reviewing";
+            return auth()->user() && auth()->user()->type == "individual_contractor" && auth()->user()->status == "reviewing";
         });
         Blade::if('isAdmin', function () {
             return auth()->user() && auth()->user()->type == "admin";

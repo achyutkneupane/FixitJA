@@ -108,11 +108,7 @@
 
     @if (session()->has('toast'))
     <script>
-        toastr. {
-            {
-                session('toast')['class']
-            }
-        }("{{ session('toast')['message'] }}");
+        toastr.{{ session('toast')['class'] }}("{{ session('toast')['message'] }}");
     </script>
     @endif
     <script>
