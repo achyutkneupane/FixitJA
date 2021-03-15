@@ -105,19 +105,11 @@ class UserController extends Controller
     public function updateprofile1()
     {
 
-        return view('pages.createProfileWizard');
-    }
-
-
-
-    public function getprofileImage(Request $request)
-    {
-        $document = Document::where('user_id', Auth::user()->id)->get();
+        $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
-        if($catId != NULL)
-            session()->flash('catId',$catId);
         return view('pages.createProfileWizard', compact('document', 'category'));
     }
+    
     public function updateprofilewithSub($subCatId = NULL)
    {
     $document = Document::where('user_id', Auth::user()->id)->get();

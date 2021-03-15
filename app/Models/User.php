@@ -136,6 +136,9 @@ class User extends Authenticatable
     public function userStatus()
     {
         switch ($this->status) {
+            case 'new':
+                return ['name'=>'New','class'=>'info'];
+                break;
             case 'active':
                 return ['name' => 'Active', 'class' => 'success'];
                 break;
