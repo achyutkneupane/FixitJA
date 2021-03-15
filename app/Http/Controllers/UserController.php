@@ -104,28 +104,20 @@ class UserController extends Controller
     }
     public function updateprofile1()
     {
-        $document = Document::where('user_id', Auth::user()->id)->get();
+        $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
         return view('pages.createProfileWizard', compact('document', 'category'));
     }
-
-    // public function getprofileImage(Request $request)
-    // {
-    //     $document = Document::where('user_id', Auth::user()->id)->get();
-    //     $category = Category::with('sub_categories')->get();
-    //     if ($catId != NULL)
-    //         session()->flash('catId', $catId);
-    //     return view('pages.createProfileWizard', compact('document', 'category'));
-    // }
+    
     public function updateprofilewithSub($subCatId = NULL)
-    {
-        $document = Document::where('user_id', Auth::user()->id)->get();
-        $category = Category::with('sub_categories')->get();
-        $subs = SubCategory::all();
-        if ($subCatId != NULL)
-            session()->flash('subCatId', $subCatId);
-        return view('pages.createProfileWizard', compact('document', 'category', 'subs'));
-    }
+   {
+    $document = Document::where('user_id', Auth::user()->id)->get();
+    $category = Category::with('sub_categories')->get();
+    $subs = SubCategory::all();
+       if($subCatId != NULL)
+           session()->flash('subCatId',$subCatId);
+       return view('pages.createProfileWizard', compact('document', 'category','subs'));
+   }
 
     public function uploadfile($file, $dir)
     {
