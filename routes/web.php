@@ -60,6 +60,7 @@ Route::prefix('/profile')->group(function () {
     Route::get('/education', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewEducations');
     Route::get('/reference', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferences');
     Route::get('/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->middleware('auth')->name('editProfile');
+    Route::put('/edit', [App\Http\Controllers\UserController::class, 'putEditProfile'])->middleware('auth')->name('putEditProfile');
     Route::get('/skills', [App\Http\Controllers\UserController::class, 'profileSkills'])->middleware('auth')->name('profileSkills');
 });
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
