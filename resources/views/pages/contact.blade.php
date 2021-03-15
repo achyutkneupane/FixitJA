@@ -21,7 +21,7 @@
     </header>
     <section class="bg-white py-website-10">
         <div class="container-website">
-            <div class="row mb-5">
+            {{--<div class="row mb-5">
                 <div class="col-lg-4 mb-5">
                     <a class="card-website card-website-link border-top border-top-lg border-primary lift text-center o-visible h-100" href="#!">
                         <div class="card-website-body">
@@ -98,27 +98,37 @@
                     <h2>Can't find the answer you need?</h2>
                     <p class="lead mb-5">Contact us and we'll get back to you as soon as possible with a solution to whatever issues you're having with SB UI Kit Pro.</p>
                 </div>
-            </div>
+            </div>--}}
             <div class="row align-items-center mb-10">
                 <div class="col-lg-4 text-center mb-5 mb-lg-0">
-                    <div class="section-preheading">Message Us</div>
-                    <a href="#!">Start a chat!</a>
+                    <div class="section-preheading">WhatsApp Us</div>
+                    <a>1-437-771-5337 </a>
                 </div>
                 <div class="col-lg-4 text-center mb-5 mb-lg-0">
                     <div class="section-preheading">Call Anytime</div>
-                    <a href="#!">(555) 565-1846</a>
+                    <a>1-844-200-0161 | 1-876-527-0157</a>
                 </div>
                 <div class="col-lg-4 text-center">
                     <div class="section-preheading">Email Us</div>
-                    <a href="#!">support@startbootstrap.com</a>
+                    <a>support@fixitja.com</a>
                 </div>
             </div>
-            <form>
+            <form action="{{ route('submitContact') }}" method="POST">
+                @csrf
                 <div class="form-row">
-                    <div class="form-group col-md-6"><label class="text-dark" for="inputName">Full name</label><input class="form-control-website py-website-4" id="inputName" type="text" placeholder="Full name"></div>
-                    <div class="form-group col-md-6"><label class="text-dark" for="inputEmail">Email</label><input class="form-control-website py-website-4" id="inputEmail" type="email" placeholder="name@example.com"></div>
+                    <div class="form-group col-md-6">
+                        <label class="text-dark" for="inputName">Full name</label>
+                        <input class="form-control-website py-website-4" id="inputName" type="text" name="name" placeholder="Full name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="text-dark" for="inputEmail">Email</label>
+                        <input class="form-control-website py-website-4" id="inputEmail" type="email" name="email" placeholder="name@example.com" required>
+                    </div>
                 </div>
-                <div class="form-group"><label class="text-dark" for="inputMessage">Message</label><textarea class="form-control-website py-website-3" id="inputMessage" type="text" placeholder="Enter your message..." rows="4"></textarea></div>
+                <div class="form-group">
+                    <label class="text-dark" for="inputMessage">Message</label>
+                    <textarea class="form-control-website py-website-3" id="inputMessage" type="text" name="message" placeholder="Enter your message..." rows="5" required></textarea>
+                </div>
                 <div class="text-center"><button class="btn btn-primary mt-4" type="submit">Submit Request</button></div>
             </form>
         </div>

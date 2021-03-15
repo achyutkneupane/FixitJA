@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Events\UserRegistered;
 use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
+use App\Models\Email;
 
 class RegisterController extends Controller
 {
@@ -71,15 +72,16 @@ class RegisterController extends Controller
             'companyname' => ['nullable', 'string'],
             'websitepersonal' => ['nullable'],
             'websitecompany' => ['nullable'],
-            'password' => ['min:6|required_with:cpassword|same:cpassword', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
-            'cpassword' => ['min:6', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
-
-
+            'password' => [  'required',
+                              'min:6',             
+                              'regex:/[A-Z]/',      
+                              'regex:/[0-9]/', 
+                              'confirmed'
+                             ]   
+                              
+         
 
         ]);
-
-
-
         $user = User::create([
             'name' => $request->name,
             'gender' => $request->gender,
@@ -92,6 +94,8 @@ class RegisterController extends Controller
             'email' => $request->email,
             'primary' => true
         ]);
+      
+      
         $user->phones()->create([
             'phone' => $request->phone,
             'primary' => true
@@ -100,8 +104,9 @@ class RegisterController extends Controller
 
         // event(new UserRegistered($user));
         try {
-            MailController::sendVerifyEmail($user->name, $user->email(), $user->verification_code);
+            MailController::sendVerifyEmail($user->name, $request->email, $user->verification_code);
         } catch (\Throwable $t) {
+            dd($t);
             LogHelper::store('Register', $t);
         }
         Auth::login($user);

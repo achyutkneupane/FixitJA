@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -31,11 +32,17 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('notVerified', function () {
             return auth()->user() && empty(auth()->user()->email_verified_at);
         });
+        Blade::if('isVerified', function () {
+            return auth()->user() && !empty(auth()->user()->email_verified_at);
+        });
         Blade::if('formToBeFilled', function () {
-            return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "new";
+            return auth()->user() && auth()->user()->type == "individual_contractor" && auth()->user()->status == "new";
         });
         Blade::if('notApproved', function () {
-            return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "pending";
+            return auth()->user() && auth()->user()->type == "individual_contractor" && auth()->user()->status == "pending";
+        });
+        Blade::if('isReviewing', function(){
+            return auth()->user() && auth()->user()->type == "individual_contractor" && auth()->user()->status == "reviewing";
         });
         Blade::if('isAdmin', function () {
             return auth()->user() && auth()->user()->type == "admin";
@@ -58,5 +65,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('onlyForRespectiveUser', function ($id) {
             return auth()->user() && (auth()->user() == User::find($id));
         });
+        Blade::if('userIsContractor', function ($user) {
+            return auth()->user() && $user->type == "individual_contractor";
+        });
+        view()->share('navbarCategories', Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get());
     }
 }
