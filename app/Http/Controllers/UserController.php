@@ -275,11 +275,12 @@ class UserController extends Controller
           $user->introduction = $request->personal_description;
           
           //$user->experience()->attach($skills_experince);
+          
          
           $user->street_01 = $request->street;
           $user->street_02 = $request->house_number;
           $user->city_id = 1;
-          $user->areas_covering()->associate($user_subcategories);
+          $user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
           $user->save();
           Mail::send('mail.responseemail', compact('request'), function($message) use ($request)
