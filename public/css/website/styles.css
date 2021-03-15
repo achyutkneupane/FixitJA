@@ -94,7 +94,7 @@ body {
   line-height: 1.5;
   color: #69707a;
   text-align: left;
-  background-color: #fff;
+  /* background-color: #fff; */
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -18646,7 +18646,7 @@ body {
 }
 
 .overlay-primary:before {
-  background-color: #0061f2 !important;
+  background-color: #483d8b !important;
 }
 
 .overlay-secondary:before {

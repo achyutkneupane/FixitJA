@@ -1,29 +1,26 @@
 {{-- Author: Achyut Neupane --}}
 @extends('layouts.app')
 @section('content')
+    @php
+    $page_title = 'Category';
+    $subhead_button = [['class' => 'primary', 'target' => '#addCategoryModal', 'text' => 'New Category']];
+    @endphp
+
+    @if ($categories->count() == 0)
+        @php
+            $page_description = 'No categories';
+        @endphp
+    @elseif ($categories->count() == 1)
+        @php
+            $page_description = '1 category';
+        @endphp
+    @else
+        @php
+            $page_description = $categories->count() . ' categories';
+        @endphp
+
+    @endif
     <div class="card card-custom">
-        <div class="card-header flex-wrap border-0 pt-6 pb-0">
-            <div class="card-title">
-                <h3 class="card-label">
-                    Category
-                    <div class="text-muted pt-2 font-size-sm">
-                        @if ($categories->count() == 0)
-                            No categories
-                        @elseif ($categories->count() == 1)
-                            1 category
-                        @else
-                            {{ $categories->count() }} categories
-                        @endif
-                    </div>
-                </h3>
-            </div>
-            <div class="card-toolbar">
-                <button href="#" class="btn btn-primary font-weight-bolder" data-toggle="modal"
-                    data-target="#addCategoryModal">
-                    <span class="svg-icon svg-icon-md">
-                    </span>New Category</a>
-            </div>
-        </div>
         <div class="card-body">
             <div class="list-group">
                 @if ($categories->count() == 0)
@@ -42,8 +39,7 @@
                                     data-target="#editModal{{ $cat->id }}">
                                     Edit
                                 </button>
-                                <a href="{{ url('/api/admin/delete_category', $cat->id) }}" type="button"
-                                    class="btn btn-danger">
+                                <a href="{{ url('/category/delete', $cat->id) }}" type="button" class="btn btn-danger">
                                     Delete
                                 </a>
                             </div>
@@ -71,12 +67,12 @@
                                                                 {{ $sub->description }}</small>
                                                         </li>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-3 py-5">
                                                         <button type="button" class="btn btn-success" data-toggle="modal"
                                                             data-target="#editSubCat{{ $sub->id }}">
                                                             Edit
                                                         </button>
-                                                        <a href="{{ url('/api/admin/delete_sub_category', $sub->id) }}"
+                                                        <a href="{{ url('/sub_category/delete', $sub->id) }}"
                                                             type="button" class="btn btn-danger">
                                                             Delete
                                                         </a>
@@ -96,9 +92,9 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body" style="height: 300px;">
-                                                                <form
-                                                                    action="{{ url('/api/admin/edit_sub_category', $sub->id) }}"
+                                                                <form action="{{ url('/sub_category/edit', $sub->id) }}"
                                                                     method="POST">
+                                                                    @csrf
                                                                     <input type="hidden" name="_method" value="PUT">
                                                                     <div class="form-group">
                                                                         <label for="name">Sub-Category Name</label>
@@ -139,7 +135,8 @@
                                         </button>
                                     </div>
                                     <div class="modal-body" style="height: 300px;">
-                                        <form action="{{ url('/api/admin/add_sub_category') }}" method="POST">
+                                        <form action="{{ url('/sub_category/add') }}" method="POST">
+                                            @csrf
                                             <input type="hidden" name="category_id" value="{{ $cat->id }}">
                                             <div class="form-group">
                                                 <label for="name">Sub-Category Name</label>
@@ -170,7 +167,8 @@
                                         </button>
                                     </div>
                                     <div class="modal-body" style="height: 300px;">
-                                        <form action="{{ url('/api/admin/edit_category', $cat->id) }}" method="POST">
+                                        <form action="{{ url('/category/edit', $cat->id) }}" method="POST">
+                                            @csrf
                                             <input type="hidden" name="_method" value="PUT">
                                             <div class="form-group">
                                                 <label for="name">Category Name</label>
@@ -201,7 +199,8 @@
                                 </button>
                             </div>
                             <div class="modal-body" style="height: 300px;">
-                                <form action="{{ url('/api/admin/add_category') }}" method="POST">
+                                <form action="{{ url('/category/add') }}" method="POST">
+                                    @csrf
                                     <div class="form-group">
                                         <label for="name">Category Name</label>
                                         <input type="text" name="name" class="form-control" id="name"

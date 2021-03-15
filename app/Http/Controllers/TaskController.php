@@ -4,8 +4,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogHelper;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Exception;
+use Throwable;
 
 class TaskController extends Controller
 {
@@ -88,12 +91,22 @@ class TaskController extends Controller
     }
     public function assignedBy($id)
     {
-        $task = Task::find($id);
-        return view('admin.task.assignedBy', compact('task'));
+        try {
+            $task = Task::find($id);
+            return view('admin.task.assignedBy', compact('task'));
+        } catch (Throwable $e) {
+            LogHelper::store('Category', $e);
+            return redirect()->route('listTask');
+        }
     }
     public function assignedTo($id)
     {
-        $task = Task::find($id);
-        return view('admin.task.assignedTo', compact('task'));
+        try {
+            $task = Task::find($id);
+            return view('admin.task.assignedTo', compact('task'));
+        } catch (Exception $e) {
+            LogHelper::store('Category', $e);
+            return redirect()->route('listTask');
+        }
     }
 }

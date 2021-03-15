@@ -16,13 +16,25 @@ class CreateSubCategoriesTable extends Migration
     {
         Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
-            $table->text('description');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('status')->default('active');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('CASCADE');
         });
+
+        Schema::create('subcategory_user', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('sub_category_id');
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories');
+        });
+
     }
 
     /**

@@ -15,18 +15,43 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $user = User::create([
             'name' => 'Admin',
-            'email' => 'info@kumberland.com',
-            'phone' => '+9779860323771',
             'companyname' => 'Kumberland Inc.',
+            'website' => 'https://www.kumberland.com',
             'city_id' => '7',
             'password' => Hash::make('Kumberland@123'),
             'email_verified_at' => now(),
             'verification_code' => sha1(time()),
             'status' => 'active',
             'type' => 'admin'
-
+        ]);
+        $user->emails()->create([
+            'email' => 'info@kumberland.com',
+            'primary' => true
+        ]);
+        $user->phones()->create([
+            'phone' => '+9779860323771',
+            'primary' => true
+        ]);
+        $user = User::create([
+            'name' => 'Achyut Neupane',
+            'companyname' => 'Kumberland Inc.',
+            'website' => 'https://www.kumberland.com',
+            'city_id' => '7',
+            'password' => Hash::make('Kumberland@123'),
+            'email_verified_at' => now(),
+            'verification_code' => sha1(time()),
+            'status' => 'active',
+            'type' => 'admin'
+        ]);
+        $user->emails()->create([
+            'email' => 'aneupane@kumberland.com',
+            'primary' => true
+        ]);
+        $user->phones()->create([
+            'phone' => '9860323771',
+            'primary' => true
         ]);
     }
 }

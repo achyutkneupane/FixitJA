@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Skill extends Model
+class TaskWorkingLocation extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
-    public function users()
+
+    public function task()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(Task::class);
     }
-    public function sub_categories()
+    public function city()
     {
-        return $this->belongsToMany(SubCategory::class);
+        return $this->belongsTo(City::class);
     }
 }
