@@ -72,8 +72,14 @@ class RegisterController extends Controller
             'companyname' => ['nullable', 'string'],
             'websitepersonal' => ['nullable'],
             'websitecompany' => ['nullable'],
-            'password' => ['min:6|required_with:cpassword|same:cpassword', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
-            'cpassword' => ['min:6', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
+            'password' => [  'required',
+                              'min:6',             
+                              'regex:/[A-Z]/',      
+                              'regex:/[0-9]/', 
+                              'confirmed'
+                             ]   
+                              
+         
 
         ]);
         $user = User::create([
@@ -88,6 +94,8 @@ class RegisterController extends Controller
             'email' => $request->email,
             'primary' => true
         ]);
+      
+      
         $user->phones()->create([
             'phone' => $request->phone,
             'primary' => true
