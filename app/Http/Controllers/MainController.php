@@ -66,7 +66,7 @@ class MainController extends Controller
     public function submitContact(Request $request){
         Mail::send('mail.contactMail', compact('request'), function($message) use ($request)
         {
-            $message->subject('Contact Us | FixitJA')->from($request->email,$request->name)->to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+            $message->subject('Contact Us | FixitJA')->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
         });
         ToastHelper::showToast('Email Sent Successfully');
         return redirect()->back();
@@ -76,6 +76,13 @@ class MainController extends Controller
         $page_title = 'FAQs';
         $page_description = 'This is frequently asked questions page';
         return view('pages.faqs', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
+
+    public function underConstruction()
+    {
+        $page_title = 'Under Construction';
+        $page_description = 'This is under construction page.';
+        return view('pages.underConstruction', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => false]);
     }
     public function createProject()
     {

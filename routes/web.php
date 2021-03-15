@@ -96,11 +96,13 @@ Route::prefix('/project/create')->group(function(){
 Route::get('/review', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReviews');
 Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferrals');
 Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
+
 Route::get('/resend_email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
 Route::get('/project/create/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'updateprofile1'])->name('createProjectWithCat');
 Route::get('/project/create/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'updateprofilewithSub'])->name('createProjectWithSub');
+
 //Route for viewing all categories
 Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
@@ -112,6 +114,10 @@ Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
 Route::post('/contact', [App\Http\Controllers\MainController::class, 'submitContact'])->name('submitContact');
 //Route for faqs page
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
+
+//Route for faqs page
+Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'underConstruction']);
+
 //Route for profile wizard
 Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->name('profileWizard');
 
