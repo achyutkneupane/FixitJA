@@ -19,16 +19,22 @@
         <div class="col-lg-8">
             <div class="card card-custom">
                 <div class="card-body">
-                    <form action="{{ route('putEditProfile') }}" method="POST">
+                    <form action="{{ route('putEditProfile') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Change Profile Picture:</label>
                         <div class="col-lg-9 col-xl-6">
                         <div class="editProfileImage mb-3">
-                            <img src="{{ !empty($user->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . $user->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}">
+                            <img src="{{ !empty($user->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . $user->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}" id="profilePicture">
                         </div>
-                            <input id="profile_image" type="file" accept=".jpg,.gif,.png" class="@error('profile_image') is-invalid @enderror" name="profile_image" value="@if($errors->any()){{{old('profile_image')}}} @endif">
+                            <input
+                                id="profile_image"
+                                type="file"
+                                accept=".jpg,.gif,.png,.jpeg"
+                                name="profile_image"
+                                onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])"
+                                />
                             @error('profile_image')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
