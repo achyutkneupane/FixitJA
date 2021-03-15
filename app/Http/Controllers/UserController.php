@@ -102,35 +102,30 @@ class UserController extends Controller
         $users = User::with('emails', 'phones')->get();
         return view('admin.profile.users', compact('users'));
     }
-<<<<<<< HEAD
-     public function updateprofile1($catId = NULL)
-=======
     public function updateprofile1()
-    {
-
-        return view('pages.createProfileWizard');
-    }
-
-
-
-    public function getprofileImage(Request $request)
->>>>>>> development
     {
         $document = Document::where('user_id', Auth::user()->id)->get();
         $category = Category::with('sub_categories')->get();
-        if($catId != NULL)
-            session()->flash('catId',$catId);
         return view('pages.createProfileWizard', compact('document', 'category'));
     }
+
+    // public function getprofileImage(Request $request)
+    // {
+    //     $document = Document::where('user_id', Auth::user()->id)->get();
+    //     $category = Category::with('sub_categories')->get();
+    //     if ($catId != NULL)
+    //         session()->flash('catId', $catId);
+    //     return view('pages.createProfileWizard', compact('document', 'category'));
+    // }
     public function updateprofilewithSub($subCatId = NULL)
-   {
-    $document = Document::where('user_id', Auth::user()->id)->get();
-    $category = Category::with('sub_categories')->get();
-    $subs = SubCategory::all();
-       if($subCatId != NULL)
-           session()->flash('subCatId',$subCatId);
-       return view('pages.createProfileWizard', compact('document', 'category','subs'));
-   }
+    {
+        $document = Document::where('user_id', Auth::user()->id)->get();
+        $category = Category::with('sub_categories')->get();
+        $subs = SubCategory::all();
+        if ($subCatId != NULL)
+            session()->flash('subCatId', $subCatId);
+        return view('pages.createProfileWizard', compact('document', 'category', 'subs'));
+    }
 
     public function uploadfile($file, $dir)
     {
@@ -141,7 +136,7 @@ class UserController extends Controller
 
     public function addprofiledetails(Request $request)
     {
-      
+
         try {
 
             $user  = new User();
@@ -244,7 +239,7 @@ class UserController extends Controller
             //$user->areas_covering = $skills->id;
             $user->experience = $request->expereince;
 
-            // logic for the radio button 
+            // logic for the radio button
             if ($request->police_report == "1") {
                 $user->is_police_record = 1;
             } elseif ($request->police_report == "0") {
@@ -256,7 +251,7 @@ class UserController extends Controller
             } elseif ($request->is_travelling == "0") {
                 $user->is_travelling = 0;
             }
-        
+
 
             /* Converting skills array */
             $skillArray = array();
@@ -300,11 +295,9 @@ class UserController extends Controller
                 $m->to(auth()->user()->email())->subject('Thank you for submitting your details');
             });
 
-          
-         
-            return redirect('/profile');
 
-    
+
+            return redirect('/profile');
         } catch (Throwable $e) {
 
             dd($e);
@@ -312,7 +305,7 @@ class UserController extends Controller
         }
     }
 
- public function security()
+    public function security()
     {
         $user = User::with('emails', 'phones')->find(Auth::user()->id);
         return view('admin.profile.security', compact('user'));
@@ -428,10 +421,10 @@ class UserController extends Controller
             $user->save();
             ToastHelper::showToast('Profile has been updated');
             return redirect()->route('viewProfile');
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             dd($e);
-            ToastHelper::showToast('Profile cannot be updated.','error');
-            LogHelper::store('User',$e);
+            ToastHelper::showToast('Profile cannot be updated.', 'error');
+            LogHelper::store('User', $e);
         }
     }
 
@@ -445,7 +438,7 @@ class UserController extends Controller
         return view('pages.editProfile', compact('user', 'cities'));
     }
 
-    public function putEditUserProfile(Request $request,$id)
+    public function putEditUserProfile(Request $request, $id)
     {
         $user = User::find($id);
         try {
@@ -471,72 +464,15 @@ class UserController extends Controller
             $user->is_police_record = $request->is_police_record;
             $user->save();
             ToastHelper::showToast('Profile has been updated');
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             dd($e);
-            ToastHelper::showToast('Profile cannot be updated.','error');
-            LogHelper::store('User',$e);
+            ToastHelper::showToast('Profile cannot be updated.', 'error');
+            LogHelper::store('User', $e);
         }
         return redirect()->route('viewProfile');
     }
-    public function emptyPage() {
+    public function emptyPage()
+    {
         return view('pages.emptyFile');
     }
 }
-
-
-          
-         
-
-     
-
-                    
-                   
-               
-        
-        
-
-           
-            
-
-          
-          
-
-
-
-            
-              
-
-           
-               
-            
-            
-           
-
-            
-            
-           
-
-            
-
-
-           
-            
-           
-           
-
-            
-           
-            
-
-          
-
-           
-
-           
-           
-           
-           
-           
-            
-
-   

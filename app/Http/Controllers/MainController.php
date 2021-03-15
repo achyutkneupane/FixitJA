@@ -27,10 +27,8 @@ class MainController extends Controller
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
-         $categories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
-
-
         //dd($documents->where('type','profile_picture')->where('id','12')->first());
+        $categories = Category::get(['id','name']);
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
         return view('pages.welcome', compact('page_title', 'page_description','categories'), ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
@@ -68,7 +66,7 @@ class MainController extends Controller
     public function submitContact(Request $request){
         Mail::send('mail.contactMail', compact('request'), function($message) use ($request)
         {
-            $message->subject('Contact Us | FixitJA')->from($request->email,$request->name)->to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+            $message->subject('Contact Us | FixitJA')->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
         });
         ToastHelper::showToast('Email Sent Successfully');
         return redirect()->back();
@@ -79,16 +77,20 @@ class MainController extends Controller
         $page_description = 'This is frequently asked questions page';
         return view('pages.faqs', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
     }
-    public function createProject($id = null)
+
+    public function underConstruction()
+    {
+        $page_title = 'Under Construction';
+        $page_description = 'This is under construction page.';
+        return view('pages.underConstruction', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => false]);
+    }
+    public function createProject()
     {
         $page_title = 'Create Project Wizard';
         $page_description = 'This is create project wizard page';
         $user = Auth::user();
-        
         $cats = Category::with('sub_categories')->get();
-        
-        
-       
+        $subs = SubCategory::all();
         $cities = City::get();
         if(!empty(auth()->user()))
             return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities','user'), ["show_sidebar" => false, "show_navbar" => true]);
@@ -101,7 +103,12 @@ class MainController extends Controller
             session()->flash('catId',$catId);
         return redirect()->route('createProject');
     }
-    public function createProjectwithSub($subCatId = NULL)
+    public function categoryRequest(Request $request)
+    {
+        session()->flash('catId',$request->catId);
+        return redirect()->route('createProject');
+    }
+    public function createProjectwithSub($subCatId)
     {
         if(!empty($subCatId))
             session()->flash('subCatId',$subCatId);

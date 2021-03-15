@@ -104,11 +104,7 @@ function bindSubCat(data, subcat) {
             {
                 tagifyTo.addTags([element]);
             }
-<<<<<<< HEAD
-    });
-=======
         });
->>>>>>> development
     }
 }
 
