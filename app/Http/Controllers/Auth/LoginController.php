@@ -73,6 +73,10 @@ class LoginController extends Controller
     }
     public function authenticate(Request $request)
     {
+        if(strlen($request->password) < 6) {
+            ToastHelper::showToast('Password is not correct.','error');
+            return redirect()->route('login');
+        }
         $user = $request->validate([
             'email'     => 'required',
             'password'  => 'required|min:6'
