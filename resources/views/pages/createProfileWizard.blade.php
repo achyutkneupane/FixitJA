@@ -665,10 +665,6 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
 
 
 <script src="{{ asset('js/custom/create-workingdays-tagify.js') }}" type="text/javascript"></script>
-<<<<<<< HEAD
-
-=======
->>>>>>> development
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
 <script>
