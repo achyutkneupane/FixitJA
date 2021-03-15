@@ -159,8 +159,16 @@ function AddCategoryProjectWizard() {
         else {
             project_wizard_footer.remove();
         }
-
-        cloneProjectWizardCategory.show();
+        jQuery.ajaxSetup({
+            beforeSend: function() {
+               $('.spinner-border').show();
+            },
+            complete: function(){
+               $('.spinner-border').hide();
+               $('#kt_form').show();
+            },
+            success: cloneProjectWizardCategory.show()
+          });
         $("#divProjectWizardCategory").append(cloneProjectWizardCategory);
         CategoryProjectWizardFV.addField("categoryTemplate" + projectWizardCount, skills_category_project_wizard);
         if (totalCategory > 2) {

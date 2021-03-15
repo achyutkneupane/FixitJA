@@ -22,6 +22,20 @@
                     <form action="{{ route('putEditProfile') }}" method="POST">
                         @csrf
                         @method('PUT')
+                        <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Change Profile Picture:</label>
+                        <div class="col-lg-9 col-xl-6">
+                        <div class="editProfileImage mb-3">
+                            <img src="{{ !empty($user->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . $user->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}">
+                        </div>
+                            <input id="profile_image" type="file" accept=".jpg,.gif,.png" class="@error('profile_image') is-invalid @enderror" name="profile_image" value="@if($errors->any()){{{old('profile_image')}}} @endif">
+                            @error('profile_image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Gender: </label>
                         <div class="col-lg-9 col-xl-6">
@@ -62,19 +76,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Experience: </label>
-                        <div class="col-lg-9 col-xl-6">
-                            <input class="form-control form-control-lg form-control-solid"
-                                   name="experience" value="{{ $user->experience }}" placeholder="Experience" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Website: </label>
                         <div class="col-lg-9 col-xl-6">
                             <input class="form-control form-control-lg form-control-solid" name="website" value="{{ $user->website }}" placeholder="Website">
                         </div>
                     </div>
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Is willing to travel to work?</label>
                         <div class="col-lg-9 col-xl-6">
                             <input type="hidden" name="is_travelling" value="0">
@@ -87,13 +94,13 @@
                             <input type="hidden" name="is_police_record" value="0">
                             <input type="checkbox" name="is_police_record"{{ $user->is_police_record ? ' checked' : '' }} value="1">
                         </div>
-                    </div>
-                        <div class="form-group row">
+                    </div> --}}
+                    <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label"></label>
                         <div class="col-lg-9 col-xl-6">
                             <input type="submit" name="submit" value="Edit" class="btn btn-primary">
                         </div>
-                        </div>
+                    </div>
                     </form>
                 </div>
             </div>
@@ -103,6 +110,14 @@
 
 @endsection
 
+@section('styles')
+<style>
+.editProfileImage img {
+    width: 150px;
+    height: 150px;
+}
+</style>
+@endsection
 {{-- Scripts Section --}}
 @section('scripts')
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
