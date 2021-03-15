@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
 
-   
+
     protected $fillable = [
         'name',
         'email',
@@ -34,8 +34,8 @@ class User extends Authenticatable
         'profile_image',
         'verification_code',
         'certificate',
-         'profile',
-         
+        'profile',
+
     ];
 
     /**
@@ -137,7 +137,7 @@ class User extends Authenticatable
     {
         switch ($this->status) {
             case 'new':
-                return ['name'=>'New','class'=>'info'];
+                return ['name' => 'New', 'class' => 'info'];
                 break;
             case 'active':
                 return ['name' => 'Active', 'class' => 'success'];
