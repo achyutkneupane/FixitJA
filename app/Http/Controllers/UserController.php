@@ -436,7 +436,6 @@ class UserController extends Controller
             ToastHelper::showToast('Profile has been updated');
             return redirect()->route('viewProfile');
         } catch (Throwable $e) {
-            dd($e);
             ToastHelper::showToast('Profile cannot be updated.', 'error');
             LogHelper::store('User', $e);
         }
