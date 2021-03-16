@@ -87,20 +87,49 @@
                             <input class="form-control form-control-lg form-control-solid" name="website" value="{{ $user->website }}" placeholder="Website">
                         </div>
                     </div>
-                    {{-- <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Is willing to travel to work?</label>
+                    @userIsContractor($user)
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Police report</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <input type="hidden" name="is_police_record" value="0">
+                            <input type="checkbox" name="is_police_record"{{ $user->is_police_record ? ' checked' : '' }} value="1">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Description</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <textarea class="form-control form-control-lg form-control-solid" name="introduction" placeholder="Description" rows="5">{{ $user->introduction }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Working hours per week</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <input class="form-control form-control-lg form-control-solid" name="hours" value="{{ $user->hours }}" placeholder="Working hours per week">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Working days:</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <input class="form-control form-control-lg form-control-solid" name="days" value="{{ $user->days }}">
+                            </input>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Willing to travel long distace</label>
                         <div class="col-lg-9 col-xl-6">
                             <input type="hidden" name="is_travelling" value="0">
                             <input type="checkbox" name="is_travelling"{{ $user->is_travelling ? ' checked' : '' }} value="1">
                         </div>
                     </div>
+                    @if ($user->is_travelling == 1)
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Has Police report?</label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">Distance willing to travel</label>
                         <div class="col-lg-9 col-xl-6">
-                            <input type="hidden" name="is_police_record" value="0">
-                            <input type="checkbox" name="is_police_record"{{ $user->is_police_record ? ' checked' : '' }} value="1">
+                            <input class="form-control form-control-lg form-control-solid" name="areas_covering" value="{{ $user->areas_covering }}" placeholder="Distance willing to travel">
                         </div>
-                    </div> --}}
+                    </div>
+                    @endif
+                    @enduserIsContractor
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label"></label>
                         <div class="col-lg-9 col-xl-6">

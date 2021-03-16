@@ -404,6 +404,10 @@ class UserController extends Controller
             $user->website = $request->website;
             $user->is_travelling = $request->is_travelling;
             $user->is_police_record = $request->is_police_record;
+            $user->introduction = $request->introduction;
+            $user->hours = $request->hours;
+            $user->days = $request->days;
+            $user->areas_covering = $request->areas_covering;
             if (request('profile_image')) {
                 $tempPath = "";
                 $document = new Document();
