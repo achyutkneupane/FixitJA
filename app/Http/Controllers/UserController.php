@@ -361,6 +361,12 @@ class UserController extends Controller
         $user->status = $request->status;
         $user->save();
         ToastHelper::showToast('User Status Changed.');
+        Mail::send('mail.changeStatus', ['user'=>$user,'status' => $request->status], function ($m) use ($user) {
+            $m->to($user->email())->subject('User Status Changed');
+        });
+        if($user->id == auth()->id() && ($request->status == 'deactivated' || $request->status == 'deleted')) {
+            auth()->logout();
+        }
         return redirect()->back();
     }
 
