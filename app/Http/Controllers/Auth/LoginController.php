@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\ToastHelper;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -9,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -50,6 +52,10 @@ class LoginController extends Controller
     }
     public function authenticate(Request $request)
     {
+        if(strlen($request->password) < 6) {
+            ToastHelper::showToast('Password is not correct.','error');
+            return redirect()->route('login');
+        }
         $user = $request->validate([
             'email'     => 'required',
             'password'  => 'required|min:6'
@@ -57,8 +63,20 @@ class LoginController extends Controller
         $user = User::join('emails', 'email', 'emails.email')
             ->where('email', $request->input('email'))
             ->first();
-        Auth::login($user);
-        return redirect()->route('home');
+        if($user) {
+            if(Hash::check($request->password, $user->password)) {
+                Auth::login($user);
+                return redirect()->route('home');
+            }
+            else {
+                ToastHelper::showToast('Password is not correct.','error');
+                return redirect()->route('login');
+            }
+        }
+        else {
+            ToastHelper::showToast('Email doesnot exist. Please recheck.','error');
+            return redirect()->route('login');
+        }
     }
     public function logout(Request $request)
     {
