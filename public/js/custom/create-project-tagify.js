@@ -92,12 +92,20 @@ function bindSubCat(data, subcat) {
             tagData.class = 'tagify__tag tagify__tag--primary';
         },
         dropdown: {
+            searchKeys:['value','description'],
             classname: "color-blue",
             enabled: 0,
             maxItems: 5
         }
     });
-
+    if(sessionSubCatId) {
+        data.forEach((element,index) => {
+            if(element.id === sessionSubCatId)
+            {
+                tagifyTo.addTags([element]);
+            }
+        });
+    }
 }
 
 //Adding more category
@@ -151,8 +159,16 @@ function AddCategoryProjectWizard() {
         else {
             project_wizard_footer.remove();
         }
-
-        cloneProjectWizardCategory.show();
+        jQuery.ajaxSetup({
+            beforeSend: function() {
+               $('.spinner-border').show();
+            },
+            complete: function(){
+               $('.spinner-border').hide();
+               $('#kt_form').show();
+            },
+            success: cloneProjectWizardCategory.show()
+          });
         $("#divProjectWizardCategory").append(cloneProjectWizardCategory);
         CategoryProjectWizardFV.addField("categoryTemplate" + projectWizardCount, skills_category_project_wizard);
         if (totalCategory > 2) {
@@ -171,6 +187,12 @@ function AddCategoryProjectWizard() {
             }
         });
     }
+    if(sessionCatId != 'NULL') {
+        $("#categorySelect1").val(sessionCatId).change();
+    }
+    else if(sessionSubCatId) {
+        $("#categorySelect1").val(sessionsubCatCatId).change();
+    }
 }
 
 //Removing added category
@@ -188,7 +210,6 @@ $(document).on("click", ".remove-accordian-project-wizard", function (e) {
 
     selectedCategoryData['categorySelect' + $(this).attr('count-value')] = "-1";
     updateAllCategorySelect();
-
     $("#totalCatList").val($("#totalCatList").val().replace('{"fieldId": "' + $(this).attr('count-value') + '"},', ''));
 })
 

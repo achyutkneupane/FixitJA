@@ -20,6 +20,7 @@
                 {{-- Show Skills --}}
 
                 <div class="card-body row">
+                @if($subCats->count() > 0)
                     @foreach ($subCats as $subCat)
                         <div class="col-sm-6 card card-custom gutter-b">
                             <div class="card-header">
@@ -38,6 +39,20 @@
                             </div>
                         </div>
                     @endforeach
+                @else
+                <div class="col-sm-6 card card-custom gutter-b">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h3 class="card-label">
+                                User Skills
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {{ $user->name }} has no skills.
+                    </div>
+                </div>
+                @endif
                 </div>
             </div>
         </div>

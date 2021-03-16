@@ -4,6 +4,7 @@
 //Initialize validator for dynamic changes
 var CategoryFV;
 var CertificateFV;
+var ReferencFv;
 const skills_category = {
     validators: {
         notEmpty: {
@@ -15,7 +16,11 @@ const skills_category = {
 const sub_categories = {
     validators: {
         notEmpty: {
-            message: 'Sub-category is required'
+            message: 'Sub-category is required',
+            callback: function(input) {
+									$("#skill").text(input.value);
+									return !!input.value;
+								},
         }
     }
 }
@@ -23,7 +28,12 @@ const sub_categories = {
 const experienceValidator = {
     validators: {
         notEmpty: {
-            message: 'Experience is required'
+            message: 'Experience is required',
+             callback: function(input) {
+									$("#experience").text(input.value);
+									return !!input.value;
+								},
+
         },
         digits: {
             message: 'Value must be numeric and cannot contain decimal'
@@ -33,13 +43,42 @@ const experienceValidator = {
 const certificateValidator = {
     validators: {
         notEmpty: {
-            message: 'Certificate is required'
+            message: 'Certificate is required',
+             callback: function(input) {
+									$("#certificate").text(input.value);
+									return !!input.value;
+								},
+
         },
         file: {
             extension: 'jpeg,jpg,png,pdf,doc,docx',
             type: 'image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             maxSize: 4194304,   // 4096 * 1024
             message: 'The selected file is not valid or exceeded the size limit.'
+        }
+    }
+}
+
+const referal_name = {
+    validators: {
+        notEmpty:{
+            message: 'Referable Name is required'
+        }
+    }
+}
+
+const referal_email = {
+    validators: {
+        notEmpty:{
+            message: 'Referable Email is required'
+        }
+    }
+}
+
+const referal_phone = {
+    validators:{
+        notEmpty:{
+            message: 'Referable phone is required'
         }
     }
 }
@@ -71,7 +110,10 @@ var KTWizard1 = function () {
                     bootstrap: new FormValidation.plugins.Bootstrap({
                         //eleInvalidClass: '',
                         eleValidClass: '',
-                    })
+                    }),
+                    alias: new FormValidation.plugins.Alias({
+						 notEmpty: 'callback',
+					}),
                 }
             }
         );
@@ -89,7 +131,10 @@ var KTWizard1 = function () {
                     bootstrap: new FormValidation.plugins.Bootstrap({
                         //eleInvalidClass: '',
                         eleValidClass: '',
-                    })
+                    }),
+                      alias: new FormValidation.plugins.Alias({
+						 notEmpty: 'callback',
+					}),
                 }
             }
         );
@@ -103,24 +148,49 @@ var KTWizard1 = function () {
                     educationinstutional_name: {
                         validators: {
                             notEmpty: {
-                                message: 'Educationinstutional Name is required'
+                                message: 'Educationinstutional Name is required',
+                                callback: function(input) {
+									$("#educationname").text(input.value);
+									return !!input.value;
+								},
+
                             }
                         }
                     },
                     degree: {
                         validators: {
                             notEmpty: {
-                                message: 'Degree type is required'
+                                message: 'Degree type is required',
+                                callback: function(input) {
+									$("#educationdegree").text(input.value);
+									return !!input.value;
+								},
                             }
                         }
                     },
-                    gpa: {
+                    start_date: {
                         validators: {
                             notEmpty: {
-                                message: 'Gpa is required'
+                                message: 'Start Date is required',
+                                callback: function(input) {
+									$("#educationstartdate").text(input.value);
+									return !!input.value;
+								},
                             }
                         }
-                    }
+                    },
+                      end_date: {
+                        validators: {
+                            notEmpty: {
+                                message: 'End Date is required',
+                                callback: function(input) {
+									$("#educationenddate").text(input.value);
+									return !!input.value;
+								},
+                            }
+                        }
+                    },
+                   
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -128,51 +198,22 @@ var KTWizard1 = function () {
                     bootstrap: new FormValidation.plugins.Bootstrap({
                         //eleInvalidClass: '',
                         eleValidClass: '',
-                    })
+                    }),
+                     alias: new FormValidation.plugins.Alias({
+						 notEmpty: 'callback',
+					}),
                 }
             }
         ));
 
         // Step 4
-        _validations.push(FormValidation.formValidation(
+        ReferencFv = FormValidation.formValidation(
             _formEl,
             {
-                fields: {
-                    personal_description: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Personal descrption is required'
-                            }
-                        }
-                    },
-                    hours: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Hours is required'
-                            }
-                        }
-                    },
-                    loccity: {
-                        validators: {
-                            notEmpty: {
-                                message: 'City is required'
-                            }
-                        }
-                    },
-                    locstate: {
-                        validators: {
-                            notEmpty: {
-                                message: 'State is required'
-                            }
-                        }
-                    },
-                    loccountry: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Country is required'
-                            }
-                        }
-                    }
+             fields: {
+                 'referal_name': referal_name,
+                 'referal_email': referal_email,
+                 'referal_phone' : referal_phone,
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -180,10 +221,16 @@ var KTWizard1 = function () {
                     bootstrap: new FormValidation.plugins.Bootstrap({
                         //eleInvalidClass: '',
                         eleValidClass: '',
-                    })
+                    }),
+                     alias: new FormValidation.plugins.Alias({
+						 notEmpty: 'callback',
+					}),
                 }
             }
-        ))
+        );
+        _validations.push(ReferencFv);
+
+        /* step 5 */
         _validations.push(FormValidation.formValidation(
             _formEl,
             {
@@ -191,38 +238,78 @@ var KTWizard1 = function () {
                     personal_description: {
                         validators: {
                             notEmpty: {
-                                message: 'Personal descrption is required'
+                                message: 'Personal description is required',
+                                callback: function(input) {
+									$("#description").text(input.value);
+									return !!input.value;
+								},
                             }
                         }
                     },
                     hours: {
                         validators: {
                             notEmpty: {
-                                message: 'Hours is required'
+                                message: 'Hours is required',
+                                callback: function(input) {
+									$("#hours").text(input.value);
+									return !!input.value;
+								},
                             }
                         }
                     },
-                    loccity: {
-                        validators: {
+                    police_report:{
+                         validators: {
                             notEmpty: {
-                                message: 'City is required'
+                                
+                                callback: function(input) {
+									$("#policereport").text(input.value);
+									return !!input.value;
+								},
                             }
                         }
+
                     },
-                    locstate: {
-                        validators: {
+
+                      is_travelling:{
+                         validators: {
                             notEmpty: {
-                                message: 'State is required'
+                                
+                                callback: function(input) {
+									$("#istravelling").text(input.value);
+									return !!input.value;
+								},
                             }
                         }
+
                     },
-                    loccountry: {
-                        validators: {
+                    totaldistance:{
+                         validators: {
                             notEmpty: {
-                                message: 'Country is required'
+                                
+                                callback: function(input) {
+									$("#totaldistance").text(input.value);
+									return !!input.value;
+								},
                             }
                         }
-                    }
+
+                    },
+                      working_days:{
+                         validators: {
+                            notEmpty: {
+                                
+                                callback: function(input) {
+									$("#workingdays").text(input.value);
+									return !!input.value;
+								},
+                            }
+                        }
+
+                    },
+
+                    
+                  
+                   
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -230,12 +317,47 @@ var KTWizard1 = function () {
                     bootstrap: new FormValidation.plugins.Bootstrap({
                         //eleInvalidClass: '',
                         eleValidClass: '',
-                    })
+                    }),
+                     alias: new FormValidation.plugins.Alias({
+						 notEmpty: 'callback',
+					}),
                 }
             }
         ));
 
-        // step 5
+        //step 6
+        _validations.push(FormValidation.formValidation(
+            _formEl,
+            {
+                fields: {
+                    profile: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Profile image is required'
+                            }
+                        }
+                    },
+                  
+                    
+                  
+                   
+                },
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    // Bootstrap Framework Integration
+                    bootstrap: new FormValidation.plugins.Bootstrap({
+                        //eleInvalidClass: '',
+                        eleValidClass: '',
+                    }), alias: new FormValidation.plugins.Alias({
+						 notEmpty: 'callback',
+					}),
+                }
+            }
+        ));
+
+      
+
+        // step 7
         _validations.push(FormValidation.formValidation(
             _formEl,
             {
@@ -243,31 +365,38 @@ var KTWizard1 = function () {
                     street: {
                         validators: {
                             notEmpty: {
-                                message: 'Street is required'
+                                message: 'Street is required',
+                                callback: function(input) {
+									$("#workingStreet1Id").text(input.value);
+									return !!input.value;
+								},
                             }
                         }
                     },
+                        parishes: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Parishes is required',
+                                callback: function(input) {
+									$("#workingPerishId").text(input.value);
+									return !!input.value;
+								},
+                            }
+                        }
+                    },
+                    
                     City: {
                         validators: {
                             notEmpty: {
-                                message: 'Postcode is required'
+                                message: 'City is required',
+                                callback: function(input) {
+									$("#workingCityId").text(input.value);
+									return !!input.value;
+								},
                             }
                         }
                     },
-                    City: {
-                        validators: {
-                            notEmpty: {
-                                message: 'City is required'
-                            }
-                        }
-                    },
-                    locstate: {
-                        validators: {
-                            notEmpty: {
-                                message: 'State is required'
-                            }
-                        }
-                    },
+                    
                     loccountry: {
                         validators: {
                             notEmpty: {
@@ -282,61 +411,15 @@ var KTWizard1 = function () {
                     bootstrap: new FormValidation.plugins.Bootstrap({
                         //eleInvalidClass: '',
                         eleValidClass: '',
-                    })
+                    }), 
+                    alias: new FormValidation.plugins.Alias({
+						 notEmpty: 'callback',
+					}),
                 }
             }
         ));
-        //step 6
-        _validations.push(FormValidation.formValidation(
-            _formEl,
-            {
-                fields: {
-                    locaddress1: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Address is required'
-                            }
-                        }
-                    },
-                    locpostcode: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Postcode is required'
-                            }
-                        }
-                    },
-                    loccity: {
-                        validators: {
-                            notEmpty: {
-                                message: 'City is required'
-                            }
-                        }
-                    },
-                    locstate: {
-                        validators: {
-                            notEmpty: {
-                                message: 'State is required'
-                            }
-                        }
-                    },
-                    loccountry: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Country is required'
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    trigger: new FormValidation.plugins.Trigger(),
-                    // Bootstrap Framework Integration
-                    bootstrap: new FormValidation.plugins.Bootstrap({
-                        //eleInvalidClass: '',
-                        eleValidClass: '',
-                    })
-                }
-            }
-        ));
+        
+      
     }
 
     var _initWizard = function () {

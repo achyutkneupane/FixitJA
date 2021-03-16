@@ -66,22 +66,6 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Company Name: </label>
-                        <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">
-                                {!! !empty($user->companyname) ? $user->companyname : "<span class='text-muted'>N/A</span>" !!}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Experience: </label>
-                        <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">
-                                {!! !empty($user->experience) ? $user->experience : "<span class='text-muted'>N/A</span>" !!}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Website: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span class="form-control form-control-lg form-control-solid">
@@ -89,20 +73,9 @@
                             </span>
                         </div>
                     </div>
+                    @userIsContractor($user)
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Is willing to travel to work?</label>
-                        <div class="col-lg-9 col-xl-6">
-                            <span class="form-control form-control-lg form-control-solid">
-                                @if ($user->is_travelling == 1)
-                                    Yes
-                                @else
-                                    No
-                                @endif
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Has Police report?</label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">Police report</label>
                         <div class="col-lg-9 col-xl-6">
                             <span class="form-control form-control-lg form-control-solid">
                                 @if ($user->is_police_record == 1)
@@ -113,6 +86,53 @@
                             </span>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Description</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! $user->introduction ? $user->introduction : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Working hours per week</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! $user->hours ? $user->hours : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Working days:</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! $user->days ? $user->days : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Willing to travel long distace</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                @if ($user->is_travelling == 1)
+                                    Yes
+                                @else
+                                    No
+                                @endif
+                            </span>
+                        </div>
+                    </div>
+                    @if ($user->is_travelling == 1)
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Distance willing to travel</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! $user->areas_covering ? $user->areas_covering : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    @endif
+                    @enduserIsContractor
                 </div>
             </div>
         </div>

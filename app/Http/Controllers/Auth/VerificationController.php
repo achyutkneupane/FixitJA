@@ -55,11 +55,11 @@ class VerificationController extends Controller
             return redirect()->route('home');
         }
     }
-    public function resendVerifyEmail($email)
+    public function resendVerifyEmail()
     {
-        $user = User::find(Auth::user()->id);
+        $user = auth()->user();
         if ($user != null) {
-            MailController::sendVerifyEmail($user->name, $email, $user->verification_code);
+            MailController::sendVerifyEmail($user->name, $user->email(), $user->verification_code);
             ToastHelper::showToast('Verification email sent successfully.');
             return redirect()->route('home');
         }
@@ -69,10 +69,10 @@ class VerificationController extends Controller
     {
         $user = User::where(['verification_code' => $verification_code])->first();
         $checkEmail = Email::where(['user_id' => $user->id, 'email' => $email])->first();
-        if (!empty($checkEmail)) {
-            ToastHelper::showToast('Email not matched with account', 'error');
+        if (empty($checkEmail)) {
+            ToastHelper::showToast('Email not matched with account.', 'error');
+            return auth()->check() ? redirect()->route('home') : redirect()->route('login');
         } elseif ($user != null) {
-            $user->status = 'active';
             $user->email_verified_at =  Carbon::now();
             $user->save();
             foreach ($user->emails()->get() as $email) {

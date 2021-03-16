@@ -36,27 +36,6 @@ class LoginController extends Controller
 
         $type = Auth::user()->type;
 
-        /*switch(Auth::user()-> type){
-              case  'admin':
-                 $this-> redirectTo = '/admin';
-                  return  $this-> redirectTo;
-                  break;
-              case 'general_user' :
-                  $this-> redirectTo = '/generaluser';
-                  return  $this-> redirectTo;
-                   break;
-              case  'business':
-                  $this-> redirectTo = '/business';
-                  return  $this->$redirectTo;
-                   break;
-              case  'individual_contractor':
-                $this-> redirectTo = '/individualcontractor';
-                return  $this-> redirectTo;
-                break;
-               default:
-                $this->redirectTo = '/login';
-                return $this->redirectTo;*/
-
         if ($type == 'admin') {
             return '/home';
         } elseif ($type == 'general_user') {

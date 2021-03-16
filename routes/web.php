@@ -1,11 +1,5 @@
 <?php
 
-use App\Http\Controllers\GeneralUserController;
-use App\Http\Controllers\IndividualContractorController;
-use App\Http\Controllers\BusinessController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
-Auth::routes(['verify' => true]);
+Auth::routes([
+    'verify' => true
+    ]);
 Route::get('verify/{verification_code}/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyUser']);
 Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
 Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('forget-password');
@@ -37,58 +33,101 @@ Route::get('/login', function () {
     return view('auth.login');
 })->middleware('guest')->name('login');
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'authenticate'])->middleware('guest')->name('authenticate');
-Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
-Route::post('/category/add', [App\Http\Controllers\CategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');
-Route::get('/categories/proposed', [App\Http\Controllers\CategoryController::class, 'proposed'])->middleware('auth', 'checkIfAdmin')->name('proposedCategory');
-Route::put('/category/edit/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
-Route::get('/category/delete/{id}', [App\Http\Controllers\CategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
-Route::post('/sub_category/add', [App\Http\Controllers\SubCategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');
-Route::put('/sub_category/edit/{id}', [App\Http\Controllers\SubCategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
-Route::get('/sub_category/delete/{id}', [App\Http\Controllers\SubCategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
+Route::prefix('/category')->group(function () {
+    Route::post('/add', [App\Http\Controllers\CategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');
+    Route::put('/edit/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
+    Route::get('/delete/{id}', [App\Http\Controllers\CategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
+});
+Route::prefix('/categories')->group(function () {
+    Route::get('/', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
+    Route::get('/all', [App\Http\Controllers\MainController::class, 'categories']);
+    Route::get('/proposed', [App\Http\Controllers\CategoryController::class, 'proposed'])->middleware('auth', 'checkIfAdmin')->name('proposedCategory');
+});
+Route::prefix('/sub_category')->group(function () {
+    Route::post('/add', [App\Http\Controllers\SubCategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');
+    Route::put('/edit/{id}', [App\Http\Controllers\SubCategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
+    Route::get('/delete/{id}', [App\Http\Controllers\SubCategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
+});
 Route::get('/tasks', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
-Route::get('/task/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
-Route::get('/task/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth')->name('taskAssignedBy');
-Route::get('/task/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth')->name('taskAssignedTo');
-Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
-Route::get('/profile/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->middleware('auth')->name('editProfile');
-Route::get('/user/{id}/edit', [App\Http\Controllers\UserController::class, 'editUserProfile'])->middleware('auth')->name('editUserProfile');
-Route::get('/profile/skills', [App\Http\Controllers\UserController::class, 'profileSkills'])->middleware('auth')->name('profileSkills');
-Route::get('/user/{id}/skills', [App\Http\Controllers\UserController::class, 'userSkills'])->middleware('auth')->name('userSkills');
-Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
+Route::prefix('/task')->group(function () {
+    Route::get('/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
+    Route::get('/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth')->name('taskAssignedBy');
+    Route::get('/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth')->name('taskAssignedTo');
+});
+Route::prefix('/profile')->group(function () {
+    Route::get('/', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
+    Route::get('/documents', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewDocuments');
+    Route::get('/education', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewEducations');
+    Route::get('/reference', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferences');
+    Route::get('/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->middleware('auth')->name('editProfile');
+    Route::put('/edit', [App\Http\Controllers\UserController::class, 'putEditProfile'])->middleware('auth')->name('putEditProfile');
+    Route::get('/skills', [App\Http\Controllers\UserController::class, 'profileSkills'])->middleware('auth')->name('profileSkills');
+});
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
-Route::get('/error_log', [App\Http\Controllers\AdminController::class, 'error_log'])->middleware('auth', 'checkIfAdmin')->name('viewErrorLog');
-Route::get('/error_{id}', [App\Http\Controllers\AdminController::class, 'error_detail'])->middleware('auth', 'checkIfAdmin')->name('viewErrorDetail');
-Route::put('/error_{id}/solved', [App\Http\Controllers\AdminController::class, 'error_solved'])->middleware('auth', 'checkIfAdmin')->name('errorSolved');
-Route::get('/security', [App\Http\Controllers\UserController::class, 'security'])->middleware('auth')->name('accountSecurity');
-Route::put('/security', [App\Http\Controllers\UserController::class, 'changePassword'])->middleware('auth')->name('changePassword');
-Route::put('/security/change_status', [App\Http\Controllers\UserController::class, 'changeStatus'])->middleware('auth', 'checkIfAdmin')->name('changeStatus');
-Route::put('/security/add_email', [App\Http\Controllers\UserController::class, 'addEmail'])->middleware('auth')->name('addEmail');
-Route::get('/security/deactivate', [App\Http\Controllers\UserController::class, 'deactivateUser'])->middleware('auth')->name('deactivateUser');
-Route::get('/security/delete', [App\Http\Controllers\UserController::class, 'deleteUser'])->middleware('auth')->name('deleteUser');
-Route::get('/security/{id}', [App\Http\Controllers\UserController::class, 'viewSecurity'])->middleware('auth', 'checkIfAdmin')->name('viewAccountSecurity');
-Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
-Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
+Route::prefix('/user/{id}')->group(function () {
+    Route::get('/', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
+    Route::get('/edit', [App\Http\Controllers\UserController::class, 'editUserProfile'])->middleware('auth')->name('editUserProfile');
+    Route::get('/skills', [App\Http\Controllers\UserController::class, 'userSkills'])->middleware('auth')->name('userSkills');
+    Route::get('/documents', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewUserDocuments');
+    Route::get('/education', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewUserEducations');
+    Route::get('/reference', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewUserReferences');
+});
+Route::prefix('/error_log')->group(function () {
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'error_log'])->middleware('auth', 'checkIfAdmin')->name('viewErrorLog');
+    Route::get('/{id}', [App\Http\Controllers\AdminController::class, 'error_detail'])->middleware('auth', 'checkIfAdmin')->name('viewErrorDetail');
+    Route::put('/{id}/solved', [App\Http\Controllers\AdminController::class, 'error_solved'])->middleware('auth', 'checkIfAdmin')->name('errorSolved');
+});
+Route::prefix('/security')->group(function () {
+    Route::get('/', [App\Http\Controllers\UserController::class, 'security'])->middleware('auth')->name('accountSecurity');
+    Route::put('/', [App\Http\Controllers\UserController::class, 'changePassword'])->middleware('auth')->name('changePassword');
+    Route::put('/change_status', [App\Http\Controllers\UserController::class, 'changeStatus'])->middleware('auth', 'checkIfAdmin')->name('changeStatus');
+    Route::put('/add_email', [App\Http\Controllers\UserController::class, 'addEmail'])->middleware('auth')->name('addEmail');
+    Route::get('/deactivate', [App\Http\Controllers\UserController::class, 'deactivateUser'])->middleware('auth')->name('deactivateUser');
+    Route::get('/delete', [App\Http\Controllers\UserController::class, 'deleteUser'])->middleware('auth')->name('deleteUser');
+    Route::get('/{id}', [App\Http\Controllers\UserController::class, 'viewSecurity'])->middleware('auth', 'checkIfAdmin')->name('viewAccountSecurity');
+});
+Route::prefix('/project/create')->group(function(){
+    Route::get('/', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
+    Route::get('/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProjectwithCat'])->name('createProjectWithCat');
+    Route::get('/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
+    Route::post('/', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
+    Route::post('/form', [App\Http\Controllers\MainController::class, 'categoryRequest'])->name('categoryRequest');
+});
+Route::get('/review', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReviews');
+Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferrals');
+Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
 
+Route::get('/resend_email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
+//Route for creating new project wizard
+Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
+Route::get('/project/create/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'updateprofile1'])->name('createProjectWithCat');
+Route::get('/project/create/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'updateprofilewithSub'])->name('createProjectWithSub');
+
+//Route for viewing all categories
+Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
+Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
 //Route for contact us page
 Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
+Route::post('/contact', [App\Http\Controllers\MainController::class, 'submitContact'])->name('submitContact');
 //Route for faqs page
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
+
+//Route for faqs page
+Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'underConstruction']);
+
 //Route for profile wizard
 Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->name('profileWizard');
-Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
+
+// Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
 
 
 
 Route::get('/profile/{id}', [App\Http\Controllers\CategoryController::class, 'getSubCategory']);
 Route::get('/category_data', [App\Http\Controllers\CategoryController::class, 'getCategory']);
-//Route for creating new project wizard
-Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
-//Route for viewing all categories
-Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 
 Route::get('/hello',  [App\Http\Controllers\CategoryController::class, 'getCategory']);
 //Route for the addding education qualification
