@@ -25,23 +25,30 @@
             </div>
             <!--end::User-->
             <!--begin::Contact-->
-            <div class="mb-10 text-center">
+            <div class="mb-5 text-center">
                 @if(!empty($user->facebook))
-                <a href="#" class="btn btn-icon btn-circle btn-light-facebook mr-2">
+                <a href="{{ $user->facebook }}" class="btn btn-icon btn-circle btn-light-facebook mr-2" target="_blank">
                     <i class="socicon-facebook"></i>
                 </a>
                 @endif
                 @if(!empty($user->twitter))
-                <a href="#" class="btn btn-icon btn-circle btn-light-twitter mr-2">
+                <a href="{{ $user->twitter }}" class="btn btn-icon btn-circle btn-light-twitter mr-2" target="_blank">
                     <i class="socicon-twitter"></i>
                 </a>
                 @endif
                 @if(!empty($user->instagram))
-                <a href="#" class="btn btn-icon btn-circle btn-light-instagram">
+                <a href="{{ $user->instagram }}" class="btn btn-icon btn-circle btn-light-instagram" target="_blank">
                     <i class="socicon-instagram"></i>
                 </a>
                 @endif
             </div>
+            @onlyForRespectiveUser($user->id)
+            <div class="mb-5 text-center">
+                <a href="#" class="font-weight-bold" data-toggle="modal" data-target="#changeSocialLinks">
+                    Change Links
+                </a>
+            </div>
+            @endonlyForRespectiveUser
             <!--end::Contact-->
             <!--begin::Nav-->
             <a href="{{ Auth::user()->id === $user->id ? route('viewProfile') : route('viewUser', $user->id) }}"
@@ -110,3 +117,46 @@
     </div>
 </div>
 @endisAdminOrUser
+
+@onlyForRespectiveUser($user->id)
+<div class="modal fade" id="changeSocialLinks" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeSocialLinks">Change Social Links</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <form action="{{ route('putEditProfile') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Facebook: </label>
+                        <div class="col-lg-9 col-xl-9">
+                            <input class="form-control form-control-lg form-control-solid" type="text" name="facebook" value="{{ $user->facebook }}" placeholder="Facebook Link">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Twitter: </label>
+                        <div class="col-lg-9 col-xl-9">
+                            <input class="form-control form-control-lg form-control-solid" type="text" name="twitter" value="{{ $user->twitter }}" placeholder="Twitter Link">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Instagram: </label>
+                        <div class="col-lg-9 col-xl-9">
+                            <input class="form-control form-control-lg form-control-solid" type="text" name="instagram" value="{{ $user->instagram }}" placeholder="Instagram Link">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-light-primary font-weight-bold" value="Change">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endonlyForRespectiveUser
