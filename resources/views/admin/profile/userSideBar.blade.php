@@ -25,17 +25,23 @@
             </div>
             <!--end::User-->
             <!--begin::Contact-->
-            {{-- <div class="mb-10 text-center">
+            <div class="mb-10 text-center">
+                @if(!empty($user->facebook))
                 <a href="#" class="btn btn-icon btn-circle btn-light-facebook mr-2">
                     <i class="socicon-facebook"></i>
                 </a>
+                @endif
+                @if(!empty($user->twitter))
                 <a href="#" class="btn btn-icon btn-circle btn-light-twitter mr-2">
                     <i class="socicon-twitter"></i>
                 </a>
-                <a href="#" class="btn btn-icon btn-circle btn-light-google">
-                    <i class="socicon-google"></i>
+                @endif
+                @if(!empty($user->instagram))
+                <a href="#" class="btn btn-icon btn-circle btn-light-instagram">
+                    <i class="socicon-instagram"></i>
                 </a>
-            </div> --}}
+                @endif
+            </div>
             <!--end::Contact-->
             <!--begin::Nav-->
             <a href="{{ Auth::user()->id === $user->id ? route('viewProfile') : route('viewUser', $user->id) }}"
