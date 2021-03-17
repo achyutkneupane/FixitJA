@@ -410,11 +410,6 @@ class UserController extends Controller
     {
         $user = User::find(auth()->id());
         try {
-            $request->validate([
-                'gender' => 'required',
-                'city_id' => 'required',
-                'street_01' => 'required',
-            ]);
             $user->gender = $request->gender;
             $user->city_id = $request->city_id;
             $user->street_01 = $request->street_01;
@@ -427,8 +422,11 @@ class UserController extends Controller
             $user->introduction = $request->introduction;
             $user->hours = $request->hours;
             $user->days = $request->days;
+            $user->facebook = $request->facebook;
+            $user->twitter = $request->twitter;
+            $user->instagram = $request->instagram;
             $user->areas_covering = $request->areas_covering;
-            if (request('profile_image')) {
+            if (request()->hasFile('profile_image')) {
                 $tempPath = "";
                 $document = new Document();
                 if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first())) {
@@ -444,13 +442,11 @@ class UserController extends Controller
             }
             else {
                 ToastHelper::showToast('Error with profile picture.','error');
-                return redirect()->back();
             }
             $user->save();
             ToastHelper::showToast('Profile has been updated');
             return redirect()->route('viewProfile');
         } catch (Throwable $e) {
-            dd($e);
             ToastHelper::showToast('Profile cannot be updated.', 'error');
             LogHelper::store('User', $e);
         }

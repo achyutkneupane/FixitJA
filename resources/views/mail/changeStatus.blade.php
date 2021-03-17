@@ -47,10 +47,28 @@
             FixitJA Team
         </div>
         @endif
-        @if($status == "deleted")
+        @elseif($status == "deleted")
         <div class="col-12">
             Hello {{ $user->name }},<br>
             Your account has been deleted from <a href="{{ asset('/') }}">FixitJA</a>.<br><br>
+            With Regards,<br>
+            FixitJA Team
+        </div>
+        @endif
+        @elseif($status == "suspended")
+        <div class="col-12">
+            Hello {{ $user->name }},<br>
+            Your account has been suspended from <a href="{{ asset('/') }}">FixitJA</a>.<br><br>
+            You can <a href="{{ asset('/') }}contact">Contact Us</a> if you think there was some mistakes.<br><br>
+            With Regards,<br>
+            FixitJA Team
+        </div>
+        @endif
+        @elseif($status == "blocked")
+        <div class="col-12">
+            Hello {{ $user->name }},<br>
+            Your account has been blocked from <a href="{{ asset('/') }}">FixitJA</a>.<br><br>
+            You can <a href="{{ asset('/') }}contact">Contact Us</a> if you think there was some mistakes.<br><br>
             With Regards,<br>
             FixitJA Team
         </div>
