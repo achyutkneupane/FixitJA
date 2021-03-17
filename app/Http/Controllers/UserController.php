@@ -175,7 +175,7 @@ class UserController extends Controller
                     Storage::delete($tempPath);
             };
 
-            //dd("hello");
+           
 
             /* for certificate*/
             $Certificate = "[".$request->totalCertificateList."]";
@@ -226,8 +226,7 @@ class UserController extends Controller
             $education_user->save();
 
 
-            //$user->areas_covering = $skills->id;
-            $user->experience = $request->expereince;
+          
 
             // logic for the radio button
             if ($request->police_report == "1") {
