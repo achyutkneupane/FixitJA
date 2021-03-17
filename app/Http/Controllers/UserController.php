@@ -9,6 +9,7 @@ use App\Models\City;
 use App\Models\Document;
 use App\Models\Education;
 use App\Models\EducationUser;
+use App\Models\Email;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -255,16 +256,24 @@ class UserController extends Controller
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
-          $user->subcategories()->attach($user_subcategories);
+          
           //$user->experience()->attach($skills_experince);
+          
          
           $user->street_01 = $request->street;
           $user->street_02 = $request->house_number;
           $user->city_id = 1;
+          $user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
           $user->save();
-          MailController::sendResponseEmail($user->name, $email, $user->verification_code, $request, $user_subcategories);
-          return redirect('/profile');
+          Mail::send('mail.responseemail', compact('request'), function($message) use ($request)
+            {
+                $message->to($request->email, $request->name)->subject('Profile Created');
+            });
+
+
+
+            return redirect('/profile');
         } catch (Throwable $e) {
             dd($e);
             return redirect()->route('profileWizard')->withInput();
@@ -335,7 +344,26 @@ class UserController extends Controller
         $user->status = $request->status;
         $user->save();
         ToastHelper::showToast('User Status Changed.');
+        Mail::send('mail.changeStatus', ['user'=>$user,'status' => $request->status], function ($m) use ($user) {
+            $m->to($user->email())->subject('User Status Changed');
+        });
+        if($user->id == auth()->id() && ($request->status == 'deactivated' || $request->status == 'deleted')) {
+            auth()->logout();
+        }
         return redirect()->back();
+    }
+    public function makePrimary($email)
+    {
+        $emails = auth()->user()->emails();
+        foreach($emails->get() as $e) {
+            $e->primary = FALSE;
+            $e->save();
+        }
+        $em = Email::where('email',$email)->first();
+        $em->primary = TRUE;
+        $em->save();
+        ToastHelper::showToast('Email '.$email.' set as primary email.');
+        return redirect()->route('accountSecurity');
     }
 
     public function profileSkills()
@@ -364,17 +392,6 @@ class UserController extends Controller
     {
         $user = User::find(auth()->id());
         try {
-            $request->validate([
-                'gender' => 'required',
-                'city_id' => 'required',
-                'street_01' => 'required',
-                'street_02' => '',
-                'companyname' => '',
-                'experience' => '',
-                'website' => '',
-                'is_travelling' => 'required',
-                'is_police_record' => 'required'
-            ]);
             $user->gender = $request->gender;
             $user->city_id = $request->city_id;
             $user->street_01 = $request->street_01;
@@ -384,11 +401,34 @@ class UserController extends Controller
             $user->website = $request->website;
             $user->is_travelling = $request->is_travelling;
             $user->is_police_record = $request->is_police_record;
+            $user->introduction = $request->introduction;
+            $user->hours = $request->hours;
+            $user->days = $request->days;
+            $user->facebook = $request->facebook;
+            $user->twitter = $request->twitter;
+            $user->instagram = $request->instagram;
+            $user->areas_covering = $request->areas_covering;
+            if (request()->hasFile('profile_image')) {
+                $tempPath = "";
+                $document = new Document();
+                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first())) {
+                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first();
+                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first()->path;
+                }
+                $document->path = request('profile_image')->store('userprofile');
+                $document->type = 'profile_picture';
+                $document->user()->associate($user->id);
+                $document->save();
+                if ($tempPath)
+                    Storage::delete($tempPath);
+            }
+            else {
+                ToastHelper::showToast('Error with profile picture.','error');
+            }
             $user->save();
             ToastHelper::showToast('Profile has been updated');
             return redirect()->route('viewProfile');
         } catch (Throwable $e) {
-            dd($e);
             ToastHelper::showToast('Profile cannot be updated.', 'error');
             LogHelper::store('User', $e);
         }

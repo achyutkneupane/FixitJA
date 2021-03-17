@@ -37,7 +37,9 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('subscription_id')->nullable();
             $table->enum('type', array('admin', 'individual_contractor', 'business', 'general_user'))->nullable();
             $table->enum('status', array('new','pending', 'reviewing', 'active', 'declined', 'suspended', 'blocked', 'deactivated', 'deleted'))->default('new');
-
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
             $table->string('verification_code');
 
             $table->rememberToken();

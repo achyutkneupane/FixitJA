@@ -77,14 +77,15 @@ Route::prefix('/error_log')->group(function () {
     Route::get('/{id}', [App\Http\Controllers\AdminController::class, 'error_detail'])->middleware('auth', 'checkIfAdmin')->name('viewErrorDetail');
     Route::put('/{id}/solved', [App\Http\Controllers\AdminController::class, 'error_solved'])->middleware('auth', 'checkIfAdmin')->name('errorSolved');
 });
-Route::prefix('/security')->group(function () {
-    Route::get('/', [App\Http\Controllers\UserController::class, 'security'])->middleware('auth')->name('accountSecurity');
-    Route::put('/', [App\Http\Controllers\UserController::class, 'changePassword'])->middleware('auth')->name('changePassword');
-    Route::put('/change_status', [App\Http\Controllers\UserController::class, 'changeStatus'])->middleware('auth', 'checkIfAdmin')->name('changeStatus');
-    Route::put('/add_email', [App\Http\Controllers\UserController::class, 'addEmail'])->middleware('auth')->name('addEmail');
-    Route::get('/deactivate', [App\Http\Controllers\UserController::class, 'deactivateUser'])->middleware('auth')->name('deactivateUser');
-    Route::get('/delete', [App\Http\Controllers\UserController::class, 'deleteUser'])->middleware('auth')->name('deleteUser');
-    Route::get('/{id}', [App\Http\Controllers\UserController::class, 'viewSecurity'])->middleware('auth', 'checkIfAdmin')->name('viewAccountSecurity');
+Route::prefix('/security')->middleware('auth')->group(function () {
+    Route::get('/', [App\Http\Controllers\UserController::class, 'security'])->name('accountSecurity');
+    Route::put('/', [App\Http\Controllers\UserController::class, 'changePassword'])->name('changePassword');
+    Route::get('/primary/{email}', [App\Http\Controllers\UserController::class, 'makePrimary'])->name('makePrimary');
+    Route::put('/change_status', [App\Http\Controllers\UserController::class, 'changeStatus'])->name('changeStatus');
+    Route::put('/add_email', [App\Http\Controllers\UserController::class, 'addEmail'])->name('addEmail');
+    Route::get('/deactivate', [App\Http\Controllers\UserController::class, 'deactivateUser'])->name('deactivateUser');
+    Route::get('/delete', [App\Http\Controllers\UserController::class, 'deleteUser'])->name('deleteUser');
+    Route::get('/{id}', [App\Http\Controllers\UserController::class, 'viewSecurity'])->middleware('checkIfAdmin')->name('viewAccountSecurity');
 });
 Route::prefix('/project/create')->group(function(){
     Route::get('/', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
@@ -96,8 +97,8 @@ Route::prefix('/project/create')->group(function(){
 Route::get('/review', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReviews');
 Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferrals');
 Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
-
 Route::get('/resend_email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
+Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyMultiEmail'])->name('verifyMultiEmail');
 //Route for creating new project wizard
 Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
 Route::get('/project/create/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'updateprofile1'])->name('createProjectWithCat');

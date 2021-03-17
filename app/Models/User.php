@@ -71,11 +71,11 @@ class User extends Authenticatable
     }
     public function subcategories()
     {
-        return $this->belongsToMany(SubCategory::class, 'subcategory_user', 'user_id', 'sub_category_id');
+        return $this->belongsToMany(SubCategory::class, 'subcategory_user', 'user_id', 'sub_category_id')->limit(2);
     }
     public function emails()
     {
-        return $this->hasMany(Email::class);
+        return $this->hasMany(Email::class)->orderBy('primary','DESC');
     }
     public function phones()
     {
@@ -83,7 +83,10 @@ class User extends Authenticatable
     }
     public function email()
     {
-        return User::find(auth()->id())->emails->where('primary', true)->first()->email;
+        if(!auth()->user()->emails->where('primary', true))
+            return auth()->user()->emails->where('primary', true)->first()->email;
+        else
+            return auth()->user()->emails->first()->email;
     }
     public function getEmail($id)
     {

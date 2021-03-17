@@ -82,12 +82,12 @@
         <span class="col-3">Name:</span> <span class="col-9">{{ $request->user_name }}</span>
         <span class="col-3">Email:</span> <span class="col-9">{{ $request->email }}</span>
         <span class="col-3">Phone:</span> <span class="col-9">{{ $request->phone }}</span>
+        <span class="col-3">Parish:</span> <span class="col-9">{{ $request->parish }}</span>
         <span class="col-3">City:</span> <span class="col-9">{{ $city1 }}</span>
         <span class="col-3">Street Address:</span> <span class="col-9">{{ $request->street_01 }}</span>
         {!! $request->street_02 ? '<span class="col-3"></span> <span class="col-9">' . $request->street_02 . '</span>' : '' !!}
         <span class="col-3">House Number or Unit:</span> <span class="col-9">{{ $request->house_number ? $request->house_number : 'N/A' }}</span>
         <span class="col-3">Postal Code:</span> <span class="col-9">{{ $request->postal_code ? $request->postal_code : '' }}</span>
-        <span class="col-3">Perish:</span> <span class="col-9">{{ $request->perish }}</span>
         <span class="col-3">Is Working Location same as User Location?</span> <span class="col-9">
             @if ($request->user_equal_working)
                 Yes
@@ -99,12 +99,12 @@
     @if(!$request->user_equal_working)
         <div class="row">
             <h4 class="col-12">Working Location:</h4><br>
+            <span class="col-3">Parish:</span> <span class="col-9">{{ $request->site_parish }}</span>
             <span class="col-3">City:</span> <span class="col-9">{{ $site_city }}</span>
             <span class="col-3">Street Address:</span> <span class="col-9">{{ $request->site_street_01 }}</span>
             {!! $request->site_street_02 ? '<span class="col-3"></span> <span class="col-9">' . $request->site_street_02 . '</span>' : '' !!}
             <span class="col-3">House Number or Unit:</span> <span class="col-9">{{ $request->site_house_number ? $request->site_house_number : 'N/A' }}</span>
             <span class="col-3">Postal Code:</span> <span class="col-9">{{ $request->site_postal_code ? $request->site_postal_code : '' }}</span>
-            <span class="col-3">Perish:</span> <span class="col-9">{{ $request->site_perish }}</span>
         </div>
     @endif
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\ToastHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Email;
 use App\Models\User;
@@ -45,7 +46,7 @@ class ResetPasswordController extends Controller
 
     public function getPassword($token)
     {
-
+        ToastHelper::showToast('Reset your password. Enter new password.');
         return view('auth.passwords.reset', ['token' => $token]);
     }
 
