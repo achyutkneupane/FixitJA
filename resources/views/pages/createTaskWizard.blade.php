@@ -150,7 +150,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                         <div id="divProjectWizardCategory">
 
                                         </div>
-                                        <input type="hidden" id="totalCatList" name="totalCatList">
+                                        <input type="hidden" id="totalProjectCatList" name="totalProjectCatList">
                                         <input type="button" class="mr-auto ml-2 btn btn-primary mt-5" value="Add More Category " id="subCategoryAddButtonProjectWizard">
                                     </div>
                                     <div class="mt-3 text-muted">Select multiple subcategories. If you don't see your option just create one.</div>
@@ -519,8 +519,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                             <span class="text-muted" id='userPostalCodeId'>N/A</span>
                                         </div>
                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Perish: </span>
-                                            <span class="text-muted" id='userPerishId'>N/A</span>
+                                            <span class="font-weight-bold">Parish: </span>
+                                            <span class="text-muted" id='userParishId'>N/A</span>
                                         </div>
                                         <div class="col-md-12">
                                             <span class="font-weight-bold">Working Location is same as User Location: </span>
@@ -551,8 +551,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                 <span class="text-muted" id='workingPostalCodeId'>N/A</span>
                                             </div>
                                             <div class="col-md-6">
-                                                <span class="font-weight-bold">Perish: </span>
-                                                <span class="text-muted" id='workingPerishId'>N/A</span>
+                                                <span class="font-weight-bold">Parish: </span>
+                                                <span class="text-muted" id='workingParishId'>N/A</span>
                                             </div>
                                         </div>
                                     </div>
