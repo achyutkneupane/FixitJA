@@ -120,7 +120,8 @@ function AddCategoryProjectWizard() {
         projectWizardCount++;
         const cloneProjectWizardCategory = $("#templateProjectWizardCategory").clone();
         cloneProjectWizardCategory.attr("id", "ProjectWizardCategory" + projectWizardCount);
-        $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "' + projectWizardCount + '"},');
+        if(projectWizardCount !== "")
+        $("#totalProjectCatList").val($("#totalProjectCatList").val() + '{"fieldId": "' + projectWizardCount + '"},');
 
         var categoryCard = cloneProjectWizardCategory.find("#subCategoryTemplate_selector");
         categoryCard.attr("id", "subCategory_selector" + projectWizardCount);
@@ -210,7 +211,7 @@ $(document).on("click", ".remove-accordian-project-wizard", function (e) {
 
     selectedCategoryData['categorySelect' + $(this).attr('count-value')] = "-1";
     updateAllCategorySelect();
-    $("#totalCatList").val($("#totalCatList").val().replace('{"fieldId": "' + $(this).attr('count-value') + '"},', ''));
+    $("#totalProjectCatList").val($("#totalProjectCatList").val().replace('{"fieldId": "' + $(this).attr('count-value') + '"},', ''));
 })
 
 function workingEqualsUser() {

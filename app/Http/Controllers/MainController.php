@@ -162,12 +162,12 @@ class MainController extends Controller
         $creator->name = $request->user_name;
         $creator->phone = $request->phone;
         $creator->email = $request->email;
+        $creator->parish = $request->parish;
         $creator->city_id = $request->city;
         $creator->street_01 = $request->street_01;
         $creator->street_02 = $request->street_02;
         $creator->house_number = $request->house_number;
         $creator->postal_code = $request->postal_code;
-        $creator->perish = $request->perish;
         $task->creator()->save($creator);
 
         //Task Location Store
@@ -178,10 +178,9 @@ class MainController extends Controller
             $location->street_02 = $request->site_street_02;
             $location->house_number = $request->site_house_number;
             $location->postal_code = $request->site_postal_code;
-            $location->perish = $request->site_perish;
+            $location->parish = $request->site_parish;
             $task->location()->save($location);
         }
-        dd($task_subcategories);
         $task->subcategories()->attach($task_subcategories);
         $city1 = City::find($request->city)->name;
         $site_city = City::find($request->site_city)->name;

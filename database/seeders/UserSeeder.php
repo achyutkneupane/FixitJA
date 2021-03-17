@@ -28,7 +28,8 @@ class UserSeeder extends Seeder
         ]);
         $user->emails()->create([
             'email' => 'info@kumberland.com',
-            'primary' => true
+            'primary' => true,
+            'verified' => true
         ]);
         $user->phones()->create([
             'phone' => '+9779860323771',

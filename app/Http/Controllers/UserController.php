@@ -9,6 +9,7 @@ use App\Models\City;
 use App\Models\Document;
 use App\Models\Education;
 use App\Models\EducationUser;
+use App\Models\Email;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -368,6 +369,19 @@ class UserController extends Controller
             auth()->logout();
         }
         return redirect()->back();
+    }
+    public function makePrimary($email)
+    {
+        $emails = auth()->user()->emails();
+        foreach($emails->get() as $e) {
+            $e->primary = FALSE;
+            $e->save();
+        }
+        $em = Email::where('email',$email)->first();
+        $em->primary = TRUE;
+        $em->save();
+        ToastHelper::showToast('Email '.$email.' set as primary email.');
+        return redirect()->route('accountSecurity');
     }
 
     public function profileSkills()

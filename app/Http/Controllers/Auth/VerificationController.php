@@ -61,7 +61,17 @@ class VerificationController extends Controller
         if ($user != null) {
             MailController::sendVerifyEmail($user->name, $user->email(), $user->verification_code);
             ToastHelper::showToast('Verification email sent successfully.');
-            return redirect()->route('home');
+            return redirect()->back();
+        }
+        return redirect()->route('resendEmail')->with(session()->flash('alert-danger', 'Something went wrong!'));
+    }
+    public function verifyMultiEmail($email)
+    {
+        $user = auth()->user();
+        if ($user != null) {
+            MailController::sendVerifyEmail($user->name, $email, $user->verification_code);
+            ToastHelper::showToast('Verification email sent successfully.');
+            return redirect()->back();
         }
         return redirect()->route('resendEmail')->with(session()->flash('alert-danger', 'Something went wrong!'));
     }
@@ -76,9 +86,9 @@ class VerificationController extends Controller
             $user->email_verified_at =  Carbon::now();
             $user->save();
             foreach ($user->emails()->get() as $email) {
-                $email->update(['primary' => false]);
+                $email->update(['verified'=>TRUE]);
             }
-            $checkEmail->update(['primary' => true]);
+            $checkEmail->update(['verified'=>TRUE]);
             ToastHelper::showToast('Account has been verified');
             if (!empty(Auth::user()))
                 return redirect()->route('home');
