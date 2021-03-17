@@ -16,7 +16,7 @@ class IndividualContractor
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::check()){
+        /*if(!Auth::check()){
             return redirect()->route('login');
         }
   
@@ -32,7 +32,8 @@ class IndividualContractor
   
         if(Auth::user()->type == "general_user") {
             return redirect()->route('generaluser');
+            */
            
     }
 }
-}
+

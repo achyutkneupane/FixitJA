@@ -62,7 +62,7 @@ class RegisterController extends Controller
     /* Add by Ashish Pokhrel */
     public function register(Request $request)
     {
-        $request->validate([
+       $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:emails,email'],
             'phone' => ['required', 'string', 'min:8', 'unique:phones,phone'],
@@ -100,7 +100,7 @@ class RegisterController extends Controller
             'phone' => $request->phone,
             'primary' => true
         ]);
-
+       
 
         // event(new UserRegistered($user));
         try {

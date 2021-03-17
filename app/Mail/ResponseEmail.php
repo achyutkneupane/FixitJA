@@ -28,6 +28,6 @@ class ResponseEmail extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_USERNAME'), 'FixitJA')->subject("FixitJA Inc")->view('mail.responseemail', ['email_data' => $this->email_data]);
+        return $this->from(env('MAIL_USERNAME'), 'FixitJA')->subject("FixitJA Inc")->view('mail.createProfile', ['email_data' => $this->email_data]);
     }
 }

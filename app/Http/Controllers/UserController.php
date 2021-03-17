@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
 
@@ -105,9 +106,11 @@ class UserController extends Controller
     }
     public function updateprofile1()
     {
+        $page_title = 'Profile Wizard';
+        $page_description = 'This is profile wizard page';
         $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
-        return view('pages.createProfileWizard', compact('document', 'category'));
+        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category'));
     }
     
     public function updateprofilewithSub($subCatId = NULL)

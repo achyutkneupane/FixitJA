@@ -36,18 +36,17 @@ class MailController extends Controller
 
 
 
-public static function sendResponseEmail($name, $email)
+public static function sendResponseEmail($name, $email, $request, $user_subcategories)
 {
-     $subject = "About profile details";
+     $subject = "Your profile Updated";
         $data =  [
             'name' => $name,
-            
-            
-
+            'request'=>$request,
+            'user_subcategories' => $user_subcategories
         ];
 
         try{
-        Mail::send('mail.responseemail', $data, function ($message) use ($email, $subject) {
+        Mail::send('mail.createProfile', compact($data), function ($message) use ($email, $subject) {
             $message->to($email)->subject($subject);
         });
     }
