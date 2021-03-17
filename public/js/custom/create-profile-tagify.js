@@ -3,7 +3,6 @@
 function bindSubCat1(data, subcat) {
 
        var toEl = document.getElementById(subcat);
-       console.log(window.sessionCatId);
         var tagifyTo = new Tagify(toEl, {
         delimiters: ", ", // add new tags when a comma or a space character is entered
         maxTags: 10,
@@ -74,12 +73,8 @@ function getSubCatData(categoryId, subcatid) {
                 itemObj.id = item.id;
                 itemObj.initials = '',
                 itemObj.initialsState = '',
-<<<<<<< HEAD
                 itemObj.id = item.id,
                 itemObj.class = 'tagify__tag--primary'
-=======
-                itemObj.class = 'tagify__tag--secondary'
->>>>>>> development
                 subcategory.push(itemObj);
             });
              bindSubCat1(subcategory, subcatid);
