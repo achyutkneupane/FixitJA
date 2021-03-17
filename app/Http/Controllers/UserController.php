@@ -88,6 +88,7 @@ class UserController extends Controller
     }
     public function profile()
     {
+        
         $user = User::with('emails', 'phones')->find(Auth::user()->id);
         return view('pages.profile', compact('user'));
     }
@@ -132,40 +133,35 @@ class UserController extends Controller
 
     public function addprofiledetails(Request $request)
     {
-
         try {
-
-            $user  = new User();
-            $user  = User::find(Auth::user()->id);
-            $request->validate([
-                'skills_category' => ['required'],
-                'sub_categories' => ['required'],
-                'certificate' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-                'expereince'  => ['required'],
-                'educationinstutional_name' => ['required'],
-                'degree'  => ['required'],
-                'start_date' => ['required'],
-                'end_date'   => ['required'],
-                'gpa' => ['required'],
-                'reference' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-                'police_report' => ['nullable'],
-                'personal_description' => ['required'],
-                'hours' => ['required'],
-                'working_days' => ['nullable'],
-                'long_distance' => ['nullable'],
-                'total distance' => ['nullable'],
-                'street' => ['required'],
-                'house_number' => ['nullable'],
-                'city' => ['required'],
-                'profile' => ['mimes:jpeg,png,gif,pdf,docx', 'max:4096', 'file'],
-
-            ]);
-
-            //dd(implode(',',$request->working_days));
-
-
-            /* Uplaoding profile picture */
-            if (request('profile')) {
+            
+             $user  = new User();
+             $user  = User::find(Auth::user()->id);
+             $email = $user->email();
+            
+             $Subb = "[".$request->totalCatList."]";
+            $Subb = str_replace('},]','}]',$Subb);
+            $user_subcategories = new Collection();
+            $new = collect();
+            foreach(json_decode($Subb) as $subCattArray) {
+                $subCatt = 'sub_categories'. $subCattArray->fieldId;
+                $categoryy = 'skills_category'. $subCattArray->fieldId;
+                foreach(json_decode($request->$subCatt) as $subCat){
+                    
+                    if(empty($subCat->id)){
+                    $cat = Category::find($request->$categoryy)->sub_categories()->create([
+                        'name' => $subCat->value,
+                        'description' => 'Proposed Category'
+                    ]);
+                    $cat->status = "proposed";
+                    $cat->save();
+                    $user_subcategories->push(SubCategory::find($cat->id));
+                }
+                else
+                    $user_subcategories->push(SubCategory::find($subCat->id));
+            }
+         }
+         if (request('profile')) {
                 $tempPath = "";
                 $document = new Document();
                 if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first())) {
@@ -180,46 +176,45 @@ class UserController extends Controller
                     Storage::delete($tempPath);
             };
 
-            //dd("hello");
+           
 
-            /*Uploading certificate */
-            if (request('certificate')) {
-                $tempPath1 = "";
+            /* for certificate*/
+            $Certificate = "[".$request->totalCertificateList."]";
+            $Certificate1 = str_replace('},]','}]',$Certificate);
+            $skills_certificate = new Collection();
+            $skills_experince = new Collection();
+            foreach(json_decode($Certificate1) as $certificateArray){
                 $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
-                    $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
+                $tempPath = "";
+                $id = $certificateArray->fieldId;
+                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first())) {
+                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first();
+                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first()->path;
                 }
-                $document->path = request('certificate')->store('certificate');
-                //dd(request('certificate')->store('certificate'));
-                $document->type = 'other';
+                $certificate_new = 'certificate'.$id;
+                $document->path = request($certificate_new)->store('certificates');
+                $document->type = 'certificate'.$id;
                 $document->user()->associate($user->id);
                 $document->save();
-                if ($tempPath1)
-                    Storage::delete($tempPath1);
-            };
-
-            /* uploading Referenece */
-            if (request('reference')) {
-                $tempPath2 = "";
-                $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first();
-                    $tempPath1 = Document::where('user_id', Auth::user()->id)->get()->where('type', 'reference_letter')->first()->path;
-                }
-                $document->path = request('reference')->store('reference');
-                //dd(request('reference')->store('reference'));
-                $document->type = 'reference_letter';
-                $document->user()->associate($user->id);
-                $document->save();
-                if ($tempPath2)
-                    Storage::delete($tempPath2);
+                if ($tempPath)
+                    Storage::delete($tempPath);
             }
 
+            /* refernce */
+            
+            /*foreach(json_decode($Certificate) as $certificateArray){
+                $new_certificate = 'certificate'. $certificateArray->fieldId;
+                $new_experience = 'experience'. $certificateArray->fieldId;
+                if($new_experience){
+                    foreach(json_decode($request->new_experience) as $subRefernces){
+                        if(!empty($subRefernces)){
 
-
-
-            $education = new Education();
+                            $skills_experince->push($subRefernces);
+                             }
+                             }
+                            }
+                        }*/
+           $education = new Education();
             $education->education_instution_name = $request->educationinstutional_name;
             $education->degree = $request->degree;
             $education->start_date = $request->start_date;
@@ -232,8 +227,7 @@ class UserController extends Controller
             $education_user->save();
 
 
-            //$user->areas_covering = $skills->id;
-            $user->experience = $request->expereince;
+          
 
             // logic for the radio button
             if ($request->police_report == "1") {
@@ -241,8 +235,8 @@ class UserController extends Controller
             } elseif ($request->police_report == "0") {
                 $user->is_police_record = 0;
             }
-
-            if ($request->is_travelling == "1") {
+             if($request->is_travelling == "1")
+            {
                 $user->is_travelling = 1;
             } elseif ($request->is_travelling == "0") {
                 $user->is_travelling = 0;
@@ -254,21 +248,6 @@ class UserController extends Controller
             foreach (json_decode($request->sub_categories) as $category) {
                 array_push($skillArray, $category->value);
             }
-
-
-            //dd($request->sub_categories);
-
-
-
-            $subcategory = new SubCategory();
-            dd($skillArray);
-            $skill = implode(',', $skillArray);
-            $subcategory->name = $skill;
-
-            $subcategory->description = "working";
-            $subcategory->category_id = $request->skills_category;
-            $subcategory->save();
-
             /* converting  days array */
            $dayArray = array();
            foreach (json_decode($request->working_days) as $days) {
@@ -296,7 +275,6 @@ class UserController extends Controller
 
             return redirect('/profile');
         } catch (Throwable $e) {
-
             dd($e);
             return redirect()->route('profileWizard')->withInput();
         }
