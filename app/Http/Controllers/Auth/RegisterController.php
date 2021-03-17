@@ -61,7 +61,7 @@ class RegisterController extends Controller
     /* Add by Ashish Pokhrel */
     public function register(Request $request)
     {
-        $request->validate([
+       $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:emails,email'],
             'phone' => ['required', 'string', 'min:8', 'unique:phones,phone'],
@@ -71,10 +71,14 @@ class RegisterController extends Controller
             'companyname' => ['nullable', 'string'],
             'websitepersonal' => ['nullable'],
             'websitecompany' => ['nullable'],
-            'password' => ['min:6|required_with:cpassword|same:cpassword', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
-            'cpassword' => ['min:6', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
-
-
+            'password' => [  'required',
+                              'min:6',             
+                              'regex:/[A-Z]/',      
+                              'regex:/[0-9]/', 
+                              'confirmed'
+                             ]   
+                              
+         
 
         ]);
 
@@ -96,11 +100,11 @@ class RegisterController extends Controller
             'phone' => $request->phone,
             'primary' => true
         ]);
-
+       
 
         // event(new UserRegistered($user));
         try {
-            MailController::sendVerifyEmail($user->name, $user->email(), $user->verification_code);
+            MailController::sendVerifyEmail($user->name, $request->email, $user->verification_code);
         } catch (\Throwable $t) {
             LogHelper::store('Register', $t);
         }

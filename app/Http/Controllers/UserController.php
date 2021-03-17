@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
 
@@ -86,8 +87,8 @@ class UserController extends Controller
     }
     public function profile()
     {
-        $user = User::with('emails', 'phones')->find(Auth::user()->id)->first();
-
+        
+        $user = User::with('emails', 'phones')->find(Auth::user()->id);
         return view('pages.profile', compact('user'));
     }
     public function show($id)
@@ -103,20 +104,24 @@ class UserController extends Controller
         $users = User::with('emails', 'phones')->get();
         return view('admin.profile.users', compact('users'));
     }
-     public function updateprofile1()
+    public function updateprofile1()
     {
-        
-        return view('pages.createProfileWizard');
-    }
-
-  
-
-    public function getprofileImage(Request $request)
-    {
-        $document = Document::where('user_id', Auth::user()->id)->get();
+        $page_title = 'Profile Wizard';
+        $page_description = 'This is profile wizard page';
+        $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
-        return view('pages.createProfileWizard', compact('document', 'category'));
+        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category'));
     }
+    
+    public function updateprofilewithSub($subCatId = NULL)
+   {
+    $document = Document::where('user_id', Auth::user()->id)->get();
+    $category = Category::with('sub_categories')->get();
+    $subs = SubCategory::all();
+       if($subCatId != NULL)
+           session()->flash('subCatId',$subCatId);
+       return view('pages.createProfileWizard', compact('document', 'category','subs'));
+   }
 
     public function uploadfile($file, $dir)
     {
@@ -127,12 +132,12 @@ class UserController extends Controller
 
     public function addprofiledetails(Request $request)
     {
-      
         try {
             
              $user  = new User();
-            $user  = User::find(Auth::user()->id);
-            //dd($request->all());
+             $user  = User::find(Auth::user()->id);
+             $email = $user->email();
+            
              $Subb = "[".$request->totalCatList."]";
             $Subb = str_replace('},]','}]',$Subb);
             $user_subcategories = new Collection();
@@ -154,23 +159,7 @@ class UserController extends Controller
                 else
                     $user_subcategories->push(SubCategory::find($subCat->id));
             }
-                
-           
-           
-            
-        }
-        
-         //dd($user_subcategories);  
-          
-
-           
-          
-              
-           
-           
-           
-        
-       
+         }
          if (request('profile')) {
                 $tempPath = "";
                 $document = new Document();
@@ -208,11 +197,10 @@ class UserController extends Controller
                 if ($tempPath)
                     Storage::delete($tempPath);
             }
-            dd("Test");
 
             /* refernce */
             
-            foreach(json_decode($Certificate) as $certificateArray){
+            /*foreach(json_decode($Certificate) as $certificateArray){
                 $new_certificate = 'certificate'. $certificateArray->fieldId;
                 $new_experience = 'experience'. $certificateArray->fieldId;
                 if($new_experience){
@@ -220,111 +208,10 @@ class UserController extends Controller
                         if(!empty($subRefernces)){
 
                             $skills_experince->push($subRefernces);
-                            
-                           
-                        
-                    }
-                                    
-                }
-                    
-                    
-
-                }
-                
-            }
-
-            $document = new Document();
-            $document->path()->attach($skills_certificate)->store('other');
-            $document->type = 'other';
-            $document->user()->associate($user->id);
-            $document->save();
-
-                    
-                
-               
-               
-                
-               
-                
-                    
-                
-                   
-                
-                
-           
-            
-            
-            
-            
-            
-           
-
-             /*if (request('certificate0')) {
-                
-                
-                $tempPath0 = "";
-                $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
-                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
-                }
-                $document->path = request('certificate0')->store('certificate');
-                $document->type = 'other';
-                $document->user()->associate($user->id);
-                $document->save();
-                if ($tempPath0)
-                    Storage::delete($tempPath0);
-              
-            
-            }
-            if (request('certificate1')) {
-                
-                
-                $tempPath1 = "";
-                $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
-                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
-                }
-                $document->path = request('certificate1')->store('certificate');
-                $document->type = 'other';
-                $document->user()->associate($user->id);
-                $document->save();
-                if ($tempPath1)
-                    Storage::delete($tempPath1);
-              
-            
-            }
-            if (request('certificate2')) {
-                
-                
-                $tempPath2 = "";
-                $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first();
-                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'other')->first()->path;
-                }
-                $document->path = request('certificate2')->store('certificate');
-                $document->type = 'other';
-                $document->user()->associate($user->id);
-                $document->save();
-                if ($tempPath2)
-                    Storage::delete($tempPath2);
-              
-            
-            }
-
-            if($request->experience0){
-                 $user->experience = $request->experience0;
-            }
-            if($request->experience1){
-                 $user->experience = $request->experience1;
-            }
-            if($request->experience2){
-                 $user->experience = $request->experience2;
-            }*/
-           
-            
+                             }
+                             }
+                            }
+                        }*/
            $education = new Education();
             $education->education_instution_name = $request->educationinstutional_name;
             $education->degree = $request->degree;
@@ -347,9 +234,6 @@ class UserController extends Controller
                 $user->is_police_record = 0;
 
             }
-
-            
-
              if($request->is_travelling == "1")
             {
                 $user->is_travelling = 1;
@@ -360,10 +244,6 @@ class UserController extends Controller
                 $user->is_travelling = 0;
 
             }
-        
-
-
-         
             /* converting  days array */
            $dayArray = array();
            foreach (json_decode($request->working_days) as $days) {
@@ -372,29 +252,23 @@ class UserController extends Controller
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
-          //$user->areas_covering()->attach($user_subcategories);
-          $user->experience()->attach($skills_experince);
+          $user->subcategories()->attach($user_subcategories);
+          //$user->experience()->attach($skills_experince);
          
           $user->street_01 = $request->street;
           $user->street_02 = $request->house_number;
           $user->city_id = 1;
           $user->status = "pending";
           $user->save();
-          Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function($m){
-                 $m->to(Auth::user()->email)
-          ->subject('Thank you for submitting your details');
-            });
-            return redirect('/profile');
-
-    
+          MailController::sendResponseEmail($user->name, $email, $user->verification_code, $request, $user_subcategories);
+          return redirect('/profile');
         } catch (Throwable $e) {
-            
             dd($e);
             return redirect()->route('profileWizard')->withInput();
         }
     }
 
- public function security()
+    public function security()
     {
         $user = User::with('emails', 'phones')->find(Auth::user()->id);
         return view('admin.profile.security', compact('user'));
@@ -478,66 +352,90 @@ class UserController extends Controller
     }
     public function editProfile()
     {
-        $user = User::with('emails', 'phones')->find(auth()->id());
+        $user = User::find(auth()->id());
         $cities = City::all();
         return view('pages.editProfile', compact('user', 'cities'));
     }
+
+    public function putEditProfile(Request $request)
+    {
+        $user = User::find(auth()->id());
+        try {
+            $request->validate([
+                'gender' => 'required',
+                'city_id' => 'required',
+                'street_01' => 'required',
+                'street_02' => '',
+                'companyname' => '',
+                'experience' => '',
+                'website' => '',
+                'is_travelling' => 'required',
+                'is_police_record' => 'required'
+            ]);
+            $user->gender = $request->gender;
+            $user->city_id = $request->city_id;
+            $user->street_01 = $request->street_01;
+            $user->street_02 = $request->street_02;
+            $user->companyname = $request->companyname;
+            $user->experience = $request->experience;
+            $user->website = $request->website;
+            $user->is_travelling = $request->is_travelling;
+            $user->is_police_record = $request->is_police_record;
+            $user->save();
+            ToastHelper::showToast('Profile has been updated');
+            return redirect()->route('viewProfile');
+        } catch (Throwable $e) {
+            dd($e);
+            ToastHelper::showToast('Profile cannot be updated.', 'error');
+            LogHelper::store('User', $e);
+        }
+    }
+
+    public function editUserProfile($id)
+    {
+        if (User::find($id) == Auth::user()) {
+            return redirect()->route('editProfile');
+        }
+        $user = User::find($id);
+        $cities = City::all();
+        return view('pages.editProfile', compact('user', 'cities'));
+    }
+
+    public function putEditUserProfile(Request $request, $id)
+    {
+        $user = User::find($id);
+        try {
+            $request->validate([
+                'gender' => 'required',
+                'city_id' => 'required',
+                'street_01' => 'required',
+                'street_02' => '',
+                'companyname' => '',
+                'experience' => '',
+                'website' => '',
+                'is_travelling' => 'required',
+                'is_police_record' => 'required'
+            ]);
+            $user->gender = $request->gender;
+            $user->city_id = $request->city_id;
+            $user->street_01 = $request->street_01;
+            $user->street_02 = $request->street_02;
+            $user->companyname = $request->companyname;
+            $user->experience = $request->experience;
+            $user->website = $request->website;
+            $user->is_travelling = $request->is_travelling;
+            $user->is_police_record = $request->is_police_record;
+            $user->save();
+            ToastHelper::showToast('Profile has been updated');
+        } catch (Throwable $e) {
+            dd($e);
+            ToastHelper::showToast('Profile cannot be updated.', 'error');
+            LogHelper::store('User', $e);
+        }
+        return redirect()->route('viewProfile');
+    }
+    public function emptyPage()
+    {
+        return view('pages.emptyFile');
+    }
 }
-
-
-          
-         
-
-     
-
-                    
-                   
-               
-        
-        
-
-           
-            
-
-          
-          
-
-
-
-            
-              
-
-           
-               
-            
-            
-           
-
-            
-            
-           
-
-            
-
-
-           
-            
-           
-           
-
-            
-           
-            
-
-          
-
-           
-
-           
-           
-           
-           
-           
-            
-
-   

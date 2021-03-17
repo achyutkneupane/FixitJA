@@ -66,7 +66,7 @@ Route::put('/security/add_email', [App\Http\Controllers\UserController::class, '
 Route::get('/security/deactivate', [App\Http\Controllers\UserController::class, 'deactivateUser'])->middleware('auth')->name('deactivateUser');
 Route::get('/security/delete', [App\Http\Controllers\UserController::class, 'deleteUser'])->middleware('auth')->name('deleteUser');
 Route::get('/security/{id}', [App\Http\Controllers\UserController::class, 'viewSecurity'])->middleware('auth', 'checkIfAdmin')->name('viewAccountSecurity');
-Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
+Route::get('/resend_email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
 
 
@@ -77,8 +77,8 @@ Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
 //Route for faqs page
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 //Route for profile wizard
-Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->name('profileWizard');
-Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
+Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->middleware('auth', 'checkIfSkillworker')->name('profileWizard');
+//Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
 
 
