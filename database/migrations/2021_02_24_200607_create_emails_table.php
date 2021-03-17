@@ -18,6 +18,7 @@ class CreateEmailsTable extends Migration
             $table->string('email')->unique();
             $table->unsignedBigInteger('user_id');
             $table->boolean('primary')->default(false);
+            $table->boolean('verified')->default(false);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });
