@@ -29,7 +29,7 @@
 
                         <!--begin::Title-->
                         <div class="pb-5 pb-lg-15">
-                            <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Reset Paaword</h3>
+                            <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Reset Password</h3>
 
                         </div>
 

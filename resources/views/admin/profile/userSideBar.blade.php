@@ -17,11 +17,11 @@
                 <span
                     class="label label-light-{{ $user->userStatus()['class'] }} label-inline font-weight-bold label-lg">{{ $user->userStatus()['name'] }}</span>
                 <br>
-                @isAdmin
+                @isAdminOrUser($user->id)
                 <a href="#" class="font-weight-bold" data-toggle="modal" data-target="#changeUserStatus">
                     Change Status
                 </a>
-                @endisAdmin
+                @endisAdminOrUser
             </div>
             <!--end::User-->
             <!--begin::Contact-->
@@ -65,7 +65,7 @@
     </div>
     <!--end::Card-->
 </div>
-@isAdmin
+@isAdminOrUser($user->id)
 <div class="modal fade" id="changeUserStatus" data-backdrop="static" tabindex="-1" role="dialog"
     aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -85,9 +85,11 @@
                         <div class="col-lg-9 col-xl-9">
                             <input type="hidden" name="user" value="{{ $user->id }}">
                             <select class="form-control selectpicker" name="status">
+                                @isAdmin
                                 <option value="active">Active</option>
                                 <option value="suspended">Suspend</option>
                                 <option value="blocked">Block</option>
+                                @endisAdmin
                                 <option value="deactivated">Deactivate</option>
                                 <option value="deleted">Delete</option>
                             </select>
@@ -101,4 +103,4 @@
         </div>
     </div>
 </div>
-@endisAdmin
+@endisAdminOrUser

@@ -361,6 +361,12 @@ class UserController extends Controller
         $user->status = $request->status;
         $user->save();
         ToastHelper::showToast('User Status Changed.');
+        Mail::send('mail.changeStatus', ['user'=>$user,'status' => $request->status], function ($m) use ($user) {
+            $m->to($user->email())->subject('User Status Changed');
+        });
+        if($user->id == auth()->id() && ($request->status == 'deactivated' || $request->status == 'deleted')) {
+            auth()->logout();
+        }
         return redirect()->back();
     }
 
@@ -394,12 +400,6 @@ class UserController extends Controller
                 'gender' => 'required',
                 'city_id' => 'required',
                 'street_01' => 'required',
-                'street_02' => '',
-                'companyname' => '',
-                'experience' => '',
-                'website' => '',
-                'is_travelling' => 'required',
-                'is_police_record' => 'required'
             ]);
             $user->gender = $request->gender;
             $user->city_id = $request->city_id;
@@ -410,11 +410,32 @@ class UserController extends Controller
             $user->website = $request->website;
             $user->is_travelling = $request->is_travelling;
             $user->is_police_record = $request->is_police_record;
+            $user->introduction = $request->introduction;
+            $user->hours = $request->hours;
+            $user->days = $request->days;
+            $user->areas_covering = $request->areas_covering;
+            if (request('profile_image')) {
+                $tempPath = "";
+                $document = new Document();
+                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first())) {
+                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first();
+                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first()->path;
+                }
+                $document->path = request('profile_image')->store('userprofile');
+                $document->type = 'profile_picture';
+                $document->user()->associate($user->id);
+                $document->save();
+                if ($tempPath)
+                    Storage::delete($tempPath);
+            }
+            else {
+                ToastHelper::showToast('Error with profile picture.','error');
+                return redirect()->back();
+            }
             $user->save();
             ToastHelper::showToast('Profile has been updated');
             return redirect()->route('viewProfile');
         } catch (Throwable $e) {
-            dd($e);
             ToastHelper::showToast('Profile cannot be updated.', 'error');
             LogHelper::store('User', $e);
         }

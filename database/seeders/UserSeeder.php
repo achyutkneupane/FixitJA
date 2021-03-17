@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => NULL,
             'verification_code' => sha1(sha1(time())),
             'status' => 'new',
-            'type' => 'general_user'
+            'type' => 'individual_contractor'
         ]);
         $user->emails()->create([
             'email' => 'aneupane@kumberland.com',

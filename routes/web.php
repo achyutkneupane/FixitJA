@@ -80,7 +80,7 @@ Route::prefix('/error_log')->group(function () {
 Route::prefix('/security')->group(function () {
     Route::get('/', [App\Http\Controllers\UserController::class, 'security'])->middleware('auth')->name('accountSecurity');
     Route::put('/', [App\Http\Controllers\UserController::class, 'changePassword'])->middleware('auth')->name('changePassword');
-    Route::put('/change_status', [App\Http\Controllers\UserController::class, 'changeStatus'])->middleware('auth', 'checkIfAdmin')->name('changeStatus');
+    Route::put('/change_status', [App\Http\Controllers\UserController::class, 'changeStatus'])->middleware('auth')->name('changeStatus');
     Route::put('/add_email', [App\Http\Controllers\UserController::class, 'addEmail'])->middleware('auth')->name('addEmail');
     Route::get('/deactivate', [App\Http\Controllers\UserController::class, 'deactivateUser'])->middleware('auth')->name('deactivateUser');
     Route::get('/delete', [App\Http\Controllers\UserController::class, 'deleteUser'])->middleware('auth')->name('deleteUser');
