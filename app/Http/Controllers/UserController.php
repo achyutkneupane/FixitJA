@@ -426,9 +426,6 @@ class UserController extends Controller
             $user->introduction = $request->introduction;
             $user->hours = $request->hours;
             $user->days = $request->days;
-            $user->facebook = $request->facebook;
-            $user->twitter = $request->twitter;
-            $user->instagram = $request->instagram;
             $user->areas_covering = $request->areas_covering;
             if (request()->hasFile('profile_image')) {
                 $tempPath = "";
@@ -456,6 +453,21 @@ class UserController extends Controller
         }
     }
 
+    public function putEditSocial(Request $request)
+    {
+        $user = User::find(auth()->id());
+        try {
+            $user->facebook = $request->facebook;
+            $user->twitter = $request->twitter;
+            $user->instagram = $request->instagram;
+            $user->save();
+            ToastHelper::showToast('Social Links has been updated');
+            return redirect()->route('viewProfile');
+        } catch (Throwable $e) {
+            ToastHelper::showToast('Social Links be updated.', 'error');
+            LogHelper::store('UserSocial', $e);
+        }
+    }
     public function editUserProfile($id)
     {
         if (User::find($id) == Auth::user()) {
