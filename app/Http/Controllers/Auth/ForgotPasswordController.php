@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\ToastHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
-use DB;
 use Carbon\Carbon;
-use Mail;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
@@ -52,7 +53,7 @@ class ForgotPasswordController extends Controller
             $message->to($request->email);
             $message->subject('Reset Password Notification');
         });
-
-        return back()->with('message', 'We have e-mailed your password reset link!');
+        ToastHelper::showToast('Forget Password email has been sent. Please check your MailBox.');
+        return redirect()->route('login')->with('message', 'We have e-mailed your password reset link!');
     }
 }

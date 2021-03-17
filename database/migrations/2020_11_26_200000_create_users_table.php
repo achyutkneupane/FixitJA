@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             // $table->string('email')->unique();
             $table->string('password');
             // $table->string('phone')->unique();
-            $table->string('gender')->nullable();
+            $table->enum('gender', array('male','female','other'))->nullable();
             $table->string('companyname')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->tinyInteger('experience')->nullable();
@@ -36,8 +36,10 @@ class CreateUsersTable extends Migration
             $table->integer('hours')->nullable();
             $table->unsignedBigInteger('subscription_id')->nullable();
             $table->enum('type', array('admin', 'individual_contractor', 'business', 'general_user'))->nullable();
-            $table->enum('status', array('new','pending', 'active', 'suspended', 'blocked', 'deactivated', 'deleted'))->default('new');
-
+            $table->enum('status', array('new','pending', 'reviewing', 'active', 'declined', 'suspended', 'blocked', 'deactivated', 'deleted'))->default('new');
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
             $table->string('verification_code');
 
             $table->rememberToken();

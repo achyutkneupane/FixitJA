@@ -19,32 +19,26 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
         <div class="d-flex align-items-center mt-5">
             <div class="symbol symbol-85 mr-5">
                 @auth
-                    @if (!is_null(
-            Auth::user()
+                @if (!is_null(Auth::user()
                 ->documents->where('type', 'profile_picture')
-                ->first(),
-        ))
-                        <div class="symbol-label"
-                            style="background-image:url('{{ asset(
-    'storage/' .
-        Auth::user()->documents->where('type', 'profile_picture')->first()->path,
-) }}')">
-                        </div>
-                    @else
-                        <div class="symbol-label"
-                            style="background-image:url('{{ asset('images/unknown-avatar.png') }}')"></div>
-                    @endif
+                ->first()
+                ))
+                <div class="symbol-label" style="background-image:url('{{ asset('storage/'.Auth::user()->documents->where('type', 'profile_picture')->first()->path)}}')">
+                </div>
+                @else
+                <div class="symbol-label" style="background-image:url('{{ asset('images/unknown-avatar.png') }}')"></div>
+                @endif
                 @endauth
                 <!--i class="symbol-badge bg-success"></i-->
             </div>
             <div class="d-flex flex-column">
                 <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
                     @auth
-                        <a href="{{ route('viewProfile') }}">
-                            <span class="text-dark font-weight-bold">
-                                {{ Auth::user()->name }}
-                            </span>
-                        </a>
+                    <a href="{{ route('viewProfile') }}">
+                        <span class="text-dark font-weight-bold">
+                            {{ Auth::user()->name }}
+                        </span>
+                    </a>
                     @endauth
                 </a>
                 <div class="text-muted mt-1">
@@ -58,7 +52,7 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
                             </span>
                             <span class="navi-text text-muted text-hover-primary">
                                 @auth
-                                    {{ Auth::user()->email() }}
+                                {{ Auth::user()->email() }}
                                 @endauth
                             </span>
                         </span>
@@ -73,7 +67,7 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
         {{-- Nav --}}
         <div class="navi navi-spacer-x-0 p-0">
             {{-- Item --}}
-            <a href="{{ route('home') }}" class="navi-item">
+            <a href="/home" class="navi-item">
                 <div class="navi-link">
                     <div class="symbol symbol-40 bg-light mr-3">
                         <div class="symbol-label">

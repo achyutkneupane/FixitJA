@@ -11,15 +11,12 @@
                                         <div class="card-body">
                                             <div class="d-flex flex-column align-items-center text-center">
                                                 <img src="
-                                                   
+
                                                 " alt="Admin" class="rounded-circle object-fit-scale-down" width="150" height="150">
                                                 <div class="mt-3">
                                                     <h4></h4>
                                                     <p class="text-secondary mb-1">Painter</p>
                                                     <p class="text-muted font-size-sm"></p>
-                                                    <!-- <button class="btn btn-primary">Follow</button>
-                                    <button class="btn btn-outline-primary">Message</button> -->
-                                                    <!-- Button trigger modal -->
                                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">
                                                         Edit Profile
                                                     </button>

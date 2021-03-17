@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ToastHelper;
 use App\Models\Category;
 use App\Models\City;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use App\Models\SubCategory;
 use App\Models\Task;
 use App\Models\TaskCreator;
 use App\Models\TaskWorkingLocation;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,17 +22,22 @@ class MainController extends Controller
 {
     public function home()
     {
-        $users = User::all();
+        $users = User::limit(6)
+          ->where('type','individual_contractor')
+          ->with(['subcategories'])
+          ->where('status', 'active')->get();
         $documents = DB::table('users')
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
+       
 
 
-            // dd($documents->where('type','profile_picture')->where('id','1')->first()->path);
+        //dd($documents->where('type','profile_picture')->where('id','12')->first());
+        $categories = Category::get(['id','name']);
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
-        return view('pages.welcome', compact('page_title', 'page_description'), ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
+        return view('pages.welcome', compact('page_title', 'page_description','categories'), ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
     }
     public function about()
     {
@@ -38,11 +45,37 @@ class MainController extends Controller
         $page_description = 'This is about us page';
         return view('pages.about', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
     }
+    public function services()
+    {
+        $page_title = 'Services';
+        $page_description = 'This is services page';
+        return view('pages.services', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
+    public function howItWorks()
+    {
+        $page_title = 'How It Works';
+        $page_description = 'This is description about how FixitJA Works';
+        return view('pages.howItWorks', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
+    public function hiringProcess()
+    {
+        $page_title = 'Hiring process';
+        $page_description = 'This is page about Hiring Process';
+        return view('pages.hiringProcess', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
     public function contact()
     {
         $page_title = 'Contact';
         $page_description = 'This is contact us page';
         return view('pages.contact', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
+    public function submitContact(Request $request){
+        Mail::send('mail.contactMail', compact('request'), function($message) use ($request)
+        {
+            $message->subject('Contact Us | FixitJA')->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+        });
+        ToastHelper::showToast('Email Sent Successfully');
+        return redirect()->back();
     }
     public function faqs()
     {
@@ -50,18 +83,42 @@ class MainController extends Controller
         $page_description = 'This is frequently asked questions page';
         return view('pages.faqs', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
     }
+
+    public function underConstruction()
+    {
+        $page_title = 'Under Construction';
+        $page_description = 'This is under construction page.';
+        return view('pages.underConstruction', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => false]);
+    }
     public function createProject()
     {
         $page_title = 'Create Project Wizard';
         $page_description = 'This is create project wizard page';
         $user = Auth::user();
         $cats = Category::with('sub_categories')->get();
+        $subs = SubCategory::all();
         $cities = City::get();
         if(!empty(auth()->user()))
-            return view('pages.createTaskWizard', compact('page_title', 'page_description','cats','cities','user'), ["show_sidebar" => false, "show_navbar" => true]);
+            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities','user'), ["show_sidebar" => false, "show_navbar" => true]);
         else
-            return view('pages.createTaskWizard', compact('page_title', 'page_description','cats','cities'), ["show_sidebar" => false, "show_navbar" => true]);
-
+            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
+    public function createProjectwithCat($catId)
+    {
+        if(!empty($catId))
+            session()->flash('catId',$catId);
+        return redirect()->route('createProject');
+    }
+    public function categoryRequest(Request $request)
+    {
+        session()->flash('catId',$request->catId);
+        return redirect()->route('createProject');
+    }
+    public function createProjectwithSub($subCatId)
+    {
+        if(!empty($subCatId))
+            session()->flash('subCatId',$subCatId);
+        return redirect()->route('createProject');
     }
     public function addProject(Request $request)
     {
@@ -105,12 +162,12 @@ class MainController extends Controller
         $creator->name = $request->user_name;
         $creator->phone = $request->phone;
         $creator->email = $request->email;
+        $creator->parish = $request->parish;
         $creator->city_id = $request->city;
         $creator->street_01 = $request->street_01;
         $creator->street_02 = $request->street_02;
         $creator->house_number = $request->house_number;
         $creator->postal_code = $request->postal_code;
-        $creator->perish = $request->perish;
         $task->creator()->save($creator);
 
         //Task Location Store
@@ -121,10 +178,9 @@ class MainController extends Controller
             $location->street_02 = $request->site_street_02;
             $location->house_number = $request->site_house_number;
             $location->postal_code = $request->site_postal_code;
-            $location->perish = $request->site_perish;
+            $location->parish = $request->site_parish;
             $task->location()->save($location);
         }
-        dd($task_subcategories);
         $task->subcategories()->attach($task_subcategories);
         $city1 = City::find($request->city)->name;
         $site_city = City::find($request->site_city)->name;
@@ -136,9 +192,26 @@ class MainController extends Controller
     }
     public function categories()
     {
-        $page_title = 'Categories'; 
+        $categories = Category::with('sub_categories')->get();
+        $page_title = 'Categories';
         $page_description = 'This is view all categories page';
-        $categories = Category::with('sub_categories')->paginate(6);
-        return view('pages.categories', compact('page_title', 'page_description','categories'), ["show_sidebar" => false, "show_navbar" => true]);
+        return view('pages.categories', compact('page_title', 'page_description', 'categories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
+     public function updateprofile1($catId = NULL)
+    {
+        $document = Document::where('user_id', Auth::user()->id)->get();
+        $category = Category::with('sub_categories')->get();
+        if($catId != NULL)
+            session()->flash('catId',$catId);
+        return view('pages.createTaskWizard', compact('document', 'category'));
+    }
+    public function updateprofilewithSub($subCatId = NULL)
+   {
+    $document = Document::where('user_id', Auth::user()->id)->get();
+    $category = Category::with('sub_categories')->get();
+    $subs = SubCategory::all();
+       if($subCatId != NULL)
+           session()->flash('subCatId',$subCatId);
+       return view('pages.createTaskWizard', compact('document', 'category','subs'));
+   }
 }
