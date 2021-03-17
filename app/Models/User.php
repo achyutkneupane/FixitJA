@@ -86,7 +86,7 @@ class User extends Authenticatable
         if(!auth()->user()->emails->where('primary', true))
             return auth()->user()->emails->where('primary', true)->first()->email;
         else
-            return auth()->user()->emails->first();
+            return auth()->user()->emails->first()->email;
     }
     public function getEmail($id)
     {
