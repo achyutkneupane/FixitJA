@@ -267,25 +267,26 @@ class UserController extends Controller
             $subcategory->save();
 
             /* converting  days array */
-            $dayArray = array();
-            foreach (json_decode($request->working_days) as $days) {
-                array_push($dayArray, $days->value);
-            }
-            //dd(implode(',',$dayArray));
-
-            $user->hours = $request->hours;
-
-            $user->days = implode(',', $dayArray);
-
-
-
-            $user->introduction = $request->personal_description;
-            $user->street_01 = $request->street;
-            $user->street_02 = $request->house_number;
-            $user->city_id = 1;
-            $user->save();
-            Mail::send('mail.responseemail', ['name' => $user->name, 'email' => $user->email], function ($m) {
-                $m->to(auth()->user()->email())->subject('Thank you for submitting your details');
+           $dayArray = array();
+           foreach (json_decode($request->working_days) as $days) {
+            array_push($dayArray, $days->value);
+        }
+          $user->hours = $request->hours;
+          $user->days = implode(',',$dayArray) ;
+          $user->introduction = $request->personal_description;
+          
+          //$user->experience()->attach($skills_experince);
+          
+         
+          $user->street_01 = $request->street;
+          $user->street_02 = $request->house_number;
+          $user->city_id = 1;
+          $user->subcategories()->attach($user_subcategories);
+          $user->status = "pending";
+          $user->save();
+          Mail::send('mail.responseemail', compact('request'), function($message) use ($request)
+            {
+                $message->to($request->email, $request->name)->subject('Profile Created');
             });
 
 
