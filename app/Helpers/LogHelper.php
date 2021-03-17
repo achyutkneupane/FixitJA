@@ -15,7 +15,7 @@ class LogHelper
         if (isset($e->validator)) {
             foreach ($e->validator->messages()->all() as $err) {
                 $error = new ErrorLog;
-                $error->found_by = Auth::user()->id;
+                $error->found_by = auth()->user() ? auth()->id() : '1';
                 $error->module = $module;
                 $error->url = url()->current();
                 $error->ip = Request::ip();
@@ -27,7 +27,7 @@ class LogHelper
             }
         } else {
             $error = new ErrorLog;
-            $error->found_by = Auth::user()->id;
+            $error->found_by = auth()->user() ? auth()->id() : '1';
             $error->module = $module;
             $error->url = url()->current();
             $error->ip = Request::ip();

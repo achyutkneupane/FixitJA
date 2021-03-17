@@ -86,7 +86,7 @@ $(document).ready(function () {
         var selectedeDate = new Date($(this).val());
 
 
-        if (selectedeDate > now && selectedeDate < selectedsDate  ) {
+        if (selectedeDate < selectedsDate  ) {
             $(this).val(dateControler.currentDate)
         } else {
             dateControler.currentDate = $(this).val();
@@ -98,9 +98,9 @@ $(document).ready(function () {
 
     /*  for  Range slider */
     var slider = document.getElementById("myRange");
-    if(slider){
-        var output = document.getElementById("demo");
-        output.innerHTML = slider.value;
+    if(slider) {
+    var output = document.getElementById("demo");
+    output.innerHTML = slider;
 
         slider.oninput = function () {
             output.innerHTML = this.value;
@@ -343,3 +343,6 @@ function LoadWizardData(wizard) {
         });
     }
 }
+
+
+

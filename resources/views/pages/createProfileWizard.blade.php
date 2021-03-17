@@ -1,6 +1,19 @@
 @extends('layouts.app')
 @section('content')
-
+<script>
+    var sessionCatId,sessionSubCatId;
+</script>
+@if(!empty(session()->get('catId')))
+<script>
+var sessionCatId = {{ session()->get('catId') }};
+</script>
+@elseif(!empty(session()->get('subCatId')))
+<script>
+var sessionCatId = 'NULL';
+var sessionSubCatId = {{ session()->get('subCatId') }};
+var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
+</script>
+@endif
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
 <!-- <div class="container"> -->
@@ -448,7 +461,7 @@
 
                                         <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
                                             <i class="fa fa-pen icon-sm text-muted"></i>
-                                            <input type="file" name="profile" id="file" accept=".png, .jpg, .jpeg" />
+                                            <input type="file" name="profile" id="file" accept=".png, .jpg, .jpeg" value="" />
                                             <input type="hidden" name="profile_avatar_remove" />
                                         </label>
 

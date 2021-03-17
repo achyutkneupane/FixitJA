@@ -1,10 +1,25 @@
 @extends('layouts.app')
 @section('content')
+<script>
+var sessionCatId,sessionSubCatId;
+</script>
+@if(!empty(session()->get('catId')))
+<script>
+var sessionCatId = {{ session()->get('catId') }};
+</script>
+@elseif(!empty(session()->get('subCatId')))
+<script>
+var sessionCatId = 'NULL';
+var sessionSubCatId = {{ session()->get('subCatId') }};
+var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
+</script>
+@endif
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container">
         <div class="card card-custom">
             <div class="card-body p-0">
+
                 <!--begin::Wizard-->
                 <div class="wizard wizard-1" id="kt_wizard" data-wizard-state="first" data-wizard-clickable="false">
                     <!--begin::Wizard Nav-->
@@ -82,8 +97,12 @@
                     <!--begin::Wizard Body-->
                     <div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
                         <div class="col-xl-12 col-xxl-7">
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-border">
+                                </div>
+                            </div>
                             <!--begin::Wizard Form-->
-                            <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="POST" action="{{ route('addProject') }}">
+                            <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="POST" action="{{ route('addProject') }}" style="display:none">
                                 @csrf
                                 <!--begin::Wizard Step 1-->
                                 <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
@@ -283,6 +302,16 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Parish</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="parish" placeholder="Parish">
+                                                <div class="fv-plugins-message-container"></div>
+                                                <span class="form-text text-muted">Please enter your Parish</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-group fv-plugins-icon-container">
                                                 <!--begin::Select-->
                                                 <label>City</label>
@@ -306,6 +335,8 @@
                                                 <!--end::Input-->
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group fv-plugins-icon-container">
                                                 <!--begin::Input-->
@@ -316,8 +347,6 @@
                                                 <!--end::Input-->
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-4">
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
@@ -336,16 +365,6 @@
                                             </div>
                                             <!--end::Input-->
                                         </div>
-                                        <div class="col-md-4">
-                                            <!--begin::Input-->
-                                            <div class="form-group fv-plugins-icon-container">
-                                                <label>Perish</label>
-                                                <input type="text" class="form-control form-control-solid form-control-sm" name="perish" placeholder="Perish">
-                                                <div class="fv-plugins-message-container"></div>
-                                                <span class="form-text text-muted">Please enter your Perish</span>
-                                            </div>
-                                            <!--end::Input-->
-                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
@@ -360,6 +379,16 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <!--begin::Input-->
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <label>Parish</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_parish" placeholder="Parish">
+                                                    <div class="fv-plugins-message-container"></div>
+                                                    <span class="form-text text-muted">Please enter your Parish</span>
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
                                             <div class="col-md-4">
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <!--begin::Select-->
@@ -384,6 +413,8 @@
                                                     <!--end::Input-->
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <!--begin::Input-->
@@ -394,8 +425,6 @@
                                                     <!--end::Input-->
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-4">
                                                 <!--begin::Input-->
                                                 <div class="form-group fv-plugins-icon-container">
@@ -411,16 +440,6 @@
                                                     <label>Postal Code(Optional)</label>
                                                     <input type="text" class="form-control form-control-solid form-control-sm" name="site_postal_code" placeholder="Postal Code">
                                                     <div class="fv-plugins-message-container"></div>
-                                                </div>
-                                                <!--end::Input-->
-                                            </div>
-                                            <div class="col-md-4">
-                                                <!--begin::Input-->
-                                                <div class="form-group fv-plugins-icon-container">
-                                                    <label>Perish</label>
-                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_perish" placeholder="Perish">
-                                                    <div class="fv-plugins-message-container"></div>
-                                                    <span class="form-text text-muted">Please enter your Perish</span>
                                                 </div>
                                                 <!--end::Input-->
                                             </div>

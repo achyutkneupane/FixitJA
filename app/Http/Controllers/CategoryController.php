@@ -31,6 +31,13 @@ class CategoryController extends Controller
         return view('admin.category',  compact('categories'));
     }
 
+    public function getCategory1()
+    {
+         $categories = Category::with('sub_categories')->get();
+         return view('partials._navbar', compact('categories'));
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

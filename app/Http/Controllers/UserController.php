@@ -175,6 +175,7 @@ class UserController extends Controller
                     Storage::delete($tempPath);
             };
 
+            //dd("hello");
 
             /* for certificate*/
             $Certificate = "[".$request->totalCertificateList."]";
@@ -223,26 +224,29 @@ class UserController extends Controller
             $education_user->user_id = Auth::user()->id;
             $education_user->education_id = $education->id;
             $education_user->save();
-          
-         // logic for the radio button */
-            if($request->police_report == "1") {
-                $user->is_police_record = 1;
-                }
-           
-            elseif($request->police_report == "0")
-            {
-                $user->is_police_record = 0;
 
+
+            //$user->areas_covering = $skills->id;
+            $user->experience = $request->expereince;
+
+            // logic for the radio button
+            if ($request->police_report == "1") {
+                $user->is_police_record = 1;
+            } elseif ($request->police_report == "0") {
+                $user->is_police_record = 0;
             }
              if($request->is_travelling == "1")
             {
                 $user->is_travelling = 1;
-
-            }
-            elseif($request->is_travelling == "0")
-            {
+            } elseif ($request->is_travelling == "0") {
                 $user->is_travelling = 0;
+            }
 
+
+            /* Converting skills array */
+            $skillArray = array();
+            foreach (json_decode($request->sub_categories) as $category) {
+                array_push($skillArray, $category->value);
             }
             /* converting  days array */
            $dayArray = array();
