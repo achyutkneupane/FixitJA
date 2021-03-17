@@ -22,11 +22,17 @@ class MainController extends Controller
 {
     public function home()
     {
-        $users = User::limit(6)->where('type','individual_contractor')->withCount('subcategories')->orderBy('subcategories_count','DESC')->get();
+        $users = User::limit(6)
+          ->where('type','individual_contractor')
+          ->with(['subcategories'])
+          ->where('status', 'active')->get();
         $documents = DB::table('users')
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
+       
+
+
         //dd($documents->where('type','profile_picture')->where('id','12')->first());
         $categories = Category::get(['id','name']);
         $page_title = 'Welcome';
