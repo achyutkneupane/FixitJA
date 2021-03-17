@@ -74,12 +74,8 @@ function getSubCatData(categoryId, subcatid) {
                 itemObj.id = item.id;
                 itemObj.initials = '',
                 itemObj.initialsState = '',
-<<<<<<< HEAD
                 itemObj.id = item.id,
                 itemObj.class = 'tagify__tag--primary'
-=======
-                itemObj.class = 'tagify__tag--secondary'
->>>>>>> development
                 subcategory.push(itemObj);
             });
              bindSubCat1(subcategory, subcatid);
