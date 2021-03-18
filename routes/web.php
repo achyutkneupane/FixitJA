@@ -61,6 +61,7 @@ Route::prefix('/profile')->group(function () {
     Route::get('/reference', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferences');
     Route::get('/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->middleware('auth')->name('editProfile');
     Route::put('/edit', [App\Http\Controllers\UserController::class, 'putEditProfile'])->middleware('auth')->name('putEditProfile');
+    Route::put('/edit/social', [App\Http\Controllers\UserController::class, 'putEditSocial'])->middleware('auth')->name('putEditSocial');
     Route::get('/skills', [App\Http\Controllers\UserController::class, 'profileSkills'])->middleware('auth')->name('profileSkills');
 });
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
@@ -99,10 +100,6 @@ Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'
 Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
 Route::get('/resend_email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyMultiEmail'])->name('verifyMultiEmail');
-//Route for creating new project wizard
-Route::get('/project/create', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
-Route::get('/project/create/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'updateprofile1'])->name('createProjectWithCat');
-Route::get('/project/create/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'updateprofilewithSub'])->name('createProjectWithSub');
 
 //Route for viewing all categories
 Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);

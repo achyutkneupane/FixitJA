@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Email;
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Throwable;
+
+use function PHPUnit\Framework\isNull;
 
 class ResetPasswordController extends Controller
 {
@@ -46,31 +50,35 @@ class ResetPasswordController extends Controller
 
     public function getPassword($token)
     {
-        ToastHelper::showToast('Reset your password. Enter new password.');
-        return view('auth.passwords.reset', ['token' => $token]);
+        $page_title = "Reset Password";
+        $updatePassword = DB::table('password_resets')->where(['token' => $token]);
+        if(empty($updatePassword->first())) {
+            ToastHelper::showToast('Invalid Token.','error');
+            return redirect()->route('forget-password');
+        }
+        return view('auth.passwords.reset', compact('page_title','token'));
     }
 
     public function updatePassword(Request $request)
     {
-
-        $request->validate([
-            'email' => 'required|email|exists:emails',
-            'password' => 'required|string|min:6|confirmed',
-            'password_confirmation' => 'required',
-
-        ]);
-
-        $updatePassword = DB::table('password_resets')
-            ->where(['email' => $request->email, 'token' => $request->token])
-            ->first();
-
-        if (!$updatePassword)
-            return back()->withInput()->with('error', 'Invalid token!');
-        Email::where('email', $request->email)->first()
-            ->user->update(['password' => Hash::make($request->password)]);
-
-        DB::table('password_resets')->where(['email' => $request->email])->delete();
-
-        return redirect('/login')->with('message', 'Your password has been changed!');
+        try {
+            $request->validate([
+                'token' => 'required',
+                'password' => 'required|string|min:6|confirmed',
+                'password_confirmation' => 'required',
+            ]);
+            $updatePassword = DB::table('password_resets')->where(['token' => $request->token]);
+            if(empty($updatePassword->first())) {
+                ToastHelper::showToast('Invalid Token.','error');
+                return back()->withInput();
+            }
+            Email::where('email', $updatePassword->first()->email)->first()->user->update(['password' => Hash::make($request->password)]);
+            $updatePassword->delete();
+            ToastHelper::showToast('Your password has been changed!');
+            return redirect('/login');
+        } catch(Throwable $e) {
+            LogHelper::store('ResetPassword',$e);
+            return back()->withInput();
+        }
     }
 }
