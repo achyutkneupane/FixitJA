@@ -67,7 +67,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:emails,email'],
             'phone' => ['required', 'string', 'min:8', 'unique:phones,phone'],
             /* Add by Ashish Pokhrel */
-            'type' => Rule::in(['admin', 'individual_contractor', 'Business', 'general_user']),
+            'type' => ['required' ,Rule::in(['admin', 'individual_contractor', 'Business', 'general_user'])],
             'gender' => ['nullable', 'string'],
             'companyname' => ['nullable', 'string'],
             'websitepersonal' => ['nullable'],

@@ -61,6 +61,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Document::class);
     }
+    public function references()
+    {
+        return $this->hasMany(References::class);
+    }
     public function city()
     {
         return $this->belongsTo(City::class);

@@ -14,10 +14,13 @@ var sessionSubCatId = {{ session()->get('subCatId') }};
 var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
 </script>
 @endif
+
+ 
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
 <!-- <div class="container"> -->
 <div class="card card-custom">
+   
     <div class="card-body p-0">
         <!--begin::Wizard-->
         <div class="wizard wizard-1" id="kt_wizard" data-wizard-state="first" data-wizard-clickable="false">
@@ -69,7 +72,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                     <!--begin::Wizard Step 3 Nav-->
                     <div class="wizard-step" data-wizard-type="step" data-wizard-state="pending">
                         <div class="wizard-label">
-                            <i class="wizard-icon flaticon-background"></i>
+                            <i class=" wizard-icon flaticon-book"></i>
                             <h3 class="wizard-title">Education</h3>
                         </div>
                         <span class="svg-icon svg-icon-xl wizard-arrow">
@@ -90,7 +93,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                     <!-- begin::Wizard Step 4 Nav -->
                     <div class="wizard-step" data-wizard-type="step" data-wizard-state="pending">
                         <div class="wizard-label">
-                            <i class="wizard-icon flaticon-background"></i>
+                            <i class="wizard-icon flaticon-users"></i>
                             <h3 class="wizard-title">Reference</h3>
                         </div>
                         <span class="svg-icon svg-icon-xl wizard-arrow">
@@ -211,7 +214,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                     <select name="skills_category" subcatid="kt_tagify_subcategory" id="selected_catgeory1" class="form-control form-control-solid form-control-lg category-select">
                                                         <option value="">Select Category</option>
                                                         @foreach ($category as $cate)
-                                                        <option value="{{ $cate->id }}">{{ $cate->name }}
+                                                        <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
                                                         </option>
                                                         @endforeach
                                                     </select>
@@ -298,7 +301,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     <option value="Secondary level" id="type1">Secondary level</option>
                                     <option value="Higher Secondary level" id="type2">Higher Secondary level
                                     </option>
-                                    <option value="Bachalaor" id="type3">Bachalaor</option>
+                                    <option value="Bachalaor" id="type3">Bachelors</option>
                                     <option value="Master" id="type3">Master</option>
                                 </select>
                                 @if ($errors->has('degree'))
@@ -456,8 +459,10 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="col-9 col-form-label"></label>
                                 <div class="col-lg-9 col-xl-6">
-                                    <div class="image-input image-input-empty image-input-outline" id="kt_image_5" style="background-image: url({{asset('media/users/blank.png')}});">
-                                        <div class="image-input-wrapper"></div>
+                                    <div class="image-input image-input-empty image-input-outline mb-3" id="kt_image_5">
+                                        <div class="image-input-wrapper">
+                                            <img src="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . $user->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}" id="profilePicture" style="height:200px; width:200px;">
+                        </div>
 
                                         <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
                                             <i class="fa fa-pen icon-sm text-muted"></i>
@@ -533,10 +538,6 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Skills: </span>
                                         <span class="text-muted" id='skill'>N/A</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Certificate: </span>
-                                        <span class="text-muted" id='certificate'>N/A</span>
                                     </div>
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Experience: </span>
