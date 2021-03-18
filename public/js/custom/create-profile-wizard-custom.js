@@ -18,11 +18,16 @@ const sub_categories = {
         notEmpty: {
             message: 'Sub-category is required',
             callback: function(input) {
-									$("#skill").text(input.value);
-									return !!input.value;
-								},
-        }
+						$("").text(input.value);
+                        const subArray = JSON.parse(input.value);
+				        subArray.forEach((element,index) => {
+						$("#skill").append(element.value + "<br>");
+								
+        });
+        	return !!input.value;
+		},
     }
+}
 }
 
 const experienceValidator = {
@@ -44,10 +49,7 @@ const certificateValidator = {
     validators: {
         notEmpty: {
             message: 'Certificate is required',
-             callback: function(input) {
-									$("#certificate").text(input.value);
-									return !!input.value;
-								},
+            
 
         },
         file: {
@@ -148,7 +150,7 @@ var KTWizard1 = function () {
                     educationinstutional_name: {
                         validators: {
                             notEmpty: {
-                                message: 'Educationinstutional Name is required',
+                                message: 'Education Instutional Name is required',
                                 callback: function(input) {
 									$("#educationname").text(input.value);
 									return !!input.value;
@@ -299,7 +301,11 @@ var KTWizard1 = function () {
                             notEmpty: {
                                 
                                 callback: function(input) {
-									$("#workingdays").text(input.value);
+									
+                                    const subArray = JSON.parse(input.value);
+				                    subArray.forEach((element,index) => {
+						            $("#workingdays").append(element.value + "<br>");
+				                    });
 									return !!input.value;
 								},
                             }
@@ -384,17 +390,37 @@ var KTWizard1 = function () {
                             }
                         }
                     },
+                    postal_code: {
+						validators: {
+							checkIfRequired: {
+								callback: function(input) {
+									$("#workingPostalCodeId").text(input.value);
+								},
+							}
+						}
+					},
                     
-                    City: {
+                    cities: {
                         validators: {
                             notEmpty: {
                                 message: 'City is required',
                                 callback: function(input) {
-									$("#workingCityId").text(input.value);
-									return !!input.value;
+									
+									$("#workingCityId").text($("select[name='cities'] option:selected").text());
+									return workingEqualsUser() || !!input.value;
 								},
                             }
                         }
+                    },
+                    house_number:
+                    {
+                        validators: {
+							checkIfRequired: {
+								callback: function(input) {
+									$("#workingHouseNumberId").text(input.value);
+								},
+							}
+						}
                     },
                     
                     loccountry: {
