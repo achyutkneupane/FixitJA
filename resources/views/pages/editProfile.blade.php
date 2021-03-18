@@ -58,7 +58,11 @@
                             <select class="form-control select2" name="city_id" required>
                                 <option label="Label"></option>
                                 @foreach ($cities as $city)
+                                @if(!empty($user->city))
                                     <option value="{{ $city->id }}" {{ ($city->id == $user->city->id) ? 'selected' : '' }}>
+                                @else
+                                    <option value="{{ $city->id }}">
+                                @endif
                                         {{ $city->name }}
                                     </option>
                                 @endforeach
