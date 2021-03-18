@@ -327,8 +327,6 @@ var KTWizard1 = function () {
 
 					alias: new FormValidation.plugins.Alias({
 						checkIfRequired: 'callback',
-						removeWorking: 'callback',
-						showWorking: 'callback',
 					}),
 				}
 			}
