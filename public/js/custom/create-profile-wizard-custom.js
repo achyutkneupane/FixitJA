@@ -176,10 +176,18 @@ var KTWizard1 = function () {
 									$("#educationstartdate").text(input.value);
 									return !!input.value;
 								},
+                            },
+                            dateAfterToday: {
+                                message: 'Start date cannot be greater than current date',
+                                callback: function(input) {
+                                    var endDate = new Date(input.value);
+                                    var nowDate = new Date();
+									return (endDate.setHours(0,0,0,0) <= nowDate.setHours(0,0,0,0));
+								},
                             }
                         }
                     },
-                      end_date: {
+                    end_date: {
                         validators: {
                             notEmpty: {
                                 message: 'End Date is required',
@@ -201,6 +209,7 @@ var KTWizard1 = function () {
                     }),
                      alias: new FormValidation.plugins.Alias({
 						 notEmpty: 'callback',
+                         dateAfterToday: 'callback'
 					}),
                 }
             }
