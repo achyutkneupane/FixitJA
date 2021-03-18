@@ -129,7 +129,7 @@
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
-            <form action="{{ route('putEditProfile') }}" method="POST">
+            <form action="{{ route('putEditSocial') }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">

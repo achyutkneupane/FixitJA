@@ -19,7 +19,7 @@ class CreateCitiesTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('parish_id')->nullable();
             $table->timestamps();
-            $table->foreign('parish_id')->references('id')->on('parishes');
+            $table->foreign('parish_id')->references('id')->on('parishes')->onDelete('set null');
         });
 
         DB::table('cities')->insert([

@@ -54,6 +54,7 @@ class LoginController extends Controller
     }
     public function authenticate(Request $request)
     {
+        try {
             $user = $request->validate([
                 'email'     => 'required',
                 'password'  => 'required'
@@ -61,8 +62,8 @@ class LoginController extends Controller
             $AuthUser = User::join('emails', 'email', 'emails.email')
                 ->where('email', $request->email)
                 ->first();
-            $user = User::find($AuthUser->id);
-            if($user) {
+            if($AuthUser) {
+                $user = User::find($AuthUser->id);
                 if($user->status == "deleted")
                 {
                     ToastHelper::showToast('Your account has been deleted.','error');
@@ -93,6 +94,10 @@ class LoginController extends Controller
                 ToastHelper::showToast('Email doesnot exist. Please recheck.','error');
                 return redirect()->route('login');
             }
+        } catch(Throwable $e) {
+            LogHelper::store('Login',$e);
+            return redirect()->back();
+        }
     }
     public function logout()
     {

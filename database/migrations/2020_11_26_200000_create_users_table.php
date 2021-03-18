@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('areas_covering')->nullable();
             $table->boolean('is_police_record')->default('0');
             $table->boolean('is_travelling')->default('0');
-            $table->integer('days')->nullable();
+            $table->string('days')->nullable();
             $table->integer('hours')->nullable();
             $table->unsignedBigInteger('subscription_id')->nullable();
             $table->enum('type', array('admin', 'individual_contractor', 'business', 'general_user'))->nullable();
@@ -45,7 +45,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
         });
     }
 

@@ -10,6 +10,7 @@ use App\Models\Document;
 use App\Models\Education;
 use App\Models\EducationUser;
 use App\Models\Email;
+use App\Models\References;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -107,11 +108,12 @@ class UserController extends Controller
     }
     public function updateprofile1()
     {
+        $user = Auth::user()->id;
         $page_title = 'Profile Wizard';
         $page_description = 'This is profile wizard page';
         $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
-        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category'));
+        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category','user'));
     }
     
     public function updateprofilewithSub($subCatId = NULL)
@@ -226,6 +228,13 @@ class UserController extends Controller
             $education_user->education_id = $education->id;
             $education_user->save();
 
+            $reference = new References();
+            $reference->refname = $request->referal_name;
+            $reference->refemail = $request->referal_email;
+            $reference->refphone = $request->referal_phone;
+            $reference->user()->associate($user->id);
+            $reference->save();
+
 
           
 
@@ -243,18 +252,13 @@ class UserController extends Controller
             }
 
 
-            /* Converting skills array */
-            $skillArray = array();
-            foreach (json_decode($request->sub_categories) as $category) {
-                array_push($skillArray, $category->value);
-            }
             /* converting  days array */
            $dayArray = array();
            foreach (json_decode($request->working_days) as $days) {
             array_push($dayArray, $days->value);
         }
           $user->hours = $request->hours;
-          $user->days = implode(',',$dayArray) ;
+          $user->days = implode(',',$dayArray);
           $user->introduction = $request->personal_description;
           
           //$user->experience()->attach($skills_experince);
@@ -404,9 +408,6 @@ class UserController extends Controller
             $user->introduction = $request->introduction;
             $user->hours = $request->hours;
             $user->days = $request->days;
-            $user->facebook = $request->facebook;
-            $user->twitter = $request->twitter;
-            $user->instagram = $request->instagram;
             $user->areas_covering = $request->areas_covering;
             if (request()->hasFile('profile_image')) {
                 $tempPath = "";
@@ -434,6 +435,21 @@ class UserController extends Controller
         }
     }
 
+    public function putEditSocial(Request $request)
+    {
+        $user = User::find(auth()->id());
+        try {
+            $user->facebook = $request->facebook;
+            $user->twitter = $request->twitter;
+            $user->instagram = $request->instagram;
+            $user->save();
+            ToastHelper::showToast('Social Links has been updated');
+            return redirect()->route('viewProfile');
+        } catch (Throwable $e) {
+            ToastHelper::showToast('Social Links be updated.', 'error');
+            LogHelper::store('UserSocial', $e);
+        }
+    }
     public function editUserProfile($id)
     {
         if (User::find($id) == Auth::user()) {

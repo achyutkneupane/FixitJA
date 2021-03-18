@@ -17,7 +17,7 @@ jQuery(document).ready(function () {
                     
                     
                 }, {
-                    value: 'Wesneday',
+                    value: 'Wednesday',
                     
                    
                     
