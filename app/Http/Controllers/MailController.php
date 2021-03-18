@@ -46,7 +46,7 @@ public static function sendResponseEmail($name, $email, $request, $user_subcateg
         ];
 
         try{
-        Mail::send('mail.createProfile', compact($data), function ($message) use ($email, $subject) {
+        Mail::send('mail.createProfile', compact('data'), function ($message) use ($email, $subject) {
             $message->to($email)->subject($subject);
         });
     }
