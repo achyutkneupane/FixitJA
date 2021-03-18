@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -68,6 +69,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('userIsContractor', function ($user) {
             return auth()->user() && $user->type == "individual_contractor";
         });
-        view()->share('navbarCategories', Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get());
+        if(Schema::hasTable('categories'))
+            view()->share('navbarCategories', Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get());
     }
 }
