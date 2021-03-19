@@ -98,15 +98,14 @@ $(document).ready(function (e) {
 
     // });
 
-
-    /*  for  Range slider */
+/*  for  Range slider */
     var slider = document.getElementById("myRange");
     if(slider) {
     var output = document.getElementById("demo");
     output.innerHTML = slider;
 
         slider.oninput = function () {
-            output.innerHTML = value;
+            output.innerHTML = this.value;
         }
     }
 });
