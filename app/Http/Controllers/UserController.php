@@ -10,7 +10,6 @@ use App\Models\Document;
 use App\Models\Education;
 use App\Models\EducationUser;
 use App\Models\Email;
-use App\Models\References;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -108,12 +107,11 @@ class UserController extends Controller
     }
     public function updateprofile1()
     {
-        $user = Auth::user()->id;
         $page_title = 'Profile Wizard';
         $page_description = 'This is profile wizard page';
         $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
-        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category','user'));
+        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category'));
     }
     
     public function updateprofilewithSub($subCatId = NULL)
@@ -139,7 +137,7 @@ class UserController extends Controller
             
              $user  = new User();
              $user  = User::find(Auth::user()->id);
-             $email = $user->email();
+             $email = auth()->user()->getEmail(Auth::user()->id);
             
              $Subb = "[".$request->totalCatList."]";
             $Subb = str_replace('},]','}]',$Subb);
@@ -228,13 +226,6 @@ class UserController extends Controller
             $education_user->education_id = $education->id;
             $education_user->save();
 
-            $reference = new References();
-            $reference->refname = $request->referal_name;
-            $reference->refemail = $request->referal_email;
-            $reference->refphone = $request->referal_phone;
-            $reference->user()->associate($user->id);
-            $reference->save();
-
 
           
 
@@ -252,13 +243,18 @@ class UserController extends Controller
             }
 
 
+            /* Converting skills array */
+            $skillArray = array();
+            foreach (json_decode($request->sub_categories) as $category) {
+                array_push($skillArray, $category->value);
+            }
             /* converting  days array */
            $dayArray = array();
            foreach (json_decode($request->working_days) as $days) {
             array_push($dayArray, $days->value);
         }
           $user->hours = $request->hours;
-          $user->days = implode(',',$dayArray);
+          $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
           
           //$user->experience()->attach($skills_experince);
@@ -270,9 +266,9 @@ class UserController extends Controller
           $user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
           $user->save();
-          Mail::send('mail.responseemail', compact('request'), function($message) use ($request)
+          Mail::send('mail.createProfile', compact('request', 'user_subcategories'), function($message) use ($request, $email)
             {
-                $message->to($request->email, $request->name)->subject('Profile Created');
+                $message->to($email, $request->name)->subject('Profile Created');
             });
 
 

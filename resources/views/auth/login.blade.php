@@ -46,7 +46,7 @@ $show_sidebar = false;
                                 <label class="font-size-h6 font-weight-bolder text-dark">Your Email</label><span
                                     id="error-email"></span>
                                 <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 "
-                                    type="text" name="email" autocomplete="off" required />
+                                    type="email" name="email" value="{{old('email')}}"   required />
                             </div>
                             <!--end::Form group-->
                             <!--begin::Form group-->
