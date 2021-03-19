@@ -61,24 +61,23 @@ class ResetPasswordController extends Controller
 
     public function updatePassword(Request $request)
     {
-        try {
-            $request->validate([
-                'token' => 'required',
-                'password' => 'required|string|min:6|confirmed',
-                'password_confirmation' => 'required',
-            ]);
-            $updatePassword = DB::table('password_resets')->where(['token' => $request->token]);
-            if(empty($updatePassword->first())) {
-                ToastHelper::showToast('Invalid Token.','error');
-                return back()->withInput();
-            }
-            Email::where('email', $updatePassword->first()->email)->first()->user->update(['password' => Hash::make($request->password)]);
-            $updatePassword->delete();
-            ToastHelper::showToast('Your password has been changed!');
-            return redirect('/login');
-        } catch(Throwable $e) {
-            LogHelper::store('ResetPassword',$e);
+        $validator = Validator::make($request->all(), [
+            'token' => 'required',
+            'password' => 'required|string|confirmed',
+            'password_confirmation' => 'required',
+        ],[
+            'confirmed' => 'Password and confirmation password must be same.'
+        ]);
+        if ($validator->fails())
+            return redirect()->back()->withErrors($validator);
+        $updatePassword = DB::table('password_resets')->where(['token' => $request->token]);
+        if(empty($updatePassword->first())) {
+            ToastHelper::showToast('Invalid Token.','error');
             return back()->withInput();
         }
+        Email::where('email', $updatePassword->first()->email)->first()->user->update(['password' => Hash::make($request->password)]);
+        $updatePassword->delete();
+        ToastHelper::showToast('Your password has been changed!');
+        return redirect('/login');
     }
 }
