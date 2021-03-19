@@ -21,7 +21,7 @@ const sub_categories = {
 						$("").text(input.value);
                         const subArray = JSON.parse(input.value);
 				        subArray.forEach((element,index) => {
-						$("#skill").append(element.value + "<br>");
+						$("#skill").append(element.value + ",");
 								
         });
         	return !!input.value;
@@ -313,7 +313,7 @@ var KTWizard1 = function () {
 									
                                     const subArray = JSON.parse(input.value);
 				                    subArray.forEach((element,index) => {
-						            $("#workingdays").append(element.value + "<br>");
+						            $("#workingdays").append(element.value + ",");
 				                    });
 									return !!input.value;
 								},

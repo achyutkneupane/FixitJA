@@ -1,4 +1,4 @@
-<!--<style>
+<style>
 .container {
 	width: 100%;
 	padding-right: 15px;
@@ -42,7 +42,7 @@
     @endif
     <div class="row">
         <h4 class="col-12">Profiles Details:</h4><br>
-        <span class="col-3">Categories:</span>
+        <span class="col-3">Skills:</span>
         <span class="col-9">
             @foreach ($user_subcategories as $subs)
                 @if($loop->last)
@@ -52,9 +52,10 @@
             @endforeach
         </span>
         <h4 class="col-12">Education Information: </h4><br>
-        <span class="col-3">Degree:</span> <span class="col-9">{{ $request->description }}</span>
-        <span class="col-3">Start Date: </span> <span class="col-9">{{ $request->start_date }}</span>
-        <span class="col-3">End Date: </span> <span class="col-9">{{ $request->end_date }}</span>
+        <span class="col-3">Education instutional Name:</span> <span class="col-9">{{ $request->educationinstutional_name }}</span><br>
+        <span class="col-3">Degree:</span> <span class="col-9">{{ $request->degree }}</span><br>
+        <span class="col-3">Start Date: </span> <span class="col-9">{{ $request->start_date }}</span><br>
+        <span class="col-3">End Date: </span> <span class="col-9">{{ $request->end_date }}</span><br>
 
         <h4 class="col-12"> other information: </h4> <br>
         <span class="col-3">Police Report(yes/no)</span> <span class="col-9">
@@ -65,8 +66,8 @@
             @else
                 <span class="text-muted">N/A</span>
             @endif
-        </span>
-        <span class="col-3">Do you want to travelling(yes/no)</span> <span class="col-9">
+        </span><br>
+        <span class="col-3">Do you want to travelling(yes/no)</span> <span class="col-9"> 
             @if ($request->is_travelling == 1)
                 yes
             @elseif ($request->is_travelling == 0)
@@ -74,27 +75,19 @@
             @else
                 <span class="text-muted">N/A</span>
             @endif
-        </span>
-        <span class="col-3">Description: </span> <span class="col-9">{{ $request->personal_description }}</span>
-        <span class="col-3">Working Hours: </span> <span class="col-9">{{ $request->hours }}</span>
+        </span><br>
+        <span class="col-3">Description: </span> <span class="col-9">{{ $request->personal_description }}</span><br>
+        <span class="col-3">Working Hours: </span> <span class="col-9">{{ $request->hours }}</span><br>
     </div>
 
     <div class="row">
         <h4 class="col-12">Address:</h4><br>
         
        
-        <span class="col-3">Street Address:</span> <span class="col-9">{{ $request->street}}</span>
+        <span class="col-3">Street Address:</span> <span class="col-9">{{ $request->street}}</span><br>
+        <span class="col-3">Parish:</span> <span class="col-9">{{ $request->parishes}}</span><br>
+        <span class="col-3">City:</span> <span class="col-9">{{ $request->cities}}</span><br>
     </div>
-</div>-->
-<br><br>
-Welcome {{ config('app.name', 'FixitJA') }}!
-<br>
-Thank you for submitted profile details.
+</div>
 <br><br>
 
-
-
-<br><br>
-Thank you!
-<br>
-{{ config('app.name', 'FixitJA') }}
