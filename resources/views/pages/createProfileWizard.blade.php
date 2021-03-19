@@ -461,7 +461,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <div class="col-lg-9 col-xl-6">
                                     <div class="image-input image-input-empty image-input-outline mb-3" id="kt_image_5">
                                         <div class="image-input-wrapper">
-                                            <img src="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . $user->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}" id="profilePicture" style="height:200px; width:200px;">
+                                            <img src="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}" id="profilePicture" style="height:200px; width:200px;">
                         </div>
 
                                         <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
@@ -537,11 +537,11 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     <h3 class="col-md-12 my-3">Skill</h3>
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Skills: </span>
-                                        <span class="text-muted" id='skill'>N/A</span>
+                                        <span class="text-muted" id='skill'></span>
                                     </div>
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Experience: </span>
-                                        <span class="text-muted" id='experience'>N/A</span>
+                                        <span class="text-muted" id='experience'></span>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mb-2 row">
@@ -579,7 +579,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     </div>
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Working days: </span>
-                                        <span class="text-muted" id='workingdays'>N/A</span>
+                                        <span class="text-muted" id='workingdays'></span>
                                     </div>
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Is travelling?: </span>
