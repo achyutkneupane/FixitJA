@@ -47,7 +47,7 @@
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="text-dark">Name: {{ $cat->name }}</h5>
                                 </div>
-                                <small class="text-dark-50 lead">Description: {{ $cat->description }}</small>
+                                <small class="text-dark-50 lead">Description: {!! $cat->description ? $cat->description : '<span class="text-muted">N/A</span>' !!}</small>
                             </a>
                             <div id="collapse{{ $cat->id }}" class="collapse">
                                 <ul class="list-group list-group-flush">
@@ -64,7 +64,7 @@
                                                                 <b class="lead text-dark">Name: {{ $sub->name }}</b>
                                                             </div>
                                                             <small class="text-dark-75">Description:
-                                                                {{ $sub->description }}</small>
+                                                                {!! $sub->description ? $sub->description : '<span class="text-muted">N/A</span>' !!}</small>
                                                         </li>
                                                     </div>
                                                     <div class="col-md-3 py-5">
@@ -141,7 +141,7 @@
                                             <div class="form-group">
                                                 <label for="name">Sub-Category Name</label>
                                                 <input type="text" name="name" class="form-control" id="name"
-                                                    placeholder="Sub-Category Name">
+                                                    placeholder="Sub-Category Name" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="description">Sub-Category Description</label>
@@ -173,7 +173,7 @@
                                             <div class="form-group">
                                                 <label for="name">Category Name</label>
                                                 <input type="text" name="name" class="form-control" id="name"
-                                                    placeholder="Category Name" value="{{ $cat->name }}">
+                                                    placeholder="Category Name" value="{{ $cat->name }}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="description">Category Description</label>
@@ -204,7 +204,7 @@
                                     <div class="form-group">
                                         <label for="name">Category Name</label>
                                         <input type="text" name="name" class="form-control" id="name"
-                                            placeholder="Category Name">
+                                            placeholder="Category Name" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Category Description</label>
