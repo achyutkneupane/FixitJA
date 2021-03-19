@@ -456,33 +456,33 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         <div class="pb-5" data-wizard-type="step-content">
                             <h4 class="mb-10 font-weight-bold text-dark">Upload Your Profile Image</h4>
                             <!--begin::Input-->
-                            <div class="form-group fv-plugins-icon-container">
-                                <label class="col-9 col-form-label"></label>
-                                <div class="col-lg-9 col-xl-6">
-                                    <div class="image-input image-input-empty image-input-outline mb-3" id="kt_image_5">
-                                        <div class="image-input-wrapper">
-                                            <img src="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}" id="profilePicture" style="height:200px; width:200px;">
+                             <div class="form-group row">
+                        <div class="col-lg-9 col-xl-6">
+                        <div class="editProfileImage mb-3">
+                            <img src="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}" id="profilePicture" style="height:200px; width:200px;">
                         </div>
-
-                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
-                                            <i class="fa fa-pen icon-sm text-muted"></i>
-                                            <input type="file" name="profile" id="file" accept=".png, .jpg, .jpeg" value="" />
-                                            <input type="hidden" name="profile_avatar_remove" />
-                                        </label>
-
-                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
-                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                        </span>
-
-                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove avatar">
-                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-
+                            <input
+                                id="profile_image"
+                                type="file"
+                                accept=".jpg,.gif,.png,.jpeg"
+                                name="profile"
+                                onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])"
+                                />
+                            @error('profile_image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
+                    </div>
+                    </div>
+                    
+                           
+                        
+
+
+
+                        
                         <!--end::wizard step 6-->
 
                         <!--begin::wizard step 7-->

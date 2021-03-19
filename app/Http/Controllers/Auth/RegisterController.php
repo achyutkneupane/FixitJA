@@ -87,6 +87,7 @@ class RegisterController extends Controller
             'gender' => $request->gender,
             'companyname' => $request->companyname,
             'type' => $request->type,
+            'status' => 'new',
             'password' => Hash::make($request->password),
             'verification_code' => sha1(time())
         ]);
