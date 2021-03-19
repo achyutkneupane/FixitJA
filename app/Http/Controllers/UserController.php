@@ -263,6 +263,7 @@ class UserController extends Controller
           $user->street_01 = $request->street;
           $user->street_02 = $request->house_number;
           $user->city_id = 1;
+          $user->total_distance = 1;
           $user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
           $user->save();
