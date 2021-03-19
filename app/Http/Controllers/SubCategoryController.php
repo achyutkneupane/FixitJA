@@ -45,10 +45,9 @@ class SubCategoryController extends Controller
     {
         $sub = $request->validate([
             'name' => 'required',
-            'description' => 'required',
-            'category_id' => 'required'
+            'description' => ''
         ]);
-        SubCategory::create($sub);
+        Category::find($request->category_id)->sub_categories()->create($sub);
         return redirect()->route('listCategory');
     }
 
@@ -83,11 +82,11 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $new = SubCategory::find($id);
-        $category = $request->validate([
+        $request->validate([
             'name' => 'required',
-            'description' => 'required'
+            'description' => ''
         ]);
+        $new = SubCategory::find($id);
         $new->name = $request->name;
         $new->description = $request->description;
         $new->save();
