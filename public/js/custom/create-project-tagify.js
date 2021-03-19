@@ -188,11 +188,13 @@ function AddCategoryProjectWizard() {
             }
         });
     }
-    if(sessionCatId != 'NULL') {
-        $("#categorySelect1").val(sessionCatId).change();
-    }
-    else if(sessionSubCatId) {
-        $("#categorySelect1").val(sessionsubCatCatId).change();
+    if($("#categorySelect1").val() != null) {
+        if(sessionCatId != 'NULL') {
+            $("#categorySelect1").val(sessionCatId).change();
+        }
+        else if(sessionSubCatId) {
+            $("#categorySelect1").val(sessionsubCatCatId).change();
+        }
     }
 }
 
