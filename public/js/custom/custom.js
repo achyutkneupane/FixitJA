@@ -345,19 +345,16 @@ function LoadWizardData(wizard) {
     }
 }
 
-// hide slider if travelling is no
+/* hide slider if travelling is no
 $(document).ready(function () {
      $('#is_travelling_no').on('click', function () {
     var value = document.getElementById('is_travelling_no');
      if (value == "0") {
          document.getElementById('distanceslider').style.display = "none";
      }else{
-          document.getElementById('distanceslider').style.display = "block";
+          document.getElementById('distanceslider').style.display = "block";*/
 
-     }
-    })
 
-})
 
 
 
