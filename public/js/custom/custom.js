@@ -61,39 +61,40 @@ $(document).ready(function () {
         });
 
     }
-    /* for calandar validation */
-    var dateControler = {
-        currentDate: null
-    }
-    var selectedsDate;
-    $('#selectstartdate').on("change", function (e) {
-        var now = new Date();
-        selectedsDate = new Date($(this).val());
+    // /* for calandar validation */
+    // var dateControler = {
+    //     currentDate: null
+    // }
+    // var selectedsDate;
+    // $('#selectstartdate').on("change", function (e) {
+    //     var now = new Date();
+    //     selectedsDate = new Date($(this).val());
 
 
-        if (selectedsDate > now) {
-            $(this).val(dateControler.currentDate)
-        } else {
-            dateControler.currentDate = $(this).val();
-        }
+    //     if (selectedsDate > now) {
+    //         $(this).val(dateControler.currentDate)
+    //     } else {
+    //         dateControler.currentDate = $(this).val();
+    //     }
 
 
-    })
+    // })
 
-    $('#selectenddate').on("change", function (e) {
+    // $('#selectenddate').on("change", function (e) {
 
-        var now = new Date();
-        var selectedeDate = new Date($(this).val());
-
-
-        if (selectedeDate < selectedsDate && selectedeDate > Now ) {
-            $(this).val(dateControler.currentDate)
-        } else {
-            dateControler.currentDate = $(this).val();
-        }
+    //     var now = new Date();
+    //     var selectedeDate = new Date($(this).val());
 
 
-    });
+
+    //     if (selectedeDate < selectedsDate  ) {
+    //         $(this).val(dateControler.currentDate)
+    //     } else {
+    //         dateControler.currentDate = $(this).val();
+    //     }
+
+
+    // });
 
 
     /*  for  Range slider */
