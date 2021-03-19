@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Throwable;
 
 class LoginController extends Controller
@@ -54,11 +55,15 @@ class LoginController extends Controller
     }
     public function authenticate(Request $request)
     {
-        try {
-            $user = $request->validate([
-                'email'     => 'required',
-                'password'  => 'required'
-            ]);
+        $validator = Validator::make($request->all(), [
+            'email'     => 'required|exists:emails,email',
+            'password'  => 'required'
+        ],[
+            'exists' => 'This :attribute doesnt exists. Please try again.'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        } else {
             $AuthUser = User::join('emails', 'email', 'emails.email')
                 ->where('email', $request->email)
                 ->first();
@@ -66,18 +71,15 @@ class LoginController extends Controller
                 $user = User::find($AuthUser->id);
                 if($user->status == "deleted")
                 {
-                    ToastHelper::showToast('Your account has been deleted.','error');
-                    return redirect()->route('login');
+                    return redirect()->route('login')->withErrors(['email' => 'Your account has been deleted.']);
                 }
                 else if($user->status == "suspended")
                 {
-                    ToastHelper::showToast('Your account has been suspended.','error');
-                    return redirect()->route('login');
+                    return redirect()->route('login')->withErrors(['email' => 'Your account has been suspended.']);
                 }
                 if($user->status == "blocked")
                 {
-                    ToastHelper::showToast('You have been blocked from logging in.','error');
-                    return redirect()->route('login');
+                    return redirect()->route('login')->withErrors(['email' => 'You have been blocked from logging in.']);
                 }
                 else {
                     if(Hash::check($request->password, $user->password)) {
@@ -85,18 +87,10 @@ class LoginController extends Controller
                         return redirect()->route('home');
                     }
                     else {
-                        ToastHelper::showToast('Password is not correct.','error');
-                        return redirect()->route('login');
+                        return redirect()->route('login')->withErrors(['password' => 'Password is incorrect. Please try again.']);
                     }
                 }
             }
-            else {
-                ToastHelper::showToast('Email doesnot exist. Please recheck.','error');
-                return redirect()->route('login');
-            }
-        } catch(Throwable $e) {
-            LogHelper::store('Login',$e);
-            return redirect()->back();
         }
     }
     public function logout()

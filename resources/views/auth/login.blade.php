@@ -45,8 +45,10 @@ $show_sidebar = false;
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Your Email</label><span
                                     id="error-email"></span>
-                                <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 "
-                                    type="text" name="email" autocomplete="off" required />
+                                <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 " type="text" name="email" autocomplete="off" required />
+                                    @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                             </div>
                             <!--end::Form group-->
                             <!--begin::Form group-->
@@ -57,8 +59,10 @@ $show_sidebar = false;
                                         class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Forgot
                                         Password ?</a>
                                 </div>
-                                <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 "
-                                    type="password" name="password" autocomplete="off" required />
+                                <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 " type="password" name="password" autocomplete="off" required />
+                                    @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                             </div>
                             <!--end::Form group-->
                             <!--begin::Action-->

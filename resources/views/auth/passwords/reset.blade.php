@@ -37,22 +37,22 @@
                         <!--begin::Form group-->
                         <div class="form-group">
                             <label class="font-size-h6 font-weight-bolder text-dark">New Password</label>
-                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
-                            @if ($errors->has('password'))
-                             <span class="text-danger">{{ $errors->first('password') }}</span>
-                            @endif
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" required/>
+                            @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <!--end::Form group-->
                         <!--begin::Form group-->
                         <div class="form-group">
                             <div class="d-flex justify-content-between mt-n5">
-                                <label class="font-size-h6 font-weight-bolder text-dark pt-5"> Confirmed Password</label>
+                                <label class="font-size-h6 font-weight-bolder text-dark pt-5"> Confirmation Password</label>
 
                             </div>
-                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="password" name="password_confirmation" autocomplete="off" />
-                            @if ($errors->has('password'))
-                             <span class="text-danger">{{ $errors->first('password') }}</span>
-                            @endif
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="password" name="password_confirmation" autocomplete="off" required/>
+                            @error('password_confirmation')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <!--end::Form group-->
