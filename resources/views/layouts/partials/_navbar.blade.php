@@ -9,7 +9,7 @@
             <ul class="navbar-nav ml-auto mr-lg-5">
                 <!-- <li class="nav-item"><a class="nav-link" href="/project/create">Build your project</a></li> -->
                 <li class="nav-item dropdown dropdown-xl no-caret mt-5">
-                    <a class="btn text-white font-weight-bold dropdown-toggle" id="navbarDropdownDemos" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories<i class="fas fa-chevron-right dropdown-arrow"></i></a>
+                    <a class="btn text-white font-weight-bold dropdown-toggle h6" id="navbarDropdownDemos" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories<i class="fas fa-chevron-right dropdown-arrow"></i></a>
                     <div class="dropdown-menu dropdown-menu-center animated--fade-in-up mr-lg-n25 mr-xl-n15" aria-labelledby="navbarDropdownDemos">
                         <div class="row no-gutters">
                             <div class="col-lg-5 p-lg-3 bg-img-cover overlay overlay-primary overlay-70 d-none d-lg-block" style="background-image: url({{ asset('images/website/mainbg.jpg') }})">
@@ -51,7 +51,7 @@
                 @guest
                 @if (Route::has('register'))
                 <li class="nav-item dropdown dropdown-inline mt-5">
-                    <a href="#" class="btn text-white font-weight-bold" data-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="btn text-white font-weight-bold h6" data-toggle="dropdown" aria-expanded="false">
                         <i class="flaticon-buildings"></i> Business
                     </a>
                     <div class="dropdown-menu dropdown-menu-md py-5">
@@ -72,7 +72,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown dropdown-inline mt-5">
-                    <a href="#" class="btn text-white font-weight-bold" data-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="btn text-white font-weight-bold h6" data-toggle="dropdown" aria-expanded="false">
                         <i class="flaticon-user"></i> General User
                     </a>
                     <div class="dropdown-menu dropdown-menu-md py-5">
