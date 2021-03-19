@@ -59,7 +59,7 @@ class CategoryController extends Controller
         try {
             $category = $request->validate([
                 'name' => 'required',
-                'description' => 'required'
+                'description' => ''
             ]);
             Category::insert($category);
             session()->flash('toast', ['class' => 'success', 'message' => 'Category ' . $request->name . ' stored']);
@@ -105,7 +105,7 @@ class CategoryController extends Controller
             $new = Category::find($id);
             $request->validate([
                 'name' => 'required',
-                'description' => 'required'
+                'description' => ''
             ]);
             $new->name = $request->name;
             $new->description = $request->description;
