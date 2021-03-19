@@ -10,7 +10,7 @@
                 <!-- <li class="nav-item"><a class="nav-link" href="/project/create">Build your project</a></li> -->
                 <li class="nav-item dropdown dropdown-xl no-caret mt-5">
                     <a class="btn text-white font-weight-bold dropdown-toggle h6" id="navbarDropdownDemos" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories<i class="fas fa-chevron-right dropdown-arrow"></i></a>
-                    <div class="dropdown-menu dropdown-menu-center animated--fade-in-up mr-lg-n25 mr-xl-n15" aria-labelledby="navbarDropdownDemos">
+                    <div class="dropdown-menu @auth dropdown-menu-right @endauth @guest dropdown-menu-left @endguest animated--fade-in-up mr-lg-n25 mr-xl-n15" aria-labelledby="navbarDropdownDemos">
                         <div class="row no-gutters">
                             <div class="col-lg-5 p-lg-3 bg-img-cover overlay overlay-primary overlay-70 d-none d-lg-block" style="background-image: url({{ asset('images/website/mainbg.jpg') }})">
                                 <div class="d-flex-website h-100 w-100 align-items-center justify-content-center">
@@ -80,7 +80,7 @@
                             <li class="navi-item">
                                 <a class="navi-link" href="/register">
                                     <span class="navi-icon"><i class="flaticon2-user-1 text-danger"></i></span>
-                                    <span class="navi-text">Sigh Up</span>
+                                    <span class="navi-text">Sign Up</span>
                                 </a>
                             </li>
                             <li class="navi-item">
@@ -117,10 +117,10 @@
                                     </form> -->
                 <li class="nav-item no-caret mt-5 topbar-item">
                     <div class="btn btn-icon w-auto d-flex-website align-items-center btn-lg px-2" id="kt_quick_user_toggle">
-                        <span class="font-weight-bold font-size-base d-none d-md-inline mr-1" style="color: #fff;">Hi,</span>
-                        <span class="font-weight-bolder font-size-base d-none d-md-inline mr-3" style="color: #fff;">{{ Auth::user()->first_name() }}</span>
+                        <span class="font-weight-bold font-size-base d-none d-md-inline mr-1 h6" style="color: #fff;">Hi,</span>
+                        <span class="font-weight-bolder font-size-base d-none d-md-inline mr-3 h6" style="color: #fff;">{{ Auth::user()->first_name() }}</span>
                         <span class="symbol symbol-35 symbol-light-success">
-                            <span class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->first_name(), 0, 1) }}{{ substr(Auth::user()->last_name(), 0, 1) }}</span>
+                            <span class="symbol-label font-size-h4 font-weight-bold">{{ substr(Auth::user()->first_name(), 0, 1) }}{{ substr(Auth::user()->last_name(), 0, 1) }}</span>
                         </span>
                     </div>
                 </li>
