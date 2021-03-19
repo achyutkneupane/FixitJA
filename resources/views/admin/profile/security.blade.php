@@ -85,23 +85,10 @@
                             <div class="col-lg-9 col-xl-9">
                                 <span class="form-control form-control-lg form-control-solid">
                                     {{ $email->email }}
-                                    @if ($email->primary == true)
-                                        {!! $user->status == 'pending'
-    ? '
-                                        <span class="label label-warning label-pill label-inline mr-2 float-right">Not
-                                            Verified</span>'
-    : '
-                                        <span
-                                            class="label label-success label-pill label-inline mr-2 float-right">Verified</span>' !!}
-                                    @endif
+                                        {!! $email->verified == false ? ' <a href="'.route('verifyMultiEmail',$email->email).'" class="label label-warning label-pill label-inline mr-2 float-right">Not Verified</a>' : '<a class="label label-success label-pill label-inline mr-2 float-right">Verified</a>' !!}
+                                        {!! $email->primary == false ? '' : '<a class="label label-success label-pill label-inline mr-2 float-right">Primary</a>' !!}
                                 </span>
-                                {!! $user->status == 'pending'
-    ? '<span class="form-text text-center"><a href="' .
-        route('resendEmail') .
-        '" class="text-muted">Resend
-                                        Activation
-                                        Email.</a></span>'
-    : '' !!}
+                                {!! ($email->primary == true || $email->verified == false) ? '' : '<a href="'.route('makePrimary',$email->email).'" class="form-text">Change this Email to Primary</a>' !!}
                             </div>
                         </div>
                     @endforeach

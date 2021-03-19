@@ -62,18 +62,24 @@ class RegisterController extends Controller
     /* Add by Ashish Pokhrel */
     public function register(Request $request)
     {
-        $request->validate([
+       $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:emails,email'],
             'phone' => ['required', 'string', 'min:8', 'unique:phones,phone'],
             /* Add by Ashish Pokhrel */
-            'type' => Rule::in(['admin', 'individual_contractor', 'Business', 'general_user']),
+            'type' => ['required' ,Rule::in(['admin', 'individual_contractor', 'Business', 'general_user'])],
             'gender' => ['nullable', 'string'],
             'companyname' => ['nullable', 'string'],
             'websitepersonal' => ['nullable'],
             'websitecompany' => ['nullable'],
-            'password' => ['min:6|required_with:cpassword|same:cpassword', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
-            'cpassword' => ['min:6', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
+            'password' => [  'required',
+                              'min:6',             
+                              'regex:/[A-Z]/',      
+                              'regex:/[0-9]/', 
+                              'confirmed'
+                             ]   
+                              
+         
 
         ]);
         $user = User::create([
@@ -81,6 +87,7 @@ class RegisterController extends Controller
             'gender' => $request->gender,
             'companyname' => $request->companyname,
             'type' => $request->type,
+            'status' => 'new',
             'password' => Hash::make($request->password),
             'verification_code' => sha1(time())
         ]);
@@ -88,11 +95,13 @@ class RegisterController extends Controller
             'email' => $request->email,
             'primary' => true
         ]);
+      
+      
         $user->phones()->create([
             'phone' => $request->phone,
             'primary' => true
         ]);
-
+       
 
         // event(new UserRegistered($user));
         try {

@@ -1,12 +1,10 @@
 <?php
 
-// @Author Achyut Neupane
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeyToUsers extends Migration
+class CreateExperincesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +13,9 @@ class AddForeignKeyToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('set null');
+        Schema::create('experinces', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -27,8 +26,6 @@ class AddForeignKeyToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('experinces');
     }
 }

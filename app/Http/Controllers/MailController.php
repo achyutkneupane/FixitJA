@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerifyEmail;
 use App\Mail\ResponseEmail;
+use Exception;
 
 class MailController extends Controller
 {
@@ -21,7 +22,7 @@ class MailController extends Controller
         $data =  [
             'name' => $name,
             'verification_code' => $verification_code,
-
+            'email' => $email
         ];
         try {
             Mail::send('auth.verifyuser', $data, function ($message) use ($email, $subject) {
@@ -35,18 +36,17 @@ class MailController extends Controller
 
 
 
-public static function sendResponseEmail($name, $email)
+public static function sendResponseEmail($name, $email, $request, $user_subcategories)
 {
-     $subject = "About profile details";
+     $subject = "Your profile Updated";
         $data =  [
             'name' => $name,
-            
-            
-
+            'request'=>$request,
+            'user_subcategories' => $user_subcategories
         ];
 
         try{
-        Mail::send('mail.responseemail', $data, function ($message) use ($email, $subject) {
+        Mail::send('mail.createProfile', compact('data'), function ($message) use ($email, $subject) {
             $message->to($email)->subject($subject);
         });
     }

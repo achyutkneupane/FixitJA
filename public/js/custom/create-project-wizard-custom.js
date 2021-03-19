@@ -245,12 +245,12 @@ var KTWizard1 = function () {
 							}
 						}
 					},
-					perish: {
+					parish: {
 						validators: {
 							checkIfRequired: {
-								message: 'Your Perish is required',
+								message: 'Your Parish is required',
 								callback: function(input) {
-									$("#userPerishId").text(input.value);
+									$("#userParishId").text(input.value);
 									return !!input.value;
 								},
 							}
@@ -305,12 +305,12 @@ var KTWizard1 = function () {
 							}
 						}
 					},
-					site_perish: {
+					site_parish: {
 						validators: {
 							checkIfRequired: {
-								message: 'Site Perish is required',
+								message: 'Site Parish is required',
 								callback: function(input) {
-									$("#workingPerishId").text(input.value);
+									$("#workingParishId").text(input.value);
 									return workingEqualsUser() || !!input.value;
 								},
 							}
@@ -327,8 +327,6 @@ var KTWizard1 = function () {
 
 					alias: new FormValidation.plugins.Alias({
 						checkIfRequired: 'callback',
-						removeWorking: 'callback',
-						showWorking: 'callback',
 					}),
 				}
 			}

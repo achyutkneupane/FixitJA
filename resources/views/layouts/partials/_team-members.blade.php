@@ -23,9 +23,13 @@
                         </div>
                         <!--end::Pic-->
                         <!--begin::Title-->
-                        <div class="d-flex flex-column">
+                        <div class="d-flex flex-column" style="display:inline">
                             <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4 mb-0">{{ $user->name }}</a>
-                            <span class="text-muted font-weight-bold">{{ $user->type}}</span>
+                            
+                              @foreach(json_decode($user->subcategories()->get(), true) as $value) 
+                           <span class="text-muted font-weight-bold"  style="white-space: nowrap;">{{   $value['name']   }} </span>
+                            @endforeach 
+                            
                         </div>
                         <!--end::Title-->
                     </div>
@@ -39,22 +43,23 @@
                     <div class="mb-7">
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-dark-75 font-weight-bolder mr-2">Email:</span>
-                            @foreach(json_decode($user->emails()->get(), true) as $value)
-                            <a href="#" class="text-muted text-hover-primary">{{ $value['email'] }}</a>
-                            @endforeach
-
+                          
+                            <a href="#" class="text-muted text-hover-primary">contact@fixtija.com</a> 
+                          
 
 
                         </div>
                         <div class="d-flex justify-content-between align-items-cente my-1">
                             <span class="text-dark-75 font-weight-bolder mr-2">Phone:</span>
-                            @foreach(json_decode($user->phones()->get(), true) as $value)
-                            <a href="#" class="text-muted text-hover-primary">{{ $value['phone'] }}</a>
-                            @endforeach
+                           
+                            <a href="#" class="text-muted text-hover-primary">(555) 565-1846</a>
+                           
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-dark-75 font-weight-bolder mr-2">Location:</span>
-                            <span class="text-muted font-weight-bold">{{ $user->street_01}}</span>
+                            @foreach(json_decode($user->city()->get(), true) as $value)
+                            <span class="text-muted font-weight-bold">{{  $value['name']}}</span>,
+                            @endforeach {{ $user->street_01}}
                         </div>
                     </div>
                     <!--end::Info-->

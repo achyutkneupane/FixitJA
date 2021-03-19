@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <script>
-    var sessionCatId,sessionSubCatId;
+var sessionCatId,sessionSubCatId;
 </script>
 @if(!empty(session()->get('catId')))
 <script>
@@ -19,6 +19,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
     <div class="container">
         <div class="card card-custom">
             <div class="card-body p-0">
+
                 <!--begin::Wizard-->
                 <div class="wizard wizard-1" id="kt_wizard" data-wizard-state="first" data-wizard-clickable="false">
                     <!--begin::Wizard Nav-->
@@ -96,8 +97,12 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                     <!--begin::Wizard Body-->
                     <div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
                         <div class="col-xl-12 col-xxl-7">
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-border">
+                                </div>
+                            </div>
                             <!--begin::Wizard Form-->
-                            <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="POST" action="{{ route('addProject') }}">
+                            <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="POST" action="{{ route('addProject') }}" style="display:none">
                                 @csrf
                                 <!--begin::Wizard Step 1-->
                                 <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
@@ -145,7 +150,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                         <div id="divProjectWizardCategory">
 
                                         </div>
-                                        <input type="hidden" id="totalCatList" name="totalCatList">
+                                        <input type="hidden" id="totalProjectCatList" name="totalProjectCatList">
                                         <input type="button" class="mr-auto ml-2 btn btn-primary mt-5" value="Add More Category " id="subCategoryAddButtonProjectWizard">
                                     </div>
                                     <div class="mt-3 text-muted">Select multiple subcategories. If you don't see your option just create one.</div>
@@ -297,11 +302,23 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-4">
+                                            <!--begin::Input-->
+                                            <div class="form-group fv-plugins-icon-container">
+                                                <label>Parish</label>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="parish" placeholder="Parish">
+                                                <div class="fv-plugins-message-container"></div>
+                                                <span class="form-text text-muted">Please enter your Parish</span>
+                                            </div>
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-group fv-plugins-icon-container">
                                                 <!--begin::Select-->
                                                 <label>City</label>
                                                 <select class="form-control form-control-solid form-control-sm" id="citySelector" name="city">
-                                                  
+                                                    @foreach($cities as $index => $city)
+                                                    <option value="{{ $city->id }}" {{ ( !empty($user) && $city->id == $user->city->id) ? 'selected' : '' }}>{{ $city->name }}</option>
+                                                    @endforeach
                                                 </select>
                                                 <span class="form-text text-muted">Please enter your City</span>
                                                 <div class="fv-plugins-message-container"></div>
@@ -318,6 +335,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                 <!--end::Input-->
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group fv-plugins-icon-container">
                                                 <!--begin::Input-->
@@ -328,8 +347,6 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                 <!--end::Input-->
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-4">
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
@@ -348,16 +365,6 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                             </div>
                                             <!--end::Input-->
                                         </div>
-                                        <div class="col-md-4">
-                                            <!--begin::Input-->
-                                            <div class="form-group fv-plugins-icon-container">
-                                                <label>Perish</label>
-                                                <input type="text" class="form-control form-control-solid form-control-sm" name="perish" placeholder="Perish">
-                                                <div class="fv-plugins-message-container"></div>
-                                                <span class="form-text text-muted">Please enter your Perish</span>
-                                            </div>
-                                            <!--end::Input-->
-                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
@@ -373,11 +380,23 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-4">
+                                                <!--begin::Input-->
+                                                <div class="form-group fv-plugins-icon-container">
+                                                    <label>Parish</label>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_parish" placeholder="Parish">
+                                                    <div class="fv-plugins-message-container"></div>
+                                                    <span class="form-text text-muted">Please enter your Parish</span>
+                                                </div>
+                                                <!--end::Input-->
+                                            </div>
+                                            <div class="col-md-4">
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <!--begin::Select-->
                                                     <label>City</label>
                                                     <select class="form-control form-control-solid form-control-sm" id="citySelector" name="site_city">
-                                                       
+                                                        @foreach($cities as $index => $city)
+                                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                     <span class="form-text text-muted">Please enter your City</span>
                                                     <div class="fv-plugins-message-container"></div>
@@ -394,6 +413,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                     <!--end::Input-->
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <!--begin::Input-->
@@ -404,8 +425,6 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                     <!--end::Input-->
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-4">
                                                 <!--begin::Input-->
                                                 <div class="form-group fv-plugins-icon-container">
@@ -421,16 +440,6 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                     <label>Postal Code(Optional)</label>
                                                     <input type="text" class="form-control form-control-solid form-control-sm" name="site_postal_code" placeholder="Postal Code">
                                                     <div class="fv-plugins-message-container"></div>
-                                                </div>
-                                                <!--end::Input-->
-                                            </div>
-                                            <div class="col-md-4">
-                                                <!--begin::Input-->
-                                                <div class="form-group fv-plugins-icon-container">
-                                                    <label>Perish</label>
-                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_perish" placeholder="Perish">
-                                                    <div class="fv-plugins-message-container"></div>
-                                                    <span class="form-text text-muted">Please enter your Perish</span>
                                                 </div>
                                                 <!--end::Input-->
                                             </div>
@@ -510,8 +519,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                             <span class="text-muted" id='userPostalCodeId'>N/A</span>
                                         </div>
                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Perish: </span>
-                                            <span class="text-muted" id='userPerishId'>N/A</span>
+                                            <span class="font-weight-bold">Parish: </span>
+                                            <span class="text-muted" id='userParishId'>N/A</span>
                                         </div>
                                         <div class="col-md-12">
                                             <span class="font-weight-bold">Working Location is same as User Location: </span>
@@ -542,8 +551,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                 <span class="text-muted" id='workingPostalCodeId'>N/A</span>
                                             </div>
                                             <div class="col-md-6">
-                                                <span class="font-weight-bold">Perish: </span>
-                                                <span class="text-muted" id='workingPerishId'>N/A</span>
+                                                <span class="font-weight-bold">Parish: </span>
+                                                <span class="text-muted" id='workingParishId'>N/A</span>
                                             </div>
                                         </div>
                                     </div>

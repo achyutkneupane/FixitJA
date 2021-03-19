@@ -78,11 +78,11 @@ $show_sidebar = false;
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Type (Required)</label>
 
-                                <select class="form-control" id="user_type" name="type" value="{{old('type')}}" >
+                                <select class="form-control" id="user_type" name="type" value="{{ old('user_type') }}" >
                                     <option value="">Select</option>
-                                    <option value="general_user"   id="type1"  >General</option>
-                                    <option value="Business" id="type2">Business</option>
-                                    <option value="individual_contractor" id="type3">Skilled Worker</option>
+                                    <option value="general_user"   id="type1" @if (old('type') == "general_user") {{ 'selected' }} && (old('id') == "type1") {{ 'selected' }} @endif  >General</option>
+                                    <option value="Business"   id="type2" @if (old('type') == "Business") {{ 'selected' }} @endif>Business</option>
+                                    <option value="individual_contractor"   id="type3" @if (old('type') == "individual_contractor") {{ 'selected' }} @endif>Skilled Worker</option>
                                 </select>
                                 @if ($errors->has('type'))
                                     <span class="text-danger">{{ $errors->first('type') }}</span>
@@ -96,11 +96,11 @@ $show_sidebar = false;
                             <div class="form-group" id="genders">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Gender</label>
 
-                                <select class="form-control" name="gender" value="{{old('gender')}}" >
+                                <select class="form-control" name="gender" value="{{ old('gender') }}" >
                                     <option value="">Select</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Custom">Other</option>
+                                    <option value="Male" @if (old('gender') == "Male") {{ 'selected' }}   @endif>Male</option>
+                                    <option value="Female" @if (old('gender') == "Female") {{ 'selected' }}   @endif  >Female</option>
+                                    <option value="Custom" @if (old('gender') == "Custom") {{ 'selected' }}  @endif >Other</option>
                                 </select>
                                 @if ($errors->has('gender'))
                                     <span class="text-danger">{{ $errors->first('gender') }}</span>
@@ -144,16 +144,17 @@ $show_sidebar = false;
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Password</label>
                                 <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="password" id="psw" placeholder="Password" value="" />
-                                <span class="passwordinfo"> Your password must be more than 8 characters long, should contain at least one uppercase and one numeric character.</span>
+                               
                                 @if ($errors->has('password'))
-                                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                                    <span class="text-danger">{{ $errors->first('password') }}</span> <br>
                             @endif
+                             <span class="passwordinfo"> Your password must be more than 6 characters long, should contain at least one uppercase and one numeric character.</span>
                             </div>
                             <!--end::Form Group-->
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark"> Confirm Password</label>
-                                <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="cpassword" placeholder=" Confirm Password" value="" />
+                                <input type="password" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="password_confirmation" placeholder=" Confirm Password" value="" />
                                 @if ($errors->has('password'))
                                     <span class="text-danger">{{ $errors->first('password') }}</span>
                             @endif
@@ -202,10 +203,22 @@ $show_sidebar = false;
 
 
     <script>
+    @if (old('type') == "general_user" || old('type') == "individual_contractor")
+        document.getElementById("genders").style.display = "block";
+        document.getElementById("webpersonal").style.display = "block";
+    @else
         document.getElementById("genders").style.display = "none";
         document.getElementById("webpersonal").style.display = "none";
+    @endif
+
+    @if (old('type') == "Business")
+        document.getElementById("webcompany").style.display = "block";
+        document.getElementById("companyname").style.display = "block";
+    @else 
         document.getElementById("webcompany").style.display = "none";
         document.getElementById("companyname").style.display = "none";
+    @endif
+
 
     </script>
     @endsection

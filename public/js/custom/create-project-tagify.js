@@ -120,7 +120,8 @@ function AddCategoryProjectWizard() {
         projectWizardCount++;
         const cloneProjectWizardCategory = $("#templateProjectWizardCategory").clone();
         cloneProjectWizardCategory.attr("id", "ProjectWizardCategory" + projectWizardCount);
-        $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "' + projectWizardCount + '"},');
+        if(projectWizardCount !== "")
+        $("#totalProjectCatList").val($("#totalProjectCatList").val() + '{"fieldId": "' + projectWizardCount + '"},');
 
         var categoryCard = cloneProjectWizardCategory.find("#subCategoryTemplate_selector");
         categoryCard.attr("id", "subCategory_selector" + projectWizardCount);
@@ -159,8 +160,16 @@ function AddCategoryProjectWizard() {
         else {
             project_wizard_footer.remove();
         }
-
-        cloneProjectWizardCategory.show();
+        jQuery.ajaxSetup({
+            beforeSend: function() {
+               $('.spinner-border').show();
+            },
+            complete: function(){
+               $('.spinner-border').hide();
+               $('#kt_form').show();
+            },
+            success: cloneProjectWizardCategory.show()
+          });
         $("#divProjectWizardCategory").append(cloneProjectWizardCategory);
         CategoryProjectWizardFV.addField("categoryTemplate" + projectWizardCount, skills_category_project_wizard);
         if (totalCategory > 2) {
@@ -179,11 +188,13 @@ function AddCategoryProjectWizard() {
             }
         });
     }
-    if(sessionCatId != 'NULL') {
-        $("#categorySelect1").val(sessionCatId).change();
-    }
-    else if(sessionSubCatId) {
-        $("#categorySelect1").val(sessionsubCatCatId).change();
+    if($("#categorySelect1").val() != null) {
+        if(sessionCatId != 'NULL') {
+            $("#categorySelect1").val(sessionCatId).change();
+        }
+        else if(sessionSubCatId) {
+            $("#categorySelect1").val(sessionsubCatCatId).change();
+        }
     }
 }
 
@@ -202,7 +213,7 @@ $(document).on("click", ".remove-accordian-project-wizard", function (e) {
 
     selectedCategoryData['categorySelect' + $(this).attr('count-value')] = "-1";
     updateAllCategorySelect();
-    $("#totalCatList").val($("#totalCatList").val().replace('{"fieldId": "' + $(this).attr('count-value') + '"},', ''));
+    $("#totalProjectCatList").val($("#totalProjectCatList").val().replace('{"fieldId": "' + $(this).attr('count-value') + '"},', ''));
 })
 
 function workingEqualsUser() {

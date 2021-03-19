@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -36,13 +37,13 @@ class AppServiceProvider extends ServiceProvider
             return auth()->user() && !empty(auth()->user()->email_verified_at);
         });
         Blade::if('formToBeFilled', function () {
-            return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "new";
+            return auth()->user() && auth()->user()->type == "individual_contractor" && auth()->user()->status == "new";
         });
         Blade::if('notApproved', function () {
-            return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "pending";
+            return auth()->user() && auth()->user()->type == "individual_contractor" && auth()->user()->status == "pending";
         });
         Blade::if('isReviewing', function(){
-            return auth()->user() && auth()->user()->type = "individual_contractor" && auth()->user()->status == "reviewing";
+            return auth()->user() && auth()->user()->type == "individual_contractor" && auth()->user()->status == "reviewing";
         });
         Blade::if('isAdmin', function () {
             return auth()->user() && auth()->user()->type == "admin";
@@ -68,6 +69,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('userIsContractor', function ($user) {
             return auth()->user() && $user->type == "individual_contractor";
         });
-        view()->share('navbarCategories', Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get());
+        if(Schema::hasTable('categories'))
+            view()->share('navbarCategories', Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get());
     }
 }

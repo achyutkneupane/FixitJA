@@ -3,7 +3,8 @@
 var category_data;
 var selectcategoryid = "selected_catgeory1";
 var count = 1;
-$(document).ready(function () {
+$(document).ready(function (e) {
+   
     $('#user_type').on('change', function () {
         var selectedTYPE = $(this).children("option:selected").attr("id");
         if (selectedTYPE == "type1" || selectedTYPE == "type3") {
@@ -25,6 +26,7 @@ $(document).ready(function () {
             document.getElementById("companyname").style.display = "none";
 
         }
+     
     });
 
     /* for Profile wizard step 2 */
@@ -61,42 +63,42 @@ $(document).ready(function () {
         });
 
     }
-    /* for calandar validation */
-    var dateControler = {
-        currentDate: null
-    }
-    var selectedsDate;
-    $('#selectstartdate').on("change", function (e) {
-        var now = new Date();
-        selectedsDate = new Date($(this).val());
+    // /* for calandar validation */
+    // var dateControler = {
+    //     currentDate: null
+    // }
+    // var selectedsDate;
+    // $('#selectstartdate').on("change", function (e) {
+    //     var now = new Date();
+    //     selectedsDate = new Date($(this).val());
 
 
-        if (selectedsDate > now) {
-            $(this).val(dateControler.currentDate)
-        } else {
-            dateControler.currentDate = $(this).val();
-        }
+    //     if (selectedsDate > now) {
+    //         $(this).val(dateControler.currentDate)
+    //     } else {
+    //         dateControler.currentDate = $(this).val();
+    //     }
 
 
-    })
+    // })
 
-    $('#selectenddate').on("change", function (e) {
+    // $('#selectenddate').on("change", function (e) {
 
-        var now = new Date();
-        var selectedeDate = new Date($(this).val());
-
-
-        if (selectedeDate < selectedsDate  ) {
-            $(this).val(dateControler.currentDate)
-        } else {
-            dateControler.currentDate = $(this).val();
-        }
+    //     var now = new Date();
+    //     var selectedeDate = new Date($(this).val());
 
 
-    });
+
+    //     if (selectedeDate < selectedsDate  ) {
+    //         $(this).val(dateControler.currentDate)
+    //     } else {
+    //         dateControler.currentDate = $(this).val();
+    //     }
 
 
-    /*  for  Range slider */
+    // });
+
+/*  for  Range slider */
     var slider = document.getElementById("myRange");
     if(slider) {
     var output = document.getElementById("demo");
@@ -343,6 +345,17 @@ function LoadWizardData(wizard) {
         });
     }
 }
+
+/* hide slider if travelling is no
+$(document).ready(function () {
+     $('#is_travelling_no').on('click', function () {
+    var value = document.getElementById('is_travelling_no');
+     if (value == "0") {
+         document.getElementById('distanceslider').style.display = "none";
+     }else{
+          document.getElementById('distanceslider').style.display = "block";*/
+
+
 
 
 

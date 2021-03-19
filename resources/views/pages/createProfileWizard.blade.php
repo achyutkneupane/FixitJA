@@ -14,10 +14,13 @@ var sessionSubCatId = {{ session()->get('subCatId') }};
 var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
 </script>
 @endif
+
+ 
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
 <!-- <div class="container"> -->
 <div class="card card-custom">
+   
     <div class="card-body p-0">
         <!--begin::Wizard-->
         <div class="wizard wizard-1" id="kt_wizard" data-wizard-state="first" data-wizard-clickable="false">
@@ -69,7 +72,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                     <!--begin::Wizard Step 3 Nav-->
                     <div class="wizard-step" data-wizard-type="step" data-wizard-state="pending">
                         <div class="wizard-label">
-                            <i class="wizard-icon flaticon-background"></i>
+                            <i class=" wizard-icon flaticon-book"></i>
                             <h3 class="wizard-title">Education</h3>
                         </div>
                         <span class="svg-icon svg-icon-xl wizard-arrow">
@@ -90,7 +93,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                     <!-- begin::Wizard Step 4 Nav -->
                     <div class="wizard-step" data-wizard-type="step" data-wizard-state="pending">
                         <div class="wizard-label">
-                            <i class="wizard-icon flaticon-background"></i>
+                            <i class="wizard-icon flaticon-users"></i>
                             <h3 class="wizard-title">Reference</h3>
                         </div>
                         <span class="svg-icon svg-icon-xl wizard-arrow">
@@ -211,7 +214,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                     <select name="skills_category" subcatid="kt_tagify_subcategory" id="selected_catgeory1" class="form-control form-control-solid form-control-lg category-select">
                                                         <option value="">Select Category</option>
                                                         @foreach ($category as $cate)
-                                                        <option value="{{ $cate->id }}">{{ $cate->name }}
+                                                        <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
                                                         </option>
                                                         @endforeach
                                                     </select>
@@ -298,7 +301,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     <option value="Secondary level" id="type1">Secondary level</option>
                                     <option value="Higher Secondary level" id="type2">Higher Secondary level
                                     </option>
-                                    <option value="Bachalaor" id="type3">Bachalaor</option>
+                                    <option value="Bachalaor" id="type3">Bachelors</option>
                                     <option value="Master" id="type3">Master</option>
                                 </select>
                                 @if ($errors->has('degree'))
@@ -453,31 +456,33 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         <div class="pb-5" data-wizard-type="step-content">
                             <h4 class="mb-10 font-weight-bold text-dark">Upload Your Profile Image</h4>
                             <!--begin::Input-->
-                            <div class="form-group fv-plugins-icon-container">
-                                <label class="col-9 col-form-label"></label>
-                                <div class="col-lg-9 col-xl-6">
-                                    <div class="image-input image-input-empty image-input-outline" id="kt_image_5" style="background-image: url({{asset('media/users/blank.png')}});">
-                                        <div class="image-input-wrapper"></div>
-
-                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
-                                            <i class="fa fa-pen icon-sm text-muted"></i>
-                                            <input type="file" name="profile" id="file" accept=".png, .jpg, .jpeg" value="" />
-                                            <input type="hidden" name="profile_avatar_remove" />
-                                        </label>
-
-                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
-                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                        </span>
-
-                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove avatar">
-                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-
+                             <div class="form-group row">
+                        <div class="col-lg-9 col-xl-6">
+                        <div class="editProfileImage mb-3">
+                            <img src="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}" id="profilePicture" style="height:200px; width:200px;">
                         </div>
+                            <input
+                                id="profile_image"
+                                type="file"
+                                accept=".jpg,.gif,.png,.jpeg"
+                                name="profile"
+                                onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])"
+                                />
+                            @error('profile_image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    </div>
+                    
+                           
+                        
+
+
+
+                        
                         <!--end::wizard step 6-->
 
                         <!--begin::wizard step 7-->
@@ -532,15 +537,11 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     <h3 class="col-md-12 my-3">Skill</h3>
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Skills: </span>
-                                        <span class="text-muted" id='skill'>N/A</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Certificate: </span>
-                                        <span class="text-muted" id='certificate'>N/A</span>
+                                        <span class="text-muted" id='skill'></span>
                                     </div>
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Experience: </span>
-                                        <span class="text-muted" id='experience'>N/A</span>
+                                        <span class="text-muted" id='experience'></span>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mb-2 row">
@@ -578,7 +579,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     </div>
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Working days: </span>
-                                        <span class="text-muted" id='workingdays'>N/A</span>
+                                        <span class="text-muted" id='workingdays'></span>
                                     </div>
                                     <div class="col-md-6">
                                         <span class="font-weight-bold">Is travelling?: </span>
@@ -665,10 +666,6 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
 
 
 <script src="{{ asset('js/custom/create-workingdays-tagify.js') }}" type="text/javascript"></script>
-<<<<<<< HEAD
-
-=======
->>>>>>> development
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
 <script>

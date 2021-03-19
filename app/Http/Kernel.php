@@ -65,7 +65,9 @@ class Kernel extends HttpKernel
         'checkIfAdmin' => \App\Http\Middleware\CheckIfAdmin::class,
         'generaluser'  => \App\Http\Middleware\GeneralUser::class,
         'individualcontractor' => \App\Http\Middleware\IndividualContractor::class,
-        'business' => \App\Http\Middleware\Business::class
+        'business' => \App\Http\Middleware\Business::class,
+        'checkIfSkillworker' => \App\Http\Middleware\CheckIfSkillWorker::class,
+        'ifUserIsSkillworker' => \App\Http\Middleware\CheckSkillsWorker::class
 
     ];
 }

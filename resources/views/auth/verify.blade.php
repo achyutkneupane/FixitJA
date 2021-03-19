@@ -9,7 +9,7 @@ Please click the below link to Reset Your Password
                             {{ __('A fresh verification link has been sent to your email address.') }}
                         </div>
                     @endif
-                    <a href="{{ asset('/') }}/reset-password/{{ $token }}">Click Here</a>.
+                    <a href="{{ asset('/') }}reset-password/{{ $token }}">Click Here</a>.
                 </div>
                 <br><br>
 Thank you!
