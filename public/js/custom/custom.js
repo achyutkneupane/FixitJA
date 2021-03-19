@@ -106,7 +106,7 @@ $(document).ready(function (e) {
     output.innerHTML = slider;
 
         slider.oninput = function () {
-            output.innerHTML = this.value;
+            output.innerHTML = value;
         }
     }
 });
