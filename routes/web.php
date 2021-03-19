@@ -117,7 +117,7 @@ Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'underConstruction']);
 
 //Route for profile wizard
-Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->middleware('auth', 'checkIfSkillworker')->name('profileWizard');
+Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->middleware('auth', 'checkIfSkillworker','ifUserIsSkillworker')->name('profileWizard');
 //Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
 
