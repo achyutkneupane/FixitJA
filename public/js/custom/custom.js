@@ -3,7 +3,8 @@
 var category_data;
 var selectcategoryid = "selected_catgeory1";
 var count = 1;
-$(document).ready(function () {
+$(document).ready(function (e) {
+   
     $('#user_type').on('change', function () {
         var selectedTYPE = $(this).children("option:selected").attr("id");
         if (selectedTYPE == "type1" || selectedTYPE == "type3") {
@@ -25,6 +26,7 @@ $(document).ready(function () {
             document.getElementById("companyname").style.display = "none";
 
         }
+     
     });
 
     /* for Profile wizard step 2 */
