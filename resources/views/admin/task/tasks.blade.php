@@ -83,6 +83,10 @@ $page_title = 'Tasks';
                         <th title="Address" style="width:15%;">Address</th>
                         <th title="Category" style="width:15%;">Category</th>
                         <th title="Date" style="width:15%;">Date</th>
+                        <th title="Date" style="width:15%;">Date</th>
+                        <th title="Role" style="width:5%;">Role</th>
+                       
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -101,6 +105,8 @@ $page_title = 'Tasks';
                             <td></td>
                             {{-- <td>{{ ucwords($task->sub_category->name) }}</td> --}}
                             <td>{{ $task->created_at->diffForHumans() }}</td>
+                            
+
                         </tr>
                     @endforeach
                 </tbody>
