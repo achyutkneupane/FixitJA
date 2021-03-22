@@ -34,7 +34,7 @@ class MainController extends Controller
 
 
         //dd($documents->where('type','profile_picture')->where('id','12')->first());
-        $categories = Category::get(['id','name']);
+        $categories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(3);}])->first();
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
         return view('pages.welcome', compact('page_title', 'page_description','categories'), ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);

@@ -33,7 +33,7 @@
                                         @if($cat->sub_categories->count() != 0)
                                         @foreach($cat->sub_categories as $subCategory)
 
-                                        <a class="dropdown-item" href="{{ route('createProjectWithSub',$subCategory->id) }}">{{ $subCategory->name}}</a>
+                                        <a class="dropdown-item" href="{{ route('createProjectWithSub',$subCategory->id) }}">{{ ucwords($subCategory->name) }}</a>
                                         @endforeach
                                         @else
                                         No sub-categories inside <b>{{ ucwords($cat->name) }}</b>
