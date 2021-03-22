@@ -44,7 +44,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-dark-75 font-weight-bolder mr-2">Email:</span>
 
-                            <a href="#" class="text-muted text-hover-primary">contact@fixtija.com</a>
+                            <a href="mailto:contact@fixtija.com" class="text-muted text-hover-primary">contact@fixtija.com</a>
 
 
 
@@ -52,7 +52,7 @@
                         <div class="d-flex justify-content-between align-items-cente my-1">
                             <span class="text-dark-75 font-weight-bolder mr-2">Phone:</span>
 
-                            <a href="#" class="text-muted text-hover-primary">(555) 565-1846</a>
+                            <a href="tel:555-565-1846" class="text-muted text-hover-primary">(555) 565-1846</a>
 
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
