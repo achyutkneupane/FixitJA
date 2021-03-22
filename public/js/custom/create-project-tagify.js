@@ -32,7 +32,6 @@ $(document).on('change', '.project_category_select', function (e) {
 function updateAllCategorySelect() {
     $(".project_category_select").each(function () {
         var selectID = $(this).attr("id");
-        console.log(selectID);
         $("#" + selectID + " option").prop("disabled", false);
         $("#" + selectID + " option[value='']").prop("disabled", true);
         $.each(selectedCategoryData, function (id, val) {
@@ -177,7 +176,6 @@ function AddCategoryProjectWizard() {
         if (totalCategory > 2) {
             $("#subCategoryAddButtonProjectWizard").hide();
         }
-
     }
     else {
         Swal.fire({
@@ -190,7 +188,8 @@ function AddCategoryProjectWizard() {
             }
         });
     }
-    if($("#categorySelect1").val() != null) {
+
+    if($("#categorySelect1")) {
         if(sessionCatId != 'NULL') {
             $("#categorySelect1").val(sessionCatId).change();
         }

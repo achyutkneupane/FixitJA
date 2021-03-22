@@ -15,12 +15,12 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
 </script>
 @endif
 
- 
+
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
 <!-- <div class="container"> -->
 <div class="card card-custom">
-   
+
     <div class="card-body p-0">
         <!--begin::Wizard-->
         <div class="wizard wizard-1" id="kt_wizard" data-wizard-state="first" data-wizard-clickable="false">
@@ -476,13 +476,13 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         </div>
                     </div>
                     </div>
-                    
-                           
-                        
 
 
 
-                        
+
+
+
+
                         <!--end::wizard step 6-->
 
                         <!--begin::wizard step 7-->
@@ -675,21 +675,21 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
 
     avatar5.on('cancel', function(imageInput) {
         swal.fire({
-            
+
         });
     });
 
     avatar5.on('change', function(imageInput) {
         swal.fire({
-           
-            
+
+
         });
     });
 
     avatar5.on('remove', function(imageInput) {
         swal.fire({
-            
-            
+
+
         });
     });
 </script>
