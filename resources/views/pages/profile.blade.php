@@ -127,7 +127,7 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Distance willing to travel</label>
                         <div class="col-lg-9 col-xl-6">
                             <span class="form-control form-control-lg form-control-solid">
-                                {!! $user->areas_covering ? $user->areas_covering : "<span class='text-muted'>N/A</span>" !!}
+                                {!! $user->total_distance ? $user->total_distance : "<span class='text-muted'>N/A</span>" !!}
                             </span>
                         </div>
                     </div>

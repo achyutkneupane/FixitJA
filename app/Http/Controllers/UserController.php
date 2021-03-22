@@ -111,7 +111,8 @@ class UserController extends Controller
         $page_description = 'This is profile wizard page';
         $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
-        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category'));
+        $city = City::all();
+        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'city'));
     }
     
     public function updateprofilewithSub($subCatId = NULL)
@@ -134,6 +135,7 @@ class UserController extends Controller
     public function addprofiledetails(Request $request)
     {
         try {
+            
             
              $user  = new User();
              $user  = User::find(Auth::user()->id);
@@ -184,6 +186,7 @@ class UserController extends Controller
             $skills_certificate = new Collection();
             $skills_experince = new Collection();
             foreach(json_decode($Certificate1) as $certificateArray){
+               
                 $document = new Document();
                 $tempPath = "";
                 $id = $certificateArray->fieldId;
@@ -201,19 +204,23 @@ class UserController extends Controller
             }
 
             /* refernce */
+            $Experience = "[".$request->totalCertificateList."]";
+            $Experience1 = str_replace('},]','}]',$Experience );
             
-            /*foreach(json_decode($Certificate) as $certificateArray){
-                $new_certificate = 'certificate'. $certificateArray->fieldId;
-                $new_experience = 'experience'. $certificateArray->fieldId;
-                if($new_experience){
-                    foreach(json_decode($request->new_experience) as $subRefernces){
-                        if(!empty($subRefernces)){
+            $skills_experince = new Collection();
+            foreach(json_decode($Experience1) as $experienceArray){
+               
+                $new_experience = 'experience'. $experienceArray->fieldId;
+                $exp_id = $experienceArray->fieldId;
+                $experince_new = 'experience'.$id;
+                
+                
+              
+        }
 
-                            $skills_experince->push($subRefernces);
-                             }
-                             }
-                            }
-                        }*/
+        
+
+        
            $education = new Education();
             $education->education_instution_name = $request->educationinstutional_name;
             $education->degree = $request->degree;
@@ -242,7 +249,7 @@ class UserController extends Controller
                 $user->is_travelling = 0;
             }
 
-
+          
             /* Converting skills array */
             $skillArray = array();
             foreach (json_decode($request->sub_categories) as $category) {
@@ -256,14 +263,15 @@ class UserController extends Controller
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
+          $user->experience = request($experince_new);
           
           //$user->experience()->attach($skills_experince);
-          
+        
          
           $user->street_01 = $request->street;
           $user->street_02 = $request->house_number;
-          $user->city_id = 1;
-          $user->total_distance = 1;
+          $user->city_id = $request->cities;
+          $user->total_distance = $request->total_distance;
           $user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
           $user->save();

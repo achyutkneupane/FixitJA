@@ -301,8 +301,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     <option value="Secondary level" id="type1">Secondary level</option>
                                     <option value="Higher Secondary level" id="type2">Higher Secondary level
                                     </option>
-                                    <option value="Bachalaor" id="type3">Bachelors</option>
-                                    <option value="Master" id="type3">Master</option>
+                                    <option value="Bachelors" id="type3">Bachelors</option>
+                                    <option value="Master's" id="type3">Master's</option>
                                 </select>
                                 @if ($errors->has('degree'))
                                 <span class="text-danger">{{ $errors->first('degree') }}</span>
@@ -404,7 +404,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
-                                    <label for="exampleTextarea">8.Write short description about yoursel
+                                    <label for="exampleTextarea">8.Write short description about yourself?
                                         <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="exampleTextarea" rows="3" name="personal_description"></textarea>
                                 </div>
@@ -429,7 +429,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 </div>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
-                                <label class="col-9 col-form-label">11. Are you willing to travel long distace?</label>
+                                <label class="col-9 col-form-label">11. Are you willing to travel long distance?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
                                         <input type="radio" name="is_travelling" value="1" />
@@ -503,14 +503,10 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>City</label>
-                                <select name="cities" class="form-control form-control-solid form-control-lg category-select"> >
-                                    <option value="Barbican">Barbican</option>
-                                    <option value="Allerdyce">Allerdyce</option>
-                                    <option value="Cherry Gardens">Cherry Gardens</option>
-                                    <option value="Tivoli Gardens">Tivoli Gardens</option>
-                                    <option value="Red Hills">Red Hills</option>
-                                    <option value="Mountain View">Mountain View</option>
-                                    <option value="Forest Hills">Forest Hills</option>
+                                <select name="cities" class="form-control form-control-solid form-control-lg category-select">
+                                    @foreach($city as $index => $cities)
+                                    <option value="{{ $cities->id }}">{{ $cities->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
