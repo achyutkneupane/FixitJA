@@ -30,7 +30,7 @@ class MainController extends Controller
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
-       
+
 
 
         //dd($documents->where('type','profile_picture')->where('id','12')->first());

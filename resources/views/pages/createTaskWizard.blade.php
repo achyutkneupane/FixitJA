@@ -122,7 +122,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <label>Category</label>
                                                             <select id="categorySelectTemplate" subcatid="kt_tagify_subCat_project_wizard_Template" name="categoryTemplate" class="form-control form-control-solid form-control-sm project_category_select">
-                                                                <option value="">Select Category</option>
+                                                                <option value="" disabled selected>Select Category</option>
                                                                 @foreach($cats as $cat)
                                                                 <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
                                                                 @endforeach
@@ -214,7 +214,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Project Deadline</label>
                                                 <select name="deadline" class="form-control form-control-solid form-control-sm">
-                                                    <option value="">Select Payment Deadline</option>
+                                                    <option value="">Select Project Deadline</option>
                                                     <option value="flexible">Flexible</option>
                                                     <option value="asap">ASAP</option>
                                                     <option value="within a week">Within A Week</option>
