@@ -82,11 +82,8 @@ $page_title = 'Tasks';
                         <th title="Created For" style="width:15%;">Created For</th>
                         <th title="Address" style="width:15%;">Address</th>
                         <th title="Category" style="width:15%;">Category</th>
-                        <th title="Date" style="width:15%;">Date</th>
-                        <th title="Date" style="width:15%;">Date</th>
-                        <th title="Role" style="width:5%;">Role</th>
-                       
-                        
+                        <th title="Date" style="width:30%;">Date</th>
+                        <th title="Action" style="width:20%">Actions </th>
                     </tr>
                 </thead>
                 <tbody>
