@@ -20,8 +20,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MailController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\Console\Input\Input;
 use Throwable;
+use Illuminate\Support\Str;
 
 use function GuzzleHttp\Promise\all;
 
@@ -502,5 +506,53 @@ class UserController extends Controller
     public function emptyPage()
     {
         return view('pages.emptyFile');
+    }
+    public function adminAddUser()
+    {
+        return view('admin.profile.adminAddUser');
+    }
+    public function adminAddUserSubmit(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'  => 'required',
+            'email' => 'required|unique:emails,email',
+            'phone' => 'required|unique:phones,phone',
+            'gender' => 'required',
+            'type' => 'required',
+            'city_id' => 'required',
+            'street_01' => 'required'
+        ],[
+            'unique'    =>  'This :attribute already exists. Please try another one.'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withInput(request()->all())->withErrors($validator);
+        }
+        $data = request()->except('email','phone');
+        $new = [
+            'email_verified_at' => now(),
+            'status' => $request->type == 'individual_contractor' ? 'new' : 'active'
+        ];
+        $user = User::create(array_merge($data,$new));
+        $user->emails()->create([
+            'email' => $request->email,
+            'primary' => true,
+            'verified' => false
+        ]);
+        $user->phones()->create([
+            'phone' => $request->phone,
+            'primary' => true,
+        ]);
+        $token = Str::random(32);
+
+        DB::table('password_resets')->insert(
+            ['email' => $request->email, 'token' => $token, 'created_at' => now()]
+        );
+
+        Mail::send('mail.adminAddUser', compact('token','user'), function ($message) use ($request) {
+            $message->to($request->email,$request->name);
+            $message->subject('Account Created - FixitJA');
+        });
+        ToastHelper::showToast('User Account Created.');
+        return redirect()->route('viewUser',$user->id);
     }
 }

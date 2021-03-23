@@ -7,7 +7,7 @@
 @section('content')
     @php
     $page_title = 'User List';
-    $subhead_button = [['class' => 'primary', 'text' => 'New User', 'link' => '#']];
+    $subhead_button = [['class' => 'primary', 'text' => 'New User', 'link' => route('adminAddUser')]];
 
     @endphp
     @if ($users->count() == 0)

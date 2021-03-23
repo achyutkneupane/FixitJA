@@ -102,6 +102,8 @@ Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'
 Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
 Route::get('/resend_email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyMultiEmail'])->name('verifyMultiEmail');
+Route::get('/add_user', [App\Http\Controllers\UserController::class, 'adminAddUser'])->middleware('auth','checkIfAdmin')->name('adminAddUser');
+Route::post('/add_user', [App\Http\Controllers\UserController::class, 'adminAddUserSubmit'])->middleware('auth','checkIfAdmin')->name('adminAddUserSubmit');
 
 //Route for viewing all categories
 Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);

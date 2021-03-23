@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\City;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -71,5 +72,7 @@ class AppServiceProvider extends ServiceProvider
         });
         if(Schema::hasTable('categories'))
             view()->share('navbarCategories', Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get());
+        if(Schema::hasTable('cities'))
+            view()->share('cities',City::get());
     }
 }
