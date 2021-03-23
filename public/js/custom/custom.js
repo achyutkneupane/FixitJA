@@ -102,10 +102,11 @@ $(document).ready(function (e) {
     var slider = document.getElementById("myRange");
     if(slider) {
     var output = document.getElementById("demo");
-    output.innerHTML = slider;
+    output.innerHTML = slider.value;
+
 
         slider.oninput = function () {
-            output.innerHTML = this.value;
+           output.innerHTML = this.value;
         }
     }
 });

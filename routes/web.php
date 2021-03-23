@@ -88,8 +88,10 @@ Route::prefix('/security')->middleware('auth')->group(function () {
     Route::get('/delete', [App\Http\Controllers\UserController::class, 'deleteUser'])->name('deleteUser');
     Route::get('/{id}', [App\Http\Controllers\UserController::class, 'viewSecurity'])->middleware('checkIfAdmin')->name('viewAccountSecurity');
 });
+Route::get('/edittask/{taskid}',[App\Http\Controllers\MainController::class, 'edittask']);
 Route::prefix('/project/create')->group(function(){
     Route::get('/', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
+    
     Route::get('/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProjectwithCat'])->name('createProjectWithCat');
     Route::get('/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
     Route::post('/', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');

@@ -97,6 +97,10 @@ var KTDatatableHtmlTableDemo = function() {
         field: 'Date',
         type: 'string',
         width: 100,
+      },{
+        field: "Actions",
+        title: "Actions",
+        width: 80,
       }],
     });
 

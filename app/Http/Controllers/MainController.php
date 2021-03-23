@@ -30,7 +30,7 @@ class MainController extends Controller
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
-       
+
 
 
         //dd($documents->where('type','profile_picture')->where('id','12')->first());
@@ -215,5 +215,19 @@ class MainController extends Controller
        if($subCatId != NULL)
            session()->flash('subCatId',$subCatId);
        return view('pages.createTaskWizard', compact('document', 'category','subs'));
+   }
+
+   public function edittask( $taskID)
+   {
+
+   
+       try {
+            $tasks = Task::where('id', $taskID)->first();
+            return view('admin.task.edittask', compact('tasks'));
+       } catch (\Throwable $e) {
+           dd($e);
+       }
+      
+       
    }
 }
