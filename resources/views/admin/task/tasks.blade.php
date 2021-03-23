@@ -81,7 +81,6 @@ $page_title = 'Tasks';
                         <th title="Category" style="width:15%;">Category</th>
                         <th title="Date" style="width:15%;">Date</th>
                        
-                        
                     </tr>
                 </thead>
                 <tbody>
