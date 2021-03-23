@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<script>
+<!--<script>
 var sessionCatId,sessionSubCatId;
 </script>
 @if(!empty(session()->get('catId')))
@@ -13,7 +13,7 @@ var sessionCatId = 'NULL';
 var sessionSubCatId = {{ session()->get('subCatId') }};
 var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
 </script>
-@endif
+@endif-->
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container">
@@ -122,10 +122,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <label>Category</label>
                                                             <select id="categorySelectTemplate" subcatid="kt_tagify_subCat_project_wizard_Template" name="categoryTemplate" class="form-control form-control-solid form-control-sm project_category_select">
-                                                                <option value="" disabled selected>Select Category</option>
-                                                                @foreach($cats as $cat)
-                                                                <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
-                                                                @endforeach
+                                                                <option value="abc">Abc </option>
+                                                               
                                                             </select>
                                                         </div>
                                                         <!-- <div class="fv-plugins-message-container"></div> -->
@@ -164,7 +162,9 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Title</label>
-                                                <input type="text" class="form-control form-control-solid form-control-sm" name="name" placeholder="Task Title">
+                                                @foreach ($tasks as $task)
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="name" placeholder="Task Title" value="">
+                                                @endforeach
                                                 <span class="form-text text-muted">Please enter your Task title</span>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
@@ -172,12 +172,14 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Project Type</label>
+                                                @foreach($tasks as  $task)
+                                              
                                                 <select name="type" class="form-control form-control-solid form-control-sm">
-                                                    <option value="">Select Project Type</option>
-                                                    <option value="ready to hire">Ready To Hire</option>
-                                                    <option value="planning">Required Planning and Budgeting</option>
-                                                    <option value="N/A">Not Sure Yet</option>
+                                                    <option value="{{ $task->creator->name}}"></option>
+                                                    
+                                                    @endforeach
                                                 </select>
+                                              
                                                 <span class="form-text text-muted">Please enter your project type.</span>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
@@ -187,7 +189,9 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Description</label>
+                                               
                                                 <textarea class="form-control form-control-solid form-control-sm" name="description" placeholder="Description" rows="7"></textarea>
+                                             
                                                 <span class="form-text text-muted">Please enter your Task Description</span>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
@@ -214,7 +218,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Project Deadline</label>
                                                 <select name="deadline" class="form-control form-control-solid form-control-sm">
-                                                    <option value="">Select Project Deadline</option>
+                                                    <option value="">Select Payment Deadline</option>
                                                     <option value="flexible">Flexible</option>
                                                     <option value="asap">ASAP</option>
                                                     <option value="within a week">Within A Week</option>
@@ -316,9 +320,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                 <!--begin::Select-->
                                                 <label>City</label>
                                                 <select class="form-control form-control-solid form-control-sm" id="citySelector" name="city">
-                                                    @foreach($cities as $index => $city)
-                                                    <option value="{{ $city->id }}" {{ ( !empty($user) && $city->id == $user->city->id) ? 'selected' : '' }}>{{ $city->name }}</option>
-                                                    @endforeach
+                                                    
                                                 </select>
                                                 <span class="form-text text-muted">Please enter your City</span>
                                                 <div class="fv-plugins-message-container"></div>
@@ -394,9 +396,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                     <!--begin::Select-->
                                                     <label>City</label>
                                                     <select class="form-control form-control-solid form-control-sm" id="citySelector" name="site_city">
-                                                        @foreach($cities as $index => $city)
-                                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                                        @endforeach
+                                                        
                                                     </select>
                                                     <span class="form-text text-muted">Please enter your City</span>
                                                     <div class="fv-plugins-message-container"></div>

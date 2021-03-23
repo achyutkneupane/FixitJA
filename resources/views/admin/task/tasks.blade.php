@@ -102,6 +102,8 @@ $page_title = 'Tasks';
                             <td></td>
                             {{-- <td>{{ ucwords($task->sub_category->name) }}</td> --}}
                             <td>{{ $task->created_at->diffForHumans() }}</td>
+                            
+
                         </tr>
                     @endforeach
                 </tbody>

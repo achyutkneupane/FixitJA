@@ -7,6 +7,12 @@ jQuery(document).ready(function () {
             keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
             whitelist: [
                 {
+                    value: 'Sunday',
+                    
+                   
+                    class: 'tagify__tag--primary'
+                },
+                {
                     value: 'Monday',
                     
                    
@@ -31,7 +37,13 @@ jQuery(document).ready(function () {
                 
                    
                     
-                }
+                },
+                {
+                    value: 'Saturday',
+                    
+                   
+                    class: 'tagify__tag--primary'
+                },
             
                 ],
             templates: {

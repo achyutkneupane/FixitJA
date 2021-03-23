@@ -396,6 +396,8 @@ var KTWizard1 = function () {
 				}
 			}).then(function (result) {
 				if (result.value) {
+                    //enable select option to get data in request
+                    enableCategorySelectOptions();
 					_formEl.submit(); // Submit form
 				} else if (result.dismiss === 'cancel') {
 					Swal.fire({

@@ -23,19 +23,18 @@
                             <div class="col-lg-7 p-lg-5 p-5">
                                 <h2>Popular Categories</h2>
                                 <div class="row">
-                                    @if($navbarCategories->count() != 0)
-                                    @foreach($navbarCategories as $cat)
+                                    @if($categories->count() != 0)
+                                    @foreach($categories as $cat)
 
 
                                     <div class="col-lg-6">
 
                                         <h6 class="dropdown-header text-primary"><a href="{{ route('createProjectWithCat',$cat->id) }}">{{ $cat->name}}</a></h6>
                                         @if($cat->sub_categories->count() != 0)
-                                        @foreach($cat->sub_categories as $subCategory)
-
-                                        <a class="dropdown-item" href="{{ route('createProjectWithSub',$subCategory->id) }}">{{ ucwords($subCategory->name) }}</a>
-                                        @endforeach
-                                        @else
+                                          @foreach($cat->sub_categories as $subCategory)
+                                            <a class="dropdown-item" href="{{ route('createProjectWithSub',$subCategory->id) }}">{{ $subCategory->name }}</a>
+                                          @endforeach
+                                         @else
                                         No sub-categories inside <b>{{ ucwords($cat->name) }}</b>
                                         @endif
                                         <div class="dropdown-divider border-0"></div>
