@@ -19,21 +19,6 @@
                     <small class="text-muted">{!! @$page_description !!}</small>
                 @endif
             </h5>
-
-            @if ($currentuser->status == 'pending')
-                <span class="font-weight-bold text-danger">
-                    Your account is not activated yet.
-                    <a href="">Resend Verification</a>
-                </span>
-            @elseif($currentuser->status == "suspended")
-                <span class="font-weight-bold text-warning">
-                    Your account has been suspended.
-                </span>
-            @elseif($currentuser->status == "blocked")
-                <span class="font-weight-bold text-danger">
-                    Your account has been blocked.
-                </span>
-            @endif
             @if (!empty($page_breadcrumbs))
                 {{-- Separator --}}
                 <div class="subheader-separator subheader-separator-ver my-2 mr-4 d-none"></div>

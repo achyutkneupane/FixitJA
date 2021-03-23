@@ -215,4 +215,25 @@ class User extends Authenticatable
         }
         return $catData;
     }
+
+    public function associatedTasks() {
+        if($this->type == 'admin') {
+            return Task::all();
+        }
+        else {
+            $user = User::find($this->id);
+            return Task::whereHas('creator',function ($query) use ($user) {
+                            $query->where('email', $user->email());
+                        })
+                        ->orWhere('created_by',$user->id)
+                        ->orWhere('created_for',$user->id)
+                        ->orWhereHas('assignedBy',function ($query) use ($user) {
+                            $query->where('assigned_by', $user->id);
+                        })
+                        ->orWhereHas('assignedTo',function ($query) use ($user) {
+                            $query->where('assigned_To', $user->id);
+                        })
+                        ->get();
+        }
+    }
 }

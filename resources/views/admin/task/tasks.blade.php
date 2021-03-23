@@ -22,12 +22,9 @@ $page_title = 'Tasks';
             @endphp
         @endif
         </h3>
-
-        @isAdmin
         @php
             $subhead_button = [['link' => route('createProject'), 'text' => 'New Task', 'class' => 'primary']];
         @endphp
-        @endisAdmin
         <div class="card-body">
             <div class="mb-7">
                 <div class="row align-items-center">
@@ -82,14 +79,14 @@ $page_title = 'Tasks';
                         <th title="Created For" style="width:15%;">Created For</th>
                         <th title="Address" style="width:15%;">Address</th>
                         <th title="Category" style="width:15%;">Category</th>
-                        <th title="Date" style="width:30%;">Date</th>
-                        <th title="Action" style="width:20%">Actions </th>
+                        <th title="Date" style="width:15%;">Date</th>
+                       
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($tasks as $task)
                         <tr>
-                            <td>{{ $task->id }}</td>
+                            <td>{{ $loop->index+1 }}</td>
                             <td>
                                 <a href="{{ route('viewTask', $task->id) }}">
                                     {{ ucwords($task->name) }}
@@ -99,8 +96,7 @@ $page_title = 'Tasks';
                             <td>{{ $task->type }}</td>
                             <td>{!! isset($task->createdFor->name) ? $task->createdFor->name : '<span class="text-muted">N/A</span>' !!}</td>
                             <td>{!! $task->creator->city->name !!}</td>
-                            <td></td>
-                            {{-- <td>{{ ucwords($task->sub_category->name) }}</td> --}}
+                            <td>{{ ucwords($task->category()->name) }}</td>
                             <td>{{ $task->created_at->diffForHumans() }}</td>
                             
 

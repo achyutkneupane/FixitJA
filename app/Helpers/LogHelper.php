@@ -38,7 +38,7 @@ class LogHelper
             session()->flash('toast', ['class' => 'error', 'message' => $e->getMessage()]);
         }
     }
-    static public function storeMessage($module, $message, $user)
+    static public function storeMessage($module, $message, $user,$title = "Custom Error")
     {
         $error = new ErrorLog;
         $error->found_by = $user->id;
@@ -46,8 +46,9 @@ class LogHelper
         $error->url = url()->current();
         $error->ip = Request::ip();
         $error->user_agent = Request::userAgent();
-        $error->title = "Custom Error";
+        $error->title = $title;
         $error->description = $message;
         $error->save();
+        ToastHelper::showToast('There has been some error. Please verify your action.','error');
     }
 }
