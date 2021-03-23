@@ -21,22 +21,7 @@ class User extends Authenticatable
      */
 
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone',
-        'type',
-        'gender',
-        'companyname',
-        'website',
-        'experience',
-        'profile_image',
-        'verification_code',
-        'certificate',
-        'profile',
-
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -127,8 +112,8 @@ class User extends Authenticatable
             case 'admin':
                 return "Admin";
                 break;
-            case 'individual_contractor':
-                return "Individual Contractor";
+            case 'independent_contractor':
+                return "Independent Contractor";
                 break;
             case 'business':
                 return "Business";

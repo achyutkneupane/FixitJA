@@ -28,7 +28,7 @@
     'content' => 'Your application is submitted. You can still edit your application. Once we start reviewing your application you have to contact us to change application information.',
     'has_button' => 'true',
     'button_text' => 'Edit Application',
-    'button_link' => '#'
+    'button_link' => route('profileWizard')
     ])
     @endnotApproved
     <!-- https://preview.keenthemes.com/metronic/demo1/features/bootstrap/alerts.html -->

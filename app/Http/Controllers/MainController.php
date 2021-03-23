@@ -25,7 +25,7 @@ class MainController extends Controller
     public function home()
     {
         $users = User::limit(6)
-          ->where('type','individual_contractor')
+          ->where('type','independent_contractor')
           ->with(['subcategories'])
           ->where('status', 'active')->get();
         $documents = DB::table('users')

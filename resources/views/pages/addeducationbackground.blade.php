@@ -70,8 +70,8 @@ $show_sidebar = false;
                                 <option value="">Select</option>
                                 <option value="general_user" id="type1">Secondary level</option>
                                 <option value="Business" id="type2">Higher Secondary level</option>
-                                <option value="individual_contractor" id="type3">Bachalaor</option>
-                                <option value="individual_contractor" id="type3">Master</option>
+                                <option value="independent_contractor" id="type3">Bachalaor</option>
+                                <option value="independent_contractor" id="type3">Master</option>
                             </select>
                             @if ($errors->has('degree'))
                             <span class="text-danger">{{ $errors->first('degree') }}</span>
