@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
 use App\Models\Category;
 use App\Models\City;
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Throwable;
 
 class MainController extends Controller
 {
@@ -125,14 +127,16 @@ class MainController extends Controller
         // Classify Sub-Categories
         $Subb = "[".$request->totalProjectCatList."]";
         $Subb = str_replace('},]','}]',$Subb);
-        
-        foreach(json_decode($Subb) as $subCattArray) {
+        $Subb = json_decode($Subb);
+        $all_cats = collect();
+        $taskList = collect();
+        $parentTask = new Task();
+        foreach($Subb as $index => $subCattArray) {
             $subCatt = 'sub_categories'. $subCattArray->fieldId;
             $categoryy = 'categoryTemplate'. $subCattArray->fieldId;
             $task_subcategories = new Collection();
-            dd($request,$categoryy);
-            dd($request);
-            foreach(json_decode($request->$subCatt) as $subCat){
+            $jsonSubCat = json_decode($request->$subCatt);
+            foreach($jsonSubCat as $subCat){
                 if(empty($subCat->id)){
                     $cat = Category::find($request->$categoryy)->sub_categories()->create([
                         'name' => $subCat->value,
@@ -140,10 +144,14 @@ class MainController extends Controller
                     ]);
                     $cat->status = "proposed";
                     $cat->save();
-                    $task_subcategories->push(SubCategory::find($cat->id));
+                    $task_subcategories->push($cat);
+                    $all_cats->push($cat);
                 }
-                else
-                    $task_subcategories->push(SubCategory::find($subCat->id));
+                else {
+                    $subCatToPush = SubCategory::find($subCat->id);
+                    $task_subcategories->push($subCatToPush);
+                    $all_cats->push($subCatToPush);
+                }
             }
             // Task Store
             $task = new Task();
@@ -157,7 +165,10 @@ class MainController extends Controller
             $task->is_client_on_site = $request->is_client_on_site;
             $task->is_repair_parts_provided = $request->is_repair_parts_provided;
             $task->save();
-
+            if($index == 0)
+                $parentTask = $task;
+            else
+                $taskList->push($task->id);
             // Task Creator Store
             $creator = new TaskCreator();
             $creator->name = $request->user_name;
@@ -183,14 +194,19 @@ class MainController extends Controller
                 $task->location()->save($location);
             }
             $task->subcategories()->attach($task_subcategories);
-            $city1 = City::find($request->city)->name;
-            $site_city = City::find($request->site_city)->name;
-            Mail::send('mail.createTask', compact('request','task_subcategories','city1','site_city'), function($message) use ($request)
-                {
-                    $message->to($request->email, $request->name)->subject('Task Created');
-                });
         }
-        // return redirect()->route('listTask');
+        $city = City::find($request->city)->name;
+        $site_city = City::find($request->site_city)->name;
+        try {
+            Mail::send('mail.createTask', compact('request','all_cats','city','site_city'), function($message) use ($request)
+            {
+                $message->to($request->email, $request->user_name)->subject('Task Created');
+            });
+        } catch(Throwable $e) {
+            LogHelper::storeMessage('Create task E-mail',$e->getMessage(),auth()->user(),'Email Cant be sent.');
+        }
+        $parentTask->related_tasks()->attach($taskList);
+        return redirect()->route('listTask');
     }
     public function categories()
     {

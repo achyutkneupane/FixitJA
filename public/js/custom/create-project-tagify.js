@@ -189,7 +189,7 @@ function AddCategoryProjectWizard() {
         });
     }
 
-    if($("#categorySelect1")) {
+    if($("#categorySelect1").val() != null) {
         if(sessionCatId != 'NULL') {
             $("#categorySelect1").val(sessionCatId).change();
         }
