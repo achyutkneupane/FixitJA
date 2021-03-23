@@ -123,13 +123,15 @@ class MainController extends Controller
     public function addProject(Request $request)
     {
         // Classify Sub-Categories
-        $Subb = "[".$request->totalCatList."]";
+        $Subb = "[".$request->totalProjectCatList."]";
         $Subb = str_replace('},]','}]',$Subb);
-        $task_subcategories = new Collection();
-        $new = collect();
+        
         foreach(json_decode($Subb) as $subCattArray) {
             $subCatt = 'sub_categories'. $subCattArray->fieldId;
             $categoryy = 'categoryTemplate'. $subCattArray->fieldId;
+            $task_subcategories = new Collection();
+            dd($request,$categoryy);
+            dd($request);
             foreach(json_decode($request->$subCatt) as $subCat){
                 if(empty($subCat->id)){
                     $cat = Category::find($request->$categoryy)->sub_categories()->create([
@@ -143,52 +145,52 @@ class MainController extends Controller
                 else
                     $task_subcategories->push(SubCategory::find($subCat->id));
             }
-        }
-        // Task Store
-        $task = new Task();
-        $task->created_by = auth()->id() ? auth()->id() : 1;
-        $task->name = $request->name;
-        $task->description = $request->description;
-        $task->type = $request->type;
-        $task->payment_type = $request->payment_type;
-        $task->deadline = $request->deadline;
-        $task->user_equal_working = $request->user_equal_working;
-        $task->is_client_on_site = $request->is_client_on_site;
-        $task->is_repair_parts_provided = $request->is_repair_parts_provided;
-        $task->save();
+            // Task Store
+            $task = new Task();
+            $task->created_by = auth()->id() ? auth()->id() : 1;
+            $task->name = $request->name;
+            $task->description = $request->description;
+            $task->type = $request->type;
+            $task->payment_type = $request->payment_type;
+            $task->deadline = $request->deadline;
+            $task->user_equal_working = $request->user_equal_working;
+            $task->is_client_on_site = $request->is_client_on_site;
+            $task->is_repair_parts_provided = $request->is_repair_parts_provided;
+            $task->save();
 
-        // Task Creator Store
-        $creator = new TaskCreator();
-        $creator->name = $request->user_name;
-        $creator->phone = $request->phone;
-        $creator->email = $request->email;
-        $creator->parish = $request->parish;
-        $creator->city_id = $request->city;
-        $creator->street_01 = $request->street_01;
-        $creator->street_02 = $request->street_02;
-        $creator->house_number = $request->house_number;
-        $creator->postal_code = $request->postal_code;
-        $task->creator()->save($creator);
+            // Task Creator Store
+            $creator = new TaskCreator();
+            $creator->name = $request->user_name;
+            $creator->phone = $request->phone;
+            $creator->email = $request->email;
+            $creator->parish = $request->parish;
+            $creator->city_id = $request->city;
+            $creator->street_01 = $request->street_01;
+            $creator->street_02 = $request->street_02;
+            $creator->house_number = $request->house_number;
+            $creator->postal_code = $request->postal_code;
+            $task->creator()->save($creator);
 
-        //Task Location Store
-        if(!$request->user_equal_working) {
-            $location = new TaskWorkingLocation();
-            $location->city_id = $request->site_city;
-            $location->street_01 = $request->site_street_01;
-            $location->street_02 = $request->site_street_02;
-            $location->house_number = $request->site_house_number;
-            $location->postal_code = $request->site_postal_code;
-            $location->parish = $request->site_parish;
-            $task->location()->save($location);
+            //Task Location Store
+            if(!$request->user_equal_working) {
+                $location = new TaskWorkingLocation();
+                $location->city_id = $request->site_city;
+                $location->street_01 = $request->site_street_01;
+                $location->street_02 = $request->site_street_02;
+                $location->house_number = $request->site_house_number;
+                $location->postal_code = $request->site_postal_code;
+                $location->parish = $request->site_parish;
+                $task->location()->save($location);
+            }
+            $task->subcategories()->attach($task_subcategories);
+            $city1 = City::find($request->city)->name;
+            $site_city = City::find($request->site_city)->name;
+            Mail::send('mail.createTask', compact('request','task_subcategories','city1','site_city'), function($message) use ($request)
+                {
+                    $message->to($request->email, $request->name)->subject('Task Created');
+                });
         }
-        $task->subcategories()->attach($task_subcategories);
-        $city1 = City::find($request->city)->name;
-        $site_city = City::find($request->site_city)->name;
-        Mail::send('mail.createTask', compact('request','task_subcategories','city1','site_city'), function($message) use ($request)
-            {
-                $message->to($request->email, $request->name)->subject('Task Created');
-            });
-        return redirect()->route('viewTask',$task->id);
+        // return redirect()->route('listTask');
     }
     public function categories()
     {

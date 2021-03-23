@@ -212,8 +212,8 @@ $(document).on("click", ".remove-accordian-project-wizard", function (e) {
     }
 
     selectedCategoryData['categorySelect' + $(this).attr('count-value')] = "-1";
-    updateAllCategorySelect();
     $("#totalProjectCatList").val($("#totalProjectCatList").val().replace('{"fieldId": "' + $(this).attr('count-value') + '"},', ''));
+    updateAllCategorySelect();
 })
 
 function workingEqualsUser() {
