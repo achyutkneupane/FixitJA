@@ -66,7 +66,7 @@
                                         <option value="admin"{{ old('type') == "admin" ? ' selected' : '' }}>Admin</option>
                                         <option value="general_user"{{ old('type') == "general_user" ? ' selected' : '' }}>General User</option>
                                         <option value="business"{{ old('type') == "business" ? ' selected' : '' }}>Business</option>
-                                        <option value="individual_contractor"{{ old('type') == "individual_contractor" ? ' selected' : '' }}>Individual Contractor</option>
+                                        <option value="independent_contractor"{{ old('type') == "independent_contractor" ? ' selected' : '' }}>Independent Contractor</option>
                                     </select>
                                     @error('type')
                                         <span class="text-danger">{{ $message }}</span>

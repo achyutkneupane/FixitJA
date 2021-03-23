@@ -112,8 +112,8 @@ class User extends Authenticatable
             case 'admin':
                 return "Admin";
                 break;
-            case 'individual_contractor':
-                return "Individual Contractor";
+            case 'independent_contractor':
+                return "Independent Contractor";
                 break;
             case 'business':
                 return "Business";

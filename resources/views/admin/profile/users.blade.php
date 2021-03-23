@@ -56,7 +56,7 @@
                                     <select class="form-control" id="kt_datatable_search_role">
                                         <option value="">All</option>
                                         <option value="admin">Admin</option>
-                                        <option value="individual_contractor">Individual Contractor</option>
+                                        <option value="independent_contractor">Independent Contractor</option>
                                         <option value="business">Business</option>
                                         <option value="general_user">User</option>
                                     </select>

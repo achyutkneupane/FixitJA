@@ -530,7 +530,7 @@ class UserController extends Controller
         $data = request()->except('email','phone');
         $new = [
             'email_verified_at' => now(),
-            'status' => $request->type == 'individual_contractor' ? 'new' : 'active'
+            'status' => $request->type == 'independent_contractor' ? 'new' : 'active'
         ];
         $user = User::create(array_merge($data,$new));
         $user->emails()->create([
