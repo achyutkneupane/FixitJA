@@ -110,6 +110,7 @@ class UserController extends Controller
         $page_title = 'Profile Wizard';
         $page_description = 'This is profile wizard page';
         $document = Document::where('user_id', auth()->id())->get();
+        $user = User::with('education')->get();
         
        
         
@@ -124,7 +125,7 @@ class UserController extends Controller
             
             return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'city', 'user'));
         }
-         return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'city'));
+         return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'city', 'user'));
     }
     
     public function updateprofilewithSub($subCatId = NULL)

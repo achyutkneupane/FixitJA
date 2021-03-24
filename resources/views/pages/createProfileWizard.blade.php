@@ -14,11 +14,12 @@ var sessionSubCatId = {{ session()->get('subCatId') }};
 var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
 </script>
 @endif
-@if (Auth::user()->id == $user->id)
+ 
+  @if (Auth::user()->id)
         @php
             $page_title = 'EditApplication';
         @endphp
-@else
+    @else
         @php
             $page_title = 'Createprofile';
         @endphp
@@ -408,7 +409,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     report?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="police_report" {{ $user->is_police_record  ? 'checked' : ''}} value="1"  />
+                                        <input type="radio" name="police_report" {{ !empty($user->is_police_record  ? 'checked' : '') ? : '' }} value="1"  />
                                         <span></span>Yes</label>
                                     <label class="radio radio-primary">
                                         <input type="radio" name="police_report" {{ $user->is_police_record == '0' ? 'checked' : ''}} value="0"  />
