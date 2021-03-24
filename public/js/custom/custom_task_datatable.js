@@ -27,12 +27,12 @@ var KTDatatableHtmlTableDemo = function() {
         {
           field: 'Name',
           type: 'string',
-          width: 220,
+          width: 150,
           autoHide: false,
         }, {
           field: 'Status',
           title: 'Status',
-          width: 80,
+          width: 50,
           // callback function support for column rendering
           template: function template(row) {
           var status = {
@@ -97,11 +97,25 @@ var KTDatatableHtmlTableDemo = function() {
         field: 'Date',
         type: 'string',
         width: 100,
-      },{
-        field: "Actions",
-        title: "Actions",
-        width: 80,
-      }],
+      },
+    {
+      field: 'Actions',
+      type: 'Actions',
+      width: '50',
+       template: function template(row) {
+          var status = {
+            'edit': {
+              'title': 'Edit',
+              'state': 'success'
+            },
+            'delete': {
+              'title': 'delete',
+              'state': 'danger'
+            },
+            
+          };
+          return '<span class=\"label label-' + status[row.Actions].state + ' label-dot mr-2\"></span><span class=\"font-weight-bold text-' + status[row.Actions].state + '\">' + status[row.Actions].title + '</span>';}
+    }],
     });
 
     $('#kt_datatable_search_status').on('change', function() {

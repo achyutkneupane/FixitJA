@@ -77,7 +77,7 @@ var KTDatatableHtmlTableDemo = (function () {
                 {
                     field: "Role",
                     title: "Role",
-                    width: "80",
+                    width: "90",
                     // callback function support for column rendering
                     template: function template(row) {
                         var status = {
@@ -85,8 +85,8 @@ var KTDatatableHtmlTableDemo = (function () {
                                 title: "Admin",
                                 state: "success",
                             },
-                            individual_contractor: {
-                                title: "Individual Contractor",
+                            independent_contractor: {
+                                title: "Independent Contractor",
                                 state: "danger",
                             },
                             business: {

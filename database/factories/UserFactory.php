@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'is_police_record' => '0',
             'is_travelling' => '0',
             'city_id' => $this->faker->numberBetween(1, 16),
-            'type' => $this->faker->randomElement($array = array('individual_contractor', 'business', 'general_user')),
+            'type' => $this->faker->randomElement($array = array('independent_contractor', 'business', 'general_user')),
             'status' => 'active',
             'verification_code' => sha1(time()),
             'password' => Hash::make('Kumberland@123'),
