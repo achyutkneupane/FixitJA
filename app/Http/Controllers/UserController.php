@@ -555,4 +555,18 @@ class UserController extends Controller
         ToastHelper::showToast('User Account Created.');
         return redirect()->route('viewUser',$user->id);
     }
+
+    public function profileDocuments()
+    {
+        $user = auth()->user();
+        return view('admin.profile.documents', compact('user'));
+    }
+    public function userDocuments($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('profileSkills');
+        }
+        $user = User::find($id);
+        return view('admin.profile.documents', compact('user'));
+    }
 }
