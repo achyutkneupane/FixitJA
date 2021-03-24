@@ -80,15 +80,9 @@ $show_sidebar = false;
 
                                 <select class="form-control" id="user_type" name="type" value="{{ old('user_type') }}">
                                     <option value="">Select</option>
-<<<<<<< HEAD
-                                    <option value="general_user" id="type1" @if (old('type')=="general_user" ) {{ 'selected' }} && (old('id')=="type1" ) {{ 'selected' }} @endif>General</option>
-                                    <option value="Business" id="type2" @if (old('type')=="Business" ) {{ 'selected' }} @endif>Business</option>
-                                    <option value="individual_contractor" id="type3" @if (old('type')=="individual_contractor" ) {{ 'selected' }} @endif>Skilled Worker</option>
-=======
                                     <option value="general_user"   id="type1" @if (old('type') == "general_user") {{ 'selected' }} && (old('id') == "type1") {{ 'selected' }} @endif  >General</option>
                                     <option value="Business"   id="type2" @if (old('type') == "Business") {{ 'selected' }} @endif>Business</option>
                                     <option value="independent_contractor"   id="type3" @if (old('type') == "independent_contractor") {{ 'selected' }} @endif>Skilled Worker</option>
->>>>>>> development
                                 </select>
                                 @if ($errors->has('type'))
                                 <span class="text-danger">{{ $errors->first('type') }}</span>
@@ -213,11 +207,7 @@ $show_sidebar = false;
 
 
     <script>
-<<<<<<< HEAD
-        @if(old('type') == "general_user" || old('type') == "individual_contractor")
-=======
     @if (old('type') == "general_user" || old('type') == "independent_contractor")
->>>>>>> development
         document.getElementById("genders").style.display = "block";
         document.getElementById("webpersonal").style.display = "block";
         @else

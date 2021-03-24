@@ -133,7 +133,6 @@ Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addpr
 Route::get('/profile/{id}', [App\Http\Controllers\CategoryController::class, 'getSubCategory']);
 Route::get('/category_data', [App\Http\Controllers\CategoryController::class, 'getCategory']);
 
-Route::get('/hello',  [App\Http\Controllers\CategoryController::class, 'getCategory']);
 //Route for the addding education qualification
 
 
