@@ -14,15 +14,9 @@ var sessionSubCatId = {{ session()->get('subCatId') }};
 var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
 </script>
 @endif
-@if (Auth::user()->id == $user->id)
-        @php
-            $page_title = 'EditApplication';
-        @endphp
-@else
-        @php
-            $page_title = 'Createprofile';
-        @endphp
-    @endif
+@php
+    $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
+@endphp
 
 
 
@@ -408,10 +402,10 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     report?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="police_report" {{ $user->is_police_record  ? 'checked' : ''}} value="1"  />
+                                        <input type="radio" name="police_report" {{ auth()->user()->is_police_record  ? 'checked' : ''}} value="1"  />
                                         <span></span>Yes</label>
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="police_report" {{ $user->is_police_record == '0' ? 'checked' : ''}} value="0"  />
+                                        <input type="radio" name="police_report" {{ auth()->user()->is_police_record == '0' ? 'checked' : ''}} value="0"  />
                                         <span></span>No</label>
                                     <label class="radio radio-primary radio-disabled">
 
@@ -421,13 +415,13 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">8.Write short description about yourself?
                                         <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="exampleTextarea" rows="3" name="personal_description">{{ $user->introduction }}</textarea>
+                                    <textarea class="form-control" id="exampleTextarea" rows="3" name="personal_description">{{ auth()->user()->introduction }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">9. How many working hours per week?
-                                        <input type="text" class=" form-control " name="hours" placeholder="enter your work hours" rows="1" value="{{ $user->hours}}" />
+                                        <input type="text" class=" form-control " name="hours" placeholder="enter your work hours" rows="1" value="{{ auth()->user()->hours}}" />
                                 </div>
                             </div>
 
@@ -447,10 +441,10 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <label class="col-9 col-form-label">11. Are you willing to travel long distance?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="is_travelling" {{ $user->is_travelling ? 'checked' : '' }} value="1"  />
+                                        <input type="radio" name="is_travelling" {{ auth()->user()->is_travelling ? 'checked' : '' }} value="1"  />
                                         <span></span>Yes</label>
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="is_travelling" {{ $user->is_travelling ? ' checked' : '' }} value="0"  />
+                                        <input type="radio" name="is_travelling" {{ auth()->user()->is_travelling ? ' checked' : '' }} value="0"  />
                                         <span></span>No</label>
                                 </div>
                             </div>
@@ -459,7 +453,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">12. How long distance you are willing to travel?
                                         <div class="slidecontainer">
-                                            <input type="range" min="1" max="100" value="0" class="slider" id="myRange" name="total_distance" value="{{ $user->total_distance }}">
+                                            <input type="range" min="1" max="100" value="0" class="slider" id="myRange" name="total_distance" value="{{ auth()->user()->total_distance }}">
                                             <p>Total Distance: <span id="demo"></span>km</p>
                                         </div>
                                 </div>
@@ -520,7 +514,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <div class="form-group fv-plugins-icon-container">
                                 <label>City</label>
                                 <select name="cities" class="form-control form-control-solid form-control-lg category-select">
-                                <option value="{{ $user->city->city_id }}">{{  $user->city->name}}</option>
+                                <option value="{{ auth()->user()->city->city_id }}">{{  auth()->user()->city->name}}</option>
                                     @foreach($city as $index => $cities)
                                     <option value="{{ $cities->id }}">{{ $cities->name }}</option>
                                     @endforeach
@@ -528,7 +522,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Street</label>
-                                <input type="text" name="street" class="form-control" placeholder="Enter your street" value="{{ $user->street_01}}" />
+                                <input type="text" name="street" class="form-control" placeholder="Enter your street" value="{{ auth()->user()->street_01}}" />
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>House Number or Unit (Optional)</label>
