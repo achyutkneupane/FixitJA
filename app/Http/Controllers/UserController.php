@@ -207,13 +207,14 @@ class UserController extends Controller
                 $experince_new = 'experience'.$id;      
             }
 
-            $education = new Education();
-            $education->education_institution_name = $request->education_institutional_name;
-            $education->degree = $request->degree;
-            $education->start_date = $request->start_date;
-            $education->end_date = $request->end_date;
+            $education = [
+            'education_institution_name' => $request->education_institutional_name,
+            'degree' => $request->degree,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            ];
             // $education->save();
-            $user->education()->create($education);
+            $user->educations()->create($education);
 
             // $education_user = new EducationUser();
             // $education_user->user_id = Auth::user()->id;
