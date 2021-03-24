@@ -134,8 +134,11 @@ class User extends Authenticatable
             case 'active':
                 return ['name' => 'Active', 'class' => 'success'];
                 break;
+            case 'reviewing':
+                    return ['name' => 'In Review', 'class' => 'info'];
+                    break;
             case 'pending':
-                return ['name' => 'Pending', 'class' => 'info'];
+                return ['name' => 'New', 'class' => 'info'];
                 break;
             case 'suspended':
                 return ['name' => 'Suspended', 'class' => 'warning'];
