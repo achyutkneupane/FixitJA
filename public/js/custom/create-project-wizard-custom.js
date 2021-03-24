@@ -384,11 +384,11 @@ var KTWizard1 = function () {
 		// Submit event
 		_wizardObj.on('submit', function (wizard) {
 			Swal.fire({
-				text: "All is good! Please confirm the form submission.",
+				html: "<label>All is good! By submitting this form, you automatically agree to our&nbsp;</label><a href='/termsandconditions' target='_blank'>Terms & Conditions</a>",
 				icon: "success",
 				showCancelButton: true,
 				buttonsStyling: false,
-				confirmButtonText: "Yes, submit!",
+				confirmButtonText: "Yes, I agree & submit!",
 				cancelButtonText: "No, cancel",
 				customClass: {
 					confirmButton: "btn font-weight-bold btn-primary",
