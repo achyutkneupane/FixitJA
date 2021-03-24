@@ -19,7 +19,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-
+   
 
     protected $fillable = [
         'name',
@@ -46,6 +46,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'pivot',
     ];
 
     /**
@@ -64,6 +65,10 @@ class User extends Authenticatable
     public function references()
     {
         return $this->hasMany(References::class);
+    }
+    public function education()
+    {
+        return $this->belongsToMany(Education::class, 'education_users', 'user_id', 'education_id');
     }
     public function city()
     {

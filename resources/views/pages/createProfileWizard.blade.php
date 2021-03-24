@@ -14,6 +14,16 @@ var sessionSubCatId = {{ session()->get('subCatId') }};
 var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
 </script>
 @endif
+@if (Auth::user()->id == $user->id)
+        @php
+            $page_title = 'EditApplication';
+        @endphp
+@else
+        @php
+            $page_title = 'Createprofile';
+        @endphp
+    @endif
+
 
 
 <!-- <div class="d-flex flex-column-fluid"> -->
@@ -193,11 +203,14 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                     <!--begin::Wizard Form-->
                     <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="POST" enctype="multipart/form-data">
                         @csrf
+                        
+                      
+                        
                         <!--begin::Wizard Step 1-->
                         <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                             <h3 class="font-weight-bold text-dark">Enter your up to 3 skill categories</h3>
                             <!--begin::Select-->
-                            <div class="card-body">
+                            <div class=card-body">
                                 <!--begin::Accordion-->
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_category">
                                     <div class="card card-category-accordion" id="categoryCard">
@@ -285,9 +298,10 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         <!--begin::Wizard Step 3-->
                         <div class="pb-5" data-wizard-type="step-content">
                             <h3 class="mb-10 font-weight-bold text-dark">Add upto 3 of your education background</h3>
+                            
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or University</label>
-                                <input type="text" class="form-control " name="educationinstutional_name" placeholder="Name" value="{{old('educationinstutional_name')}}" />
+                                <input type="text" class="form-control " name="educationinstutional_name" placeholder="Name" value="{{old('educationinstutional_name' )}}" />
                                 @if ($errors->has('educationinstutional_name'))
                                 <span class="text-danger">{{ $errors->first('educationinstutional_name') }}</span>
                                 @endif
@@ -296,8 +310,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Degree</label>
 
-                                <select class="form-control" id="degree_wizard_profile" name="degree" value="{{old('degree')}}">
-                                    <option value="">Select</option>
+                                <select class="form-control" id="degree_wizard_profile" name="degree" value="{{old('degree') }}">
+ 
                                     <option value="Secondary level" id="type1">Secondary level</option>
                                     <option value="Higher Secondary level" id="type2">Higher Secondary level
                                     </option>
@@ -314,7 +328,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <label class="font-size-h6 font-weight-bolder text-dark">Start Date</label>
 
                                 <div class="col-10">
-                                    <input class="form-control" type="date" value="" id="selectstartdate" name="start_date" />
+                                    <input class="form-control" type="date" value="" id="selectstartdate" name="start_date" value=""/>
                                 </div>
                                 <!--end::Form Group-->
                                 <!--begin::Form Group-->
@@ -322,7 +336,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     <label class="font-size-h6 font-weight-bolder text-dark">End Date</label>
 
                                     <div class="col-10">
-                                        <input class="form-control" type="date" value="" id="selectenddate" name="end_date" />
+                                        <input class="form-control" type="date" value="" id="selectenddate" name="end_date" value="" />
                                     </div>
                                     <!--end::Form Group-->
                                     <!--end::Form Group-->
@@ -332,6 +346,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     <!--begin::Action-->
                                 </div>
                             </div>
+                           
                         </div>
                         <!--end::Wizard Step 3-->
 
@@ -359,7 +374,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Referal Email
-                                                        <input type="email" id="refemail" class="form-control" type="email" name="referal_email" placeholder="Referal Email" value="">
+                                                        <input type="email" id="refemail" class="form-control" type="email" name="referal_email" placeholder="Referal Email" value="}">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
@@ -393,10 +408,10 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     report?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="police_report" value="1" />
+                                        <input type="radio" name="police_report" {{ $user->is_police_record  ? 'checked' : ''}} value="1"  />
                                         <span></span>Yes</label>
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="police_report" value="0" />
+                                        <input type="radio" name="police_report" {{ $user->is_police_record == '0' ? 'checked' : ''}} value="0"  />
                                         <span></span>No</label>
                                     <label class="radio radio-primary radio-disabled">
 
@@ -406,13 +421,13 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">8.Write short description about yourself?
                                         <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="exampleTextarea" rows="3" name="personal_description"></textarea>
+                                    <textarea class="form-control" id="exampleTextarea" rows="3" name="personal_description">{{ $user->introduction }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">9. How many working hours per week?
-                                        <input type="text" class=" form-control " name="hours" placeholder="enter your work hours" rows="1" />
+                                        <input type="text" class=" form-control " name="hours" placeholder="enter your work hours" rows="1" value="{{ $user->hours}}" />
                                 </div>
                             </div>
 
@@ -432,10 +447,10 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <label class="col-9 col-form-label">11. Are you willing to travel long distance?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="is_travelling" value="1" />
+                                        <input type="radio" name="is_travelling" {{ $user->is_travelling ? 'checked' : '' }} value="1"  />
                                         <span></span>Yes</label>
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="is_travelling" value="0" />
+                                        <input type="radio" name="is_travelling" {{ $user->is_travelling ? ' checked' : '' }} value="0"  />
                                         <span></span>No</label>
                                 </div>
                             </div>
@@ -444,7 +459,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">12. How long distance you are willing to travel?
                                         <div class="slidecontainer">
-                                            <input type="range" min="1" max="100" value="0" class="slider" id="myRange" name="total_distance">
+                                            <input type="range" min="1" max="100" value="0" class="slider" id="myRange" name="total_distance" value="{{ $user->total_distance }}">
                                             <p>Total Distance: <span id="demo"></span>km</p>
                                         </div>
                                 </div>
@@ -492,6 +507,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Parishes</label>
                                 <select name="parishes" class="form-control form-control-solid form-control-lg category-select">
+                                    
                                     <option value="Saint Catherine">Saint Catherine</option>
                                     <option value="Clarendon">Clarendon</option>
                                     <option value="Liguanea (St Andrew)">Liguanea (St Andrew)</option>
@@ -504,6 +520,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <div class="form-group fv-plugins-icon-container">
                                 <label>City</label>
                                 <select name="cities" class="form-control form-control-solid form-control-lg category-select">
+                                <option value="{{ $user->city->city_id }}">{{  $user->city->name}}</option>
                                     @foreach($city as $index => $cities)
                                     <option value="{{ $cities->id }}">{{ $cities->name }}</option>
                                     @endforeach
@@ -511,7 +528,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Street</label>
-                                <input type="text" name="street" class="form-control" placeholder="Enter your street" />
+                                <input type="text" name="street" class="form-control" placeholder="Enter your street" value="{{ $user->street_01}}" />
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>House Number or Unit (Optional)</label>

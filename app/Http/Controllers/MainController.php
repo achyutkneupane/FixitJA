@@ -92,14 +92,18 @@ class MainController extends Controller
     }
     public function createProject()
     {
+
+        
         $page_title = 'Create Project Wizard';
         $page_description = 'This is create project wizard page';
         $user = Auth::user();
+        $task = Task::all();
         $cats = Category::with('sub_categories')->get();
         $subs = SubCategory::all();
         $cities = City::get();
         if(!empty(auth()->user()))
-            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities','user'), ["show_sidebar" => false, "show_navbar" => true]);
+           
+            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities','user', 'task'), ["show_sidebar" => false, "show_navbar" => true]);
         else
             return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities'), ["show_sidebar" => false, "show_navbar" => true]);
     }
