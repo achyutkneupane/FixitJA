@@ -54,10 +54,10 @@ $show_sidebar = false;
                                 University</label>
                             <input type="text"
                                 class="form-control "
-                                name="educationinstutional_name" placeholder="Name"
-                                value="{{old('educationinstutional_name')}}" />
-                            @if ($errors->has('educationinstutional_name'))
-                            <span class="text-danger">{{ $errors->first('educationinstutional_name') }}</span>
+                                name="education_instutional_name" placeholder="Name"
+                                value="{{old('education_instutional_name')}}" />
+                            @if ($errors->has('education_instutional_name'))
+                            <span class="text-danger">{{ $errors->first('education_instutional_name') }}</span>
                             @endif
                         </div>
                         <!--end::Form Group-->

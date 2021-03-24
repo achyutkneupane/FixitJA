@@ -15,7 +15,6 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
 </script>
 @endif
 
-
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
 <!-- <div class="container"> -->
@@ -287,9 +286,9 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <h3 class="mb-10 font-weight-bold text-dark">Add upto 3 of your education background</h3>
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or University</label>
-                                <input type="text" class="form-control " name="educationinstutional_name" placeholder="Name" value="{{old('educationinstutional_name')}}" />
-                                @if ($errors->has('educationinstutional_name'))
-                                <span class="text-danger">{{ $errors->first('educationinstutional_name') }}</span>
+                                <input type="text" class="form-control " name="education_institutional_name" placeholder="Name" value="{{old('education_institutional_name')}}" />
+                                @if ($errors->has('education_institutional_name'))
+                                <span class="text-danger">{{ $errors->first('education_institutional_name') }}</span>
                                 @endif
                             </div>
                             <!--begin::Form Group-->
@@ -377,9 +376,6 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <!--begin::Accordion-->
                             </div>
                             <button type="button" name="add_reference" id="add_more_reference" class="btn btn-success">Add More References</button>
-
-
-
                         </div>
 
                         <!--end::Wizard Step 4-->
@@ -476,13 +472,6 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         </div>
                     </div>
                     </div>
-
-
-
-
-
-
-
                         <!--end::wizard step 6-->
 
                         <!--begin::wizard step 7-->

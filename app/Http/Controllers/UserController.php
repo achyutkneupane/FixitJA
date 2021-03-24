@@ -118,16 +118,6 @@ class UserController extends Controller
         $city = City::all();
         return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'city'));
     }
-    
-    public function updateprofilewithSub($subCatId = NULL)
-   {
-    $document = Document::where('user_id', Auth::user()->id)->get();
-    $category = Category::with('sub_categories')->get();
-    $subs = SubCategory::all();
-       if($subCatId != NULL)
-           session()->flash('subCatId',$subCatId);
-       return view('pages.createProfileWizard', compact('document', 'category','subs'));
-   }
 
     public function uploadfile($file, $dir)
     {
@@ -138,12 +128,11 @@ class UserController extends Controller
 
     public function addprofiledetails(Request $request)
     {
+        dd($request);
         try {
             
-            
-             $user  = new User();
-             $user  = User::find(Auth::user()->id);
-             $email = auth()->user()->getEmail(Auth::user()->id);
+             $user  = auth()->user();
+             $email = $user->email();
             
              $Subb = "[".$request->totalCatList."]";
             $Subb = str_replace('},]','}]',$Subb);
@@ -216,31 +205,20 @@ class UserController extends Controller
                
                 $new_experience = 'experience'. $experienceArray->fieldId;
                 $exp_id = $experienceArray->fieldId;
-                $experince_new = 'experience'.$id;
-                
-                
-              
-        }
+                $experince_new = 'experience'.$id;      
+            }
 
-        
-
-        
-           $education = new Education();
-            $education->education_instution_name = $request->educationinstutional_name;
-            $education->degree = $request->degree;
-            $education->start_date = $request->start_date;
-            $education->end_date = $request->end_date;
-            $education->save();
-
-            $education_user = new EducationUser();
-            $education_user->user_id = Auth::user()->id;
-            $education_user->education_id = $education->id;
-            $education_user->save();
-
-
-          
-
-            // logic for the radio button
+            $education = [
+            'education_institution_name' => $request->education_institutional_name,
+            'degree' => $request->degree,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            ];
+            $user->educations()->create($education);
+            // $reference = [
+            //     'refname' =>
+            // ];
+            // $user->references()->create($reference);
             if ($request->police_report == "1") {
                 $user->is_police_record = 1;
             } elseif ($request->police_report == "0") {
@@ -554,5 +532,46 @@ class UserController extends Controller
         });
         ToastHelper::showToast('User Account Created.');
         return redirect()->route('viewUser',$user->id);
+    }
+
+    public function profileDocuments()
+    {
+        $user = auth()->user();
+        return view('admin.profile.documents', compact('user'));
+    }
+    public function userDocuments($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('viewDocuments');
+        }
+        $user = User::find($id);
+        return view('admin.profile.documents', compact('user'));
+    }
+
+    public function profileEducations()
+    {
+        $user = auth()->user();
+        return view('admin.profile.education', compact('user'));
+    }
+    public function userEducations($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('viewEducations');
+        }
+        $user = User::find($id);
+        return view('admin.profile.education', compact('user'));
+    }
+    public function profileReferences()
+    {
+        $user = auth()->user();
+        return view('admin.profile.education', compact('user'));
+    }
+    public function userReferences($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('viewEducations');
+        }
+        $user = User::find($id);
+        return view('admin.profile.education', compact('user'));
     }
 }

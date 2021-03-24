@@ -50,6 +50,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(References::class);
     }
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
+    }
     public function city()
     {
         return $this->belongsTo(City::class);
@@ -60,7 +64,7 @@ class User extends Authenticatable
     }
     public function subcategories()
     {
-        return $this->belongsToMany(SubCategory::class, 'subcategory_user', 'user_id', 'sub_category_id')->limit(2);
+        return $this->belongsToMany(SubCategory::class, 'subcategory_user', 'user_id', 'sub_category_id');
     }
     public function emails()
     {
@@ -134,8 +138,11 @@ class User extends Authenticatable
             case 'active':
                 return ['name' => 'Active', 'class' => 'success'];
                 break;
+            case 'reviewing':
+                    return ['name' => 'In Review', 'class' => 'info'];
+                    break;
             case 'pending':
-                return ['name' => 'Pending', 'class' => 'info'];
+                return ['name' => 'New', 'class' => 'info'];
                 break;
             case 'suspended':
                 return ['name' => 'Suspended', 'class' => 'warning'];

@@ -15,12 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
+        $this->call(UserSeeder::class);
         if (app()->environment() == 'local') {
             \App\Models\Category::factory(10)->create();
             \App\Models\SubCategory::factory(100)->create();
-        }
-        $this->call(UserSeeder::class);
-        if (app()->environment() == 'local') {
             foreach (\App\Models\User::factory(9)->create() as $user) {
                 $user->emails()->create([
                     'email' => $faker->unique()->safeEmail,
@@ -31,7 +29,7 @@ class DatabaseSeeder extends Seeder
                     'primary' => true
                 ]);
             }
-            $this->call(SkillSeeder::class);
+            // $this->call(SkillSeeder::class);
         }
         // $this->call(TaskSeeder::class);
     }
