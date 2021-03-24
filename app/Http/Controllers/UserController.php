@@ -128,6 +128,7 @@ class UserController extends Controller
 
     public function addprofiledetails(Request $request)
     {
+        dd($request);
         try {
             
              $user  = auth()->user();
@@ -213,18 +214,11 @@ class UserController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             ];
-            // $education->save();
             $user->educations()->create($education);
-
-            // $education_user = new EducationUser();
-            // $education_user->user_id = Auth::user()->id;
-            // $education_user->education_id = $education->id;
-            // $education_user->save();
-
-
-          
-
-            // logic for the radio button
+            // $reference = [
+            //     'refname' =>
+            // ];
+            // $user->references()->create($reference);
             if ($request->police_report == "1") {
                 $user->is_police_record = 1;
             } elseif ($request->police_report == "0") {
@@ -560,6 +554,19 @@ class UserController extends Controller
         return view('admin.profile.education', compact('user'));
     }
     public function userEducations($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('viewEducations');
+        }
+        $user = User::find($id);
+        return view('admin.profile.education', compact('user'));
+    }
+    public function profileReferences()
+    {
+        $user = auth()->user();
+        return view('admin.profile.education', compact('user'));
+    }
+    public function userReferences($id)
     {
         if (User::find($id) == auth()->user()) {
             return redirect()->route('viewEducations');

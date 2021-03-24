@@ -58,7 +58,7 @@ Route::prefix('/profile')->group(function () {
     Route::get('/', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
     Route::get('/documents', [App\Http\Controllers\UserController::class, 'profileDocuments'])->middleware('auth')->name('viewDocuments');
     Route::get('/education', [App\Http\Controllers\UserController::class, 'profileEducations'])->middleware('auth')->name('viewEducations');
-    Route::get('/reference', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferences');
+    Route::get('/reference', [App\Http\Controllers\UserController::class, 'profileReferences'])->middleware('auth')->name('viewReferences');
     Route::get('/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->middleware('auth')->name('editProfile');
     Route::put('/edit', [App\Http\Controllers\UserController::class, 'putEditProfile'])->middleware('auth')->name('putEditProfile');
     Route::put('/edit/social', [App\Http\Controllers\UserController::class, 'putEditSocial'])->middleware('auth')->name('putEditSocial');
@@ -71,7 +71,7 @@ Route::prefix('/user/{id}')->group(function () {
     Route::get('/skills', [App\Http\Controllers\UserController::class, 'userSkills'])->middleware('auth')->name('userSkills');
     Route::get('/documents', [App\Http\Controllers\UserController::class, 'userDocuments'])->middleware('auth')->name('viewUserDocuments');
     Route::get('/education', [App\Http\Controllers\UserController::class, 'userEducations'])->middleware('auth')->name('viewUserEducations');
-    Route::get('/reference', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewUserReferences');
+    Route::get('/reference', [App\Http\Controllers\UserController::class, 'userReferences'])->middleware('auth')->name('viewUserReferences');
 });
 Route::prefix('/error_log')->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'error_log'])->middleware('auth', 'checkIfAdmin')->name('viewErrorLog');
@@ -121,7 +121,7 @@ Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'underConstruction']);
 
 //Route for profile wizard
-Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->middleware('auth', 'checkIfSkillworker','ifUserIsSkillworker')->name('profileWizard');
+Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->middleware('auth', 'checkIfSkillworker')->name('profileWizard');
 //Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
 
