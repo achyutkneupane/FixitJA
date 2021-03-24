@@ -3,8 +3,8 @@
 @extends('layouts.app')
 @section('content')
     @php
-    $page_title = 'Documents';
-    $profileDocumentIsActive = 'true';
+    $page_title = 'Education';
+    $profileEducationIsActive = 'true';
     @endphp
     <div class="row">
         @include('admin.profile.userSideBar', $user)
@@ -13,20 +13,20 @@
                 <div class="card-header">
                     <div class="card-title">
                         <h3 class="card-label">
-                        Documents
+                        Education
                         </h3>
                     </div>
                 </div>
                 {{-- Show Skills --}}
 
                 <div class="card-body row">
-                @if ($user->documents->count() != 0)
-                    @foreach ($user->documents as $document)
+                @if ($user->educations->count() != 0)
+                    @foreach ($user->educations as $education)
                         @if ($loop->first)   
                         <div class="container">
                             <div class="row">
                         @endif
-                                <div class="col-md-6 p-4 text-center">
+                                <div class="col-md-12 p-4 text-center">
                                     <img src="{{ asset('storage/'.$document->path) }}" width="100%" height="350px">
                                     <h4 class="font-weight-bold">
                                         {{ str_contains($document->type,'certificate') ? 'Certificate' : ucwords(str_replace('_',' ',$document->type)) }}
@@ -42,7 +42,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <h2 class="text-center">
-                                    No Documents uploaded
+                                    Education record not found
                                 </h2>
                             </div>
                         </div>

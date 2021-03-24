@@ -287,9 +287,9 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <h3 class="mb-10 font-weight-bold text-dark">Add upto 3 of your education background</h3>
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or University</label>
-                                <input type="text" class="form-control " name="educationinstutional_name" placeholder="Name" value="{{old('educationinstutional_name')}}" />
-                                @if ($errors->has('educationinstutional_name'))
-                                <span class="text-danger">{{ $errors->first('educationinstutional_name') }}</span>
+                                <input type="text" class="form-control " name="education_instutional_name" placeholder="Name" value="{{old('education_instutional_name')}}" />
+                                @if ($errors->has('education_instutional_name'))
+                                <span class="text-danger">{{ $errors->first('education_instutional_name') }}</span>
                                 @endif
                             </div>
                             <!--begin::Form Group-->
