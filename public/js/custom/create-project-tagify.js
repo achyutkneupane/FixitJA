@@ -189,7 +189,7 @@ function AddCategoryProjectWizard() {
         });
     }
 
-    if($("#categorySelect1")) {
+    if($("#categorySelect1").val() != null) {
         if(sessionCatId != 'NULL') {
             $("#categorySelect1").val(sessionCatId).change();
         }
@@ -213,8 +213,8 @@ $(document).on("click", ".remove-accordian-project-wizard", function (e) {
     }
 
     selectedCategoryData['categorySelect' + $(this).attr('count-value')] = "-1";
-    updateAllCategorySelect();
     $("#totalProjectCatList").val($("#totalProjectCatList").val().replace('{"fieldId": "' + $(this).attr('count-value') + '"},', ''));
+    updateAllCategorySelect();
 })
 
 function workingEqualsUser() {

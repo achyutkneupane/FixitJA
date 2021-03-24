@@ -147,10 +147,10 @@ var KTWizard1 = function () {
             _formEl,
             {
                 fields: {
-                    educationinstutional_name: {
+                    education_institutional_name: {
                         validators: {
                             notEmpty: {
-                                message: 'Education Instutional Name is required',
+                                message: 'Education Institutional Name is required',
                                 callback: function(input) {
 									$("#educationname").text(input.value);
 									return !!input.value;

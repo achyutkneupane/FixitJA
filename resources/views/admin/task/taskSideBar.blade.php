@@ -8,13 +8,21 @@
             <div class="mb-10">
                 <h4 class="font-weight-bold my-2">Task Detail</h4>
                 <div class="text-muted mb-6">Task Id: {{ $task->id }}</div>
-                @if (isset($task->related_task_id))
+                @if (!empty($task->related_tasks()))
                     <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="font-weight-bold">Related Task:</span>
-                        <span class="text-muted">
-                            <a href="{{ route('viewTask', $task->related_task_id) }}">
-                                {{ $task->related_task_id }}
-                            </a>
+                        <span class="font-weight-bold">Related Tasks:</span>
+                        <span class="text-muted text-right">
+                            @foreach ($task->relatedTasks() as $relTask)
+                            @if ($loop->last)
+                                <a href="{{ route('viewTask', $relTask->id) }}">
+                                    {{ $relTask->name }}
+                                </a>({{ ucwords($relTask->category()->name) }})
+                            @else
+                                <a href="{{ route('viewTask', $relTask->id) }}">
+                                    {{ $relTask->name }}
+                                </a>({{ ucwords($relTask->category()->name) }})<br>
+                            @endif
+                            @endforeach
                         </span>
                     </div>
                 @endif
@@ -32,9 +40,19 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold">Category:</span>
-                    {!! isset($task->createdFor->name) ? $task->createdFor->name : '<span class="text-muted">N/A</span>' !!}
-                    {{-- <span
-                        class="text-muted">{{ $task->sub_category->name }}({{ $task->sub_category->category->name }})</span> --}}
+                    <span class="text-muted">{{ ucwords($task->category()->name) }}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="font-weight-bold">Sub-Categories:</span>
+                    <span class="text-muted">
+                        @foreach ($task->subCategories()->get() as $subs)
+                        @if($loop->last)
+                            {{ ucwords($subs->name) }}
+                        @else
+                            {{ ucwords($subs->name) }},
+                        @endif
+                        @endforeach
+                    </span>
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold">Created:</span>
