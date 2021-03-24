@@ -22,7 +22,7 @@ const sub_categories = {
                         const subArray = JSON.parse(input.value);
 				        subArray.forEach((element,index) => {
 						$("#skill").append(element.value + ",");
-								
+
         });
         	return !!input.value;
 		},
@@ -49,7 +49,7 @@ const certificateValidator = {
     validators: {
         notEmpty: {
             message: 'Certificate is required',
-            
+
 
         },
         file: {
@@ -200,7 +200,7 @@ var KTWizard1 = function () {
                             }
                         }
                     },
-                   
+
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -271,7 +271,7 @@ var KTWizard1 = function () {
                     police_report:{
                          validators: {
                             notEmpty: {
-                                
+
                                 callback: function(input) {
 									$("#policereport").text(input.value);
 									return !!input.value;
@@ -284,7 +284,7 @@ var KTWizard1 = function () {
                       is_travelling:{
                          validators: {
                             notEmpty: {
-                                
+
                                 callback: function(input) {
 									$("#istravelling").text(input.value);
 									return !!input.value;
@@ -296,7 +296,7 @@ var KTWizard1 = function () {
                     totaldistance:{
                          validators: {
                             notEmpty: {
-                                
+
                                 callback: function(input) {
 									$("#totaldistance").text(input.value);
 									return !!input.value;
@@ -308,9 +308,9 @@ var KTWizard1 = function () {
                       working_days:{
                          validators: {
                             notEmpty: {
-                                
+
                                 callback: function(input) {
-									
+
                                     const subArray = JSON.parse(input.value);
 				                    subArray.forEach((element,index) => {
 						            $("#workingdays").append(element.value + ",");
@@ -322,9 +322,9 @@ var KTWizard1 = function () {
 
                     },
 
-                    
-                  
-                   
+
+
+
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -352,10 +352,10 @@ var KTWizard1 = function () {
                             }
                         }
                     },
-                  
-                    
-                  
-                   
+
+
+
+
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -370,7 +370,7 @@ var KTWizard1 = function () {
             }
         ));
 
-      
+
 
         // step 7
         _validations.push(FormValidation.formValidation(
@@ -408,13 +408,13 @@ var KTWizard1 = function () {
 							}
 						}
 					},
-                    
+
                     cities: {
                         validators: {
                             notEmpty: {
                                 message: 'City is required',
                                 callback: function(input) {
-									
+
 									$("#workingCityId").text($("select[name='cities'] option:selected").text());
 									return workingEqualsUser() || !!input.value;
 								},
@@ -431,7 +431,7 @@ var KTWizard1 = function () {
 							}
 						}
                     },
-                    
+
                     loccountry: {
                         validators: {
                             notEmpty: {
@@ -446,15 +446,15 @@ var KTWizard1 = function () {
                     bootstrap: new FormValidation.plugins.Bootstrap({
                         //eleInvalidClass: '',
                         eleValidClass: '',
-                    }), 
+                    }),
                     alias: new FormValidation.plugins.Alias({
 						 notEmpty: 'callback',
 					}),
                 }
             }
         ));
-        
-      
+
+
     }
 
     var _initWizard = function () {
@@ -507,11 +507,11 @@ var KTWizard1 = function () {
         // Submit event
         _wizardObj.on('submit', function (wizard) {
             Swal.fire({
-                text: "All is good! Please confirm the form submission.",
+                html: "<label>All is good! By submitting this form, you automatically agree to our&nbsp;</label><a href='/termsandconditions' target='_blank'>Terms & Conditions</a>",
                 icon: "success",
                 showCancelButton: true,
                 buttonsStyling: false,
-                confirmButtonText: "Yes, submit!",
+                confirmButtonText: "Yes, I agree & submit!",
                 cancelButtonText: "No, cancel",
                 customClass: {
                     confirmButton: "btn font-weight-bold btn-primary",

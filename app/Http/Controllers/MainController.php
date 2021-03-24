@@ -90,6 +90,15 @@ class MainController extends Controller
         $page_description = 'This is under construction page.';
         return view('pages.underConstruction', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => false]);
     }
+
+    public function termsandconditions()
+    {
+        $page_title = 'Terms & Conditions';
+        $page_description = 'Our terms and conditions for all users.';
+        return view('pages.termsAndConditions', compact('page_title', 'page_description'), ["show_sidebar" => false, "show_navbar" => true]);
+    }
+
+
     public function createProject()
     {
         $page_title = 'Create Project Wizard';
@@ -218,14 +227,14 @@ class MainController extends Controller
    public function edittask( $taskID)
    {
 
-   
+
        try {
             $tasks = Task::where('id', $taskID)->first();
             return view('admin.task.edittask', compact('tasks'));
        } catch (\Throwable $e) {
            dd($e);
        }
-      
-       
+
+
    }
 }
