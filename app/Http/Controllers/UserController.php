@@ -217,17 +217,7 @@ class UserController extends Controller
         
 
         
-            $education = new Education();
-            $education->education_instution_name = $request->educationinstutional_name;
-            $education->degree = $request->degree;
-            $education->start_date = $request->start_date;
-            $education->end_date = $request->end_date;
-            $education->save();
-
-            $education_user = new EducationUser();
-            $education_user->user_id = Auth::user()->id;
-            $education_user->education_id = $education->id;
-            $education_user->save();
+           
 
 
             /* Reference */
