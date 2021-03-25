@@ -1,29 +1,37 @@
 @extends('layouts.app')
 @section('content')
 <script>
-    var sessionCatId,sessionSubCatId;
+    var sessionCatId, sessionSubCatId;
+
 </script>
 @if(!empty(session()->get('catId')))
 <script>
-var sessionCatId = {{ session()->get('catId') }};
+    var sessionCatId = {
+        {
+            session() - > get('catId')
+        }
+    };
+
 </script>
 @elseif(!empty(session()->get('subCatId')))
 <script>
-var sessionCatId = 'NULL';
-var sessionSubCatId = {{ session()->get('subCatId') }};
-var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
+    var sessionCatId = 'NULL';
+    var sessionSubCatId = {
+        {
+            session() - > get('subCatId')
+        }
+    };
+    var sessionsubCatCatId = {
+        {
+            $subs - > find(session() - > get('subCatId')) - > category - > id
+        }
+    };
+
 </script>
 @endif
- 
-  @if (Auth::user()->id)
-        @php
-            $page_title = 'EditApplication';
-        @endphp
-    @else
-        @php
-            $page_title = 'Createprofile';
-        @endphp
-    @endif
+@php
+$page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
+@endphp
 
 
 
@@ -46,11 +54,17 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         </div>
                         <span class="svg-icon svg-icon-xl wizard-arrow">
                             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <polygon points="0 0 24 0 24 24 0 24"></polygon>
-                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1"></rect>
-                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
+                                    <rect fill="#000000" opacity="0.3"
+                                        transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                        x="11" y="5" width="2" height="14" rx="1"></rect>
+                                    <path
+                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                        fill="#000000" fill-rule="nonzero"
+                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
                                     </path>
                                 </g>
                             </svg>
@@ -67,11 +81,17 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         </div>
                         <span class="svg-icon svg-icon-xl wizard-arrow">
                             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <polygon points="0 0 24 0 24 24 0 24"></polygon>
-                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1"></rect>
-                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
+                                    <rect fill="#000000" opacity="0.3"
+                                        transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                        x="11" y="5" width="2" height="14" rx="1"></rect>
+                                    <path
+                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                        fill="#000000" fill-rule="nonzero"
+                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
                                     </path>
                                 </g>
                             </svg>
@@ -88,11 +108,17 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         </div>
                         <span class="svg-icon svg-icon-xl wizard-arrow">
                             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <polygon points="0 0 24 0 24 24 0 24"></polygon>
-                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1"></rect>
-                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
+                                    <rect fill="#000000" opacity="0.3"
+                                        transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                        x="11" y="5" width="2" height="14" rx="1"></rect>
+                                    <path
+                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                        fill="#000000" fill-rule="nonzero"
+                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
                                     </path>
                                 </g>
                             </svg>
@@ -109,11 +135,17 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         </div>
                         <span class="svg-icon svg-icon-xl wizard-arrow">
                             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <polygon points="0 0 24 0 24 24 0 24"></polygon>
-                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1"></rect>
-                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
+                                    <rect fill="#000000" opacity="0.3"
+                                        transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                        x="11" y="5" width="2" height="14" rx="1"></rect>
+                                    <path
+                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                        fill="#000000" fill-rule="nonzero"
+                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
                                     </path>
                                 </g>
                             </svg>
@@ -130,11 +162,17 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         </div>
                         <span class="svg-icon svg-icon-xl wizard-arrow">
                             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <polygon points="0 0 24 0 24 24 0 24"></polygon>
-                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1"></rect>
-                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
+                                    <rect fill="#000000" opacity="0.3"
+                                        transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                        x="11" y="5" width="2" height="14" rx="1"></rect>
+                                    <path
+                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                        fill="#000000" fill-rule="nonzero"
+                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
                                     </path>
                                 </g>
                             </svg>
@@ -151,11 +189,17 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         </div>
                         <span class="svg-icon svg-icon-xl wizard-arrow">
                             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <polygon points="0 0 24 0 24 24 0 24"></polygon>
-                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1"></rect>
-                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
+                                    <rect fill="#000000" opacity="0.3"
+                                        transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                        x="11" y="5" width="2" height="14" rx="1"></rect>
+                                    <path
+                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                        fill="#000000" fill-rule="nonzero"
+                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
                                     </path>
                                 </g>
                             </svg>
@@ -172,11 +216,17 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         </div>
                         <span class="svg-icon svg-icon-xl wizard-arrow">
                             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <polygon points="0 0 24 0 24 24 0 24"></polygon>
-                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1"></rect>
-                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
+                                    <rect fill="#000000" opacity="0.3"
+                                        transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
+                                        x="11" y="5" width="2" height="14" rx="1"></rect>
+                                    <path
+                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                                        fill="#000000" fill-rule="nonzero"
+                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)">
                                     </path>
                                 </g>
                             </svg>
@@ -202,11 +252,12 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
             <div class="row justify-content-center my-5 px-8 my-lg-10 px-lg-10">
                 <div class="col-xl-12 col-xxl-7">
                     <!--begin::Wizard Form-->
-                    <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="POST" enctype="multipart/form-data">
+                    <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
-                        
-                      
-                        
+
+
+
                         <!--begin::Wizard Step 1-->
                         <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                             <h3 class="font-weight-bold text-dark">Enter your up to 3 skill categories</h3>
@@ -218,14 +269,17 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                         <div class="card-header">
                                             <div class="card-title" data-toggle="collapse" data-target="#collapse1">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
-                                                <span class="category-title" id="categoryTitleselected_catgeory1"></span>
+                                                <span class="category-title"
+                                                    id="categoryTitleselected_catgeory1"></span>
                                             </div>
                                         </div>
                                         <div id="collapse1" class="collapse show" data-parent="#accordionExample3">
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Category</label>
-                                                    <select name="skills_category" subcatid="kt_tagify_subcategory" id="selected_catgeory1" class="form-control form-control-solid form-control-lg category-select">
+                                                    <select name="skills_category" subcatid="kt_tagify_subcategory"
+                                                        id="selected_catgeory1"
+                                                        class="form-control form-control-solid form-control-lg category-select">
                                                         <option value="">Select Category</option>
                                                         @foreach ($category as $cate)
                                                         <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
@@ -238,8 +292,9 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                 <div class="form-group">
                                                     <label>Sub category</label>
                                                     <div id="divTagifykt_tagify_subcategory">
-                                                        <input id="kt_tagify_subcategory" class="form-control" name="sub_categories" placeholder="Add sub-categories">
-                                                        <div class="mt-3 text-muted">Select multiple
+                                                        <input id="kt_tagify_subcategory" class="form-control"
+                                                            name="sub_categories" placeholder="Add sub-categories">
+                                                        <div   class="mt-3 text-muted">Select multiple
                                                             subcategories. If you don't see
                                                             your option just create one.</div>
                                                     </div>
@@ -248,12 +303,131 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                         </div>
                                     </div>
                                 </div>
+                               
+
+
+
+
+
+
                                 <!--begin::Accordion-->
                             </div>
                             <input type="hidden" id="totalCatList" name="totalCatList">
                             <button type="button" name="add" id="add_btn" class="btn btn-success">Add More</button>'
                             <!--end::Select-->
                         </div>
+                         @php (auth()->user()->status == 'pending' ? 'Edit Application': '') @endphp
+                                @if(!empty(auth()->user()))
+
+                                <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+                                <script>
+                                    $(document).ready(function () {
+                                        getSubCategory();
+                                    });
+
+                                    function getSubCategory() {
+                                        var subcategory = new Array();
+                                        var catid;
+
+                                        $.ajax({
+                                            type: "GET",
+                                            url: '/api/subcategory/',
+                                            dataType: 'json',
+                                            success: function (result) {
+
+                                                $.each(result, function (index, item) {
+                                                    catid = item.category_id;
+                                                    var itemObj = {};
+                                                    itemObj.value = item.name;
+                                                    itemObj.description = item.description;
+                                                    itemObj.id = item.id;
+                                                    itemObj.initials = '',
+                                                        itemObj.initialsState = '',
+                                                        itemObj.id = item.id,
+                                                        itemObj.class = 'tagify__tag--primary'
+                                                    subcategory.push(itemObj);
+
+                                                });
+                                                binddata(subcategory);
+                                                getCategory(catid);
+
+
+
+                                            }
+
+                                        })
+
+
+                                    }
+
+                                    function binddata(data) {
+
+
+                                        var toEl = document.getElementById('kt_tagify_subcategory');
+                                        var tagifyTo = new Tagify(toEl, {
+                                            delimiters: ", ", // add new tags when a comma or a space character is entered
+                                            maxTags: 10,
+                                            blacklist: ["fuck", "shit", "pussy"],
+                                            keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
+                                            whitelist: data,
+                                            templates: {
+                                                dropdownItem: function (tagData) {
+                                                    try {
+                                                        var html = '';
+
+                                                        html += '<div class="tagify__dropdown__item">';
+                                                        html +=
+                                                            '   <div class="d-flex align-items-center">';
+                                                        html += '       <span class="symbol sumbol-' + (
+                                                            tagData.initialsState ? tagData
+                                                            .initialsState : '') + ' mr-2">';
+                                                        // html += '           <span class="symbol-label" style="background-image: url(\'' + (tagData.pic ? tagData.pic : '') + '\')">' + (tagData.initials ? tagData.initials : '') + '</span>';
+                                                        html += '       </span>';
+                                                        html += '       <div class="d-flex flex-column">';
+                                                        html +=
+                                                            '           <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">' +
+                                                            (tagData.value ? tagData.value : '') + '</a>';
+                                                        html +=
+                                                            '           <span class="text-muted font-weight-bold">' +
+                                                            (tagData.description ? tagData.description :
+                                                                '') + '</span>';
+                                                        html += '       </div>';
+                                                        html += '   </div>';
+                                                        html += '</div>';
+
+                                                        return html;
+                                                    } catch (err) {}
+                                                }
+                                            },
+                                            transformTag: function (tagData) {
+                                                tagData.class = 'tagify__tag tagify__tag--primary';
+                                            },
+                                            dropdown: {
+                                                classname: "color-blue",
+                                                enabled: 0,
+                                                maxItems: 5
+                                            }
+                                        });
+
+                                        if (data) {
+                                            //console.log(data);
+                                            data.forEach((element, index) => {
+
+                                                tagifyTo.addTags([element]);
+
+                                            });
+                                        }
+
+                                    }
+
+
+                                    function getCategory(id) {
+                                        
+
+                                    }
+
+                                </script>
+                                @endif
                         <!--end::Wizard Step 1-->
 
                         <!--begin::Wizard Step 2-->
@@ -267,24 +441,32 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordionCertificate">
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="card-title" data-toggle="collapse" data-target="#collapseCert" id="selectedCategory">
+                                            <div class="card-title" data-toggle="collapse" data-target="#collapseCert"
+                                                id="selectedCategory">
                                                 <p id="certificateCategoryTitle">Test</p>
                                             </div>
                                         </div>
-                                        <div id="collapseCert" class="collapse show" data-parent="#accordionCertificate">
+                                        <div id="collapseCert" class="collapse show"
+                                            data-parent="#accordionCertificate">
                                             <div class="card-body">
                                                 <div class="form-group row">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Certificate (PDF, DOC, JPEG, PNG)
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Certificate
+                                                        (PDF, DOC, JPEG, PNG)
                                                         <div class="col-md-12">
                                                             <div class="dropzone dropzone-default dropzone-primary">
-                                                                <div class="dropzone-msg dz-message needsclick"><input id="certificateFile" type="file" category="category-name" accept=".png, .jpg, .jpeg, .pdf, .docx"></div>
+                                                                <div class="dropzone-msg dz-message needsclick"><input
+                                                                        id="certificateFile" type="file"
+                                                                        category="category-name"
+                                                                        accept=".png, .jpg, .jpeg, .pdf, .docx"></div>
                                                             </div>
                                                         </div>
                                                     </label class="col-form-label">
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Experience
-                                                        <input type="text" id="certificateExp" class="form-control" category="category-name" type="number" placeholder="Years" value="">
+                                                        <input type="text" id="certificateExp" class="form-control"
+                                                            category="category-name" type="number" placeholder="Years"
+                                                            value="">
                                                     </label>
                                                 </div>
                                             </div>
@@ -299,10 +481,12 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         <!--begin::Wizard Step 3-->
                         <div class="pb-5" data-wizard-type="step-content">
                             <h3 class="mb-10 font-weight-bold text-dark">Add upto 3 of your education background</h3>
-                            
+
                             <div class="form-group">
-                                <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or University</label>
-                                <input type="text" class="form-control " name="educationinstutional_name" placeholder="Name" value="{{old('educationinstutional_name' )}}" />
+                                <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or
+                                    University</label>
+                                <input type="text" class="form-control " name="educationinstutional_name"
+                                    placeholder="Name" value="" />
                                 @if ($errors->has('educationinstutional_name'))
                                 <span class="text-danger">{{ $errors->first('educationinstutional_name') }}</span>
                                 @endif
@@ -311,8 +495,9 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Degree</label>
 
-                                <select class="form-control" id="degree_wizard_profile" name="degree" value="{{old('degree') }}">
- 
+                                <select class="form-control" id="degree_wizard_profile" name="degree"
+                                    value="{{old('degree') }}">
+
                                     <option value="Secondary level" id="type1">Secondary level</option>
                                     <option value="Higher Secondary level" id="type2">Higher Secondary level
                                     </option>
@@ -329,7 +514,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <label class="font-size-h6 font-weight-bolder text-dark">Start Date</label>
 
                                 <div class="col-10">
-                                    <input class="form-control" type="date" value="" id="selectstartdate" name="start_date" value=""/>
+                                    <input class="form-control" type="date" value="" id="selectstartdate"
+                                        name="start_date" value="" />
                                 </div>
                                 <!--end::Form Group-->
                                 <!--begin::Form Group-->
@@ -337,7 +523,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     <label class="font-size-h6 font-weight-bolder text-dark">End Date</label>
 
                                     <div class="col-10">
-                                        <input class="form-control" type="date" value="" id="selectenddate" name="end_date" value="" />
+                                        <input class="form-control" type="date" value="" id="selectenddate"
+                                            name="end_date" value="" />
                                     </div>
                                     <!--end::Form Group-->
                                     <!--end::Form Group-->
@@ -347,7 +534,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                     <!--begin::Action-->
                                 </div>
                             </div>
-                           
+
                         </div>
                         <!--end::Wizard Step 3-->
 
@@ -361,26 +548,36 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_reference">
                                     <div class="card card-reference-accordion" id="referenceCard1">
                                         <div class="card-header">
-                                            <div class="card-title" data-toggle="collapse" data-target="#collapseReference1">
+                                            <div class="card-title" data-toggle="collapse"
+                                                data-target="#collapseReference1">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
 
                                             </div>
                                         </div>
-                                        <div id="collapseReference1" class="collapse show" data-parent="#accordionExample3">
+                                        <div id="collapseReference1" class="collapse show"
+                                            data-parent="#accordionExample3">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal Name
-                                                        <input type="text" id="refname" class="form-control" type="text" name="referal_name" placeholder="Referal Name" value="">
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                        Name
+                                                        <input type="text" id="refname" class="form-control" type="text"
+                                                            name="referal_name" placeholder="Referal Name" value="">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal Email
-                                                        <input type="email" id="refemail" class="form-control" type="email" name="referal_email" placeholder="Referal Email" value="}">
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                        Email
+                                                        <input type="email" id="refemail" class="form-control"
+                                                            type="email" name="referal_email"
+                                                            placeholder="Referal Email" value="}">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal Contact Number
-                                                        <input type="text" id="refphone" class="form-control" type="text" name="referal_phone" placeholder="Referal Contact Number" value="">
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                        Contact Number
+                                                        <input type="text" id="refphone" class="form-control"
+                                                            type="text" name="referal_phone"
+                                                            placeholder="Referal Contact Number" value="">
                                                     </label>
                                                 </div>
 
@@ -392,7 +589,9 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 </div>
                                 <!--begin::Accordion-->
                             </div>
-                            <button type="button" name="add_reference" id="add_more_reference" class="btn btn-success">Add More References</button>
+                            <input type="hidden" id="totalRefList" name="totalRefList">
+                            <button type="button" name="add_reference" id="add_more_reference"
+                                class="btn btn-success">Add More References</button>
 
 
 
@@ -405,14 +604,17 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <h4 class="mb-10 font-weight-bold text-dark">Please answer the question</h4>
                             <!--begin::Input-->
                             <div class="form-group fv-plugins-icon-container">
-                                <label class="col-9 col-form-label">7. Are you willing to go for backgroud check or criminal
+                                <label class="col-9 col-form-label">7. Are you willing to go for backgroud check or
+                                    criminal
                                     report?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="police_report" {{ !empty($user->is_police_record  ? 'checked' : '') ? : '' }} value="1"  />
+                                        <input type="radio" name="police_report"
+                                            {{ auth()->user()->is_police_record  ? 'checked' : ''}} value="1" />
                                         <span></span>Yes</label>
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="police_report" {{ $user->is_police_record == '0' ? 'checked' : ''}} value="0"  />
+                                        <input type="radio" name="police_report"
+                                            {{ auth()->user()->is_police_record == '0' ? 'checked' : ''}} value="0" />
                                         <span></span>No</label>
                                     <label class="radio radio-primary radio-disabled">
 
@@ -422,13 +624,16 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">8.Write short description about yourself?
                                         <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="exampleTextarea" rows="3" name="personal_description">{{ $user->introduction }}</textarea>
+                                    <textarea class="form-control" id="exampleTextarea" rows="3"
+                                        name="personal_description">{{ auth()->user()->introduction }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">9. How many working hours per week?
-                                        <input type="text" class=" form-control " name="hours" placeholder="enter your work hours" rows="1" value="{{ $user->hours}}" />
+                                        <input type="text" class=" form-control " name="hours"
+                                            placeholder="enter your work hours" rows="1"
+                                            value="{{ auth()->user()->hours}}" />
                                 </div>
                             </div>
 
@@ -438,7 +643,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <div class="col-9 col-form-label">
                                     <div class="checkbox-inline">
 
-                                        <input id="kt_tagify_workingdays" class="form-control" name="working_days" placeholder="Add sub-categories">
+                                        <input id="kt_tagify_workingdays" class="form-control" name="working_days"
+                                            placeholder="Add sub-categories">
                                         <div class="mt-3 text-muted">Select multiple days. If you don't see
                                             your option just create one.</div>
                                     </div>
@@ -448,10 +654,12 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <label class="col-9 col-form-label">11. Are you willing to travel long distance?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="is_travelling" {{ $user->is_travelling ? 'checked' : '' }} value="1"  />
+                                        <input type="radio" name="is_travelling"
+                                            {{ auth()->user()->is_travelling ? 'checked' : '' }} value="1" />
                                         <span></span>Yes</label>
                                     <label class="radio radio-primary">
-                                        <input type="radio" name="is_travelling" {{ $user->is_travelling ? ' checked' : '' }} value="0"  />
+                                        <input type="radio" name="is_travelling"
+                                            {{ auth()->user()->is_travelling ? ' checked' : '' }} value="0" />
                                         <span></span>No</label>
                                 </div>
                             </div>
@@ -460,7 +668,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">12. How long distance you are willing to travel?
                                         <div class="slidecontainer">
-                                            <input type="range" min="1" max="100" value="0" class="slider" id="myRange" name="total_distance" value="{{ $user->total_distance }}">
+                                            <input type="range" min="1" max="100" value="0" class="slider" id="myRange"
+                                                name="total_distance" value="{{ auth()->user()->total_distance }}">
                                             <p>Total Distance: <span id="demo"></span>km</p>
                                         </div>
                                 </div>
@@ -472,26 +681,22 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         <div class="pb-5" data-wizard-type="step-content">
                             <h4 class="mb-10 font-weight-bold text-dark">Upload Your Profile Image</h4>
                             <!--begin::Input-->
-                             <div class="form-group row">
-                        <div class="col-lg-9 col-xl-6">
-                        <div class="editProfileImage mb-3">
-                            <img src="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}" id="profilePicture" style="height:200px; width:200px;">
+                            <div class="form-group row">
+                                <div class="col-lg-9 col-xl-6">
+                                    <div class="editProfileImage mb-3">
+                                        <img src="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}"
+                                            id="profilePicture" style="height:200px; width:200px;">
+                                    </div>
+                                    <input id="profile_image" type="file" accept=".jpg,.gif,.png,.jpeg" name="profile"
+                                        onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                                    @error('profile_image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
-                            <input
-                                id="profile_image"
-                                type="file"
-                                accept=".jpg,.gif,.png,.jpeg"
-                                name="profile"
-                                onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])"
-                                />
-                            @error('profile_image')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    </div>
 
 
 
@@ -507,8 +712,9 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <!--begin::Select-->
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Parishes</label>
-                                <select name="parishes" class="form-control form-control-solid form-control-lg category-select">
-                                    
+                                <select name="parishes"
+                                    class="form-control form-control-solid form-control-lg category-select">
+
                                     <option value="Saint Catherine">Saint Catherine</option>
                                     <option value="Clarendon">Clarendon</option>
                                     <option value="Liguanea (St Andrew)">Liguanea (St Andrew)</option>
@@ -520,8 +726,9 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>City</label>
-                                <select name="cities" class="form-control form-control-solid form-control-lg category-select">
-                                <option value="{{ $user->city->city_id }}">{{  $user->city->name}}</option>
+                                <select name="cities"
+                                    class="form-control form-control-solid form-control-lg category-select">
+                                    <option value=""></option>
                                     @foreach($city as $index => $cities)
                                     <option value="{{ $cities->id }}">{{ $cities->name }}</option>
                                     @endforeach
@@ -529,15 +736,18 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Street</label>
-                                <input type="text" name="street" class="form-control" placeholder="Enter your street" value="{{ $user->street_01}}" />
+                                <input type="text" name="street" class="form-control" placeholder="Enter your street"
+                                    value="{{ auth()->user()->street_01}}" />
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>House Number or Unit (Optional)</label>
-                                <input type="text" name="house_number" class="form-control " placeholder="Enter your House number" />
+                                <input type="text" name="house_number" class="form-control "
+                                    placeholder="Enter your House number" />
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label> Postal Code (Optional)</label>
-                                <input type="text" name="postal_code" class="form-control" placeholder="Enter your  Postal Code (Optional)" />
+                                <input type="text" name="postal_code" class="form-control"
+                                    placeholder="Enter your  Postal Code (Optional)" />
                             </div>
                         </div>
                         <!--end:: wizard step 7-->
@@ -641,11 +851,17 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         <!--begin::Wizard Actions-->
                         <div class="d-flex justify-content-between border-top mt-5 pt-10">
                             <div class="mr-2">
-                                <button type="button" class="btn btn-light-primary font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-prev">Previous</button>
+                                <button type="button"
+                                    class="btn btn-light-primary font-weight-bolder text-uppercase px-9 py-4"
+                                    data-wizard-type="action-prev">Previous</button>
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-success font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-submit">Submit</button>
-                                <button type="button" class="btn btn-primary font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-next">Next</button>
+                                <button type="submit"
+                                    class="btn btn-success font-weight-bolder text-uppercase px-9 py-4"
+                                    data-wizard-type="action-submit">Submit</button>
+                                <button type="button"
+                                    class="btn btn-primary font-weight-bolder text-uppercase px-9 py-4"
+                                    data-wizard-type="action-next">Next</button>
                             </div>
                         </div>
                         <!--end::Wizard Actions-->
@@ -686,30 +902,32 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
     var fixedNavbarWebsite = true;
     $(".navbar-marketing").addClass("navbar-scrolled");
     $(".navbar-marketing").removeClass("fixed-top");
+
 </script>
 
 <script>
     var avatar5 = new KTImageInput('kt_image_5');
 
-    avatar5.on('cancel', function(imageInput) {
+    avatar5.on('cancel', function (imageInput) {
         swal.fire({
 
         });
     });
 
-    avatar5.on('change', function(imageInput) {
+    avatar5.on('change', function (imageInput) {
         swal.fire({
 
 
         });
     });
 
-    avatar5.on('remove', function(imageInput) {
+    avatar5.on('remove', function (imageInput) {
         swal.fire({
 
 
         });
     });
+
 </script>
 
 @endsection

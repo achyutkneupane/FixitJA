@@ -6,7 +6,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubCategoryController extends Controller
 {
@@ -15,6 +17,9 @@ class SubCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+   
+
     public function index()
     {
         $subcategories = SubCategory::with('category')->get();
@@ -104,9 +109,23 @@ class SubCategoryController extends Controller
         SubCategory::find($id)->delete();
         return redirect()->route('listCategory');
     }
-    public function list($id)
+    public function list($id= NULL)
+    {  
+       if($id =! NULL)
+         $cats = Category::with(['sub_categories'])->find($id);
+         return $cats->sub_categories;
+       
+
+       
+        
+    }
+    public function getSubCategory()
     {
-        $cats = Category::with(['sub_categories'])->find($id);
-        return $cats->sub_categories;
+        
+        $users = User::find(12);
+        return $users->subcategories;
+        
+        //dd($users->allCategories());
+       
     }
 }

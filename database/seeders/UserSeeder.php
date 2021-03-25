@@ -41,9 +41,9 @@ class UserSeeder extends Seeder
             'website' => 'https://www.kumberland.com',
             'city_id' => '7',
             'password' => Hash::make('Kumberland@123'),
-            'email_verified_at' => NULL,
+            'email_verified_at' => now(),
             'verification_code' => sha1(sha1(time())),
-            'status' => 'new',
+            'status' => 'active',
             'type' => 'general_user',
             'facebook' => 'https://www.facebook.com/ThisIsAchyut',
             'twitter' => NULL,
@@ -51,7 +51,8 @@ class UserSeeder extends Seeder
         ]);
         $user->emails()->create([
             'email' => 'aneupane@kumberland.com',
-            'primary' => true
+            'primary' => true,
+            'verified' => true
         ]);
         $user->phones()->create([
             'phone' => '9860323771',

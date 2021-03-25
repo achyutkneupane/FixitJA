@@ -16,7 +16,7 @@ class TaskSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Task::factory(50)->create() as $task) {
+        foreach (Task::factory(10)->create() as $task) {
             $users = User::inRandomOrder()->where('id', '!=', '1')->take(rand(2, 10))->pluck('id');
             $task->assignedBy()->attach($users);
             $users = User::inRandomOrder()->where('id', '!=', '1')->take(rand(2, 10))->pluck('id');

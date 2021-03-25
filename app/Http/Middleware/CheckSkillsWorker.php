@@ -16,7 +16,7 @@ class CheckSkillsWorker
      */
     public function handle(Request $request, Closure $next)
     {
-         if ($request->user()->type !== 'individual_contractor') {
+         if ($request->user()->type !== 'independent_contractor') {
             return redirect()->route('home');
         }
         return $next($request);

@@ -197,10 +197,12 @@ $(document).on("click", ".remove-accordian", function (e) {
 })
 
 //Adding more Reference
+$("#totalRefList").val('{"fieldId": ""},');
 $("#add_more_reference").click(function(e){
     e.stopImmediatePropagation();
     if ($(".card-reference-accordion").length < 3){
         count++;
+        $("#totalRefList").val($("#totalRefList").val() + '{"fieldId": "'+count+'"},');
 
         $("#accordion_reference").append(
             '<div class="card card-reference-accordion" id="referenceCard' + count + '">'+
