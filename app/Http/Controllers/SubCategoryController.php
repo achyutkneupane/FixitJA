@@ -122,7 +122,7 @@ class SubCategoryController extends Controller
     public function getSubCategory()
     {
         
-        $users = User::find(12);
+        $users = User::find(auth()->user());
         return $users->subcategories;
         
         //dd($users->allCategories());

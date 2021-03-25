@@ -334,6 +334,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                             url: '/api/subcategory/',
                                             dataType: 'json',
                                             success: function (result) {
+                                                console.log(result);
 
                                                 $.each(result, function (index, item) {
                                                     catid = item.category_id;
@@ -486,7 +487,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or
                                     University</label>
                                 <input type="text" class="form-control " name="educationinstutional_name"
-                                    placeholder="Name" value="" />
+                                    placeholder="Name" value="{{ auth()->user()->education_instution_name }}" />
                                 @if ($errors->has('educationinstutional_name'))
                                 <span class="text-danger">{{ $errors->first('educationinstutional_name') }}</span>
                                 @endif
