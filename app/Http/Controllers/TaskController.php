@@ -19,7 +19,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::orderBy('id', 'ASC')->get();
+        $tasks = auth()->user()->associatedTasks();
         return view('admin.task.tasks', compact('tasks'));
     }
 

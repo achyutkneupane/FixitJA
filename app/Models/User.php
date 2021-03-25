@@ -21,22 +21,7 @@ class User extends Authenticatable
      */
 
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone',
-        'type',
-        'gender',
-        'companyname',
-        'website',
-        'experience',
-        'profile_image',
-        'verification_code',
-        'certificate',
-        'profile',
-
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -65,6 +50,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(References::class);
     }
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
+    }
     public function city()
     {
         return $this->belongsTo(City::class);
@@ -75,7 +64,7 @@ class User extends Authenticatable
     }
     public function subcategories()
     {
-        return $this->belongsToMany(SubCategory::class, 'subcategory_user', 'user_id', 'sub_category_id')->limit(2);
+        return $this->belongsToMany(SubCategory::class, 'subcategory_user', 'user_id', 'sub_category_id');
     }
     public function emails()
     {
@@ -127,8 +116,8 @@ class User extends Authenticatable
             case 'admin':
                 return "Admin";
                 break;
-            case 'individual_contractor':
-                return "Individual Contractor";
+            case 'independent_contractor':
+                return "Independent Contractor";
                 break;
             case 'business':
                 return "Business";
@@ -149,8 +138,11 @@ class User extends Authenticatable
             case 'active':
                 return ['name' => 'Active', 'class' => 'success'];
                 break;
+            case 'reviewing':
+                    return ['name' => 'In Review', 'class' => 'info'];
+                    break;
             case 'pending':
-                return ['name' => 'Pending', 'class' => 'info'];
+                return ['name' => 'New', 'class' => 'info'];
                 break;
             case 'suspended':
                 return ['name' => 'Suspended', 'class' => 'warning'];
@@ -214,5 +206,26 @@ class User extends Authenticatable
             }
         }
         return $catData;
+    }
+
+    public function associatedTasks() {
+        if($this->type == 'admin') {
+            return Task::all();
+        }
+        else {
+            $user = User::find($this->id);
+            return Task::whereHas('creator',function ($query) use ($user) {
+                            $query->where('email', $user->email());
+                        })
+                        ->orWhere('created_by',$user->id)
+                        ->orWhere('created_for',$user->id)
+                        ->orWhereHas('assignedBy',function ($query) use ($user) {
+                            $query->where('assigned_by', $user->id);
+                        })
+                        ->orWhereHas('assignedTo',function ($query) use ($user) {
+                            $query->where('assigned_To', $user->id);
+                        })
+                        ->get();
+        }
     }
 }

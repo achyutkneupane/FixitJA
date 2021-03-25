@@ -52,7 +52,7 @@
             @endforeach
         </span>
         <h4 class="col-12">Education Information: </h4><br>
-        <span class="col-3">Education instutional Name:</span> <span class="col-9">{{ $request->educationinstutional_name }}</span><br>
+        <span class="col-3">Education Institutional Name:</span> <span class="col-9">{{ $request->education_institutional_name }}</span><br>
         <span class="col-3">Degree:</span> <span class="col-9">{{ $request->degree }}</span><br>
         <span class="col-3">Start Date: </span> <span class="col-9">{{ $request->start_date }}</span><br>
         <span class="col-3">End Date: </span> <span class="col-9">{{ $request->end_date }}</span><br>

@@ -25,14 +25,14 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'gender' => $this->faker->randomElement($array = array('male', 'female', 'other')),
+            'gender' => $this->faker->randomElement(array('male', 'female', 'other')),
             'companyname' => $this->faker->company,
             'email_verified_at' => now(),
             'website' => $this->faker->domainName,
             'is_police_record' => '0',
             'is_travelling' => '0',
             'city_id' => $this->faker->numberBetween(1, 16),
-            'type' => $this->faker->randomElement($array = array('individual_contractor', 'business', 'general_user')),
+            'type' => $this->faker->randomElement(array('independent_contractor', 'business', 'general_user')),
             'status' => 'active',
             'verification_code' => sha1(time()),
             'password' => Hash::make('Kumberland@123'),

@@ -137,7 +137,7 @@
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label"></label>
                         <div class="col-lg-9 col-xl-6">
-                            <input type="submit" name="submit" value="Edit" class="btn btn-primary">
+                            <input type="submit" name="submit" value="Save Changes" class="btn btn-primary">
                         </div>
                     </div>
                     </form>

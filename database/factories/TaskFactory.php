@@ -23,13 +23,14 @@ class TaskFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'created_by' => '1',
-            'created_for' => $this->faker->numberBetween(2, 10),
+            'created_by' => '2',
+            // 'created_for' => $this->faker->numberBetween(2, 10),
+            'created_for' => '1',
             'status' => $this->faker->randomElement(array('completed', 'new', 'pending', 'assigned')),
             'description' => $this->faker->text(10),
             'type' => $this->faker->randomElement(array('N/A', 'ready to hire', 'planning', 'budgeting')),
             'deadline' => $this->faker->randomElement(array('N/A', 'asap', 'within a week', 'within a month', 'more than a month', 'flexible')),
-            'creator_city_id' => $this->faker->numberBetween(1, 16),
+            // 'creator_city_id' => $this->faker->numberBetween(1, 16),
             'is_client_on_site' => $this->faker->randomElement(array('0', '1')),
             'is_repair_parts_provided' => $this->faker->randomElement(array('0', '1')),
         ];

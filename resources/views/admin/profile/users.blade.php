@@ -7,7 +7,7 @@
 @section('content')
     @php
     $page_title = 'User List';
-    $subhead_button = [['class' => 'primary', 'text' => 'New User', 'link' => '#']];
+    $subhead_button = [['class' => 'primary', 'text' => 'New User', 'link' => route('adminAddUser')]];
 
     @endphp
     @if ($users->count() == 0)
@@ -56,7 +56,7 @@
                                     <select class="form-control" id="kt_datatable_search_role">
                                         <option value="">All</option>
                                         <option value="admin">Admin</option>
-                                        <option value="individual_contractor">Individual Contractor</option>
+                                        <option value="independent_contractor">Independent Contractor</option>
                                         <option value="business">Business</option>
                                         <option value="general_user">User</option>
                                     </select>

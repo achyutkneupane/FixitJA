@@ -27,14 +27,11 @@ class CreateTasksTable extends Migration
             $table->enum('is_client_on_site', array('1', '0'))->nullable();
             $table->enum('is_repair_parts_provided', array('1', '0'))->nullable();
             $table->boolean('user_equal_working')->nullable()->default(true);
-
-            $table->unsignedBigInteger('related_task_id')->nullable();
             $table->timestamps();
 
 
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('created_for')->references('id')->on('users');
-            $table->foreign('related_task_id')->references('id')->on('tasks');
         });
 
         Schema::create('subcategory_task', function (Blueprint $table) {
@@ -77,6 +74,15 @@ class CreateTasksTable extends Migration
 
             $table->foreign('task_id')->references('id')->on('tasks');
             $table->foreign('assigned_to')->references('id')->on('users');
+        });
+        Schema::create('relatedTasks', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('task_id');
+            $table->unsignedBigInteger('related_task_id');
+            $table->timestamps();
+            
+            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->foreign('related_task_id')->references('id')->on('tasks');
         });
     }
 
