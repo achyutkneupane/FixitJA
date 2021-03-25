@@ -564,14 +564,14 @@ class UserController extends Controller
     public function profileReferences()
     {
         $user = auth()->user();
-        return view('admin.profile.education', compact('user'));
+        return view('admin.profile.reference', compact('user'));
     }
     public function userReferences($id)
     {
         if (User::find($id) == auth()->user()) {
-            return redirect()->route('viewEducations');
+            return redirect()->route('viewReferences');
         }
         $user = User::find($id);
-        return view('admin.profile.education', compact('user'));
+        return view('admin.profile.reference', compact('user'));
     }
 }

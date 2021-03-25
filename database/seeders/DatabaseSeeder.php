@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
                     'primary' => true
                 ]);
             }
-            // $this->call(SkillSeeder::class);
+            $this->call(SkillSeeder::class);
         }
         // $this->call(TaskSeeder::class);
     }
