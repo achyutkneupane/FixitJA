@@ -376,6 +376,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 </div>
                                 <!--begin::Accordion-->
                             </div>
+                             <input type="hidden" id="totalRefList" name="totalRefList">
                             <button type="button" name="add_reference" id="add_more_reference" class="btn btn-success">Add More References</button>
 
 

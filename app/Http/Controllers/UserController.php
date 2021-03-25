@@ -11,6 +11,7 @@ use App\Models\Education;
 use App\Models\EducationUser;
 use App\Models\Email;
 use App\Models\SubCategory;
+use App\Models\References;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -135,7 +136,7 @@ class UserController extends Controller
     public function addprofiledetails(Request $request)
     {
         try {
-            
+            //dd($request->all());
             
              $user  = new User();
              $user  = User::find(Auth::user()->id);
@@ -232,6 +233,29 @@ class UserController extends Controller
             $education_user->user_id = Auth::user()->id;
             $education_user->education_id = $education->id;
             $education_user->save();
+
+
+            /* Reference */
+            $Refernces = "[".$request->totalRefList."]";
+            $Refernces1 = str_replace('},]','}]',$Refernces);
+            $user_references= new Collection();
+            foreach(json_decode($Refernces1) as $referencesArray){
+                
+               
+                $references = new References();
+                $id = $referencesArray->fieldId;
+                
+                $references_name = 'referal_name'.$id;
+                $references_email = 'referal_email'.$id;
+                $references_phone = 'referal_phone'.$id;
+                $references->refname = request($references_name);
+                $references->refemail = request($references_email);
+                $references->refphone = request($references_phone);
+                $references->user()->associate($user->id);
+                $references->save();
+                
+            }
+
 
 
           
