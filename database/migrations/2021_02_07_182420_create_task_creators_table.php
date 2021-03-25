@@ -18,7 +18,6 @@ class CreateTaskCreatorsTable extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('email');
-            $table->string('parish');
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('task_id');
             $table->string('street_01');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -104,7 +105,7 @@ Route::get('/resend_email', [App\Http\Controllers\Auth\VerificationController::c
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyMultiEmail'])->name('verifyMultiEmail');
 Route::get('/add_user', [App\Http\Controllers\UserController::class, 'adminAddUser'])->middleware('auth','checkIfAdmin')->name('adminAddUser');
 Route::post('/add_user', [App\Http\Controllers\UserController::class, 'adminAddUserSubmit'])->middleware('auth','checkIfAdmin')->name('adminAddUserSubmit');
-
+Route::get('/test', [App\Http\Controllers\MainController::class, 'test'])->name('test');
 //Route for viewing all categories
 Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
 Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');

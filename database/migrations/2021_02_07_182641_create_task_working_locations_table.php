@@ -15,7 +15,6 @@ class CreateTaskWorkingLocationsTable extends Migration
     {
         Schema::create('task_working_locations', function (Blueprint $table) {
             $table->id();
-            $table->string('parish');
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('task_id');
             $table->string('street_01');

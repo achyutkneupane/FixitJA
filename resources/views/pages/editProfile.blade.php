@@ -45,7 +45,7 @@
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Gender: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <select class="form-control select2" name="gender" required>
+                            <select class="form-control select2" id="genderSelect" name="gender" required>
                                 <option value="male"{{ $user->gender == 'male' ? ' selected' : '' }}>Male</option>
                                 <option value="female"{{ $user->gender == 'female' ? ' selected' : '' }}>Female</option>
                                 <option value="other"{{ $user->gender == 'other' ? ' selected' : '' }}>Other</option>
@@ -53,19 +53,22 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Address: </label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">Parish: </label>
                         <div class="col-lg-9 col-xl-6">
-                            <select class="form-control select2" name="city_id" required>
-                                <option label="Label"></option>
-                                @foreach ($cities as $city)
-                                @if(!empty($user->city))
-                                    <option value="{{ $city->id }}" {{ ($city->id == $user->city->id) ? 'selected' : '' }}>
-                                @else
-                                    <option value="{{ $city->id }}">
-                                @endif
-                                        {{ $city->name }}
-                                    </option>
+                            <select class="form-control select2" id="userParishSelect" name="parish">
+                                <option label=""></option>
+                                @foreach($parishes as $parish)
+                                <option value="{{ $parish->id }}">
+                                    {{ $parish->name }}
+                                </option>
                                 @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">City: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <select class="form-control select2" id="userCitySelect" name="city">
                             </select>
                         </div>
                     </div>
@@ -159,12 +162,15 @@
 @endsection
 {{-- Scripts Section --}}
 @section('scripts')
+    <script
+        src="{{ asset('js/custom/parish-city-select.js') }}" type="text/javascript">
+    </script>
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/pages/custom/profile/profile.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: "Select an Option"
+            $('#genderSelect').select2({
+                placeholder: "Select a gender"
             });
         });
 

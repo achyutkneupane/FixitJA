@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MailController;
+use App\Models\Parish;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -116,8 +117,8 @@ class UserController extends Controller
         $page_description = 'This is profile wizard page';
         $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
-        $city = City::all();
-        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'city'));
+        $parishes = Parish::all();
+        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'parishes'));
     }
 
     public function uploadfile($file, $dir)
@@ -129,7 +130,6 @@ class UserController extends Controller
 
     public function addprofiledetails(Request $request)
     {
-        
         try {
             //dd($request->all());
             
@@ -413,8 +413,8 @@ class UserController extends Controller
     public function editProfile()
     {
         $user = User::find(auth()->id());
-        $cities = City::all();
-        return view('pages.editProfile', compact('user', 'cities'));
+        $parishes = Parish::all();
+        return view('pages.editProfile', compact('user', 'parishes'));
     }
 
     public function putEditProfile(Request $request)
@@ -422,7 +422,7 @@ class UserController extends Controller
         $user = User::find(auth()->id());
         try {
             $user->gender = $request->gender;
-            $user->city_id = $request->city_id;
+            $user->city_id = $request->city;
             $user->street_01 = $request->street_01;
             $user->street_02 = $request->street_02;
             $user->companyname = $request->companyname;
