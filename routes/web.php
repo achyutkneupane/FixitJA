@@ -91,7 +91,7 @@ Route::prefix('/security')->middleware('auth')->group(function () {
 Route::get('/edittask/{taskid}',[App\Http\Controllers\MainController::class, 'edittask']);
 Route::prefix('/project/create')->group(function(){
     Route::get('/', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
-    
+
     Route::get('/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProjectwithCat'])->name('createProjectWithCat');
     Route::get('/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
     Route::post('/', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
@@ -117,6 +117,9 @@ Route::post('/contact', [App\Http\Controllers\MainController::class, 'submitCont
 //Route for faqs page
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 
+//Route for Terms & Conditions page
+Route::get('/termsandconditions', [App\Http\Controllers\MainController::class, 'termsandconditions']);
+
 //Route for faqs page
 Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'underConstruction']);
 
@@ -130,7 +133,6 @@ Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addpr
 Route::get('/profile/{id}', [App\Http\Controllers\CategoryController::class, 'getSubCategory']);
 Route::get('/category_data', [App\Http\Controllers\CategoryController::class, 'getCategory']);
 
-Route::get('/hello',  [App\Http\Controllers\CategoryController::class, 'getCategory']);
 //Route for the addding education qualification
 
 
