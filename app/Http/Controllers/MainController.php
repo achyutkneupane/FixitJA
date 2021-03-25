@@ -9,6 +9,7 @@ use App\Models\City;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Document;
+use App\Models\Parish;
 use App\Models\SubCategory;
 use App\Models\Task;
 use App\Models\TaskCreator;
@@ -118,12 +119,12 @@ class MainController extends Controller
         $user = Auth::user();
         $cats = Category::with('sub_categories')->get();
         $subs = SubCategory::all();
-        $cities = City::get();
+        $parishes = Parish::all();
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
         if(!empty(auth()->user()))
-            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities','user', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
+            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','parishes','user', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
         else
-            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','cities', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
+            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','parishes', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function createProjectwithCat($catId)
     {
@@ -194,7 +195,6 @@ class MainController extends Controller
             $creator->name = $request->user_name;
             $creator->phone = $request->phone;
             $creator->email = $request->email;
-            $creator->parish = $request->parish;
             $creator->city_id = $request->city;
             $creator->street_01 = $request->street_01;
             $creator->street_02 = $request->street_02;
@@ -210,13 +210,12 @@ class MainController extends Controller
                 $location->street_02 = $request->site_street_02;
                 $location->house_number = $request->site_house_number;
                 $location->postal_code = $request->site_postal_code;
-                $location->parish = $request->site_parish;
                 $task->location()->save($location);
             }
             $task->subcategories()->attach($task_subcategories);
         }
-        $city = City::find($request->city)->name;
-        $site_city = City::find($request->site_city)->name;
+        $city = City::with('parish')->find($request->city);
+        $site_city = City::with('parish')->find($request->site_city);
         try {
             Mail::send('mail.createTask', compact('request','all_cats','city','site_city'), function($message) use ($request)
             {
@@ -236,35 +235,9 @@ class MainController extends Controller
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
         return view('pages.categories', compact('page_title', 'page_description', 'categories', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
-     public function updateprofile1($catId = NULL)
+    public function test()
     {
-        $document = Document::where('user_id', Auth::user()->id)->get();
-        $category = Category::with('sub_categories')->get();
-        if($catId != NULL)
-            session()->flash('catId',$catId);
-        return view('pages.createTaskWizard', compact('document', 'category'));
+        $parishes = Parish::all();
+        return view('pages.test', compact('parishes'));
     }
-    public function updateprofilewithSub($subCatId = NULL)
-   {
-    $document = Document::where('user_id', Auth::user()->id)->get();
-    $category = Category::with('sub_categories')->get();
-    $subs = SubCategory::all();
-       if($subCatId != NULL)
-           session()->flash('subCatId',$subCatId);
-       return view('pages.createTaskWizard', compact('document', 'category','subs'));
-   }
-
-   public function edittask( $taskID)
-   {
-
-
-       try {
-            $tasks = Task::where('id', $taskID)->first();
-            return view('admin.task.edittask', compact('tasks'));
-       } catch (\Throwable $e) {
-           dd($e);
-       }
-
-
-   }
 }

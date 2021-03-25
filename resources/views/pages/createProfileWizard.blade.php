@@ -1,19 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<script>
-    var sessionCatId,sessionSubCatId;
-</script>
-@if(!empty(session()->get('catId')))
-<script>
-var sessionCatId = {{ session()->get('catId') }};
-</script>
-@elseif(!empty(session()->get('subCatId')))
-<script>
-var sessionCatId = 'NULL';
-var sessionSubCatId = {{ session()->get('subCatId') }};
-var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
-</script>
-@endif
 
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
@@ -297,11 +283,11 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
 
                                 <select class="form-control" id="degree_wizard_profile" name="degree" value="{{old('degree')}}">
                                     <option value="">Select</option>
-                                    <option value="Secondary level" id="type1">Secondary level</option>
-                                    <option value="Higher Secondary level" id="type2">Higher Secondary level
+                                    <option value="Secondary Level" id="type1">Secondary level</option>
+                                    <option value="Higher Secondary Level" id="type2">Higher Secondary level
                                     </option>
                                     <option value="Bachelors" id="type3">Bachelors</option>
-                                    <option value="Master's" id="type3">Master's</option>
+                                    <option value="Masters" id="type3">Masters</option>
                                 </select>
                                 @if ($errors->has('degree'))
                                 <span class="text-danger">{{ $errors->first('degree') }}</span>
@@ -480,22 +466,18 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <!--begin::Select-->
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Parishes</label>
-                                <select name="parishes" class="form-control form-control-solid form-control-lg category-select">
-                                    <option value="Saint Catherine">Saint Catherine</option>
-                                    <option value="Clarendon">Clarendon</option>
-                                    <option value="Liguanea (St Andrew)">Liguanea (St Andrew)</option>
-                                    <option value="Saint Thomas">Saint Thomas</option>
-                                    <option value="Port Royal">Port Royal</option>
-                                    <option value="Saint John">Saint John</option>
-                                    <option value="Saint David">Saint David</option>
+                                <select class="form-control select2" id="userParishSelect" name="parish">
+                                    <option label=""></option>
+                                    @foreach($parishes as $parish)
+                                    <option value="{{ $parish->id }}">
+                                        {{ $parish->name }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>City</label>
-                                <select name="cities" class="form-control form-control-solid form-control-lg category-select">
-                                    @foreach($city as $index => $cities)
-                                    <option value="{{ $cities->id }}">{{ $cities->name }}</option>
-                                    @endforeach
+                                <select class="form-control select2" id="userCitySelect" name="cities">
                                 </select>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
@@ -645,6 +627,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
 <script src="{{ asset('js/custom/create-profile-wizard-custom.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('js/custom/create-profile-tagify.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/custom/parish-city-select.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
 <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>

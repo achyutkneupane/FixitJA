@@ -24,8 +24,6 @@ class CreateCitiesTable extends Migration
 
         DB::table('cities')->insert([
             ['name' => "Kingston",'parish_id' => "1"],
-            ['name' => "Port Royal",'parish_id' => "1"],
-            ['name' => "Kingston",'parish_id' => "1"],
             ['name' => "Tivoli Gardens",'parish_id' => "1"],
             ['name' => "Denham Town",'parish_id' => "1"],
             ['name' => "Rae Town",'parish_id' => "1"],

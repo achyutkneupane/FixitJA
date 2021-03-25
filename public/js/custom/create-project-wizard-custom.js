@@ -250,7 +250,7 @@ var KTWizard1 = function () {
 							checkIfRequired: {
 								message: 'Your Parish is required',
 								callback: function(input) {
-									$("#userParishId").text(input.value);
+									$("#userParishId").text($("select[name='parish'] option:selected").text());
 									return !!input.value;
 								},
 							}
@@ -310,7 +310,7 @@ var KTWizard1 = function () {
 							checkIfRequired: {
 								message: 'Site Parish is required',
 								callback: function(input) {
-									$("#workingParishId").text(input.value);
+									$("#workingParishId").text($("select[name='site_parish'] option:selected").text());
 									return workingEqualsUser() || !!input.value;
 								},
 							}

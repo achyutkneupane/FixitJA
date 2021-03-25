@@ -49,7 +49,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Address: </label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">Parish: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->city->name) ? $user->city->parish->name : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">City: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span class="form-control form-control-lg form-control-solid">
                                 {!! !empty($user->city->name) ? $user->city->name : "<span class='text-muted'>N/A</span>" !!}
