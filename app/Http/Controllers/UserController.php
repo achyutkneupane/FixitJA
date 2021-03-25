@@ -137,7 +137,7 @@ class UserController extends Controller
     {
         try {
 
-            dd($request->all());
+            
             
             
              $user  = new User();
