@@ -23,8 +23,8 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
-            'description' => $this->faker->text(10),
+            'name' => ucwords($this->faker->word),
+            'description' => ucwords($this->faker->text(10)),
         ];
     }
 }

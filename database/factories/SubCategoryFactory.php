@@ -23,8 +23,8 @@ class SubcategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
-            'description' => $this->faker->text(10),
+            'name' => ucwords($this->faker->word),
+            'description' => ucwords($this->faker->text(10)),
             'category_id' => $this->faker->numberBetween(1, 5)
         ];
     }

@@ -250,7 +250,7 @@ var KTWizard1 = function () {
 							checkIfRequired: {
 								message: 'Your Parish is required',
 								callback: function(input) {
-									$("#userParishId").text(input.value);
+									$("#userParishId").text($("select[name='parish'] option:selected").text());
 									return !!input.value;
 								},
 							}
@@ -310,7 +310,7 @@ var KTWizard1 = function () {
 							checkIfRequired: {
 								message: 'Site Parish is required',
 								callback: function(input) {
-									$("#workingParishId").text(input.value);
+									$("#workingParishId").text($("select[name='site_parish'] option:selected").text());
 									return workingEqualsUser() || !!input.value;
 								},
 							}
@@ -384,11 +384,11 @@ var KTWizard1 = function () {
 		// Submit event
 		_wizardObj.on('submit', function (wizard) {
 			Swal.fire({
-				text: "All is good! Please confirm the form submission.",
+				html: "<label>All is good! By submitting this form, you automatically agree to our&nbsp;</label><a href='/termsandconditions' target='_blank'>Terms & Conditions</a>",
 				icon: "success",
 				showCancelButton: true,
 				buttonsStyling: false,
-				confirmButtonText: "Yes, submit!",
+				confirmButtonText: "Yes, I agree & submit!",
 				cancelButtonText: "No, cancel",
 				customClass: {
 					confirmButton: "btn font-weight-bold btn-primary",
@@ -396,6 +396,8 @@ var KTWizard1 = function () {
 				}
 			}).then(function (result) {
 				if (result.value) {
+                    //enable select option to get data in request
+                    enableCategorySelectOptions();
 					_formEl.submit(); // Submit form
 				} else if (result.dismiss === 'cancel') {
 					Swal.fire({

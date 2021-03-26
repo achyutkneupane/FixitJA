@@ -5,7 +5,7 @@
     @php
     $profileIsActive = 'true';
     @endphp
-    @if (Auth::user()->id == $user->id)
+    @onlyForRespectiveUser($user->id)
         @php
             $page_title = 'Profile';
         @endphp
@@ -13,7 +13,7 @@
         @php
             $page_title = 'User Overview';
         @endphp
-    @endif
+    @endonlyForRespectiveUser
     @isAdminOrUser($user->id)
     @php
     $subhead_button = [['class' => 'primary', 'text' => 'Edit', 'link' => $user->id == auth()->id() ? route('editProfile') : route('editUserProfile', $user->id)]];
@@ -49,7 +49,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Address: </label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">Parish: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <span class="form-control form-control-lg form-control-solid">
+                                {!! !empty($user->city->name) ? $user->city->parish->name : "<span class='text-muted'>N/A</span>" !!}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">City: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span class="form-control form-control-lg form-control-solid">
                                 {!! !empty($user->city->name) ? $user->city->name : "<span class='text-muted'>N/A</span>" !!}
@@ -127,7 +135,7 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Distance willing to travel</label>
                         <div class="col-lg-9 col-xl-6">
                             <span class="form-control form-control-lg form-control-solid">
-                                {!! $user->areas_covering ? $user->areas_covering : "<span class='text-muted'>N/A</span>" !!}
+                                {!! $user->total_distance ? $user->total_distance : "<span class='text-muted'>N/A</span>" !!}
                             </span>
                         </div>
                     </div>

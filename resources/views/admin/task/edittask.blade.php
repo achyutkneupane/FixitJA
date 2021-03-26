@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<script>
+<!--<script>
 var sessionCatId,sessionSubCatId;
 </script>
 @if(!empty(session()->get('catId')))
@@ -13,12 +13,7 @@ var sessionCatId = 'NULL';
 var sessionSubCatId = {{ session()->get('subCatId') }};
 var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
 </script>
-@endif
-@if(!empty(auth()->user()->city->name))
-<script>
-var cityId = {{ auth()->user()->city->id }};
-</script>
-@endif
+@endif-->
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container">
@@ -127,10 +122,8 @@ var cityId = {{ auth()->user()->city->id }};
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <label>Category</label>
                                                             <select id="categorySelectTemplate" subcatid="kt_tagify_subCat_project_wizard_Template" name="categoryTemplate" class="form-control form-control-solid form-control-sm project_category_select">
-                                                                <option value="" disabled selected>Select Category</option>
-                                                                @foreach($cats as $cat)
-                                                                <option value="{{ $cat->id }}">{{ ucwords($cat->name) }}</option>
-                                                                @endforeach
+                                                                <option value="abc">Abc </option>
+                                                               
                                                             </select>
                                                         </div>
                                                         <!-- <div class="fv-plugins-message-container"></div> -->
@@ -169,7 +162,9 @@ var cityId = {{ auth()->user()->city->id }};
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Title</label>
-                                                <input type="text" class="form-control form-control-solid form-control-sm" name="name" placeholder="Task Title">
+                                                @foreach ($tasks as $task)
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="name" placeholder="Task Title" value="">
+                                                @endforeach
                                                 <span class="form-text text-muted">Please enter your Task title</span>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
@@ -177,12 +172,14 @@ var cityId = {{ auth()->user()->city->id }};
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Project Type</label>
+                                                @foreach($tasks as  $task)
+                                              
                                                 <select name="type" class="form-control form-control-solid form-control-sm">
-                                                    <option value="">Select Project Type</option>
-                                                    <option value="ready to hire">Ready To Hire</option>
-                                                    <option value="planning">Required Planning and Budgeting</option>
-                                                    <option value="N/A">Not Sure Yet</option>
+                                                    <option value="{{ $task->creator->name}}"></option>
+                                                    
+                                                    @endforeach
                                                 </select>
+                                              
                                                 <span class="form-text text-muted">Please enter your project type.</span>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
@@ -192,7 +189,9 @@ var cityId = {{ auth()->user()->city->id }};
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Description</label>
+                                               
                                                 <textarea class="form-control form-control-solid form-control-sm" name="description" placeholder="Description" rows="7"></textarea>
+                                             
                                                 <span class="form-text text-muted">Please enter your Task Description</span>
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
@@ -219,7 +218,7 @@ var cityId = {{ auth()->user()->city->id }};
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Project Deadline</label>
                                                 <select name="deadline" class="form-control form-control-solid form-control-sm">
-                                                    <option value="">Select Project Deadline</option>
+                                                    <option value="">Select Payment Deadline</option>
                                                     <option value="flexible">Flexible</option>
                                                     <option value="asap">ASAP</option>
                                                     <option value="within a week">Within A Week</option>
@@ -310,14 +309,7 @@ var cityId = {{ auth()->user()->city->id }};
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Parish</label>
-                                                <select class="form-control select2" id="userParishSelect" name="parish">
-                                                    <option label=""></option>
-                                                    @foreach($parishes as $parish)
-                                                    <option value="{{ $parish->id }}"{{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
-                                                        {{ $parish->name }}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" class="form-control form-control-solid form-control-sm" name="parish" placeholder="Parish">
                                                 <div class="fv-plugins-message-container"></div>
                                                 <span class="form-text text-muted">Please enter your Parish</span>
                                             </div>
@@ -327,7 +319,8 @@ var cityId = {{ auth()->user()->city->id }};
                                             <div class="form-group fv-plugins-icon-container">
                                                 <!--begin::Select-->
                                                 <label>City</label>
-                                                <select class="form-control select2" id="userCitySelect" name="city">
+                                                <select class="form-control form-control-solid form-control-sm" id="citySelector" name="city">
+                                                    
                                                 </select>
                                                 <span class="form-text text-muted">Please enter your City</span>
                                                 <div class="fv-plugins-message-container"></div>
@@ -392,14 +385,7 @@ var cityId = {{ auth()->user()->city->id }};
                                                 <!--begin::Input-->
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <label>Parish</label>
-                                                    <select class="form-control select2" id="workingParishSelect" name="site_parish">
-                                                        <option label=""></option>
-                                                        @foreach($parishes as $parish)
-                                                        <option value="{{ $parish->id }}">
-                                                            {{ $parish->name }}
-                                                        </option>
-                                                        @endforeach
-                                                    </select>
+                                                    <input type="text" class="form-control form-control-solid form-control-sm" name="site_parish" placeholder="Parish">
                                                     <div class="fv-plugins-message-container"></div>
                                                     <span class="form-text text-muted">Please enter your Parish</span>
                                                 </div>
@@ -409,7 +395,8 @@ var cityId = {{ auth()->user()->city->id }};
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <!--begin::Select-->
                                                     <label>City</label>
-                                                    <select class="form-control select2" id="workingCitySelect" name="site_city">
+                                                    <select class="form-control form-control-solid form-control-sm" id="citySelector" name="site_city">
+                                                        
                                                     </select>
                                                     <span class="form-text text-muted">Please enter your City</span>
                                                     <div class="fv-plugins-message-container"></div>
@@ -512,10 +499,6 @@ var cityId = {{ auth()->user()->city->id }};
                                             <span class="text-muted" id='userPhoneId'>N/A</span>
                                         </div>
                                         <div class="col-md-6">
-                                            <span class="font-weight-bold">Parish: </span>
-                                            <span class="text-muted" id='userParishId'>N/A</span>
-                                        </div>
-                                        <div class="col-md-6">
                                             <span class="font-weight-bold">City: </span>
                                             <span class="text-muted" id='userCityId'>N/A</span>
                                         </div>
@@ -535,6 +518,10 @@ var cityId = {{ auth()->user()->city->id }};
                                             <span class="font-weight-bold">Postal Code: </span>
                                             <span class="text-muted" id='userPostalCodeId'>N/A</span>
                                         </div>
+                                        <div class="col-md-6">
+                                            <span class="font-weight-bold">Parish: </span>
+                                            <span class="text-muted" id='userParishId'>N/A</span>
+                                        </div>
                                         <div class="col-md-12">
                                             <span class="font-weight-bold">Working Location is same as User Location: </span>
                                             <span class="text-muted" id='workingEqualUserId'>N/A</span>
@@ -543,10 +530,6 @@ var cityId = {{ auth()->user()->city->id }};
                                     <div class="workingLocationReview" style="display:block;">
                                         <div class="d-flex align-items-center justify-content-between mb-2 row">
                                             <h3 class="col-md-12 my-3">Working Location</h3>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">Parish: </span>
-                                                <span class="text-muted" id='workingParishId'>N/A</span>
-                                            </div>
                                             <div class="col-md-6">
                                                 <span class="font-weight-bold">City: </span>
                                                 <span class="text-muted" id='workingCityId'>N/A</span>
@@ -566,6 +549,10 @@ var cityId = {{ auth()->user()->city->id }};
                                             <div class="col-md-6">
                                                 <span class="font-weight-bold">Postal Code: </span>
                                                 <span class="text-muted" id='workingPostalCodeId'>N/A</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="font-weight-bold">Parish: </span>
+                                                <span class="text-muted" id='workingParishId'>N/A</span>
                                             </div>
                                         </div>
                                     </div>
@@ -609,9 +596,6 @@ var cityId = {{ auth()->user()->city->id }};
 {{-- Scripts Section --}}
 @section('scripts')
 <script
-    src="{{ asset('js/custom/parish-city-select.js') }}" type="text/javascript">
-</script>
-<script
     src="{{ asset('js/custom/create-project-wizard-custom.js') }}" type="text/javascript">
 </script>
 <script
@@ -621,6 +605,8 @@ var cityId = {{ auth()->user()->city->id }};
     var fixedNavbarWebsite = true;
     $(".navbar-marketing").addClass("navbar-scrolled");
     $(".navbar-marketing").removeClass("fixed-top");
-    
+    // $('#citySelector').select2({
+    //     placeholder: "Select a City"
+    // });
 </script>
 @endsection

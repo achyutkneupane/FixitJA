@@ -2,6 +2,9 @@
 
 @extends('layouts.app')
 @section('content')
+@php
+    $page_title = "Under Construction";
+@endphp
 <div class="container jumbotron">
     <div class="row">
         <div class="col-md-12">

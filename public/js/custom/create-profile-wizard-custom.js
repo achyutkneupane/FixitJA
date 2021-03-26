@@ -8,7 +8,10 @@ var ReferencFv;
 const skills_category = {
     validators: {
         notEmpty: {
-            message: 'Category is required'
+            message: 'Category is required',
+            callback: function(input) {
+                return !!input.value;
+            },
         }
     }
 }
@@ -18,27 +21,24 @@ const sub_categories = {
         notEmpty: {
             message: 'Sub-category is required',
             callback: function(input) {
-						$("").text(input.value);
-                        const subArray = JSON.parse(input.value);
-				        subArray.forEach((element,index) => {
-						$("#skill").append(element.value + ",");
-								
-        });
-        	return !!input.value;
-		},
+                const subArray = JSON.parse(input.value);
+                subArray.forEach((element,index) => {
+                    $("#skill").append(element.value + ",");
+                });
+                return !!input.value;
+            },
+        }
     }
-}
 }
 
 const experienceValidator = {
     validators: {
         notEmpty: {
             message: 'Experience is required',
-             callback: function(input) {
-									$("#experience").text(input.value);
-									return !!input.value;
-								},
-
+            callback: function(input) {
+                            $("#experience").text(input.value);
+                            return !!input.value;
+                        },
         },
         digits: {
             message: 'Value must be numeric and cannot contain decimal'
@@ -49,8 +49,9 @@ const certificateValidator = {
     validators: {
         notEmpty: {
             message: 'Certificate is required',
-            
-
+            callback: function(input) {
+                return !!input.value;
+            },
         },
         file: {
             extension: 'jpeg,jpg,png,pdf,doc,docx',
@@ -64,7 +65,10 @@ const certificateValidator = {
 const referal_name = {
     validators: {
         notEmpty:{
-            message: 'Referable Name is required'
+            message: 'Referable Name is required',
+            callback: function(input) {
+                return !!input.value;
+            },
         }
     }
 }
@@ -72,7 +76,10 @@ const referal_name = {
 const referal_email = {
     validators: {
         notEmpty:{
-            message: 'Referable Email is required'
+            message: 'Referable Email is required',
+            callback: function(input) {
+                return !!input.value;
+            },
         }
     }
 }
@@ -80,7 +87,10 @@ const referal_email = {
 const referal_phone = {
     validators:{
         notEmpty:{
-            message: 'Referable phone is required'
+            message: 'Referable phone is required',
+            callback: function(input) {
+                return !!input.value;
+            },
         }
     }
 }
@@ -147,10 +157,10 @@ var KTWizard1 = function () {
             _formEl,
             {
                 fields: {
-                    educationinstutional_name: {
+                    education_institutional_name: {
                         validators: {
                             notEmpty: {
-                                message: 'Education Instutional Name is required',
+                                message: 'Education Institutional Name is required',
                                 callback: function(input) {
 									$("#educationname").text(input.value);
 									return !!input.value;
@@ -200,7 +210,7 @@ var KTWizard1 = function () {
                             }
                         }
                     },
-                   
+
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -271,7 +281,7 @@ var KTWizard1 = function () {
                     police_report:{
                          validators: {
                             notEmpty: {
-                                
+                                message: "This field must be selected",
                                 callback: function(input) {
 									$("#policereport").text(input.value);
 									return !!input.value;
@@ -284,7 +294,7 @@ var KTWizard1 = function () {
                       is_travelling:{
                          validators: {
                             notEmpty: {
-                                
+                                message: "This field must be selected",
                                 callback: function(input) {
 									$("#istravelling").text(input.value);
 									return !!input.value;
@@ -296,7 +306,7 @@ var KTWizard1 = function () {
                     totaldistance:{
                          validators: {
                             notEmpty: {
-                                
+
                                 callback: function(input) {
 									$("#totaldistance").text(input.value);
 									return !!input.value;
@@ -308,9 +318,8 @@ var KTWizard1 = function () {
                       working_days:{
                          validators: {
                             notEmpty: {
-                                
+                                message: "Working days must be selected",
                                 callback: function(input) {
-									
                                     const subArray = JSON.parse(input.value);
 				                    subArray.forEach((element,index) => {
 						            $("#workingdays").append(element.value + ",");
@@ -322,9 +331,9 @@ var KTWizard1 = function () {
 
                     },
 
-                    
-                  
-                   
+
+
+
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -348,14 +357,17 @@ var KTWizard1 = function () {
                     profile: {
                         validators: {
                             notEmpty: {
-                                message: 'Profile image is required'
+                                message: 'Profile image is required',
+                                callback: function(input) {
+                                    return !!input.value;
+                                },
                             }
                         }
                     },
-                  
-                    
-                  
-                   
+
+
+
+
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -370,7 +382,7 @@ var KTWizard1 = function () {
             }
         ));
 
-      
+
 
         // step 7
         _validations.push(FormValidation.formValidation(
@@ -393,7 +405,7 @@ var KTWizard1 = function () {
                             notEmpty: {
                                 message: 'Parishes is required',
                                 callback: function(input) {
-									$("#workingPerishId").text(input.value);
+									$("#workingPerishId").text($("select[name='cities'] option:selected").text());
 									return !!input.value;
 								},
                             }
@@ -408,15 +420,14 @@ var KTWizard1 = function () {
 							}
 						}
 					},
-                    
+
                     cities: {
                         validators: {
                             notEmpty: {
                                 message: 'City is required',
                                 callback: function(input) {
-									
 									$("#workingCityId").text($("select[name='cities'] option:selected").text());
-									return workingEqualsUser() || !!input.value;
+									return !!input.value;
 								},
                             }
                         }
@@ -424,18 +435,21 @@ var KTWizard1 = function () {
                     house_number:
                     {
                         validators: {
-							checkIfRequired: {
+							notEmpty: {
 								callback: function(input) {
 									$("#workingHouseNumberId").text(input.value);
 								},
 							}
 						}
                     },
-                    
+
                     loccountry: {
                         validators: {
                             notEmpty: {
-                                message: 'Country is required'
+                                message: 'Country is required',
+                                callback: function(input) {
+                                    return !!input.value;
+                                },
                             }
                         }
                     }
@@ -446,15 +460,15 @@ var KTWizard1 = function () {
                     bootstrap: new FormValidation.plugins.Bootstrap({
                         //eleInvalidClass: '',
                         eleValidClass: '',
-                    }), 
+                    }),
                     alias: new FormValidation.plugins.Alias({
 						 notEmpty: 'callback',
 					}),
                 }
             }
         ));
-        
-      
+
+
     }
 
     var _initWizard = function () {
@@ -507,11 +521,11 @@ var KTWizard1 = function () {
         // Submit event
         _wizardObj.on('submit', function (wizard) {
             Swal.fire({
-                text: "All is good! Please confirm the form submission.",
+                html: "<label>All is good! By submitting this form, you automatically agree to our&nbsp;</label><a href='/termsandconditions' target='_blank'>Terms & Conditions</a>",
                 icon: "success",
                 showCancelButton: true,
                 buttonsStyling: false,
-                confirmButtonText: "Yes, submit!",
+                confirmButtonText: "Yes, I agree & submit!",
                 cancelButtonText: "No, cancel",
                 customClass: {
                     confirmButton: "btn font-weight-bold btn-primary",

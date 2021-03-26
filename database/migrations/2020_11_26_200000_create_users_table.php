@@ -32,10 +32,11 @@ class CreateUsersTable extends Migration
             $table->string('areas_covering')->nullable();
             $table->boolean('is_police_record')->default('0');
             $table->boolean('is_travelling')->default('0');
+            $table->tinyInteger('total_distance');
             $table->string('days')->nullable();
             $table->integer('hours')->nullable();
             $table->unsignedBigInteger('subscription_id')->nullable();
-            $table->enum('type', array('admin', 'individual_contractor', 'business', 'general_user'))->nullable();
+            $table->enum('type', array('admin', 'independent_contractor', 'business', 'general_user'))->nullable();
             $table->enum('status', array('new','pending', 'reviewing', 'active', 'declined', 'suspended', 'blocked', 'deactivated', 'deleted'))->default('new');
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();

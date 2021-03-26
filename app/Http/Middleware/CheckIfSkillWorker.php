@@ -16,7 +16,7 @@ class CheckIfSkillWorker
      */
     public function handle(Request $request, Closure $next)
     {
-       if ($request->user()->status !== 'new') {
+       if ($request->user()->type !== 'independent_contractor' && ($request->user()->status !== 'new' || $request->user()->status !== 'pending')) {
             return redirect()->route('home');
         }
         return $next($request);

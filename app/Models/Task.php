@@ -39,16 +39,31 @@ class Task extends Model
     {
         return $this->belongsToMany(User::class, 'assignedTo_task', 'task_id', 'assigned_to');
     }
-    public function sub_category()
+    public function related_tasks()
     {
-        return $this->belongsTo(SubCategory::class);
+        return $this->belongsToMany($this,'relatedTasks','task_id','related_task_id');
     }
-    public function related_task()
+    public function parentTask() 
     {
-        return $this->belongsToMany(Task::class);
+        return $this->belongsToMany($this,'relatedTasks','related_task_id','task_id');
     }
     public function workingLocation()
     {
         return $this->belongsTo(City::class, 'working_location');
+    }
+    public function category() {
+        return $this->subcategories()->first()->category;
+    }
+    public function relatedTasks() {
+        $returnTasks = collect();
+        if($this->parentTask()->first() !== NULL){
+            $returnTasks = $this->parentTask()->get();
+            $related = $returnTasks->first()->related_tasks()->get()->where('id','!=',$this->id)->first();
+            $returnTasks->push($related);
+        }
+        else {
+            $returnTasks = $this->related_tasks()->get();
+        }
+        return $returnTasks;
     }
 }

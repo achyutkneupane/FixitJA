@@ -51,7 +51,7 @@
                             <div class="text-uppercase-expanded text-xs mb-4">Legal</div>
                             <ul class="list-unstyled mb-0">
                                 <li class="mb-2"><a href="/underconstruction">Privacy Policy</a></li>
-                                <li class="mb-2"><a href="/underconstruction">Terms and Conditions</a></li>
+                                <li class="mb-2"><a href="/termsandconditions">Terms and Conditions</a></li>
                                 <li><a href="/underconstruction">License</a></li>
                             </ul>
                         </div>

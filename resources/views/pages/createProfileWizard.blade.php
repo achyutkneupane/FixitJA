@@ -1,26 +1,15 @@
 @extends('layouts.app')
 @section('content')
+@if(!empty(auth()->user()->city->name))
 <script>
-    var sessionCatId,sessionSubCatId;
-</script>
-@if(!empty(session()->get('catId')))
-<script>
-var sessionCatId = {{ session()->get('catId') }};
-</script>
-@elseif(!empty(session()->get('subCatId')))
-<script>
-var sessionCatId = 'NULL';
-var sessionSubCatId = {{ session()->get('subCatId') }};
-var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
+var cityId = {{ auth()->user()->city->id }};
 </script>
 @endif
-
- 
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
 <!-- <div class="container"> -->
 <div class="card card-custom">
-   
+
     <div class="card-body p-0">
         <!--begin::Wizard-->
         <div class="wizard wizard-1" id="kt_wizard" data-wizard-state="first" data-wizard-clickable="false">
@@ -287,9 +276,9 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <h3 class="mb-10 font-weight-bold text-dark">Add upto 3 of your education background</h3>
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or University</label>
-                                <input type="text" class="form-control " name="educationinstutional_name" placeholder="Name" value="{{old('educationinstutional_name')}}" />
-                                @if ($errors->has('educationinstutional_name'))
-                                <span class="text-danger">{{ $errors->first('educationinstutional_name') }}</span>
+                                <input type="text" class="form-control " name="education_institutional_name" placeholder="Name" value="{{old('education_institutional_name')}}" />
+                                @if ($errors->has('education_institutional_name'))
+                                <span class="text-danger">{{ $errors->first('education_institutional_name') }}</span>
                                 @endif
                             </div>
                             <!--begin::Form Group-->
@@ -298,11 +287,11 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
 
                                 <select class="form-control" id="degree_wizard_profile" name="degree" value="{{old('degree')}}">
                                     <option value="">Select</option>
-                                    <option value="Secondary level" id="type1">Secondary level</option>
-                                    <option value="Higher Secondary level" id="type2">Higher Secondary level
+                                    <option value="Secondary Level" id="type1">Secondary level</option>
+                                    <option value="Higher Secondary Level" id="type2">Higher Secondary level
                                     </option>
-                                    <option value="Bachalaor" id="type3">Bachelors</option>
-                                    <option value="Master" id="type3">Master</option>
+                                    <option value="Bachelors" id="type3">Bachelors</option>
+                                    <option value="Masters" id="type3">Masters</option>
                                 </select>
                                 @if ($errors->has('degree'))
                                 <span class="text-danger">{{ $errors->first('degree') }}</span>
@@ -376,10 +365,8 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 </div>
                                 <!--begin::Accordion-->
                             </div>
+                             <input type="hidden" id="totalRefList" name="totalRefList">
                             <button type="button" name="add_reference" id="add_more_reference" class="btn btn-success">Add More References</button>
-
-
-
                         </div>
 
                         <!--end::Wizard Step 4-->
@@ -404,7 +391,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
-                                    <label for="exampleTextarea">8.Write short description about yoursel
+                                    <label for="exampleTextarea">8.Write short description about yourself?
                                         <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="exampleTextarea" rows="3" name="personal_description"></textarea>
                                 </div>
@@ -429,7 +416,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                 </div>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
-                                <label class="col-9 col-form-label">11. Are you willing to travel long distace?</label>
+                                <label class="col-9 col-form-label">11. Are you willing to travel long distance?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
                                         <input type="radio" name="is_travelling" value="1" />
@@ -476,13 +463,6 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                         </div>
                     </div>
                     </div>
-                    
-                           
-                        
-
-
-
-                        
                         <!--end::wizard step 6-->
 
                         <!--begin::wizard step 7-->
@@ -491,26 +471,18 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                             <!--begin::Select-->
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Parishes</label>
-                                <select name="parishes" class="form-control form-control-solid form-control-lg category-select">
-                                    <option value="Saint Catherine">Saint Catherine</option>
-                                    <option value="Clarendon">Clarendon</option>
-                                    <option value="Liguanea (St Andrew)">Liguanea (St Andrew)</option>
-                                    <option value="Saint Thomas">Saint Thomas</option>
-                                    <option value="Port Royal">Port Royal</option>
-                                    <option value="Saint John">Saint John</option>
-                                    <option value="Saint David">Saint David</option>
+                                <select class="form-control select2" id="userParishSelect" name="parish">
+                                    <option label=""></option>
+                                    @foreach($parishes as $parish)
+                                    <option value="{{ $parish->id }}"{{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
+                                        {{ $parish->name }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>City</label>
-                                <select name="cities" class="form-control form-control-solid form-control-lg category-select"> >
-                                    <option value="Barbican">Barbican</option>
-                                    <option value="Allerdyce">Allerdyce</option>
-                                    <option value="Cherry Gardens">Cherry Gardens</option>
-                                    <option value="Tivoli Gardens">Tivoli Gardens</option>
-                                    <option value="Red Hills">Red Hills</option>
-                                    <option value="Mountain View">Mountain View</option>
-                                    <option value="Forest Hills">Forest Hills</option>
+                                <select class="form-control select2" id="userCitySelect" name="cities">
                                 </select>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
@@ -660,6 +632,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
 <script src="{{ asset('js/custom/create-profile-wizard-custom.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('js/custom/create-profile-tagify.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/custom/parish-city-select.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
 <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>
@@ -679,21 +652,21 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
 
     avatar5.on('cancel', function(imageInput) {
         swal.fire({
-            
+
         });
     });
 
     avatar5.on('change', function(imageInput) {
         swal.fire({
-           
-            
+
+
         });
     });
 
     avatar5.on('remove', function(imageInput) {
         swal.fire({
-            
-            
+
+
         });
     });
 </script>

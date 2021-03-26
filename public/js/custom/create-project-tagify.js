@@ -24,16 +24,18 @@ $(document).on('change', '.project_category_select', function (e) {
     }
     updateAllCategorySelect();
     CategoryProjectWizardFV.addField($("#" + subcatid).attr("name"), sub_categories_project_wizard);
-    getSubCatData(category_id, subcatid);
+    if (category_id != -1)
+        getSubCatData(category_id, subcatid);
 });
 
 //update category in all select after changes --Mahesh
 function updateAllCategorySelect() {
-    $( ".project_category_select" ).each(function() {
+    $(".project_category_select").each(function () {
         var selectID = $(this).attr("id");
         $("#" + selectID + " option").prop("disabled", false);
+        $("#" + selectID + " option[value='']").prop("disabled", true);
         $.each(selectedCategoryData, function (id, val) {
-            $("#" + selectID + " option[value="+ val +"]").prop("disabled", true);
+            $("#" + selectID + " option[value=" + val + "]").prop("disabled", true);
         });
     });
 }
@@ -92,16 +94,15 @@ function bindSubCat(data, subcat) {
             tagData.class = 'tagify__tag tagify__tag--primary';
         },
         dropdown: {
-            searchKeys:['value','description'],
+            searchKeys: ['value', 'description'],
             classname: "color-blue",
             enabled: 0,
             maxItems: 5
         }
     });
-    if(sessionSubCatId) {
-        data.forEach((element,index) => {
-            if(element.id === sessionSubCatId)
-            {
+    if (sessionSubCatId) {
+        data.forEach((element, index) => {
+            if (element.id === sessionSubCatId) {
                 tagifyTo.addTags([element]);
             }
         });
@@ -120,8 +121,8 @@ function AddCategoryProjectWizard() {
         projectWizardCount++;
         const cloneProjectWizardCategory = $("#templateProjectWizardCategory").clone();
         cloneProjectWizardCategory.attr("id", "ProjectWizardCategory" + projectWizardCount);
-        if(projectWizardCount !== "")
-        $("#totalProjectCatList").val($("#totalProjectCatList").val() + '{"fieldId": "' + projectWizardCount + '"},');
+        if (projectWizardCount !== "")
+            $("#totalProjectCatList").val($("#totalProjectCatList").val() + '{"fieldId": "' + projectWizardCount + '"},');
 
         var categoryCard = cloneProjectWizardCategory.find("#subCategoryTemplate_selector");
         categoryCard.attr("id", "subCategory_selector" + projectWizardCount);
@@ -161,21 +162,20 @@ function AddCategoryProjectWizard() {
             project_wizard_footer.remove();
         }
         jQuery.ajaxSetup({
-            beforeSend: function() {
-               $('.spinner-border').show();
+            beforeSend: function () {
+                $('.spinner-border').show();
             },
-            complete: function(){
-               $('.spinner-border').hide();
-               $('#kt_form').show();
+            complete: function () {
+                $('.spinner-border').hide();
+                $('#kt_form').show();
             },
             success: cloneProjectWizardCategory.show()
-          });
+        });
         $("#divProjectWizardCategory").append(cloneProjectWizardCategory);
         CategoryProjectWizardFV.addField("categoryTemplate" + projectWizardCount, skills_category_project_wizard);
         if (totalCategory > 2) {
             $("#subCategoryAddButtonProjectWizard").hide();
         }
-
     }
     else {
         Swal.fire({
@@ -188,7 +188,7 @@ function AddCategoryProjectWizard() {
             }
         });
     }
-    if($("#categorySelect1").val() != null) {
+    if(projectWizardCount == '1') {
         if(sessionCatId != 'NULL') {
             $("#categorySelect1").val(sessionCatId).change();
         }
@@ -212,8 +212,8 @@ $(document).on("click", ".remove-accordian-project-wizard", function (e) {
     }
 
     selectedCategoryData['categorySelect' + $(this).attr('count-value')] = "-1";
-    updateAllCategorySelect();
     $("#totalProjectCatList").val($("#totalProjectCatList").val().replace('{"fieldId": "' + $(this).attr('count-value') + '"},', ''));
+    updateAllCategorySelect();
 })
 
 function workingEqualsUser() {
@@ -230,4 +230,11 @@ function workingEqualsUser() {
         $("#workingEqualUserId").text("Yes");
         return check;
     }
+}
+
+function enableCategorySelectOptions() {
+    $(".project_category_select").each(function () {
+        var selectID = $(this).attr("id");
+        $("#" + selectID + " option").prop("disabled", false);
+    });
 }

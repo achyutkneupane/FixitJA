@@ -11,6 +11,7 @@ use App\Models\Education;
 use App\Models\EducationUser;
 use App\Models\Email;
 use App\Models\SubCategory;
+use App\Models\References;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -20,8 +21,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MailController;
+use App\Models\Parish;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\Console\Input\Input;
 use Throwable;
+use Illuminate\Support\Str;
 
 use function GuzzleHttp\Promise\all;
 
@@ -111,18 +117,9 @@ class UserController extends Controller
         $page_description = 'This is profile wizard page';
         $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
-        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category'));
+        $parishes = Parish::all();
+        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'parishes'));
     }
-    
-    public function updateprofilewithSub($subCatId = NULL)
-   {
-    $document = Document::where('user_id', Auth::user()->id)->get();
-    $category = Category::with('sub_categories')->get();
-    $subs = SubCategory::all();
-       if($subCatId != NULL)
-           session()->flash('subCatId',$subCatId);
-       return view('pages.createProfileWizard', compact('document', 'category','subs'));
-   }
 
     public function uploadfile($file, $dir)
     {
@@ -134,6 +131,7 @@ class UserController extends Controller
     public function addprofiledetails(Request $request)
     {
         try {
+            //dd($request->all());
             
              $user  = new User();
              $user  = User::find(Auth::user()->id);
@@ -184,6 +182,7 @@ class UserController extends Controller
             $skills_certificate = new Collection();
             $skills_experince = new Collection();
             foreach(json_decode($Certificate1) as $certificateArray){
+               
                 $document = new Document();
                 $tempPath = "";
                 $id = $certificateArray->fieldId;
@@ -201,35 +200,62 @@ class UserController extends Controller
             }
 
             /* refernce */
+            $Experience = "[".$request->totalCertificateList."]";
+            $Experience1 = str_replace('},]','}]',$Experience );
             
-            /*foreach(json_decode($Certificate) as $certificateArray){
-                $new_certificate = 'certificate'. $certificateArray->fieldId;
-                $new_experience = 'experience'. $certificateArray->fieldId;
-                if($new_experience){
-                    foreach(json_decode($request->new_experience) as $subRefernces){
-                        if(!empty($subRefernces)){
+            $skills_experince = new Collection();
+            foreach(json_decode($Experience1) as $experienceArray){
+               
+                $new_experience = 'experience'. $experienceArray->fieldId;
+                $exp_id = $experienceArray->fieldId;
+                $experince_new = 'experience'.$id;
+                
+                
+              
+        }
 
-                            $skills_experince->push($subRefernces);
-                             }
-                             }
-                            }
-                        }*/
-           $education = new Education();
-            $education->education_instution_name = $request->educationinstutional_name;
-            $education->degree = $request->degree;
-            $education->start_date = $request->start_date;
-            $education->end_date = $request->end_date;
-            $education->save();
+        
 
-            $education_user = new EducationUser();
-            $education_user->user_id = Auth::user()->id;
-            $education_user->education_id = $education->id;
-            $education_user->save();
+        
+           
+
+
+            /* Reference */
+            $Refernces = "[".$request->totalRefList."]";
+            $Refernces1 = str_replace('},]','}]',$Refernces);
+            $user_references= new Collection();
+            foreach(json_decode($Refernces1) as $referencesArray){
+                
+               
+                $references = new References();
+                $id = $referencesArray->fieldId;
+                
+                $references_name = 'referal_name'.$id;
+                $references_email = 'referal_email'.$id;
+                $references_phone = 'referal_phone'.$id;
+                $references->refname = request($references_name);
+                $references->refemail = request($references_email);
+                $references->refphone = request($references_phone);
+                $references->user()->associate($user->id);
+                $references->save();
+                
+            }
+
 
 
           
 
-            // logic for the radio button
+            $education = [
+            'education_institution_name' => $request->education_institutional_name,
+            'degree' => $request->degree,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            ];
+            $user->educations()->create($education);
+            // $reference = [
+            //     'refname' =>
+            // ];
+            // $user->references()->create($reference);
             if ($request->police_report == "1") {
                 $user->is_police_record = 1;
             } elseif ($request->police_report == "0") {
@@ -242,7 +268,7 @@ class UserController extends Controller
                 $user->is_travelling = 0;
             }
 
-
+          
             /* Converting skills array */
             $skillArray = array();
             foreach (json_decode($request->sub_categories) as $category) {
@@ -256,14 +282,15 @@ class UserController extends Controller
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
+          $user->experience = request($experince_new);
           
           //$user->experience()->attach($skills_experince);
-          
+        
          
           $user->street_01 = $request->street;
           $user->street_02 = $request->house_number;
-          $user->city_id = 1;
-          $user->total_distance = 1;
+          $user->city_id = $request->cities;
+          $user->total_distance = $request->total_distance;
           $user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
           $user->save();
@@ -271,12 +298,9 @@ class UserController extends Controller
             {
                 $message->to($email, $request->name)->subject('Profile Created');
             });
-
-
-
             return redirect('/profile');
         } catch (Throwable $e) {
-            dd($e);
+            LogHelper::storeMessage("Profile Wizard",$e->getMessage(),$user);
             return redirect()->route('profileWizard')->withInput();
         }
     }
@@ -345,8 +369,9 @@ class UserController extends Controller
         $user->status = $request->status;
         $user->save();
         ToastHelper::showToast('User Status Changed.');
-        Mail::send('mail.changeStatus', ['user'=>$user,'status' => $request->status], function ($m) use ($user) {
-            $m->to($user->email())->subject('User Status Changed');
+        $email = $user->getEmail($request->user);
+        Mail::send('mail.changeStatus', ['user'=>$user,'status' => $request->status], function ($m) use ($email) {
+            $m->to($email)->subject('User Status Changed');
         });
         if($user->id == auth()->id() && ($request->status == 'deactivated' || $request->status == 'deleted')) {
             auth()->logout();
@@ -385,8 +410,8 @@ class UserController extends Controller
     public function editProfile()
     {
         $user = User::find(auth()->id());
-        $cities = City::all();
-        return view('pages.editProfile', compact('user', 'cities'));
+        $parishes = Parish::all();
+        return view('pages.editProfile', compact('user', 'parishes'));
     }
 
     public function putEditProfile(Request $request)
@@ -394,7 +419,7 @@ class UserController extends Controller
         $user = User::find(auth()->id());
         try {
             $user->gender = $request->gender;
-            $user->city_id = $request->city_id;
+            $user->city_id = $request->city;
             $user->street_01 = $request->street_01;
             $user->street_02 = $request->street_02;
             $user->companyname = $request->companyname;
@@ -453,8 +478,8 @@ class UserController extends Controller
             return redirect()->route('editProfile');
         }
         $user = User::find($id);
-        $cities = City::all();
-        return view('pages.editProfile', compact('user', 'cities'));
+        $parishes = City::all();
+        return view('pages.editProfile', compact('user', 'parishes'));
     }
 
     public function putEditUserProfile(Request $request, $id)
@@ -493,5 +518,94 @@ class UserController extends Controller
     public function emptyPage()
     {
         return view('pages.emptyFile');
+    }
+    public function adminAddUser()
+    {
+        return view('admin.profile.adminAddUser');
+    }
+    public function adminAddUserSubmit(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'  => 'required',
+            'email' => 'required|unique:emails,email',
+            'phone' => 'required|unique:phones,phone',
+            'gender' => 'required',
+            'type' => 'required',
+            'city_id' => 'required',
+            'street_01' => 'required'
+        ],[
+            'unique'    =>  'This :attribute already exists. Please try another one.'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withInput(request()->all())->withErrors($validator);
+        }
+        $data = request()->except('email','phone');
+        $new = [
+            'email_verified_at' => now(),
+            'status' => $request->type == 'independent_contractor' ? 'new' : 'active'
+        ];
+        $user = User::create(array_merge($data,$new));
+        $user->emails()->create([
+            'email' => $request->email,
+            'primary' => true,
+            'verified' => false
+        ]);
+        $user->phones()->create([
+            'phone' => $request->phone,
+            'primary' => true,
+        ]);
+        $token = Str::random(32);
+
+        DB::table('password_resets')->insert(
+            ['email' => $request->email, 'token' => $token, 'created_at' => now()]
+        );
+
+        Mail::send('mail.adminAddUser', compact('token','user'), function ($message) use ($request) {
+            $message->to($request->email,$request->name);
+            $message->subject('Account Created - FixitJA');
+        });
+        ToastHelper::showToast('User Account Created.');
+        return redirect()->route('viewUser',$user->id);
+    }
+
+    public function profileDocuments()
+    {
+        $user = auth()->user();
+        return view('admin.profile.documents', compact('user'));
+    }
+    public function userDocuments($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('viewDocuments');
+        }
+        $user = User::find($id);
+        return view('admin.profile.documents', compact('user'));
+    }
+
+    public function profileEducations()
+    {
+        $user = auth()->user();
+        return view('admin.profile.education', compact('user'));
+    }
+    public function userEducations($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('viewEducations');
+        }
+        $user = User::find($id);
+        return view('admin.profile.education', compact('user'));
+    }
+    public function profileReferences()
+    {
+        $user = auth()->user();
+        return view('admin.profile.reference', compact('user'));
+    }
+    public function userReferences($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('viewReferences');
+        }
+        $user = User::find($id);
+        return view('admin.profile.reference', compact('user'));
     }
 }

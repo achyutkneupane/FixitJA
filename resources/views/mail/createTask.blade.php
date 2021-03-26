@@ -44,7 +44,7 @@
         <h4 class="col-12">Project Details:</h4><br>
         <span class="col-3">Categories:</span>
         <span class="col-9">
-            @foreach ($task_subcategories as $subs)
+            @foreach ($all_cats as $subs)
                 @if($loop->last)
                     {{ ucwords($subs->name) }}
                 @else
@@ -82,8 +82,8 @@
         <span class="col-3">Name:</span> <span class="col-9">{{ $request->user_name }}</span>
         <span class="col-3">Email:</span> <span class="col-9">{{ $request->email }}</span>
         <span class="col-3">Phone:</span> <span class="col-9">{{ $request->phone }}</span>
-        <span class="col-3">Parish:</span> <span class="col-9">{{ $request->parish }}</span>
-        <span class="col-3">City:</span> <span class="col-9">{{ $city1 }}</span>
+        <span class="col-3">Parish:</span> <span class="col-9">{{ $city->parish->name }}</span>
+        <span class="col-3">City:</span> <span class="col-9">{{ $city->name }}</span>
         <span class="col-3">Street Address:</span> <span class="col-9">{{ $request->street_01 }}</span>
         {!! $request->street_02 ? '<span class="col-3"></span> <span class="col-9">' . $request->street_02 . '</span>' : '' !!}
         <span class="col-3">House Number or Unit:</span> <span class="col-9">{{ $request->house_number ? $request->house_number : 'N/A' }}</span>
@@ -99,8 +99,8 @@
     @if(!$request->user_equal_working)
         <div class="row">
             <h4 class="col-12">Working Location:</h4><br>
-            <span class="col-3">Parish:</span> <span class="col-9">{{ $request->site_parish }}</span>
-            <span class="col-3">City:</span> <span class="col-9">{{ $site_city }}</span>
+            <span class="col-3">Parish:</span> <span class="col-9">{{ $site_city->parish->name }}</span>
+            <span class="col-3">City:</span> <span class="col-9">{{ $site_city->name }}</span>
             <span class="col-3">Street Address:</span> <span class="col-9">{{ $request->site_street_01 }}</span>
             {!! $request->site_street_02 ? '<span class="col-3"></span> <span class="col-9">' . $request->site_street_02 . '</span>' : '' !!}
             <span class="col-3">House Number or Unit:</span> <span class="col-9">{{ $request->site_house_number ? $request->site_house_number : 'N/A' }}</span>
