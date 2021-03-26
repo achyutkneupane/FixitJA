@@ -188,8 +188,7 @@ function AddCategoryProjectWizard() {
             }
         });
     }
-
-    if($("#categorySelect1").val() != null) {
+    if($("#categorySelect1").val() != 'NULL' && projectWizardCount == '1') {
         if(sessionCatId != 'NULL') {
             $("#categorySelect1").val(sessionCatId).change();
         }

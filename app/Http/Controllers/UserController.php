@@ -481,8 +481,8 @@ class UserController extends Controller
             return redirect()->route('editProfile');
         }
         $user = User::find($id);
-        $cities = City::all();
-        return view('pages.editProfile', compact('user', 'cities'));
+        $parishes = City::all();
+        return view('pages.editProfile', compact('user', 'parishes'));
     }
 
     public function putEditUserProfile(Request $request, $id)
