@@ -117,8 +117,9 @@ class UserController extends Controller
         $page_description = 'This is profile wizard page';
         $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
+        $city = City::all();
         $parishes = Parish::all();
-        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'parishes'));
+        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'parishes', 'city'));
     }
 
     public function uploadfile($file, $dir)

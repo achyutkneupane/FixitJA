@@ -479,6 +479,8 @@
                             <div class="form-group fv-plugins-icon-container">
                                 <label>City</label>
                                 <select class="form-control select2" id="userCitySelect" name="cities">
+                                   
+
                                 </select>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
