@@ -26,9 +26,14 @@
                         <div class="d-flex flex-column" style="display:inline">
                             <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4 mb-0">{{ $user->name }}</a>
 
-                              @foreach(json_decode($user->subcategories()->get(), true) as $value)
-                           <span class="text-muted font-weight-bold"  style="white-space: nowrap;">{{   $value['name']   }} </span>
+                            @foreach($user->allCategories() as $category)
+                            @if($loop->last)
+                                 {{ ucwords($category['category']['category_name']) }}
+                            @else
+                                {{ ucwords($category['category']['category_name']) }},
+                            @endif
                             @endforeach
+                          
 
                         </div>
                         <!--end::Title-->
