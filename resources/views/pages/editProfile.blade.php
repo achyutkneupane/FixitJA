@@ -6,6 +6,10 @@
 <script>
 var cityId = {{ auth()->user()->city->id }};
 </script>
+@else
+<script>
+    var cityId = '';
+</script>
 @endif
     @php
     $profileIsActive = 'true';
@@ -63,7 +67,7 @@ var cityId = {{ auth()->user()->city->id }};
                             <select class="form-control select2" id="userParishSelect" name="parish">
                                 <option label=""></option>
                                 @foreach($parishes as $parish)
-                                <option value="{{ $parish->id }}"{{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
+                                <option value="{{ $parish->id }}"{{ !empty($user->city->parish) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
                                     {{ $parish->name }}
                                 </option>
                                 @endforeach
