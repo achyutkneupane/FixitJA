@@ -14,6 +14,11 @@ var sessionSubCatId = {{ session()->get('subCatId') }};
 var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->id }};
 </script>
 @endif
+@if(!empty(auth()->user()->city->name))
+<script>
+var cityId = {{ auth()->user()->city->id }};
+</script>
+@endif
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container">
@@ -308,7 +313,7 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
                                                 <select class="form-control select2" id="userParishSelect" name="parish">
                                                     <option label=""></option>
                                                     @foreach($parishes as $parish)
-                                                    <option value="{{ $parish->id }}">
+                                                    <option value="{{ $parish->id }}"{{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
                                                         {{ $parish->name }}
                                                     </option>
                                                     @endforeach
