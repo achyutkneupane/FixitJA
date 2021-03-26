@@ -35,7 +35,7 @@ class MainController extends Controller
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
             
-        //dd($documents->where('type','profile_picture')->where('id','12')->first());
+        
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
         $categories = $categories = Category::with('sub_categories')->get();
 
