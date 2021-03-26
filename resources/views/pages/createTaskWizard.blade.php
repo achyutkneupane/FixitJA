@@ -18,6 +18,10 @@ var sessionsubCatCatId = {{ $subs->find(session()->get('subCatId'))->category->i
 <script>
 var cityId = {{ auth()->user()->city->id }};
 </script>
+@else
+<script>
+    var cityId = '';
+</script>
 @endif
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
