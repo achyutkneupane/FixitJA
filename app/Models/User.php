@@ -51,9 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(References::class);
     }
-    public function education()
+    public function educations()
     {
-        return $this->belongsToMany(Education::class, 'education_users', 'user_id', 'education_id');
+        return $this->hasMany(Education::class);
     }
     public function city()
     {
@@ -140,8 +140,11 @@ class User extends Authenticatable
             case 'active':
                 return ['name' => 'Active', 'class' => 'success'];
                 break;
+            case 'reviewing':
+                    return ['name' => 'In Review', 'class' => 'info'];
+                    break;
             case 'pending':
-                return ['name' => 'Pending', 'class' => 'info'];
+                return ['name' => 'New', 'class' => 'info'];
                 break;
             case 'suspended':
                 return ['name' => 'Suspended', 'class' => 'warning'];

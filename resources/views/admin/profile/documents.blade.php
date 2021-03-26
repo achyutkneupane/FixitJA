@@ -20,22 +20,34 @@
                 {{-- Show Skills --}}
 
                 <div class="card-body row">
-                @foreach ($user->documents as $document)
-                    @if ($loop->first)   
+                @if ($user->documents->count() != 0)
+                    @foreach ($user->documents as $document)
+                        @if ($loop->first)   
+                        <div class="container">
+                            <div class="row">
+                        @endif
+                                <div class="col-md-6 p-4 text-center">
+                                    <img src="{{ asset('storage/'.$document->path) }}" width="100%" height="350px">
+                                    <h4 class="font-weight-bold">
+                                        {{ str_contains($document->type,'certificate') ? 'Certificate' : ucwords(str_replace('_',' ',$document->type)) }}
+                                    </h4>
+                                </div>
+                        @if ($loop->last)
+                            </div>
+                        </div>
+                        @endif
+                    @endforeach
+                @else
                     <div class="container">
                         <div class="row">
-                    @endif
-                            <div class="col-md-6 p-4 text-center">
-                                <img src="{{ asset('storage/'.$document->path) }}" width="100%" height="350px">
-                                <h4 class="font-weight-bold">
-                                    {{ str_contains($document->type,'certificate') ? 'Certificate' : ucwords(str_replace('_',' ',$document->type)) }}
-                                </h4>
+                            <div class="col-12">
+                                <h2 class="text-center">
+                                    No Documents uploaded
+                                </h2>
                             </div>
-                    @if ($loop->last)
                         </div>
                     </div>
-                    @endif
-                @endforeach
+                @endif
                 </div>
             </div>
         </div>

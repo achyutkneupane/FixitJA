@@ -2,7 +2,7 @@
 
 var category_data;
 var selectcategoryid = "selected_catgeory1";
-var count = 1;
+var count = 0;
 $(document).ready(function (e) {
    
     $('#user_type').on('change', function () {

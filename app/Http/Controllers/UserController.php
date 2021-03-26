@@ -11,6 +11,7 @@ use App\Models\Education;
 use App\Models\EducationUser;
 use App\Models\Email;
 use App\Models\SubCategory;
+use App\Models\References;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MailController;
+use App\Models\Parish;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -115,26 +117,9 @@ class UserController extends Controller
         $page_description = 'This is profile wizard page';
         $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
-        $city = City::all();
-        if(auth()->user()->status== 'pending') {
-            $user = auth()->user();
-            foreach ($user->subcategories as $subcats){
-
-                $test = $subcats->category_id;
-                $cats = Category::find($test);
-                
-                
-                
-                
-            }
-           
-            
-            return view('pages.createProfileWizard', compact('page_title','page_description','document', 'cats', 'city', 'user'));
-
-        }
-         return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'city'));
+        $parishes = Parish::all();
+        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'parishes'));
     }
-    
 
     public function uploadfile($file, $dir)
     {
@@ -146,9 +131,7 @@ class UserController extends Controller
     public function addprofiledetails(Request $request)
     {
         try {
-
-            
-            
+            //dd($request->all());
             
              $user  = new User();
              $user  = User::find(Auth::user()->id);
@@ -241,22 +224,45 @@ class UserController extends Controller
         
 
         
-           $education = new Education();
-            $education->education_instution_name = $request->educationinstutional_name;
-            $education->degree = $request->degree;
-            $education->start_date = $request->start_date;
-            $education->end_date = $request->end_date;
-            $education->save();
+           
 
-            $education_user = new EducationUser();
-            $education_user->user_id = Auth::user()->id;
-            $education_user->education_id = $education->id;
-            $education_user->save();
+
+            /* Reference */
+            $Refernces = "[".$request->totalRefList."]";
+            $Refernces1 = str_replace('},]','}]',$Refernces);
+            $user_references= new Collection();
+            foreach(json_decode($Refernces1) as $referencesArray){
+                
+               
+                $references = new References();
+                $id = $referencesArray->fieldId;
+                
+                $references_name = 'referal_name'.$id;
+                $references_email = 'referal_email'.$id;
+                $references_phone = 'referal_phone'.$id;
+                $references->refname = request($references_name);
+                $references->refemail = request($references_email);
+                $references->refphone = request($references_phone);
+                $references->user()->associate($user->id);
+                $references->save();
+                
+            }
+
 
 
           
 
-            // logic for the radio button
+            $education = [
+            'education_institution_name' => $request->education_institutional_name,
+            'degree' => $request->degree,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            ];
+            $user->educations()->create($education);
+            // $reference = [
+            //     'refname' =>
+            // ];
+            // $user->references()->create($reference);
             if ($request->police_report == "1") {
                 $user->is_police_record = 1;
             } elseif ($request->police_report == "0") {
@@ -414,8 +420,8 @@ class UserController extends Controller
     public function editProfile()
     {
         $user = User::find(auth()->id());
-        $cities = City::all();
-        return view('pages.editProfile', compact('user', 'cities'));
+        $parishes = Parish::all();
+        return view('pages.editProfile', compact('user', 'parishes'));
     }
 
     public function putEditProfile(Request $request)
@@ -423,7 +429,7 @@ class UserController extends Controller
         $user = User::find(auth()->id());
         try {
             $user->gender = $request->gender;
-            $user->city_id = $request->city_id;
+            $user->city_id = $request->city;
             $user->street_01 = $request->street_01;
             $user->street_02 = $request->street_02;
             $user->companyname = $request->companyname;
@@ -580,9 +586,36 @@ class UserController extends Controller
     public function userDocuments($id)
     {
         if (User::find($id) == auth()->user()) {
-            return redirect()->route('profileSkills');
+            return redirect()->route('viewDocuments');
         }
         $user = User::find($id);
         return view('admin.profile.documents', compact('user'));
+    }
+
+    public function profileEducations()
+    {
+        $user = auth()->user();
+        return view('admin.profile.education', compact('user'));
+    }
+    public function userEducations($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('viewEducations');
+        }
+        $user = User::find($id);
+        return view('admin.profile.education', compact('user'));
+    }
+    public function profileReferences()
+    {
+        $user = auth()->user();
+        return view('admin.profile.reference', compact('user'));
+    }
+    public function userReferences($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('viewReferences');
+        }
+        $user = User::find($id);
+        return view('admin.profile.reference', compact('user'));
     }
 }

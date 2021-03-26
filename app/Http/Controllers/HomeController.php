@@ -37,10 +37,4 @@ class HomeController extends Controller
         );
     }
 
-    public function hello()
-    {
-         $categories1 = Category::limit(6)->with('sub_categories')->get();
-         dd($categories1);
-    }
-
 }

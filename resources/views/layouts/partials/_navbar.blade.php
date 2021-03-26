@@ -23,8 +23,8 @@
                             <div class="col-lg-7 p-lg-5 p-5">
                                 <h2>Popular Categories</h2>
                                 <div class="row">
-                                    @if($categories->count() != 0)
-                                    @foreach($categories as $cat)
+                                    @if($navBarCategories->count() != 0)
+                                    @foreach($navBarCategories as $cat)
 
 
                                     <div class="col-lg-6">
@@ -95,12 +95,12 @@
                 <!-- <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/register">Sign Up</a>
                     <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/register">Business</i></a> -->
                 <li class="nav-item no-caret mt-5">
+                    <a class="btn-website font-weight-500 btn-website-teal" style="display: block;" href="/register">Become Our Fixician</a>
+                </li>
+                <li class="nav-item no-caret mt-5">
                     @if (Route::has('login'))
                     <a class="btn-website font-weight-500 btn-website-teal" style="display: block;" href="/login">Login</a>
                     @endif
-                </li>
-                <li class="nav-item no-caret mt-5">
-                    <a class="btn-website font-weight-500 btn-website-teal" style="display: block;" href="/register">Become Our Fixician<i class="ml-2 mt-1" data-feather="arrow-right"></i></a>
                 </li>
                 @endif
                 @endguest

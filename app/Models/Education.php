@@ -8,19 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Education extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'education_instution_name',
-        'degree',
-        'start_date',
-        'end_date',
-        'gpa',
-        
-         
-    ];
      protected $guarded = [];
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
-   
 }

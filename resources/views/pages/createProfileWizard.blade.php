@@ -386,14 +386,13 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Degree</label>
 
-                                <select class="form-control" id="degree_wizard_profile" name="degree"
-                                    value="{{old('degree') }}">
-
-                                    <option value="Secondary level" id="type1">Secondary level</option>
-                                    <option value="Higher Secondary level" id="type2">Higher Secondary level
+                                <select class="form-control" id="degree_wizard_profile" name="degree" value="{{old('degree')}}">
+                                    <option value="">Select</option>
+                                    <option value="Secondary Level" id="type1">Secondary level</option>
+                                    <option value="Higher Secondary Level" id="type2">Higher Secondary level
                                     </option>
                                     <option value="Bachelors" id="type3">Bachelors</option>
-                                    <option value="Master's" id="type3">Master's</option>
+                                    <option value="Masters" id="type3">Masters</option>
                                 </select>
                                 @if ($errors->has('degree'))
                                 <span class="text-danger">{{ $errors->first('degree') }}</span>
@@ -588,13 +587,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
-
-
+                    </div>
+                    </div>
                         <!--end::wizard step 6-->
 
                         <!--begin::wizard step 7-->
@@ -603,16 +597,13 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <!--begin::Select-->
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Parishes</label>
-                                <select name="parishes"
-                                    class="form-control form-control-solid form-control-lg category-select">
-
-                                    <option value="Saint Catherine">Saint Catherine</option>
-                                    <option value="Clarendon">Clarendon</option>
-                                    <option value="Liguanea (St Andrew)">Liguanea (St Andrew)</option>
-                                    <option value="Saint Thomas">Saint Thomas</option>
-                                    <option value="Port Royal">Port Royal</option>
-                                    <option value="Saint John">Saint John</option>
-                                    <option value="Saint David">Saint David</option>
+                                <select class="form-control select2" id="userParishSelect" name="parish">
+                                    <option label=""></option>
+                                    @foreach($parishes as $parish)
+                                    <option value="{{ $parish->id }}">
+                                        {{ $parish->name }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group fv-plugins-icon-container">
@@ -781,6 +772,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 <script src="{{ asset('js/custom/create-profile-wizard-custom.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('js/custom/create-profile-tagify.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/custom/parish-city-select.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
 <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>
