@@ -34,27 +34,6 @@ class MainController extends Controller
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
             
-        $userCategories = collect();
-        
-        foreach($users as $user)
-        {
-            
-            foreach($user->allCategories() as $category) 
-        { 
-            $userCategories->push($category['category']); 
-        }
-
-        }
-        
-        
-        
-        
-        
-       
-          
-
-
-
         //dd($documents->where('type','profile_picture')->where('id','12')->first());
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
         $categories = $categories = Category::with('sub_categories')->get();
@@ -62,7 +41,7 @@ class MainController extends Controller
 
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
-        return view('pages.welcome', compact('page_title', 'page_description','categories','navBarCategories','userCategories'),  ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
+        return view('pages.welcome', compact('page_title', 'page_description','categories','navBarCategories'),  ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
     }
     public function about()
     {
