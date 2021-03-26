@@ -33,6 +33,25 @@ class MainController extends Controller
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
+            
+        $userCategories = collect();
+        
+        foreach($users as $user)
+        {
+            
+            foreach($user->allCategories() as $category) 
+        { 
+            $userCategories->push($category['category']); 
+        }
+
+        }
+        
+        
+        
+        
+        
+       
+          
 
 
 
@@ -43,7 +62,7 @@ class MainController extends Controller
 
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
-        return view('pages.welcome', compact('page_title', 'page_description','categories','navBarCategories'), ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
+        return view('pages.welcome', compact('page_title', 'page_description','categories','navBarCategories','userCategories'),  ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
     }
     public function about()
     {

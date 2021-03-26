@@ -21,3 +21,4 @@ Auth::routes();
 Route::get('/category/{id}', [App\Http\Controllers\SubCategoryController::class,'list']);
 Route::get('/cities/{id}', [App\Http\Controllers\CityController::class,'list']);
 Route::post('/addprofile',[App\Http\Controller\UserController::class, 'updateprofile']);
+Route::get('/subcats', [App\Http\Controllers\SubCategoryController::class,'listcats']);

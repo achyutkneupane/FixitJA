@@ -26,9 +26,10 @@
                         <div class="d-flex flex-column" style="display:inline">
                             <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4 mb-0">{{ $user->name }}</a>
 
-                              @foreach(json_decode($user->subcategories()->get(), true) as $value)
-                           <span class="text-muted font-weight-bold"  style="white-space: nowrap;">{{   $value['name']   }} </span>
-                            @endforeach
+                             @foreach(json_decode($userCategories, true) as $value)
+                           <span class="text-muted font-weight-bold"  style="white-space: nowrap;">{{  $value['category_name']   }} </span>
+                           @endforeach
+                          
 
                         </div>
                         <!--end::Title-->
