@@ -10,7 +10,7 @@ $page_title = 'Dashboard';
         <div class="card-body">
             <div class="p-4">
                 <h3 class="text-white font-weight-bolder my-7">Create your home project now</h3>
-                <p class="text-muted font-size-lg mb-7">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa accusamus error tempore facere, officiis numquam voluptatum. Beatae similique ea, sed nam consectetur esse quia totam error ab? Accusantium, eaque ea?
+                <p class="text-muted font-size-lg mb-7">Placing your project is very easy and can be accoplished in few steps. All your have to give is your project information.
                 </p>
                 <a href="{{ route('createProject') }}" class="btn btn-primary font-weight-bold px-6 py-3">Create Project</a>
             </div>
@@ -25,7 +25,7 @@ $page_title = 'Dashboard';
             <div class="flex-grow-1 bg-danger p-12 pb-20 card-rounded flex-grow-1 bgi-no-repeat" style="background-position: calc(100% + 0rem) top; background-image: url({{asset('media/svg/humans/custom-7.svg')}})">
                 <p class="text-inverse-danger pt-10 pb-5 font-size-h3 font-weight-bolder line-height-lg">Register your skills and start earning.
                 </p>
-                <p class="text-white font-size-lg mb-7" style="width: 80%;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa accusamus error tempore facere, officiis numquam voluptatum. Beatae similique ea, sed nam consectetur esse quia totam error ab? Accusantium, eaque ea?
+                <p class="text-white font-size-lg mb-7" style="width: 80%;">FixitJA uses an extensive screening process to screen skilled workers. We perform screening when a skilled worker applies to join our network and, if they are accepted, whenever concerns are brought to our attention, we assure you it will be investigated and where necessary action taken to remedy your concerns.
                 </p>
                 <a href="{{ route('profileWizard') }}" class="btn btn-warning font-weight-bold py-2 px-6">Join Now</a>
             </div>
