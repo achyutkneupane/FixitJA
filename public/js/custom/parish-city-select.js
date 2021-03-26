@@ -10,7 +10,7 @@ $('#workingParishSelect').select2({
 $('#workingCitySelect').select2({
     placeholder: "Select a City"
 });
-if($("#userParishSelect option:selected")) {
+if($("select[id='userParishSelect'] option:selected").val()) {
     const field = $("#userCitySelect");
     var parish_id = $("select[id='userParishSelect']").val();
     getCities(field,parish_id,cityId);
@@ -29,7 +29,7 @@ $(document).on('change', '#workingParishSelect', function (e) {
     var parish_id = $(this).val();
     getCities(field,parish_id);
 });
-function getCities(field,parish_id,city=NULL)
+function getCities(field,parish_id,city='')
 {
     $.ajax({
         type: "GET",

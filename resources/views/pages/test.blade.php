@@ -4,11 +4,15 @@
 <script>
 var cityId = {{ auth()->user()->city->id }};
 </script>
+@else
+<script>
+var cityId = '';
+</script>
 @endif
 <select class="form-control select2" id="parishSelect" name="parish">
     <option label=""></option>
     @foreach($parishes as $parish)
-    <option value="{{ $parish->id }}"{{ $parish->id == auth()->user()->city->parish->id ? ' selected' : '' }}>
+    <option value="{{ $parish->id }}"{{ !empty(auth()->user()->city->parish) && $parish->id == auth()->user()->city->parish->id ? ' selected' : '' }}>
         {{ $parish->name }}
     </option>
     @endforeach
@@ -32,8 +36,8 @@ var cityId = {{ auth()->user()->city->id }};
     $('#citySelect').select2({
         placeholder: "Select a City"
     });
-    if($("select[name='parish'] option:selected")) {
-        var parish_id = $("select[name='parish']").val();
+    if($("select[id='parishSelect'] option:selected").val()) {
+        var parish_id = $("select[id='parishSelect']").val();
         getCities(parish_id,cityId);
     }
     else {
@@ -43,7 +47,7 @@ var cityId = {{ auth()->user()->city->id }};
             getCities(parish_id);
         });
     }
-    function getCities(parish_id,city = NULL)
+    function getCities(parish_id,city = '')
     {
         var cities = new Array();
         $.ajax({
