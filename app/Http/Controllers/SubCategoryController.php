@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
@@ -108,5 +109,12 @@ class SubCategoryController extends Controller
     {
         $cats = Category::with(['sub_categories'])->find($id);
         return $cats->sub_categories;
+    }
+
+    public function listcats()
+    {
+        $user = User::with('subcategories')->get();
+        dd($user->allCategories());
+        return $user->allCategories();
     }
 }
