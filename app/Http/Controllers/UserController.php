@@ -115,11 +115,21 @@ class UserController extends Controller
         $page_description = 'This is profile wizard page';
         $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
-      
         $city = City::all();
         if(auth()->user()->status== 'pending') {
             $user = auth()->user();
-            return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'city', 'user'));
+            foreach ($user->subcategories as $subcats){
+
+                $test = $subcats->category_id;
+                $cats = Category::find($test);
+                
+                
+                
+                
+            }
+           
+            
+            return view('pages.createProfileWizard', compact('page_title','page_description','document', 'cats', 'city', 'user'));
 
         }
          return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'city'));

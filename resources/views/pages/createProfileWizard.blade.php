@@ -280,21 +280,23 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <select name="skills_category" subcatid="kt_tagify_subcategory"
                                                         id="selected_catgeory1"
                                                         class="form-control form-control-solid form-control-lg category-select">
-                                                        <option value="">Select Category</option>
+                                                    
                                                         @foreach ($category as $cate)
                                                         <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
                                                         </option>
                                                         @endforeach
+                                                        
                                                     </select>
                                                 </div>
+
+                                                
                                                 <!--end::Select-->
                                                 <!--begin::Select-->
                                                 <div class="form-group">
                                                     <label>Sub category</label>
                                                     <div id="divTagifykt_tagify_subcategory">
-                                                        <input id="kt_tagify_subcategory" class="form-control"
-                                                            name="sub_categories" placeholder="Add sub-categories">
-                                                        <div   class="mt-3 text-muted">Select multiple
+                                                        <input id="kt_tagify_subcategory" class="form-control" name="sub_categories" placeholder="Add sub-categories">
+                                                        <div class="mt-3 text-muted">Select multiple
                                                             subcategories. If you don't see
                                                             your option just create one.</div>
                                                     </div>
@@ -316,119 +318,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <button type="button" name="add" id="add_btn" class="btn btn-success">Add More</button>'
                             <!--end::Select-->
                         </div>
-                         @php (auth()->user()->status == 'pending' ? 'Edit Application': '') @endphp
-                                @if(!empty(auth()->user()))
-
-                                <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-                                <script>
-                                    $(document).ready(function () {
-                                        getSubCategory();
-                                    });
-
-                                    function getSubCategory() {
-                                        var subcategory = new Array();
-                                        var catid;
-
-                                        $.ajax({
-                                            type: "GET",
-                                            url: '/api/subcategory/',
-                                            dataType: 'json',
-                                            success: function (result) {
-                                                console.log(result);
-
-                                                $.each(result, function (index, item) {
-                                                    catid = item.category_id;
-                                                    var itemObj = {};
-                                                    itemObj.value = item.name;
-                                                    itemObj.description = item.description;
-                                                    itemObj.id = item.id;
-                                                    itemObj.initials = '',
-                                                        itemObj.initialsState = '',
-                                                        itemObj.id = item.id,
-                                                        itemObj.class = 'tagify__tag--primary'
-                                                    subcategory.push(itemObj);
-
-                                                });
-                                                binddata(subcategory);
-                                                getCategory(catid);
-
-
-
-                                            }
-
-                                        })
-
-
-                                    }
-
-                                    function binddata(data) {
-
-
-                                        var toEl = document.getElementById('kt_tagify_subcategory');
-                                        var tagifyTo = new Tagify(toEl, {
-                                            delimiters: ", ", // add new tags when a comma or a space character is entered
-                                            maxTags: 10,
-                                            blacklist: ["fuck", "shit", "pussy"],
-                                            keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
-                                            whitelist: data,
-                                            templates: {
-                                                dropdownItem: function (tagData) {
-                                                    try {
-                                                        var html = '';
-
-                                                        html += '<div class="tagify__dropdown__item">';
-                                                        html +=
-                                                            '   <div class="d-flex align-items-center">';
-                                                        html += '       <span class="symbol sumbol-' + (
-                                                            tagData.initialsState ? tagData
-                                                            .initialsState : '') + ' mr-2">';
-                                                        // html += '           <span class="symbol-label" style="background-image: url(\'' + (tagData.pic ? tagData.pic : '') + '\')">' + (tagData.initials ? tagData.initials : '') + '</span>';
-                                                        html += '       </span>';
-                                                        html += '       <div class="d-flex flex-column">';
-                                                        html +=
-                                                            '           <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">' +
-                                                            (tagData.value ? tagData.value : '') + '</a>';
-                                                        html +=
-                                                            '           <span class="text-muted font-weight-bold">' +
-                                                            (tagData.description ? tagData.description :
-                                                                '') + '</span>';
-                                                        html += '       </div>';
-                                                        html += '   </div>';
-                                                        html += '</div>';
-
-                                                        return html;
-                                                    } catch (err) {}
-                                                }
-                                            },
-                                            transformTag: function (tagData) {
-                                                tagData.class = 'tagify__tag tagify__tag--primary';
-                                            },
-                                            dropdown: {
-                                                classname: "color-blue",
-                                                enabled: 0,
-                                                maxItems: 5
-                                            }
-                                        });
-
-                                        if (data) {
-                                            //console.log(data);
-                                            data.forEach((element, index) => {
-
-                                                tagifyTo.addTags([element]);
-
-                                            });
-                                        }
-
-                                    }
-
-
-                                    function getCategory(id) {
-                                        
-
-                                    }
-
-                                </script>
-                                @endif
+                        
                         <!--end::Wizard Step 1-->
 
                         <!--begin::Wizard Step 2-->

@@ -102,7 +102,7 @@ function bindSubCat(data, subcat) {
     });
     if (sessionSubCatId) {
         data.forEach((element, index) => {
-            if (element.id === sessionSubCatId) {
+            if (element.id === sessionSubCatId) { 
                 tagifyTo.addTags([element]);
             }
         });
