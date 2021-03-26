@@ -18,6 +18,8 @@ $page_title = 'Dashboard';
         <!--end::Body-->
     </div>
 </div>
+@isContractor()
+@else
 <div class="col-xl-12">
     <!--begin::Engage Widget 6-->
     <div class="card card-custom card-stretch gutter-b">
@@ -33,6 +35,7 @@ $page_title = 'Dashboard';
     </div>
     <!--end::Engage Widget 6-->
 </div>
+@endisContractor
 {{-- @userIsContractor($loggedUser)
 <div class="col-xl-12">
     <!--begin::Engage Widget 7-->

@@ -99,6 +99,7 @@ class MainController extends Controller
     {
         $page_title = 'Under Construction';
         $page_description = 'This is under construction page.';
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
         return view('pages.underConstruction', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => false]);
     }
 

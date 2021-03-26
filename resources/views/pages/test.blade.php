@@ -1,9 +1,14 @@
 @extends('layouts.app')
 @section('content')
+@if(!empty(auth()->user()->city->name))
+<script>
+var cityId = {{ auth()->user()->city->id }};
+</script>
+@endif
 <select class="form-control select2" id="parishSelect" name="parish">
     <option label=""></option>
     @foreach($parishes as $parish)
-    <option value="{{ $parish->id }}">
+    <option value="{{ $parish->id }}"{{ $parish->id == auth()->user()->city->parish->id ? ' selected' : '' }}>
         {{ $parish->name }}
     </option>
     @endforeach
@@ -19,16 +24,7 @@
     <!--end::Select-->
 </div>
 @endsection
-@section('styles')
-<link href="{{ asset('css/custom/create-project-wizard-custom.css') }}" rel="stylesheet" type="text/css" />
-@endsection
 @section('scripts')
-<script
-    src="{{ asset('js/custom/create-project-wizard-custom.js') }}" type="text/javascript">
-</script>
-<script
-    src="{{ asset('js/custom/create-project-tagify.js') }}" type="text/javascript">
-</script>
 <script>
     $('#parishSelect').select2({
         placeholder: "Select a Parish"
@@ -36,12 +32,18 @@
     $('#citySelect').select2({
         placeholder: "Select a City"
     });
-    $(document).on('change', '#parishSelect', function (e) {
-        $("#citySelect").html('<option label=""></option>');
-        var parish_id = $(this).val();
-        getCities(parish_id);
-    });
-    function getCities(parish_id)
+    if($("select[name='parish'] option:selected")) {
+        var parish_id = $("select[name='parish']").val();
+        getCities(parish_id,cityId);
+    }
+    else {
+        $(document).on('change', '#parishSelect', function (e) {
+            $("#citySelect").html('<option label=""></option>');
+            var parish_id = $(this).val();
+            getCities(parish_id);
+        });
+    }
+    function getCities(parish_id,city = NULL)
     {
         var cities = new Array();
         $.ajax({
@@ -55,12 +57,15 @@
                     itemObj.name = item.name;
                     cities.push(itemObj);
                 });
-                bindCities(cities);
+                bindCities(cities,city);
             }
         });
     }
-    function bindCities(cities) {
+    function bindCities(cities,city) {
         cities.forEach((element,index) => {
+            if(city == element.id)
+            $("#citySelect").append("<option value='"+element.id+"' selected>"+element.name+"</option>");
+            else
             $("#citySelect").append("<option value='"+element.id+"'>"+element.name+"</option>");
         });
     }
