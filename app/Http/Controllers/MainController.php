@@ -29,22 +29,24 @@ class MainController extends Controller
           ->where('type','independent_contractor')
           ->with(['subcategories'])
           ->where('status', 'active')->get();
+        
         $documents = DB::table('users')
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
             
         $userCategories = collect();
+    
         
         foreach($users as $user)
         {
-            
-            foreach($user->allCategories() as $category) 
+        foreach(User::find($user->id)->allCategories() as $category) 
         { 
-            $userCategories->push($category['category']); 
-        }
+            $userCategories->push($category['category'], $user->id); 
 
         }
+    }
+        dd($userCategories);
         
         
         
