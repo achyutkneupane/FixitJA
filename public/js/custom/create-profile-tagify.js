@@ -1,5 +1,7 @@
 
 
+
+
 function bindSubCat1(data, subcat) {
 
        var toEl = document.getElementById(subcat);
@@ -80,6 +82,20 @@ function getSubCatData(categoryId, subcatid) {
              bindSubCat1(subcategory, subcatid);
         }
     });
+    
+
+
+
+
 }
+
+
+
+
+
+
+
+
+ 
 
 

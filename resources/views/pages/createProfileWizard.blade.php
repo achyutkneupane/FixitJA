@@ -262,8 +262,60 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                         <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                             <h3 class="font-weight-bold text-dark">Enter your up to 3 skill categories</h3>
                             <!--begin::Select-->
-                            <div class=card-body">
+                            <div class="card-body">
+                            
                                 <!--begin::Accordion-->
+                                @if(auth()->user()->allCategories()->count() != 0)
+                                @foreach(auth()->user()->allCategories() as $subcats)
+                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_category{{ $loop->index}}">
+                                    <div class="card card-category-accordion" id="categoryCard">
+                                        <div class="card-header">
+                                            <div class="card-title" data-toggle="collapse" data-target="#collapse1">
+                                                <span class="glyphicon glyphicon-remove-circle pull-right "></span>
+                                                <span class="category-title"
+                                                    id="categoryTitleselected_catgeory1{{ $loop->index}}">{{ ucwords($subcats['category']['category_name']) }}</span>
+                                            </div>
+                                        </div>
+                                        <div id="collapse1" class="collapse show" data-parent="#accordionExample3">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label>Category</label>
+                                                    <select name="skills_category" subcatid="kt_tagify_subcategory{{ $loop->index}}"
+                                                        id="selected_catgeory1{{ $loop->index }}"
+                                                        class="form-control form-control-solid form-control-lg category-select">
+                                                    
+                                                        
+                                                        <option value="{{$subcats['category']['category_id'] ? 'selected' : ''}}">{{  ucwords($subcats['category']['category_name']) }}
+                                                        </option>
+                                                       
+                                                        
+                                                    </select>
+                                                </div>
+
+                                                
+                                                <!--end::Select-->
+                                                <!--begin::Select-->
+                                                @foreach($subcats['subcategory'] as $subs)
+                                                <div class="form-group">
+                                                    <label>Sub category</label>
+                                                    
+                                                    <div id="divTagifykt_tagify_subcategory">
+                                                     
+                                                        <input id="kt_tagify_subcategory_data" class="form-control" name="sub_categories" placeholder="Add sub-categories" value="{{ $subs->name }}">
+                                                        <div class="mt-3 text-muted">Select multiple
+                                                            subcategories. If you donot see
+                                                            your option just create one.</div>
+                                                    
+                                                    </div>
+                                                </div>
+                                                @endforeach
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                @else
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_category">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
@@ -297,7 +349,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <div id="divTagifykt_tagify_subcategory">
                                                         <input id="kt_tagify_subcategory" class="form-control" name="sub_categories" placeholder="Add sub-categories">
                                                         <div class="mt-3 text-muted">Select multiple
-                                                            subcategories. If you don't see
+                                                            subcategories. If you donot see
                                                             your option just create one.</div>
                                                     </div>
                                                 </div>
@@ -305,6 +357,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                         </div>
                                     </div>
                                 </div>
+
+                                @endif
                                
 
 
@@ -325,9 +379,64 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                         <div class="pb-5" data-wizard-type="step-content">
                             <h3 class="font-weight-bold text-dark">Upload certificate for each selected
                                 skill category/s</h3>
+
+                            
+                            @if(auth()->user()->documents->count() != 0)
+                            
+                            <div id="certificateSection">
+                            
+
+                            </div>
+                            
+                            @foreach(auth()->user()->allCategories() as $category)
+                            <div class="card-body" id="">
+                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordionCertificate">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title" data-toggle="collapse" data-target="#collapseCert"
+                                                id="selectedCategory">
+                                                <p id="certificateCategoryTitle">{{   ucwords($category['category']['category_name']) }}</p>
+                                            </div>
+                                        </div>
+                                        @foreach(auth()->user()->documents as $document)
+                                        <div id="collapseCert" class="collapse show"
+                                            data-parent="">
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Certificate
+                                                        (PDF, DOC, JPEG, PNG)
+                                                        <div class="col-md-12">
+                                                            <div class="dropzone dropzone-default dropzone-primary">
+                                                                <div class="dropzone-msg dz-message needsclick"><input
+                                                                        id="certificateFile" type="file"
+                                                                        category="category-name" value="{{ asset('storage/'.$document->path) }}"
+                                                                        accept=".png, .jpg, .jpeg, .pdf, .docx"></div>
+                                                            </div>
+                                                        </div>
+                                                    </label class="col-form-label">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Experience
+                                                        <input type="text" id="certificateExp" class="form-control"
+                                                            category="category-name" type="number" placeholder="Years"
+                                                            value="">
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            @endforeach
+                            @else
                             <div id="certificateSection">
 
                             </div>
+                            
+                            
                             <div class="card-body" id="templateCertificate" style="display: none;">
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordionCertificate">
                                     <div class="card">
@@ -365,6 +474,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                     </div>
                                 </div>
                             </div>
+                            @endif
                         </div>
                         <input type="hidden" id="totalCertificateList" name="totalCertificateList">
                         <!--end::Wizard Step 2-->
@@ -433,6 +543,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <h4 class="mb-10 font-weight-bold text-dark">Reference certificate for each selected
                                 skills category</h4>
                             <!--begin::Select-->
+                            @if(auth()->user()->references->count() != 0)
+                            @foreach (auth()->user()->references as $reference)
                             <div class="card-body">
                                 <!--begin::Accordion-->
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_reference{{ $loop->index }}">
@@ -451,7 +563,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Referal
                                                         Name
                                                         <input type="text" id="refname" class="form-control" type="text"
-                                                            name="referal_name" placeholder="Referal Name" value="@foreach(auth()->user()->references as $ref) {{ $ref->refname}} @endforeach">
+                                                            name="referal_name" placeholder="Referal Name" value="{{ $reference->refname }}">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
@@ -459,7 +571,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                         Email
                                                         <input type="email" id="refemail" class="form-control"
                                                             type="email" name="referal_email"
-                                                            placeholder="Referal Email" value="@foreach(auth()->user()->references as $ref) {{ $ref->refemail}} @endforeach">
+                                                            placeholder="Referal Email" value="{{ $reference->refemail }}">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
@@ -467,7 +579,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                         Contact Number
                                                         <input type="text" id="refphone" class="form-control"
                                                             type="text" name="referal_phone"
-                                                            placeholder="Referal Contact Number" value="@foreach(auth()->user()->references as $ref) {{ $ref->refphone}} @endforeach">
+                                                            placeholder="Referal Contact Number" value="{{ $reference->refphone }}">
                                                     </label>
                                                 </div>
 
@@ -479,9 +591,59 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 </div>
                                 <!--begin::Accordion-->
                             </div>
+                            @endforeach
+                            @else
+                             <div class="card-body">
+                                <!--begin::Accordion-->
+                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_reference">
+                                    <div class="card card-reference-accordion" id="referenceCard1">
+                                        <div class="card-header">
+                                            <div class="card-title" data-toggle="collapse"
+                                                data-target="#collapseReference1">
+                                                <span class="glyphicon glyphicon-remove-circle pull-right "></span>
+
+                                            </div>
+                                        </div>
+                                        <div id="collapseReference1" class="collapse show"
+                                            data-parent="#accordionExample3">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                        Name
+                                                        <input type="text" id="refname" class="form-control" type="text"
+                                                            name="referal_name" placeholder="Referal Name" value="">
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                        Email
+                                                        <input type="email" id="refemail" class="form-control"
+                                                            type="email" name="referal_email"
+                                                            placeholder="Referal Email" value="">
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                        Contact Number
+                                                        <input type="text" id="refphone" class="form-control"
+                                                            type="text" name="referal_phone"
+                                                            placeholder="Referal Contact Number" value="">
+                                                    </label>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--begin::Accordion-->
+                            </div>
+
                             <input type="hidden" id="totalRefList" name="totalRefList">
                             <button type="button" name="add_reference" id="add_more_reference"
                                 class="btn btn-success">Add More References</button>
+                            @endif
 
 
 

@@ -301,7 +301,7 @@ function LoadWizardData(wizard) {
     if (wizard.getStep() == 2 && wizard.lastStep == 1 && clearSecondWizard) {
         clearSecondWizard = false;
         $("#certificateSection").empty();
-        categorySelected.forEach(item => {
+        categorySelected.forEach(item => { 
             CertificateFV.removeField(item);
         });
         categorySelected = [];
