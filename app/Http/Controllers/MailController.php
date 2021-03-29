@@ -52,7 +52,7 @@ public static function sendResponseEmail($name, $email, $request, $user_subcateg
     }
 
 catch (Exception $ex){
-    dd($ex);
+    LogHelper::storeMessage('Email',$ex->getMessage(),auth()->user());
 }
 
 }

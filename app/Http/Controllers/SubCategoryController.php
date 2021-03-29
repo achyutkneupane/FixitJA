@@ -114,7 +114,6 @@ class SubCategoryController extends Controller
     public function listcats()
     {
         $user = User::with('subcategories')->get();
-        dd($user->allCategories());
         return $user->allCategories();
     }
 }
