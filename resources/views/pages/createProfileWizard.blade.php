@@ -377,7 +377,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or
                                     University</label>
                                 <input type="text" class="form-control " name="educationinstutional_name"
-                                    placeholder="Name" value="{{ auth()->user()->education_instution_name }}" />
+                                    placeholder="Name" value="@foreach(auth()->user()->educations as $education) {{ $education->education_institution_name}} @endforeach" />
                                 @if ($errors->has('educationinstutional_name'))
                                 <span class="text-danger">{{ $errors->first('educationinstutional_name') }}</span>
                                 @endif
@@ -387,7 +387,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <label class="font-size-h6 font-weight-bolder text-dark">Degree</label>
 
                                 <select class="form-control" id="degree_wizard_profile" name="degree" value="{{old('degree')}}">
-                                    <option value="">Select</option>
+                                    <option value="@foreach(auth()->user()->educations as $education) {{ $education->degree}} ? 'selected' :'' @endforeach">@foreach(auth()->user()->educations as $education) {{ $education->degree}} @endforeach</option>
                                     <option value="Secondary Level" id="type1">Secondary level</option>
                                     <option value="Higher Secondary Level" id="type2">Higher Secondary level
                                     </option>
@@ -405,7 +405,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
                                 <div class="col-10">
                                     <input class="form-control" type="date" value="" id="selectstartdate"
-                                        name="start_date" value="" />
+                                        name="start_date" value="@foreach(auth()->user()->educations as $education) {{ $education->start_date }} @endforeach" />
                                 </div>
                                 <!--end::Form Group-->
                                 <!--begin::Form Group-->
@@ -413,8 +413,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                     <label class="font-size-h6 font-weight-bolder text-dark">End Date</label>
 
                                     <div class="col-10">
-                                        <input class="form-control" type="date" value="" id="selectenddate"
-                                            name="end_date" value="" />
+                                        <input class="form-control" type="date" value="{{ auth()->user()->end_date }}" id="selectenddate"
+                                            name="end_date" value="@foreach(auth()->user()->educations as $education) {{ $education->end_date }} @endforeach" />
                                     </div>
                                     <!--end::Form Group-->
                                     <!--end::Form Group-->
@@ -435,7 +435,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <!--begin::Select-->
                             <div class="card-body">
                                 <!--begin::Accordion-->
-                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_reference">
+                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_reference{{ $loop->index }}">
                                     <div class="card card-reference-accordion" id="referenceCard1">
                                         <div class="card-header">
                                             <div class="card-title" data-toggle="collapse"
@@ -451,7 +451,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Referal
                                                         Name
                                                         <input type="text" id="refname" class="form-control" type="text"
-                                                            name="referal_name" placeholder="Referal Name" value="">
+                                                            name="referal_name" placeholder="Referal Name" value="@foreach(auth()->user()->references as $ref) {{ $ref->refname}} @endforeach">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
@@ -459,7 +459,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                         Email
                                                         <input type="email" id="refemail" class="form-control"
                                                             type="email" name="referal_email"
-                                                            placeholder="Referal Email" value="}">
+                                                            placeholder="Referal Email" value="@foreach(auth()->user()->references as $ref) {{ $ref->refemail}} @endforeach">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
@@ -467,7 +467,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                         Contact Number
                                                         <input type="text" id="refphone" class="form-control"
                                                             type="text" name="referal_phone"
-                                                            placeholder="Referal Contact Number" value="">
+                                                            placeholder="Referal Contact Number" value="@foreach(auth()->user()->references as $ref) {{ $ref->refphone}} @endforeach">
                                                     </label>
                                                 </div>
 
@@ -600,7 +600,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <select class="form-control select2" id="userParishSelect" name="parish">
                                     <option label=""></option>
                                     @foreach($parishes as $parish)
-                                    <option value="{{ $parish->id }}">
+                                    <option value="{{ $parish->id }}"{{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
                                         {{ $parish->name }}
                                     </option>
                                     @endforeach
@@ -608,12 +608,9 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label>City</label>
-                                <select name="cities"
-                                    class="form-control form-control-solid form-control-lg category-select">
-                                    <option value=""></option>
-                                    @foreach($city as $index => $cities)
-                                    <option value="{{ $cities->id }}">{{ $cities->name }}</option>
-                                    @endforeach
+                                <select class="form-control select2" id="userCitySelect" name="cities">
+                                   
+
                                 </select>
                             </div>
                             <div class="form-group fv-plugins-icon-container">

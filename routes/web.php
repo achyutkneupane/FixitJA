@@ -92,7 +92,6 @@ Route::prefix('/security')->middleware('auth')->group(function () {
 Route::get('/edittask/{taskid}',[App\Http\Controllers\MainController::class, 'edittask']);
 Route::prefix('/project/create')->group(function(){
     Route::get('/', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
-
     Route::get('/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProjectwithCat'])->name('createProjectWithCat');
     Route::get('/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
     Route::post('/', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
@@ -106,9 +105,6 @@ Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationContr
 Route::get('/add_user', [App\Http\Controllers\UserController::class, 'adminAddUser'])->middleware('auth','checkIfAdmin')->name('adminAddUser');
 Route::post('/add_user', [App\Http\Controllers\UserController::class, 'adminAddUserSubmit'])->middleware('auth','checkIfAdmin')->name('adminAddUserSubmit');
 Route::get('/test', [App\Http\Controllers\MainController::class, 'test'])->name('test');
-//Route for viewing all categories
-Route::get('/categories/all', [App\Http\Controllers\MainController::class, 'categories']);
-Route::post('/project/create', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
@@ -122,7 +118,7 @@ Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 Route::get('/termsandconditions', [App\Http\Controllers\MainController::class, 'termsandconditions']);
 
 //Route for faqs page
-Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'underConstruction']);
+Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'underConstruction'])->name('under_construction');
 
 //Route for profile wizard
 Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->middleware('auth', 'checkIfSkillworker')->name('profileWizard');

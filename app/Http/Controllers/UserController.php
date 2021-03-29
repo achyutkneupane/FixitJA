@@ -117,8 +117,11 @@ class UserController extends Controller
         $page_description = 'This is profile wizard page';
         $document = Document::where('user_id', auth()->id())->get();
         $category = Category::with('sub_categories')->get();
+        $city = City::all();
+        $users = User::with('references')->get();
         $parishes = Parish::all();
-        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'parishes'));
+        
+        return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'parishes', 'city', 'users'));
     }
 
     public function uploadfile($file, $dir)
@@ -131,7 +134,7 @@ class UserController extends Controller
     public function addprofiledetails(Request $request)
     {
         try {
-            //dd($request->all());
+            // dd($request->all());
             
              $user  = new User();
              $user  = User::find(Auth::user()->id);
@@ -253,7 +256,7 @@ class UserController extends Controller
           
 
             $education = [
-            'education_institution_name' => $request->education_institutional_name,
+            'education_institution_name' => $request->educationinstutional_name,
             'degree' => $request->degree,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
@@ -301,16 +304,14 @@ class UserController extends Controller
           $user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
           $user->save();
+          
           Mail::send('mail.createProfile', compact('request', 'user_subcategories'), function($message) use ($request, $email)
             {
                 $message->to($email, $request->name)->subject('Profile Created');
             });
-
-
-
             return redirect('/profile');
         } catch (Throwable $e) {
-            dd($e);
+            LogHelper::storeMessage("Profile Wizard",$e->getMessage(),$user);
             return redirect()->route('profileWizard')->withInput();
         }
     }
@@ -488,8 +489,8 @@ class UserController extends Controller
             return redirect()->route('editProfile');
         }
         $user = User::find($id);
-        $cities = City::all();
-        return view('pages.editProfile', compact('user', 'cities'));
+        $parishes = City::all();
+        return view('pages.editProfile', compact('user', 'parishes'));
     }
 
     public function putEditUserProfile(Request $request, $id)

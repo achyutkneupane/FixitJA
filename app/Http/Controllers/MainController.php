@@ -29,21 +29,20 @@ class MainController extends Controller
           ->where('type','independent_contractor')
           ->with(['subcategories'])
           ->where('status', 'active')->get();
+        
         $documents = DB::table('users')
             ->join('documents', 'users.id', '=', 'documents.user_id')
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
-
-
-
-        //dd($documents->where('type','profile_picture')->where('id','12')->first());
+            
+        
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
         $categories = $categories = Category::with('sub_categories')->get();
 
 
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
-        return view('pages.welcome', compact('page_title', 'page_description','categories','navBarCategories'), ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
+        return view('pages.welcome', compact('page_title', 'page_description','categories','navBarCategories'),  ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
     }
     public function about()
     {
@@ -100,6 +99,7 @@ class MainController extends Controller
     {
         $page_title = 'Under Construction';
         $page_description = 'This is under construction page.';
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
         return view('pages.underConstruction', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => false]);
     }
 
