@@ -118,7 +118,7 @@ Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 Route::get('/termsandconditions', [App\Http\Controllers\MainController::class, 'termsandconditions']);
 
 //Route for faqs page
-Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'underConstruction']);
+Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'underConstruction'])->name('under_construction');
 
 //Route for profile wizard
 Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->middleware('auth', 'checkIfSkillworker')->name('profileWizard');

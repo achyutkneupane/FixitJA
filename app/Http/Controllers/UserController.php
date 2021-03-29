@@ -299,12 +299,9 @@ class UserController extends Controller
             {
                 $message->to($email, $request->name)->subject('Profile Created');
             });
-
-
-
             return redirect('/profile');
         } catch (Throwable $e) {
-            dd($e);
+            LogHelper::storeMessage("Profile Wizard",$e->getMessage(),$user);
             return redirect()->route('profileWizard')->withInput();
         }
     }

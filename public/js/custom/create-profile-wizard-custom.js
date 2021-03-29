@@ -8,7 +8,10 @@ var ReferencFv;
 const skills_category = {
     validators: {
         notEmpty: {
-            message: 'Category is required'
+            message: 'Category is required',
+            callback: function(input) {
+                return !!input.value;
+            },
         }
     }
 }
@@ -18,27 +21,24 @@ const sub_categories = {
         notEmpty: {
             message: 'Sub-category is required',
             callback: function(input) {
-						$("").text(input.value);
-                        const subArray = JSON.parse(input.value);
-				        subArray.forEach((element,index) => {
-						$("#skill").append(element.value + ",");
-
-        });
-        	return !!input.value;
-		},
+                const subArray = JSON.parse(input.value);
+                subArray.forEach((element,index) => {
+                    $("#skill").append(element.value + ",");
+                });
+                return !!input.value;
+            },
+        }
     }
-}
 }
 
 const experienceValidator = {
     validators: {
         notEmpty: {
             message: 'Experience is required',
-             callback: function(input) {
-									$("#experience").text(input.value);
-									return !!input.value;
-								},
-
+            callback: function(input) {
+                            $("#experience").text(input.value);
+                            return !!input.value;
+                        },
         },
         digits: {
             message: 'Value must be numeric and cannot contain decimal'
@@ -49,8 +49,9 @@ const certificateValidator = {
     validators: {
         notEmpty: {
             message: 'Certificate is required',
-
-
+            callback: function(input) {
+                return !!input.value;
+            },
         },
         file: {
             extension: 'jpeg,jpg,png,pdf,doc,docx',
@@ -64,7 +65,10 @@ const certificateValidator = {
 const referal_name = {
     validators: {
         notEmpty:{
-            message: 'Referable Name is required'
+            message: 'Referable Name is required',
+            callback: function(input) {
+                return !!input.value;
+            },
         }
     }
 }
@@ -72,7 +76,10 @@ const referal_name = {
 const referal_email = {
     validators: {
         notEmpty:{
-            message: 'Referable Email is required'
+            message: 'Referable Email is required',
+            callback: function(input) {
+                return !!input.value;
+            },
         }
     }
 }
@@ -80,7 +87,10 @@ const referal_email = {
 const referal_phone = {
     validators:{
         notEmpty:{
-            message: 'Referable phone is required'
+            message: 'Referable phone is required',
+            callback: function(input) {
+                return !!input.value;
+            },
         }
     }
 }
@@ -271,7 +281,7 @@ var KTWizard1 = function () {
                     police_report:{
                          validators: {
                             notEmpty: {
-
+                                message: "This field must be selected",
                                 callback: function(input) {
 									$("#policereport").text(input.value);
 									return !!input.value;
@@ -284,7 +294,7 @@ var KTWizard1 = function () {
                       is_travelling:{
                          validators: {
                             notEmpty: {
-
+                                message: "This field must be selected",
                                 callback: function(input) {
 									$("#istravelling").text(input.value);
 									return !!input.value;
@@ -308,9 +318,8 @@ var KTWizard1 = function () {
                       working_days:{
                          validators: {
                             notEmpty: {
-
+                                message: "Working days must be selected",
                                 callback: function(input) {
-
                                     const subArray = JSON.parse(input.value);
 				                    subArray.forEach((element,index) => {
 						            $("#workingdays").append(element.value + ",");
@@ -348,7 +357,10 @@ var KTWizard1 = function () {
                     profile: {
                         validators: {
                             notEmpty: {
-                                message: 'Profile image is required'
+                                message: 'Profile image is required',
+                                callback: function(input) {
+                                    return !!input.value;
+                                },
                             }
                         }
                     },
@@ -393,7 +405,7 @@ var KTWizard1 = function () {
                             notEmpty: {
                                 message: 'Parishes is required',
                                 callback: function(input) {
-									$("#workingPerishId").text(input.value);
+									$("#workingPerishId").text($("select[name='cities'] option:selected").text());
 									return !!input.value;
 								},
                             }
@@ -414,9 +426,8 @@ var KTWizard1 = function () {
                             notEmpty: {
                                 message: 'City is required',
                                 callback: function(input) {
-
 									$("#workingCityId").text($("select[name='cities'] option:selected").text());
-									return workingEqualsUser() || !!input.value;
+									return !!input.value;
 								},
                             }
                         }
@@ -424,7 +435,7 @@ var KTWizard1 = function () {
                     house_number:
                     {
                         validators: {
-							checkIfRequired: {
+							notEmpty: {
 								callback: function(input) {
 									$("#workingHouseNumberId").text(input.value);
 								},
@@ -435,7 +446,10 @@ var KTWizard1 = function () {
                     loccountry: {
                         validators: {
                             notEmpty: {
-                                message: 'Country is required'
+                                message: 'Country is required',
+                                callback: function(input) {
+                                    return !!input.value;
+                                },
                             }
                         }
                     }

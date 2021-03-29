@@ -1,6 +1,14 @@
 @extends('layouts.app')
 @section('content')
-
+@if(!empty(auth()->user()->city->name))
+<script>
+var cityId = {{ auth()->user()->city->id }};
+</script>
+@else
+<script>
+var cityId = '';
+</script>
+@endif
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
 <!-- <div class="container"> -->
@@ -470,7 +478,7 @@
                                 <select class="form-control select2" id="userParishSelect" name="parish">
                                     <option label=""></option>
                                     @foreach($parishes as $parish)
-                                    <option value="{{ $parish->id }}">
+                                    <option value="{{ $parish->id }}"{{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
                                         {{ $parish->name }}
                                     </option>
                                     @endforeach
