@@ -98,21 +98,21 @@
                     <h3>Place a project</h3>
                     <p class="mb-0">
                         Placing your project is very easy and can be accoplished in few steps.
-                        All your have to give is your project information.
+                        Simply provide us information on your project requirements
                     </p>
                 </div>
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i data-feather="list"></i></div>
                     <h3>Track your project</h3>
                     <p class="mb-0">
-                        Once your are sighned up with us, all of your project can be tracked and status can be viewed in the dashboard.
+                        Once signed up with us all your projects can be tracked and their status viewed from the dashboard.
                     </p>
                 </div>
                 <div class="col-lg-4">
                     <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i data-feather="edit"></i></div>
                     <h3>Review our services</h3>
                     <p class="mb-0">
-                        Your review & feedback is very important for us to improve and to make our system more better in future.
+                        Your reviewes and feedbacks are very important for continued improvement of oursystems and provide excellent service to you our clients and the professionals that service your needs.
                     </p>
                 </div>
             </div>
@@ -276,7 +276,7 @@
                             <div class="testimonial-brand text-gray-400">
                                 <img src="{{asset('images/cumbv-logo.png')}}" width="200px">
                             </div>
-                            <p class="testimonial-quote text-primary">&quot;We are pleased to have a partnership with FixijJA and their dedication to create a new oppurtunity to skilled workers and also for the public to easily accomplish their work.&quot;</p>
+                            <p class="testimonial-quote text-primary">&quot;We are pleased to have a partnership with FixijJA  and salute their dedication to creating new opportunities for skilled workers while improving the wayconsumers repair needs are met.&quot;</p>
                             <div class="testimonial-name">Claude Powell</div>
                             <div class="testimonial-position">Business Development Manager</div>
                         </div>
