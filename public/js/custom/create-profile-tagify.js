@@ -1,10 +1,12 @@
 
+ subcatid =  document.getElementById('subcatid').value;
 
 
 
 function bindSubCat1(data, subcat) {
 
        var toEl = document.getElementById(subcat);
+       console.log(toEl);
         var tagifyTo = new Tagify(toEl, {
         delimiters: ", ", // add new tags when a comma or a space character is entered
         maxTags: 10,
@@ -39,8 +41,16 @@ function bindSubCat1(data, subcat) {
             classname: "color-blue",
             enabled: 0,
             maxItems: 5
-        }
+        },
+
+       
+
+       
     });
+
+  
+
+     
    
    
     

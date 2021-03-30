@@ -280,13 +280,17 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Category</label>
-                                                    <select name="skills_category" subcatid="kt_tagify_subcategory{{ $loop->index}}"
-                                                        id="selected_catgeory1{{ $loop->index }}"
+                                                    <select name="skills_category" subcatid="kt_tagify_subcategory{{ $loop->index ? : ''}}"
+                                                        id="selected_catgeory1{{ $loop->index ? : '' }}"
                                                         class="form-control form-control-solid form-control-lg category-select">
                                                     
                                                         
                                                         <option value="{{$subcats['category']['category_id'] ? 'selected' : ''}}">{{  ucwords($subcats['category']['category_name']) }}
                                                         </option>
+                                                         @foreach ($category as $cate)
+                                                        <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
+                                                        </option>
+                                                        @endforeach
                                                        
                                                         
                                                     </select>
@@ -298,15 +302,18 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                 @foreach($subcats['subcategory'] as $subs)
                                                 <div class="form-group">
                                                     <label>Sub category</label>
+                                                    <input id="subcatid" type="text" value="{{ $subs->id }}" hidden />
                                                     
                                                     <div id="divTagifykt_tagify_subcategory">
                                                      
-                                                        <input id="kt_tagify_subcategory_data" class="form-control" name="sub_categories" placeholder="Add sub-categories" value="{{ $subs->name }}">
+                                                        <input id="kt_tagify_subcategory" class="form-control" name="sub_categories" placeholder="Add sub-categories" value="{{  $subs['name'] }}">
                                                         <div class="mt-3 text-muted">Select multiple
                                                             subcategories. If you donot see
                                                             your option just create one.</div>
                                                     
                                                     </div>
+
+                                                    
                                                 </div>
                                                 @endforeach
 
@@ -390,12 +397,12 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             
                             @foreach(auth()->user()->allCategories() as $category)
                             <div class="card-body" id="">
-                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordionCertificate">
+                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordionCertificate{{ $loop->index}}">
                                     <div class="card">
                                         <div class="card-header">
                                             <div class="card-title" data-toggle="collapse" data-target="#collapseCert"
-                                                id="selectedCategory">
-                                                <p id="certificateCategoryTitle">{{   ucwords($category['category']['category_name']) }}</p>
+                                                id="">
+                                                <p id="">{{   ucwords($category['category']['category_name']) }}</p>
                                             </div>
                                         </div>
                                         @foreach(auth()->user()->documents as $document)
@@ -405,21 +412,29 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                 <div class="form-group row">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Certificate
                                                         (PDF, DOC, JPEG, PNG)
+                                                         
                                                         <div class="col-md-12">
+                                                          <h4 class="font-weight-bold">
+                                         {{ !empty($document->where('type', 'certificate')->first()) ? asset('storage/' . $documents->where('type', 'certificate')->first()->path) : '' }}
+                                    </h4>
+                                                        
                                                             <div class="dropzone dropzone-default dropzone-primary">
+                                                            <button> {{ asset('storage/certificates'.$document->path) }}</button>
                                                                 <div class="dropzone-msg dz-message needsclick"><input
                                                                         id="certificateFile" type="file"
-                                                                        category="category-name" value="{{ asset('storage/'.$document->path) }}"
+                                                                        category="category-name" value="{{ asset('storage/'. $document->path) }}"
                                                                         accept=".png, .jpg, .jpeg, .pdf, .docx"></div>
                                                             </div>
+                                                           
                                                         </div>
+                                                        
                                                     </label class="col-form-label">
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Experience
-                                                        <input type="text" id="certificateExp" class="form-control"
+                                                        <input type="text" id="" class="form-control"
                                                             category="category-name" type="number" placeholder="Years"
-                                                            value="">
+                                                            value="{{ auth()->user()->experience}}">
                                                     </label>
                                                 </div>
 
@@ -453,6 +468,10 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Certificate
                                                         (PDF, DOC, JPEG, PNG)
                                                         <div class="col-md-12">
+                                                         <h4 class="font-weight-bold">
+                                                         </h4>
+                                        
+                                    </h4>
                                                             <div class="dropzone dropzone-default dropzone-primary">
                                                                 <div class="dropzone-msg dz-message needsclick"><input
                                                                         id="certificateFile" type="file"
@@ -692,15 +711,22 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="col-9 col-form-label">10. What are the days you are working?
                                 </label>
+                                
+    
+
+                                
                                 <div class="col-9 col-form-label">
+                               
                                     <div class="checkbox-inline">
 
                                         <input id="kt_tagify_workingdays" class="form-control" name="working_days"
-                                            placeholder="Add sub-categories">
+                                            placeholder="Add sub-categories" value="{{ auth()->user()->days }}">
                                         <div class="mt-3 text-muted">Select multiple days. If you don't see
                                             your option just create one.</div>
                                     </div>
+                                     
                                 </div>
+                               
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="col-9 col-form-label">11. Are you willing to travel long distance?</label>
