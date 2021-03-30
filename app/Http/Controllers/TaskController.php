@@ -195,7 +195,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
     public function assignedBy($id)
     {

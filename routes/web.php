@@ -51,7 +51,7 @@ Route::prefix('/sub_category')->group(function () {
 });
 Route::get('/tasks', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
 Route::prefix('/task')->group(function () {
-    Route::get('/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
+    Route::get('/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth', 'relatedTaskOnly')->name('viewTask');
     Route::get('/{id}/edit', [App\Http\Controllers\TaskController::class, 'edit'])->middleware('auth')->name('editTask');
     Route::put('/{id}/edit/creator', [App\Http\Controllers\TaskController::class, 'editTaskCreator'])->middleware('auth')->name('editTaskCreator');
     Route::put('/{id}/edit/detail', [App\Http\Controllers\TaskController::class, 'editTaskDetails'])->middleware('auth')->name('editTaskDetails');
