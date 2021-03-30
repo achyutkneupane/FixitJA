@@ -18,16 +18,18 @@ const skills_category = {
 
 const sub_categories = {
     validators: {
-        notEmpty: {
-            message: 'Sub-category is required',
-            callback: function(input) {
-                const subArray = JSON.parse(input.value);
-                subArray.forEach((element,index) => {
-                    $("#skill").append(element.value + ",");
-                });
-                return !!input.value;
-            },
-        }
+		notEmpty: {
+			message: 'Sub-Category is required',
+			callback: function(input) {
+				if(input.value.length > 0) {
+					const subArray = JSON.parse(input.value);
+					subArray.forEach((element,index) => {
+                        $("#skill").append(element.value + ", ");
+					});
+				}
+				return !!input.value;
+			},
+		}
     }
 }
 

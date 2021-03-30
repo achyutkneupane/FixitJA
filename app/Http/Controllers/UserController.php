@@ -341,7 +341,6 @@ class UserController extends Controller
             $user->emails()->create($email);
             return redirect()->back();
         } catch (Throwable $e) {
-            dd($e);
             LogHelper::store('Category', $e);
             return redirect()->back();
         }
@@ -509,7 +508,6 @@ class UserController extends Controller
             $user->save();
             ToastHelper::showToast('Profile has been updated');
         } catch (Throwable $e) {
-            dd($e);
             ToastHelper::showToast('Profile cannot be updated.', 'error');
             LogHelper::store('User', $e);
         }
