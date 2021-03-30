@@ -304,9 +304,9 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <label>Sub category</label>
                                                     <input id="subcatid" type="text" value="{{ $subs->id }}" hidden />
                                                     
-                                                    <div id="divTagifykt_tagify_subcategory">
+                                                    <div id="divTagifykt_tagify_subcategory{{ $loop->index }}">
                                                      
-                                                        <input id="kt_tagify_subcategory" class="form-control" name="sub_categories" placeholder="Add sub-categories" value="{{  $subs['name'] }}">
+                                                        <input id="kt_tagify_subcategory" subid = "kt_tagify_subcategory{{ $loop->index}}" class="form-control" name="sub_categories" placeholder="Add sub-categories" value="{{  $subs['name'] }}">
                                                         <div class="mt-3 text-muted">Select multiple
                                                             subcategories. If you donot see
                                                             your option just create one.</div>
@@ -720,12 +720,14 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                     <div class="checkbox-inline">
 
                                         <input id="kt_tagify_workingdays" class="form-control" name="working_days"
-                                            placeholder="Add sub-categories" value="{{ auth()->user()->days }}">
+                                            placeholder="Add sub-categories" value="{{ auth()->user()->days  ? : '' }}">
                                         <div class="mt-3 text-muted">Select multiple days. If you don't see
                                             your option just create one.</div>
                                     </div>
                                      
                                 </div>
+                                
+
                                
                             </div>
                             <div class="form-group fv-plugins-icon-container">
