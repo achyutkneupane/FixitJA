@@ -51,7 +51,10 @@ Route::prefix('/sub_category')->group(function () {
 });
 Route::get('/tasks', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
 Route::prefix('/task')->group(function () {
-    Route::get('/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
+    Route::get('/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth', 'relatedTaskOnly')->name('viewTask');
+    Route::get('/{id}/edit', [App\Http\Controllers\TaskController::class, 'edit'])->middleware('auth')->name('editTask');
+    Route::put('/{id}/edit/creator', [App\Http\Controllers\TaskController::class, 'editTaskCreator'])->middleware('auth')->name('editTaskCreator');
+    Route::put('/{id}/edit/detail', [App\Http\Controllers\TaskController::class, 'editTaskDetails'])->middleware('auth')->name('editTaskDetails');
     Route::get('/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth')->name('taskAssignedBy');
     Route::get('/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth')->name('taskAssignedTo');
 });
@@ -91,11 +94,11 @@ Route::prefix('/security')->middleware('auth')->group(function () {
 });
 Route::get('/edittask/{taskid}',[App\Http\Controllers\MainController::class, 'edittask']);
 Route::prefix('/project/create')->group(function(){
-    Route::get('/', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
-    Route::get('/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProjectwithCat'])->name('createProjectWithCat');
-    Route::get('/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
-    Route::post('/', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
-    Route::post('/form', [App\Http\Controllers\MainController::class, 'categoryRequest'])->name('categoryRequest');
+    Route::get('/', [App\Http\Controllers\TaskController::class, 'create'])->name('createProject');
+    Route::get('/categoryId/{catId}', [App\Http\Controllers\TaskController::class, 'createProjectwithCat'])->name('createProjectWithCat');
+    Route::get('/subCategoryId/{subCatId}', [App\Http\Controllers\TaskController::class, 'createProjectwithSub'])->name('createProjectWithSub');
+    Route::post('/', [App\Http\Controllers\TaskController::class, 'store'])->name('addProject');
+    Route::post('/form', [App\Http\Controllers\TaskController::class, 'categoryRequest'])->name('categoryRequest');
 });
 Route::get('/review', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReviews');
 Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferrals');

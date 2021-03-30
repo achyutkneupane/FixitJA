@@ -194,14 +194,20 @@ class User extends Authenticatable
     {
         $subcategories = $this->subcategories;
         $catData = collect([]);
+        $count = 0;
         foreach ($subcategories as $subcategory) {
-            $cat = CacheHelper::subcategory($subcategory);
+            $category = $subcategory->category;
+            $cat = ['category_id' => $category->id, 'category_name' => $category->name];
             if ($catData->has('cat_' . $cat['category_id'])) {
                 $updateCat = $catData->get('cat_' . $cat['category_id']);
                 $updateCat['subcategory'][] = $subcategory;
                 $catData->put('cat_' . $cat['category_id'], $updateCat);
             } else {
-                $catValue = ['category' => $cat, 'subcategory' => [$subcategory]];
+                $catValue = ['category' => $cat,
+                             'subcategory' => [$subcategory],
+                             'document' => Document::where('type','certificate'.$count++)
+                                                   ->first(['path','experience'])
+                            ];
                 $catData->put('cat_' . $cat['category_id'], $catValue);
             }
         }

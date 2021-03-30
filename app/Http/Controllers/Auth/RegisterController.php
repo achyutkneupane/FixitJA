@@ -107,7 +107,6 @@ class RegisterController extends Controller
         try {
             MailController::sendVerifyEmail($user->name, $request->email, $user->verification_code);
         } catch (\Throwable $t) {
-            dd($t);
             LogHelper::store('Register', $t);
         }
         Auth::login($user);

@@ -5,6 +5,7 @@
     @php
 
     $page_title = 'Task Assigned To';
+    $taskAssignedToIsActive = 'true';
     @endphp
     <div class="row">
 
@@ -13,6 +14,7 @@
         <div class="col-lg-8">
             <div class="card card-custom">
                 <div class="card-body">
+                    @if($task->assignedBy->count() != 0)
                     @foreach ($task->assignedTo as $user)
                         @if ($loop->odd)
                             <div class="form-group row">
@@ -24,6 +26,11 @@
                 </div>
                 @endif
                 @endforeach
+                @else
+                <h3 class="text-center">
+                    Task has not been assigned to anyone.
+                </h3>
+                @endif
             </div>
         </div>
     </div>

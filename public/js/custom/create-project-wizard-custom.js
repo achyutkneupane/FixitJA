@@ -1,7 +1,6 @@
 // By Achyut Neupane
 
 "use strict";
-
 var CategoryProjectWizardFV;
 const skills_category_project_wizard = {
     validators: {
@@ -20,15 +19,22 @@ const sub_categories_project_wizard = {
 		checkIfRequired: {
 			message: 'Sub-Category is required',
 			callback: function(input) {
-				const subArray = JSON.parse(input.value);
-				subArray.forEach((element,index) => {
-						$("#subCatsId").append(element.value + "<br>");
-				});
+				if(input.value.length > 0) {
+					const subs = JSON.parse(input.value);
+					subs.forEach((element,index) => {
+						if(index == subs.length-1)
+							$("#subCatsId").append(element.value + "<br>");
+						else
+							$("#subCatsId").append(element.value + ", ");
+					});
+				}
 				return !!input.value;
 			},
 		}
     }
 }
+
+
 
 // Class definition
 var KTWizard1 = function () {
