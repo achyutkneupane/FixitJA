@@ -15,13 +15,16 @@ if($("select[id='userParishSelect'] option:selected").val()) {
     var parish_id = $("select[id='userParishSelect']").val();
     getCities(field,parish_id,cityId);
 }
-else {
-    $(document).on('change', '#userParishSelect', function (e) {
-        const field = $("#userCitySelect");
-        field.html('<option label=""></option>');
-        var parish_id = $(this).val();
-        getCities(field,parish_id);
-    });
+$(document).on('change', '#userParishSelect', function (e) {
+    const field = $("#userCitySelect");
+    field.html('<option label=""></option>');
+    var parish_id = $(this).val();
+    getCities(field,parish_id);
+});
+if($("select[id='workingParishSelect'] option:selected").val()) {
+    const field = $("#workingCitySelect");
+    var parish_id = $("select[id='workingParishSelect']").val();
+    getCities(field,parish_id,workingCityId);
 }
 $(document).on('change', '#workingParishSelect', function (e) {
     const field = $("#workingCitySelect");
