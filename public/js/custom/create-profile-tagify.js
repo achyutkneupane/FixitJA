@@ -93,7 +93,7 @@ function getSubCatData(categoryId, subcatid) {
             
         }
     });
-
+     console.log(subid)
      if (sessionSubCatId) {
          console.log(sessionSubCatId);
         data.forEach((element, index) => {

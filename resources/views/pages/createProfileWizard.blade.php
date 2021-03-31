@@ -268,7 +268,6 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <!--begin::Accordion-->
                                 @if(auth()->user()->allCategories()->count() != 0)
                                 @foreach(auth()->user()->allCategories() as $subcats)
-
                                
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_category{{ $loop->index }}">
                                     <div class="card card-category-accordion" id="categoryCard">
@@ -283,6 +282,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Category</label>
+                                                
                                                     <select name="skills_category" subcatid="kt_tagify_subcategory"
                                                         id="selected_catgeory1"
                                                         class="form-control form-control-solid form-control-lg category-select">
@@ -315,10 +315,11 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                             your option just create one.</div>
                                                     
                                                     </div>
-                                                     
+                                                    
 
                                                     
                                                 </div>
+                                                    
                                                
 
                                             </div>
