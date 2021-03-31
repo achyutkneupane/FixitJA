@@ -162,6 +162,8 @@ class UserController extends Controller
                     $user_subcategories->push(SubCategory::find($subCat->id));
             }
          }
+       
+  
          //dd($user_subcategories);
          if (request('profile')) {
                 $tempPath = "";
@@ -173,6 +175,7 @@ class UserController extends Controller
                 $document->path = request('profile')->store('userprofile');
                 $document->type = 'profile_picture';
                 $document->user()->associate($user->id);
+                
                 $document->save();
                 if ($tempPath)
                     Storage::delete($tempPath);
@@ -203,20 +206,31 @@ class UserController extends Controller
                     Storage::delete($tempPath);
             }
 
-            /* refernce */
+            /* experience */
             $Experience = "[".$request->totalCertificateList."]";
             $Experience1 = str_replace('},]','}]',$Experience );
-            
-            $skills_experince = new Collection();
-            foreach(json_decode($Experience1) as $experienceArray){
+         
+            /*foreach(json_decode($Experience1) as $experienceArray){
+
+                $document = new Document();
+                $id = $experienceArray->fieldId;
+                
+                $experience_new = 'experience'.$id;
+                
+                $document->experience = request($experience_new);
+                $document->save();
                
-                $new_experience = 'experience'. $experienceArray->fieldId;
-                $exp_id = $experienceArray->fieldId;
-                $experince_new = 'experience'.$id;
+                
+               
+                
+                
+                
                 
                 
               
-        }
+        }*/
+            
+        
 
             
 
@@ -292,7 +306,7 @@ class UserController extends Controller
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
-          $user->experience = request($experince_new);
+          
           
           //$user->experience()->attach($skills_experince);
         
@@ -352,7 +366,6 @@ class UserController extends Controller
             $user->emails()->create($email);
             return redirect()->back();
         } catch (Throwable $e) {
-            dd($e);
             LogHelper::store('Category', $e);
             return redirect()->back();
         }
@@ -520,7 +533,6 @@ class UserController extends Controller
             $user->save();
             ToastHelper::showToast('Profile has been updated');
         } catch (Throwable $e) {
-            dd($e);
             ToastHelper::showToast('Profile cannot be updated.', 'error');
             LogHelper::store('User', $e);
         }

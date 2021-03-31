@@ -4,6 +4,7 @@
     var sessionCatId, sessionSubCatId;
 
 </script>
+
 @if(!empty(session()->get('catId')))
 <script>
     var sessionCatId = {
@@ -267,21 +268,21 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <!--begin::Accordion-->
                                 @if(auth()->user()->allCategories()->count() != 0)
                                 @foreach(auth()->user()->allCategories() as $subcats)
-                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_category{{ $loop->index}}">
+                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_category{{ $loop->index }}">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
                                             <div class="card-title" data-toggle="collapse" data-target="#collapse1">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
                                                 <span class="category-title"
-                                                    id="categoryTitleselected_catgeory1{{ $loop->index}}">{{ ucwords($subcats['category']['category_name']) }}</span>
+                                                    id="categoryTitleselected_catgeory1">{{ ucwords($subcats['category']['category_name']) }}</span>
                                             </div>
                                         </div>
                                         <div id="collapse1" class="collapse show" data-parent="#accordionExample3">
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Category</label>
-                                                    <select name="skills_category" subcatid="kt_tagify_subcategory{{ $loop->index ? : ''}}"
-                                                        id="selected_catgeory1{{ $loop->index ? : '' }}"
+                                                    <select name="skills_category" subcatid="kt_tagify_subcategory"
+                                                        id="selected_catgeory1"
                                                         class="form-control form-control-solid form-control-lg category-select">
                                                     
                                                         
@@ -299,23 +300,24 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                 
                                                 <!--end::Select-->
                                                 <!--begin::Select-->
-                                                @foreach($subcats['subcategory'] as $subs)
+                                                
                                                 <div class="form-group">
                                                     <label>Sub category</label>
-                                                    <input id="subcatid" type="text" value="{{ $subs->id }}" hidden />
                                                     
-                                                    <div id="divTagifykt_tagify_subcategory{{ $loop->index }}">
+                                                    
+                                                    <div id="divTagifykt_tagify_subcategory">
                                                      
-                                                        <input id="kt_tagify_subcategory" subid = "kt_tagify_subcategory{{ $loop->index}}" class="form-control" name="sub_categories" placeholder="Add sub-categories" value="{{  $subs['name'] }}">
+                                                        <input id="kt_tagify_subcategory"  class="form-control" name="sub_categories" placeholder="Add sub-categories" value="">
                                                         <div class="mt-3 text-muted">Select multiple
                                                             subcategories. If you donot see
                                                             your option just create one.</div>
                                                     
                                                     </div>
+                                                     
 
                                                     
                                                 </div>
-                                                @endforeach
+                                               
 
                                             </div>
                                         </div>

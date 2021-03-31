@@ -6,9 +6,9 @@
         <div class="card-body pt-15">
             <!--begin::User-->
             <div class="mb-10">
-                <h4 class="font-weight-bold my-2">Task Detail</h4>
+                <h4 class="font-weight-bold my-2">{{ ucwords($task->name) }}</h4>
                 <div class="text-muted mb-6">Task Id: {{ $task->id }}</div>
-                @if (!empty($task->related_tasks()))
+                @if ($task->related_tasks()->count() != 0)
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold">Related Tasks:</span>
                         <span class="text-muted text-right">
@@ -26,10 +26,6 @@
                         </span>
                     </div>
                 @endif
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="font-weight-bold">Name:</span>
-                    <span class="text-muted">{{ ucwords($task->name) }}</span>
-                </div>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold">Status:</span>
                     <span class="text-muted">{{ ucwords($task->status) }}</span>
@@ -62,15 +58,15 @@
             <!--end::User-->
             <!--begin::Nav-->
             <a href="{{ route('viewTask', $task->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block active">
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskOverviewIsActive) ? 'active' : '' }}">
                 Task Overview
             </a>
             <a href="{{ route('taskAssignedBy', $task->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskAssignedByIsActive) ? 'active' : '' }}">
                 Assigned By
             </a>
             <a href="{{ route('taskAssignedTo', $task->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskAssignedToIsActive) ? 'active' : '' }}">
                 Assigned To
             </a>
             <!--end::Nav-->

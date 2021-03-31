@@ -90,8 +90,18 @@ function getSubCatData(categoryId, subcatid) {
                 subcategory.push(itemObj);
             });
              bindSubCat1(subcategory, subcatid);
+            
         }
     });
+
+     if (sessionSubCatId) {
+         console.log(sessionSubCatId);
+        data.forEach((element, index) => {
+            if (element.id === sessionSubCatId) { 
+                tagifyTo.addTags([element]);
+            }
+        });
+    }
     
 
 
@@ -102,6 +112,8 @@ function getSubCatData(categoryId, subcatid) {
 /* settign fetch data into tagify*/
 var  data = document.getElementById('kt_tagify_subcategory');
         var tagifyfetch = new Tagify(data, {
+
+        
         delimiters: ", ", // add new tags when a comma or a space character is entered
         maxTags: 10,
         blacklist: ["fuck", "shit", "pussy"],
@@ -141,6 +153,8 @@ var  data = document.getElementById('kt_tagify_subcategory');
 
        
     });
+
+    
 
 
 
