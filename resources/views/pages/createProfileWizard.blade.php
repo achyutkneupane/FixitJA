@@ -268,6 +268,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <!--begin::Accordion-->
                                 @if(auth()->user()->allCategories()->count() != 0)
                                 @foreach(auth()->user()->allCategories() as $subcats)
+
+                               
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_category{{ $loop->index }}">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
