@@ -189,10 +189,10 @@ class UserController extends Controller
             $skills_certificate = new Collection();
             $skills_experince = new Collection();
             foreach(json_decode($Certificate1) as $certificateArray){
-               
                 $document = new Document();
                 $tempPath = "";
                 $id = $certificateArray->fieldId;
+                $experience = 'experience'.$id;
                 if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first())) {
                     $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first();
                     $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first()->path;
@@ -200,49 +200,12 @@ class UserController extends Controller
                 $certificate_new = 'certificate'.$id;
                 $document->path = request($certificate_new)->store('certificates');
                 $document->type = 'certificate'.$id;
+                $document->experience = $request->$experience;
                 $document->user()->associate($user->id);
                 $document->save();
                 if ($tempPath)
                     Storage::delete($tempPath);
             }
-
-            /* experience */
-            $Experience = "[".$request->totalCertificateList."]";
-            $Experience1 = str_replace('},]','}]',$Experience );
-         
-            /*foreach(json_decode($Experience1) as $experienceArray){
-
-                $document = new Document();
-                $id = $experienceArray->fieldId;
-                
-                $experience_new = 'experience'.$id;
-                
-                $document->experience = request($experience_new);
-                $document->save();
-               
-                
-               
-                
-                
-                
-                
-                
-              
-        }*/
-            
-        
-
-            
-
-
-
-            
-
-        
-
-        
-           
-
 
             /* Reference */
             $Refernces = "[".$request->totalRefList."]";
