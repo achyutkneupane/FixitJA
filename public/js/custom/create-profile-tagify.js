@@ -117,7 +117,7 @@ function getSubCatData(categoryId, subcatid) {
 /* settign fetch data into tagify*/
 var  data = document.getElementById('kt_tagify_subcategory');
 
-console.log(sessionsubCatsId);
+
         var tagifyfetch = new Tagify(data, {
 
         
@@ -160,6 +160,46 @@ console.log(sessionsubCatsId);
 
        
     });
+
+    $(document).on('change','.category-select', function (e) {
+    e.stopImmediatePropagation();
+    e.preventDefault();
+    var subcatid = this.getAttribute('subcatid');
+    console.log(subcatid);
+    if($('#divTagify'+subcatid+'').find('tags').length > 0){
+        $('#divTagify'+subcatid+'').find('tags').remove();
+    }
+
+    var category_id = $(this).val();
+    getSubCatData(category_id, subcatid);
+});
+
+
+function getSubCatData(categoryId, subcatid) {
+    var subcategory = new Array();
+    $.ajax({
+        type: "GET",
+        url: '/api/category/' + categoryId,
+        dataType: 'json',
+        success: function (result) {
+            $.each(result, function (index, item) {
+                var itemObj = {};
+                itemObj.value = item.name;
+                itemObj.description = item.description;
+                itemObj.id = item.id;
+                itemObj.initials = '',
+                itemObj.initialsState = '',
+                itemObj.id = item.id,
+                itemObj.class = 'tagify__tag--primary'
+                subcategory.push(itemObj);
+            });
+             bindSubCat1(subcategory, subcatid);
+            
+            
+        }
+          
+    });
+}
 
     
 

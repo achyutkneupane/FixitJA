@@ -135,7 +135,7 @@ class UserController extends Controller
     public function addprofiledetails(Request $request)
     {
         try {
-            // dd($request->all());
+
             
              $user  = new User();
              $user  = User::find(Auth::user()->id);
@@ -165,7 +165,7 @@ class UserController extends Controller
          }
        
   
-         //dd($user_subcategories);
+        /* Storing Profile Picture */
          if (request('profile')) {
                 $tempPath = "";
                 $document = new Document();
@@ -184,7 +184,7 @@ class UserController extends Controller
 
            
 
-            /* for certificate*/
+            /* Storing certificate*/
             $Certificate = "[".$request->totalCertificateList."]";
             $Certificate1 = str_replace('},]','}]',$Certificate);
             $skills_certificate = new Collection();
@@ -208,7 +208,7 @@ class UserController extends Controller
                     Storage::delete($tempPath);
             }
 
-            /* Reference */
+            /*  storing Reference */
             $Refernces = "[".$request->totalRefList."]";
             $Refernces1 = str_replace('},]','}]',$Refernces);
             $user_references= new Collection();
@@ -228,11 +228,7 @@ class UserController extends Controller
                 $references->save();
                 
             }
-
-
-
-          
-
+            /*inserting Education qualification */
             $education = [
             'education_institution_name' => $request->educationinstutional_name,
             'degree' => $request->degree,
@@ -240,10 +236,9 @@ class UserController extends Controller
             'end_date' => $request->end_date,
             ];
             $user->educations()->create($education);
-            // $reference = [
-            //     'refname' =>
-            // ];
-            // $user->references()->create($reference);
+             
+
+            /* Storing radio button value */
             if ($request->police_report == "1") {
                 $user->is_police_record = 1;
             } elseif ($request->police_report == "0") {
@@ -270,11 +265,6 @@ class UserController extends Controller
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
-          
-          
-          //$user->experience()->attach($skills_experince);
-        
-         
           $user->street_01 = $request->street;
           $user->street_02 = $request->house_number;
           $user->city_id = $request->cities;
@@ -595,10 +585,5 @@ class UserController extends Controller
         $user = User::find($id);
         return view('admin.profile.reference', compact('user'));
     }
-    public function createProfilewithSub($subCatId)
-    {
-        if(!empty($subCatId))
-            session()->flash('subCatId',$subCatId);
-        return redirect()->route('ProfileWizard');
-    }
+    
 }

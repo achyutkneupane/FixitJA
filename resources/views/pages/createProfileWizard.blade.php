@@ -1,11 +1,16 @@
 @extends('layouts.app')
 @section('content')
 <script>
-var sessionCatId,sessionSubCatsId;
+    var sessionCatId, sessionSubCatsId;
+
 </script>
 @if(!empty(session()->get('subcategory_id')))
 <script>
-var sessionsubCatsId = {{ session()->get('subcategory_id') }};
+    var sessionsubCatsId = {
+        {
+            session() - > get('subcategory_id')
+        }
+    };
 
 </script>
 @endif
@@ -242,32 +247,28 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                         <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                             <h3 class="font-weight-bold text-dark">Enter your up to 3 skill categories</h3>
 
-                            
+
                             <!--begin::Select-->
                             <div class="card-body">
-                           
+
 
                                 <!--begin::Accordion-->
                                 @if(auth()->user()->allCategories()->count() != 0)
+                                @foreach(auth()->user()->allCategories() as $subcats)
 
-                                @foreach(auth()->user()->allCategories() as $subcats) 
-                                  
                                 <div class="accordion accordion-solid accordion-toggle-plus"
-                                 
-                                    id="accordion_category{{ $loop->index }}">
+                                    id="accordion_category">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
-                                         SubCategory id : {{ session()->get('subcategory_id') }}
-                                         
-                                            <div class="card-title" data-toggle="collapse" data-target="#collapse1">
+                                           <div class="card-title" data-toggle="collapse" data-target="#collapse1">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
                                                 <span class="category-title"
-                                                    id="categoryTitleselected_catgeory1{{ $loop->index }}">{{ ucwords($subcats['category']['category_name']) }}</span>
+                                                    id="categoryTitleselected_catgeory1">{{ ucwords($subcats['category']['category_name']) }}</span>
                                             </div>
                                         </div>
-                                         
-                               
-                                
+
+
+
                                         <div id="collapse1" class="collapse show" data-parent="#accordionExample3">
                                             <div class="card-body">
                                                 <div class="form-group">
@@ -321,7 +322,10 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                         </div>
                                     </div>
                                 </div>
-                                @endforeach
+                                @endforeach  
+
+
+                                
                                 @else
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_category">
                                     <div class="card card-category-accordion" id="categoryCard">
