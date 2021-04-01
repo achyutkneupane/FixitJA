@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\CacheHelper;
@@ -65,7 +66,7 @@ class User extends Authenticatable
     }
     public function subcategories()
     {
-        return $this->belongsToMany(SubCategory::class, 'subcategory_user', 'user_id', 'sub_category_id')->limit(2);
+        return $this->belongsToMany(SubCategory::class, 'subcategory_user', 'user_id', 'sub_category_id');
         
     }
     public function emails()
@@ -199,17 +200,24 @@ class User extends Authenticatable
         $count = 0;
         foreach ($subcategories as $subcategory) {
             $category = $subcategory->category;
+            
+            
+        
             $cat = ['category_id' => $category->id, 'category_name' => $category->name];
+           
             if ($catData->has('cat_' . $cat['category_id'])) {
                 $updateCat = $catData->get('cat_' . $cat['category_id']);
                 $updateCat['subcategory'][] = $subcategory;
                 $catData->put('cat_' . $cat['category_id'], $updateCat);
+                
             } else {
                 $catValue = ['category' => $cat,
                              'subcategory' => [$subcategory],
                              'document' => Document::where('type','certificate'.$count++)
                                                    ->first(['path','experience'])
                             ];
+                session()->flash('subcategory_id', $subcategory->id);
+                        
                 $catData->put('cat_' . $cat['category_id'], $catValue);
             }
         }

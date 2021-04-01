@@ -1,32 +1,11 @@
 @extends('layouts.app')
 @section('content')
 <script>
-    var sessionCatId, sessionSubCatId;
-
+var sessionCatId,sessionSubCatsId;
 </script>
-
-@if(!empty(session()->get('catId')))
+@if(!empty(session()->get('subcategory_id')))
 <script>
-    var sessionCatId = {
-        {
-            session() - > get('catId')
-        }
-    };
-
-</script>
-@elseif(!empty(session()->get('subCatId')))
-<script>
-    var sessionCatId = 'NULL';
-    var sessionSubCatId = {
-        {
-            session() - > get('subCatId')
-        }
-    };
-    var sessionsubCatCatId = {
-        {
-            $subs - > find(session() - > get('subCatId')) - > category - > id
-        }
-    };
+var sessionsubCatsId = {{ session()->get('subcategory_id') }};
 
 </script>
 @endif
@@ -262,65 +241,81 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                         <!--begin::Wizard Step 1-->
                         <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                             <h3 class="font-weight-bold text-dark">Enter your up to 3 skill categories</h3>
+
+                            
                             <!--begin::Select-->
                             <div class="card-body">
-                            
+                           
+
                                 <!--begin::Accordion-->
                                 @if(auth()->user()->allCategories()->count() != 0)
-                                @foreach(auth()->user()->allCategories() as $subcats)
-                               
-                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_category{{ $loop->index }}">
+
+                                @foreach(auth()->user()->allCategories() as $subcats) 
+                                  
+                                <div class="accordion accordion-solid accordion-toggle-plus"
+                                 
+                                    id="accordion_category{{ $loop->index }}">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
+                                         SubCategory id : {{ session()->get('subcategory_id') }}
+                                         
                                             <div class="card-title" data-toggle="collapse" data-target="#collapse1">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
                                                 <span class="category-title"
-                                                    id="categoryTitleselected_catgeory1">{{ ucwords($subcats['category']['category_name']) }}</span>
+                                                    id="categoryTitleselected_catgeory1{{ $loop->index }}">{{ ucwords($subcats['category']['category_name']) }}</span>
                                             </div>
                                         </div>
+                                         
+                               
+                                
                                         <div id="collapse1" class="collapse show" data-parent="#accordionExample3">
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Category</label>
-                                                
+
                                                     <select name="skills_category" subcatid="kt_tagify_subcategory"
                                                         id="selected_catgeory1"
                                                         class="form-control form-control-solid form-control-lg category-select">
-                                                    
-                                                        
-                                                        <option value="{{$subcats['category']['category_id'] ? 'selected' : ''}}">{{  ucwords($subcats['category']['category_name']) }}
+
+
+                                                        <option
+                                                            value="{{$subcats['category']['category_id'] ? 'selected' : ''}}">
+                                                            {{  ucwords($subcats['category']['category_name']) }}
                                                         </option>
-                                                         @foreach ($category as $cate)
+                                                        @foreach ($category as $cate)
                                                         <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
                                                         </option>
                                                         @endforeach
-                                                       
-                                                        
+
+
                                                     </select>
                                                 </div>
 
-                                                
+
                                                 <!--end::Select-->
                                                 <!--begin::Select-->
-                                                
+
                                                 <div class="form-group">
                                                     <label>Sub category</label>
-                                                    
-                                                    
+
+
+
                                                     <div id="divTagifykt_tagify_subcategory">
-                                                     
-                                                        <input id="kt_tagify_subcategory"  class="form-control" name="sub_categories" placeholder="Add sub-categories" value="">
+
+                                                        <input id="kt_tagify_subcategory" class="form-control"
+                                                            name="sub_categories" placeholder="Add sub-categories"
+                                                            value="">
                                                         <div class="mt-3 text-muted">Select multiple
                                                             subcategories. If you donot see
                                                             your option just create one.</div>
-                                                    
-                                                    </div>
-                                                    
 
-                                                    
+                                                    </div>
+
+
+
                                                 </div>
-                                                    
-                                               
+
+
 
                                             </div>
                                         </div>
@@ -344,22 +339,23 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <select name="skills_category" subcatid="kt_tagify_subcategory"
                                                         id="selected_catgeory1"
                                                         class="form-control form-control-solid form-control-lg category-select">
-                                                    
+
                                                         @foreach ($category as $cate)
                                                         <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
                                                         </option>
                                                         @endforeach
-                                                        
+
                                                     </select>
                                                 </div>
 
-                                                
+
                                                 <!--end::Select-->
                                                 <!--begin::Select-->
                                                 <div class="form-group">
                                                     <label>Sub category</label>
                                                     <div id="divTagifykt_tagify_subcategory">
-                                                        <input id="kt_tagify_subcategory" class="form-control" name="sub_categories" placeholder="Add sub-categories">
+                                                        <input id="kt_tagify_subcategory" class="form-control"
+                                                            name="sub_categories" placeholder="Add sub-categories">
                                                         <div class="mt-3 text-muted">Select multiple
                                                             subcategories. If you donot see
                                                             your option just create one.</div>
@@ -371,7 +367,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 </div>
 
                                 @endif
-                               
+
 
 
 
@@ -384,7 +380,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <button type="button" name="add" id="add_btn" class="btn btn-success">Add More</button>'
                             <!--end::Select-->
                         </div>
-                        
+
                         <!--end::Wizard Step 1-->
 
                         <!--begin::Wizard Step 2-->
@@ -392,17 +388,17 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <h3 class="font-weight-bold text-dark">Upload certificate for each selected
                                 skill category/s</h3>
 
-                            
+
                             @if(auth()->user()->documents->count() != 0)
-                            
+
                             <div id="certificateSection">
-                            
+
 
                             </div>
-                            
+
                             @foreach(auth()->user()->allCategories() as $category)
                             <div class="card-body" id="">
-                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordionCertificate{{ $loop->index}}">
+                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordionCertificate">
                                     <div class="card">
                                         <div class="card-header">
                                             <div class="card-title" data-toggle="collapse" data-target="#collapseCert"
@@ -411,28 +407,29 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                             </div>
                                         </div>
                                         @foreach(auth()->user()->documents as $document)
-                                        <div id="collapseCert" class="collapse show"
-                                            data-parent="">
+                                        <div id="collapseCert" class="collapse show" data-parent="">
                                             <div class="card-body">
                                                 <div class="form-group row">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Certificate
                                                         (PDF, DOC, JPEG, PNG)
-                                                         
+
                                                         <div class="col-md-12">
-                                                          <h4 class="font-weight-bold">
-                                         {{ !empty($document->where('type', 'certificate')->first()) ? asset('storage/' . $documents->where('type', 'certificate')->first()->path) : '' }}
-                                    </h4>
-                                                        
+                                                            <h4 class="font-weight-bold">
+                                                                {{ !empty($document->where('type', 'certificate')->first()) ? asset('storage/' . $documents->where('type', 'certificate')->first()->path) : '' }}
+                                                            </h4>
+
                                                             <div class="dropzone dropzone-default dropzone-primary">
-                                                            <button> {{ asset('storage/certificates'.$document->path) }}</button>
+                                                                <button>
+                                                                    {{ asset('storage/certificates'.$document->path) }}</button>
                                                                 <div class="dropzone-msg dz-message needsclick"><input
                                                                         id="certificateFile" type="file"
-                                                                        category="category-name" value="{{ asset('storage/'. $document->path) }}"
+                                                                        category="category-name"
+                                                                        value="{{ asset('storage/'. $document->path) }}"
                                                                         accept=".png, .jpg, .jpeg, .pdf, .docx"></div>
                                                             </div>
-                                                           
+
                                                         </div>
-                                                        
+
                                                     </label class="col-form-label">
                                                 </div>
                                                 <div class="form-group">
@@ -449,14 +446,14 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                     </div>
                                 </div>
                             </div>
-                            
+
                             @endforeach
                             @else
                             <div id="certificateSection">
 
                             </div>
-                            
-                            
+
+
                             <div class="card-body" id="templateCertificate" style="display: none;">
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordionCertificate">
                                     <div class="card">
@@ -473,10 +470,10 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Certificate
                                                         (PDF, DOC, JPEG, PNG)
                                                         <div class="col-md-12">
-                                                         <h4 class="font-weight-bold">
-                                                         </h4>
-                                        
-                                    </h4>
+                                                            <h4 class="font-weight-bold">
+                                                            </h4>
+
+                                                            </h4>
                                                             <div class="dropzone dropzone-default dropzone-primary">
                                                                 <div class="dropzone-msg dz-message needsclick"><input
                                                                         id="certificateFile" type="file"
@@ -511,7 +508,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or
                                     University</label>
                                 <input type="text" class="form-control " name="educationinstutional_name"
-                                    placeholder="Name" value="@foreach(auth()->user()->educations as $education) {{ $education->education_institution_name}} @endforeach" />
+                                    placeholder="Name"
+                                    value="@foreach(auth()->user()->educations as $education) {{ $education->education_institution_name}} @endforeach" />
                                 @if ($errors->has('educationinstutional_name'))
                                 <span class="text-danger">{{ $errors->first('educationinstutional_name') }}</span>
                                 @endif
@@ -520,8 +518,12 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Degree</label>
 
-                                <select class="form-control" id="degree_wizard_profile" name="degree" value="{{old('degree')}}">
-                                    <option value="@foreach(auth()->user()->educations as $education) {{ $education->degree}} ? 'selected' :'' @endforeach">@foreach(auth()->user()->educations as $education) {{ $education->degree}} @endforeach</option>
+                                <select class="form-control" id="degree_wizard_profile" name="degree"
+                                    value="{{old('degree')}}">
+                                    <option
+                                        value="@foreach(auth()->user()->educations as $education) {{ $education->degree}} ? 'selected' :'' @endforeach">
+                                        @foreach(auth()->user()->educations as $education) {{ $education->degree}}
+                                        @endforeach</option>
                                     <option value="Secondary Level" id="type1">Secondary level</option>
                                     <option value="Higher Secondary Level" id="type2">Higher Secondary level
                                     </option>
@@ -539,7 +541,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
                                 <div class="col-10">
                                     <input class="form-control" type="date" value="" id="selectstartdate"
-                                        name="start_date" value="@foreach(auth()->user()->educations as $education) {{ $education->start_date }} @endforeach" />
+                                        name="start_date"
+                                        value="@foreach(auth()->user()->educations as $education) {{ $education->start_date }} @endforeach" />
                                 </div>
                                 <!--end::Form Group-->
                                 <!--begin::Form Group-->
@@ -547,8 +550,9 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                     <label class="font-size-h6 font-weight-bolder text-dark">End Date</label>
 
                                     <div class="col-10">
-                                        <input class="form-control" type="date" value="{{ auth()->user()->end_date }}" id="selectenddate"
-                                            name="end_date" value="@foreach(auth()->user()->educations as $education) {{ $education->end_date }} @endforeach" />
+                                        <input class="form-control" type="date" value="{{ auth()->user()->end_date }}"
+                                            id="selectenddate" name="end_date"
+                                            value="@foreach(auth()->user()->educations as $education) {{ $education->end_date }} @endforeach" />
                                     </div>
                                     <!--end::Form Group-->
                                     <!--end::Form Group-->
@@ -571,7 +575,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             @foreach (auth()->user()->references as $reference)
                             <div class="card-body">
                                 <!--begin::Accordion-->
-                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_reference{{ $loop->index }}">
+                                <div class="accordion accordion-solid accordion-toggle-plus"
+                                    id="accordion_reference{{ $loop->index }}">
                                     <div class="card card-reference-accordion" id="referenceCard1">
                                         <div class="card-header">
                                             <div class="card-title" data-toggle="collapse"
@@ -587,7 +592,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Referal
                                                         Name
                                                         <input type="text" id="refname" class="form-control" type="text"
-                                                            name="referal_name" placeholder="Referal Name" value="{{ $reference->refname }}">
+                                                            name="referal_name" placeholder="Referal Name"
+                                                            value="{{ $reference->refname }}">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
@@ -595,7 +601,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                         Email
                                                         <input type="email" id="refemail" class="form-control"
                                                             type="email" name="referal_email"
-                                                            placeholder="Referal Email" value="{{ $reference->refemail }}">
+                                                            placeholder="Referal Email"
+                                                            value="{{ $reference->refemail }}">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
@@ -603,7 +610,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                         Contact Number
                                                         <input type="text" id="refphone" class="form-control"
                                                             type="text" name="referal_phone"
-                                                            placeholder="Referal Contact Number" value="{{ $reference->refphone }}">
+                                                            placeholder="Referal Contact Number"
+                                                            value="{{ $reference->refphone }}">
                                                     </label>
                                                 </div>
 
@@ -617,7 +625,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             </div>
                             @endforeach
                             @else
-                             <div class="card-body">
+                            <div class="card-body">
                                 <!--begin::Accordion-->
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_reference">
                                     <div class="card card-reference-accordion" id="referenceCard1">
@@ -716,12 +724,12 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="col-9 col-form-label">10. What are the days you are working?
                                 </label>
-                                
-    
 
-                                
+
+
+
                                 <div class="col-9 col-form-label">
-                               
+
                                     <div class="checkbox-inline">
 
                                         <input id="kt_tagify_workingdays" class="form-control" name="working_days"
@@ -729,11 +737,11 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                         <div class="mt-3 text-muted">Select multiple days. If you don't see
                                             your option just create one.</div>
                                     </div>
-                                     
-                                </div>
-                                
 
-                               
+                                </div>
+
+
+
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="col-9 col-form-label">11. Are you willing to travel long distance?</label>
@@ -782,171 +790,169 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    </div>
-                        <!--end::wizard step 6-->
-
-                        <!--begin::wizard step 7-->
-                        <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
-                            <h3 class="mb-10 font-weight-bold text-dark">Enter your Address</h3>
-                            <!--begin::Select-->
-                            <div class="form-group fv-plugins-icon-container">
-                                <label>Parishes</label>
-                                <select class="form-control select2" id="userParishSelect" name="parish">
-                                    <option label=""></option>
-                                    @foreach($parishes as $parish)
-                                    <option value="{{ $parish->id }}"{{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
-                                        {{ $parish->name }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group fv-plugins-icon-container">
-                                <label>City</label>
-                                <select class="form-control select2" id="userCitySelect" name="cities">
-                                   
-
-                                </select>
-                            </div>
-                            <div class="form-group fv-plugins-icon-container">
-                                <label>Street</label>
-                                <input type="text" name="street" class="form-control" placeholder="Enter your street"
-                                    value="{{ auth()->user()->street_01}}" />
-                            </div>
-                            <div class="form-group fv-plugins-icon-container">
-                                <label>House Number or Unit (Optional)</label>
-                                <input type="text" name="house_number" class="form-control "
-                                    placeholder="Enter your House number" />
-                            </div>
-                            <div class="form-group fv-plugins-icon-container">
-                                <label> Postal Code (Optional)</label>
-                                <input type="text" name="postal_code" class="form-control"
-                                    placeholder="Enter your  Postal Code (Optional)" />
-                            </div>
-                        </div>
-                        <!--end:: wizard step 7-->
-
-                        <!--begin::wizard step 8-->
-                        <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
-                            <h3 class="mb-10 font-weight-bold text-dark">Plase Check all information before Submit</h3>
-                            <!--begin::Select-->
-                            <div class="form-group fv-plugins-icon-container">
-                                <div class="d-flex align-items-center justify-content-between mb-2 row">
-                                    <h3 class="col-md-12 my-3">Skill</h3>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Skills: </span>
-                                        <span class="text-muted" id='skill'></span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Experience: </span>
-                                        <span class="text-muted" id='experience'></span>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between mb-2 row">
-                                    <h3 class="col-md-12 my-3">Education</h3>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Education instutional name: </span>
-                                        <span class="text-muted" id='educationname'>N/A</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Degree: </span>
-                                        <span class="text-muted" id='educationdegree'>N/A</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Start Date: </span>
-                                        <span class="text-muted" id='educationstartdate'>N/A</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">End Date: </span>
-                                        <span class="text-muted" id='educationenddate'>N/A</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between mb-2 row">
-                                    <h3 class="col-md-12 my-3">Other Information</h3>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Police Report: </span>
-                                        <span class="text-muted" id='policereport'>N/A</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Description: </span>
-                                        <span class="text-muted" id='description'>N/A</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Working hours: </span>
-                                        <span class="text-muted" id='hours'>N/A</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Working days: </span>
-                                        <span class="text-muted" id='workingdays'></span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Is travelling?: </span>
-                                        <span class="text-muted" id='istravelling'>N/A</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-bold">Can travel total distance: </span>
-                                        <span class="text-muted" id='totaldistance'>N/A</span>
-                                    </div>
-                                </div>
-
-                                <div class="workingLocationReview" style="display:block;">
-                                    <div class="d-flex align-items-center justify-content-between mb-2 row">
-                                        <h3 class="col-md-12 my-3">Address</h3>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">City: </span>
-                                            <span class="text-muted" id='workingCityId'>N/A</span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Street Address 1: </span>
-                                            <span class="text-muted" id='workingStreet1Id'>N/A</span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Street Address 2: </span>
-                                            <span class="text-muted" id='workingStreet1Id'>N/A</span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">House Number: </span>
-                                            <span class="text-muted" id='workingHouseNumberId'>N/A</span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Postal Code: </span>
-                                            <span class="text-muted" id='workingPostalCodeId'>N/A</span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Perish: </span>
-                                            <span class="text-muted" id='workingPerishId'>N/A</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end:: wizard step 8-->
-
-                        <!--begin::Wizard Actions-->
-                        <div class="d-flex justify-content-between border-top mt-5 pt-10">
-                            <div class="mr-2">
-                                <button type="button"
-                                    class="btn btn-light-primary font-weight-bolder text-uppercase px-9 py-4"
-                                    data-wizard-type="action-prev">Previous</button>
-                            </div>
-                            <div>
-                                <button type="submit"
-                                    class="btn btn-success font-weight-bolder text-uppercase px-9 py-4"
-                                    data-wizard-type="action-submit">Submit</button>
-                                <button type="button"
-                                    class="btn btn-primary font-weight-bolder text-uppercase px-9 py-4"
-                                    data-wizard-type="action-next">Next</button>
-                            </div>
-                        </div>
-                        <!--end::Wizard Actions-->
-                    </form>
-                    <!--end::Wizard Form-->
                 </div>
             </div>
-            <!--end::Wizard Body-->
+            <!--end::wizard step 6-->
+
+            <!--begin::wizard step 7-->
+            <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                <h3 class="mb-10 font-weight-bold text-dark">Enter your Address</h3>
+                <!--begin::Select-->
+                <div class="form-group fv-plugins-icon-container">
+                    <label>Parishes</label>
+                    <select class="form-control select2" id="userParishSelect" name="parish">
+                        <option label=""></option>
+                        @foreach($parishes as $parish)
+                        <option value="{{ $parish->id }}"
+                            {{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
+                            {{ $parish->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group fv-plugins-icon-container">
+                    <label>City</label>
+                    <select class="form-control select2" id="userCitySelect" name="cities">
+
+
+                    </select>
+                </div>
+                <div class="form-group fv-plugins-icon-container">
+                    <label>Street</label>
+                    <input type="text" name="street" class="form-control" placeholder="Enter your street"
+                        value="{{ auth()->user()->street_01}}" />
+                </div>
+                <div class="form-group fv-plugins-icon-container">
+                    <label>House Number or Unit (Optional)</label>
+                    <input type="text" name="house_number" class="form-control "
+                        placeholder="Enter your House number" />
+                </div>
+                <div class="form-group fv-plugins-icon-container">
+                    <label> Postal Code (Optional)</label>
+                    <input type="text" name="postal_code" class="form-control"
+                        placeholder="Enter your  Postal Code (Optional)" />
+                </div>
+            </div>
+            <!--end:: wizard step 7-->
+
+            <!--begin::wizard step 8-->
+            <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                <h3 class="mb-10 font-weight-bold text-dark">Plase Check all information before Submit</h3>
+                <!--begin::Select-->
+                <div class="form-group fv-plugins-icon-container">
+                    <div class="d-flex align-items-center justify-content-between mb-2 row">
+                        <h3 class="col-md-12 my-3">Skill</h3>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">Skills: </span>
+                            <span class="text-muted" id='skill'></span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">Experience: </span>
+                            <span class="text-muted" id='experience'></span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mb-2 row">
+                        <h3 class="col-md-12 my-3">Education</h3>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">Education instutional name: </span>
+                            <span class="text-muted" id='educationname'>N/A</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">Degree: </span>
+                            <span class="text-muted" id='educationdegree'>N/A</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">Start Date: </span>
+                            <span class="text-muted" id='educationstartdate'>N/A</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">End Date: </span>
+                            <span class="text-muted" id='educationenddate'>N/A</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mb-2 row">
+                        <h3 class="col-md-12 my-3">Other Information</h3>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">Police Report: </span>
+                            <span class="text-muted" id='policereport'>N/A</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">Description: </span>
+                            <span class="text-muted" id='description'>N/A</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">Working hours: </span>
+                            <span class="text-muted" id='hours'>N/A</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">Working days: </span>
+                            <span class="text-muted" id='workingdays'></span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">Is travelling?: </span>
+                            <span class="text-muted" id='istravelling'>N/A</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="font-weight-bold">Can travel total distance: </span>
+                            <span class="text-muted" id='totaldistance'>N/A</span>
+                        </div>
+                    </div>
+
+                    <div class="workingLocationReview" style="display:block;">
+                        <div class="d-flex align-items-center justify-content-between mb-2 row">
+                            <h3 class="col-md-12 my-3">Address</h3>
+                            <div class="col-md-6">
+                                <span class="font-weight-bold">City: </span>
+                                <span class="text-muted" id='workingCityId'>N/A</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="font-weight-bold">Street Address 1: </span>
+                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="font-weight-bold">Street Address 2: </span>
+                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="font-weight-bold">House Number: </span>
+                                <span class="text-muted" id='workingHouseNumberId'>N/A</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="font-weight-bold">Postal Code: </span>
+                                <span class="text-muted" id='workingPostalCodeId'>N/A</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="font-weight-bold">Perish: </span>
+                                <span class="text-muted" id='workingPerishId'>N/A</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end:: wizard step 8-->
+
+            <!--begin::Wizard Actions-->
+            <div class="d-flex justify-content-between border-top mt-5 pt-10">
+                <div class="mr-2">
+                    <button type="button" class="btn btn-light-primary font-weight-bolder text-uppercase px-9 py-4"
+                        data-wizard-type="action-prev">Previous</button>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success font-weight-bolder text-uppercase px-9 py-4"
+                        data-wizard-type="action-submit">Submit</button>
+                    <button type="button" class="btn btn-primary font-weight-bolder text-uppercase px-9 py-4"
+                        data-wizard-type="action-next">Next</button>
+                </div>
+            </div>
+            <!--end::Wizard Actions-->
+            </form>
+            <!--end::Wizard Form-->
         </div>
-        <!--end::Wizard-->
     </div>
+    <!--end::Wizard Body-->
+</div>
+<!--end::Wizard-->
+</div>
 </div>
 <!--end::Container-->
 @endsection

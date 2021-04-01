@@ -120,6 +120,7 @@ class UserController extends Controller
         $city = City::all();
         $users = User::with('references')->get();
         $parishes = Parish::all();
+
         
         return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'parishes', 'city', 'users'));
     }
@@ -593,5 +594,11 @@ class UserController extends Controller
         }
         $user = User::find($id);
         return view('admin.profile.reference', compact('user'));
+    }
+    public function createProfilewithSub($subCatId)
+    {
+        if(!empty($subCatId))
+            session()->flash('subCatId',$subCatId);
+        return redirect()->route('ProfileWizard');
     }
 }
