@@ -3,10 +3,13 @@
 <script>
 var sessionCatId,sessionSubCatsId;
 </script>
-@if(!empty(session()->get('subcategory_id')))
+@if(session()->has('subcategory_id'));
 <script>
 var sessionsubCatsId = {{ session()->get('subcategory_id') }};
-
+</script>
+@else
+<script>
+var sessionsubCatsId = "";
 </script>
 @endif
 @php
@@ -252,29 +255,27 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
                                 @foreach(auth()->user()->allCategories() as $subcats) 
                                   
-                                <div class="accordion accordion-solid accordion-toggle-plus"
-                                 
-                                    id="accordion_category{{ $loop->index }}">
+                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_category{{ $loop->index }}">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
                                          SubCategory id : {{ session()->get('subcategory_id') }}
                                          
-                                            <div class="card-title" data-toggle="collapse" data-target="#collapse1">
+                                            <div class="card-title" data-toggle="collapse" data-target="#collapse{{ $loop->index }}">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
                                                 <span class="category-title"
-                                                    id="categoryTitleselected_catgeory1{{ $loop->index }}">{{ ucwords($subcats['category']['category_name']) }}</span>
+                                                    id="categoryTitleselected_catgeory{{ $loop->index }}">{{ ucwords($subcats['category']['category_name']) }}</span>
                                             </div>
                                         </div>
                                          
                                
                                 
-                                        <div id="collapse1" class="collapse show" data-parent="#accordionExample3">
+                                        <div id="collapse{{ $loop->index }}" class="collapse show" data-parent="#accordionExample3">
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Category</label>
 
                                                     <select name="skills_category" subcatid="kt_tagify_subcategory"
-                                                        id="selected_catgeory1"
+                                                        id="selected_catgeory{{ $loop->index + 1 }}"
                                                         class="form-control form-control-solid form-control-lg category-select">
 
 
@@ -303,7 +304,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <div id="divTagifykt_tagify_subcategory">
 
                                                         <input id="kt_tagify_subcategory" class="form-control"
-                                                            name="sub_categories" placeholder="Add sub-categories"
+                                                            name="sub_categories{{ $loop->index + 1 }}" placeholder="Add sub-categories"
                                                             value="">
                                                         <div class="mt-3 text-muted">Select multiple
                                                             subcategories. If you donot see

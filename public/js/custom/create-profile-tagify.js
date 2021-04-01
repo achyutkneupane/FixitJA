@@ -1,8 +1,3 @@
-
- 
-
- 
- 
 function bindSubCat1(data, subcat) {
 
        var toEl = document.getElementById(subcat);
@@ -46,16 +41,7 @@ function bindSubCat1(data, subcat) {
         
 
        
-    });
-
-  
-
-  
-
-     
-   
-   
-    
+    }); 
 }
 
 
@@ -67,7 +53,6 @@ $(document).on('change','.category-select', function (e) {
     if($('#divTagify'+subcatid+'').find('tags').length > 0){
         $('#divTagify'+subcatid+'').find('tags').remove();
     }
-
     var category_id = $(this).val();
     getSubCatData(category_id, subcatid);
 });
@@ -98,26 +83,19 @@ function getSubCatData(categoryId, subcatid) {
           
     });
   
-     if (sessionSubCatId) {
-         console.log(sessionSubCatId);
-        data.forEach((element, index) => {
-            if (element.id === sessionSubCatId) { 
-                tagifyTo.addTags([element]);
-            }
-        });
-    }
-    
-
-
-
-
+    //  if (sessionSubCatId) {
+    //     //  console.log(sessionSubCatId);
+    //     data.forEach((element, index) => {
+    //         if (element.id === sessionSubCatId) { 
+    //             tagifyTo.addTags([element]);
+    //         }
+    //     });
+    // }
 }
-
-
 /* settign fetch data into tagify*/
-var  data = document.getElementById('kt_tagify_subcategory');
+        var  data = document.getElementById('kt_tagify_subcategory');
 
-console.log(sessionsubCatsId);
+        // console.log(sessionsubCatsId);
         var tagifyfetch = new Tagify(data, {
 
         
