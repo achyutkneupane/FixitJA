@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Helpers\LogHelper;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Discussion;
 use App\Models\Parish;
 use App\Models\SubCategory;
 use App\Models\Task;
@@ -292,5 +293,20 @@ class TaskController extends Controller
     {
         $logs = TaskTimeline::with('task','log_by','log_for')->orderBy('created_at','DESC')->where('task_id',$id)->paginate(10);
         return view('admin.task.taskTimeline',compact('logs'));
+    }
+    public function taskDiscussion($id)
+    {
+        $discussions = Discussion::with('user')->orderBy('created_at','DESC')->where('task_id',$id)->get();
+        $task = Task::find($id);
+        return view('admin.task.taskDiscussion',compact('task','discussions'));
+    }
+    public function postDiscussion(Request $request,$id)
+    {
+        $discussion = new Discussion();
+        $discussion->message = $request->discussionText;
+        $discussion->task_id = $id;
+        $discussion->user_id = auth()->id();
+        $discussion->save();
+        return redirect()->route('taskDiscussion',$id);
     }
 }

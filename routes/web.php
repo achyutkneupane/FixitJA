@@ -53,6 +53,8 @@ Route::get('/tasks', [App\Http\Controllers\TaskController::class, 'index'])->mid
 Route::prefix('/task')->group(function () {
     Route::get('/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth', 'relatedTaskOnly')->name('viewTask');
     Route::get('/{id}/timeline', [App\Http\Controllers\TaskController::class, 'taskTimeline'])->middleware('auth', 'relatedTaskOnly')->name('taskTimeline');
+    Route::get('/{id}/discussions', [App\Http\Controllers\TaskController::class, 'taskDiscussion'])->middleware('auth', 'relatedTaskOnly')->name('taskDiscussion');
+    Route::post('/{id}/discussions', [App\Http\Controllers\TaskController::class, 'postDiscussion'])->middleware('auth', 'relatedTaskOnly')->name('postDiscussion');
     Route::get('/{id}/edit', [App\Http\Controllers\TaskController::class, 'edit'])->middleware('auth', 'relatedTaskOnly')->name('editTask');
     Route::put('/{id}/edit/creator', [App\Http\Controllers\TaskController::class, 'editTaskCreator'])->middleware('auth', 'relatedTaskOnly')->name('editTaskCreator');
     Route::put('/{id}/edit/detail', [App\Http\Controllers\TaskController::class, 'editTaskDetails'])->middleware('auth', 'relatedTaskOnly')->name('editTaskDetails');

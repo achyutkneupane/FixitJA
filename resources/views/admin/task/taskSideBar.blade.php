@@ -61,7 +61,7 @@
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskOverviewIsActive) ? 'active' : '' }}">
                 Task Overview
             </a>
-            <a href="{{ route('under_construction', $task->id) }}"
+            <a href="{{ route('taskDiscussion', $task->id) }}"
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskDiscussionIsActive) ? 'active' : '' }}">
                 Discussion
             </a>

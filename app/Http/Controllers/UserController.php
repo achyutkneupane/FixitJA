@@ -422,7 +422,6 @@ class UserController extends Controller
             $user->street_01 = $request->street_01;
             $user->street_02 = $request->street_02;
             $user->companyname = $request->companyname;
-            $user->experience = $request->experience;
             $user->website = $request->website;
             $user->is_travelling = $request->is_travelling;
             $user->is_police_record = $request->is_police_record;
@@ -446,6 +445,7 @@ class UserController extends Controller
             }
             else {
                 ToastHelper::showToast('Error with profile picture.','error');
+                return redirect()->route('viewProfile');
             }
             $user->save();
             ToastHelper::showToast('Profile has been updated');
