@@ -216,11 +216,11 @@ class User extends Authenticatable
 
     public function associatedTasks() {
         if($this->type == 'admin') {
-            return Task::all();
+            return Task::with('subcategories')->get();
         }
         else {
             $user = User::find($this->id);
-            return Task::whereHas('creator',function ($query) use ($user) {
+            return Task::with('subcategories')->whereHas('creator',function ($query) use ($user) {
                             $query->where('email', $user->email());
                         })
                         ->orWhere('created_by',$user->id)

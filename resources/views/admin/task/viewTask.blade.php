@@ -85,17 +85,17 @@
                         <label class="col-xl-3 col-lg-3 col-form-label">Working Location: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span
-                                class="form-control form-control-lg form-control-solid">{{ $location->city->name }}, {{ $location->city->parish->name }}</span>
+                                class="form-control form-control-lg form-control-solid">{!! isset($location->city) ? $location->city->name.', '.$location->city->parish->name : '<span class="text-muted">N/A</span>' !!}</span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Street Address: </label>
                         <div class="col-lg-9 col-xl-6">
                             <span
-                                class="form-control form-control-lg form-control-solid">{{ $location->street_01 }}</span>
+                                class="form-control form-control-lg form-control-solid">{!! isset($location->street_01) ? $location->street_01 : '<span class="text-muted">N/A</span>' !!}</span>
                             @isset($location->street_02)
                             <span
-                                class="form-control form-control-lg form-control-solid mt-4">{{ $location->street_02 }}</span>
+                                class="form-control form-control-lg form-control-solid mt-4">{!! isset($location->street_02) ? $location->street_02 : '<span class="text-muted">N/A</span>' !!}</span>
                             @endisset
                         </div>
                     </div>

@@ -20,15 +20,9 @@
         var cityId = '';
     </script>
     @endif
-    @if(!empty($task->location->city->name))
     <script>
-    var workingCityId = {{ $task->location->city->id }};
+    var workingCityId = {{ $location->city->id }};
     </script>
-    @else
-    <script>
-        var cityId = '';
-    </script>
-    @endif
     <div class="row">
 
         @include('admin.task.taskSideBar', $task)
@@ -125,16 +119,16 @@
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 col-form-label">Working Location: </label>
                             <div class="col-lg-9 col-xl-6">
-                                <select class="form-control form-control-lg form-control-solid select2" id="workingParishSelect" name="parish" required>
+                                <select class="form-control form-control-lg form-control-solid select2" id="workingParishSelect" name="workingParish" required>
                                     <option label=""></option>
                                     @foreach($parishes as $parish)
-                                    <option value="{{ $parish->id }}"{{ !empty($task->creator->city->parish) && $parish->id == $task->creator->city->parish->id ? ' selected' : '' }}>
+                                    <option value="{{ $parish->id }}"{{ !empty($location->city->parish) && $parish->id == $location->city->parish->id ? ' selected' : '' }}>
                                         {{ $parish->name }}
                                     </option>
                                     @endforeach
                                 </select>
                                 <br><br>
-                                <select class="form-control form-control-lg form-control-solid select2" id="workingCitySelect" name="city" required>
+                                <select class="form-control form-control-lg form-control-solid select2" id="workingCitySelect" name="workingCity" required>
                                 </select>
                             </div>
                         </div>
@@ -142,9 +136,9 @@
                             <label class="col-xl-3 col-lg-3 col-form-label">Street Address: </label>
                             <div class="col-lg-9 col-xl-6">
                                 <input type="text"
-                                    class="form-control form-control-lg form-control-solid" name="street_01" value="{{ $task->location->street_01 }}" placeholder="Street Address 1" required>
+                                    class="form-control form-control-lg form-control-solid" name="street_01" value="{{ $location->street_01 }}" placeholder="Street Address 1" required>
                                 <input type="text"
-                                    class="form-control form-control-lg form-control-solid mt-5" name="street_02" value="{{ $task->location->street_02 }}" placeholder="Street Address 2">
+                                    class="form-control form-control-lg form-control-solid mt-5" name="street_02" value="{{ $location->street_02 }}" placeholder="Street Address 2">
                             </div>
                         </div>
                         <div class="form-group row">

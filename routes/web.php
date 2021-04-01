@@ -52,11 +52,12 @@ Route::prefix('/sub_category')->group(function () {
 Route::get('/tasks', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
 Route::prefix('/task')->group(function () {
     Route::get('/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth', 'relatedTaskOnly')->name('viewTask');
-    Route::get('/{id}/edit', [App\Http\Controllers\TaskController::class, 'edit'])->middleware('auth')->name('editTask');
-    Route::put('/{id}/edit/creator', [App\Http\Controllers\TaskController::class, 'editTaskCreator'])->middleware('auth')->name('editTaskCreator');
-    Route::put('/{id}/edit/detail', [App\Http\Controllers\TaskController::class, 'editTaskDetails'])->middleware('auth')->name('editTaskDetails');
-    Route::get('/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth')->name('taskAssignedBy');
-    Route::get('/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth')->name('taskAssignedTo');
+    Route::get('/{id}/timeline', [App\Http\Controllers\TaskController::class, 'taskTimeline'])->middleware('auth', 'relatedTaskOnly')->name('taskTimeline');
+    Route::get('/{id}/edit', [App\Http\Controllers\TaskController::class, 'edit'])->middleware('auth', 'relatedTaskOnly')->name('editTask');
+    Route::put('/{id}/edit/creator', [App\Http\Controllers\TaskController::class, 'editTaskCreator'])->middleware('auth', 'relatedTaskOnly')->name('editTaskCreator');
+    Route::put('/{id}/edit/detail', [App\Http\Controllers\TaskController::class, 'editTaskDetails'])->middleware('auth', 'relatedTaskOnly')->name('editTaskDetails');
+    Route::get('/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth', 'relatedTaskOnly')->name('taskAssignedBy');
+    Route::get('/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth', 'relatedTaskOnly')->name('taskAssignedTo');
 });
 Route::prefix('/profile')->group(function () {
     Route::get('/', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
