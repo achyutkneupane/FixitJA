@@ -111,8 +111,10 @@ class SubCategoryController extends Controller
     }
     public function list($id= NULL)
     {  
-       if($id =! NULL)
-         $cats = Category::with(['sub_categories'])->find($id);
+       $catid = $id;
+       
+       
+         $cats = Category::with(['sub_categories'])->find($catid);
          return $cats->sub_categories;
        
 

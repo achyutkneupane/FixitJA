@@ -197,31 +197,35 @@ class User extends Authenticatable
     {
         $subcategories = $this->subcategories;
         $catData = collect([]);
+        $sessions = collect();
         $count = 0;
 
         foreach ($subcategories as $subcategory) {
             $category = $subcategory->category;
             $cat = ['category_id' => $category->id, 'category_name' => $category->name];
-
             
+           $catId = 'cat_' . $cat['category_id'];
             if ($catData->has('cat_' . $cat['category_id'])) {
                 $updateCat = $catData->get('cat_' . $cat['category_id']);
                 $updateCat['subcategory'][] = $subcategory;
-                $catData->put('cat_' . $cat['category_id'], $updateCat);
+                $updateSession = $sessions->get('cat_' . $cat['category_id']);
+                $updateSession[] = $subcategory->id;
+                $catData->put($catId, $updateCat);
+                $sessions->put($catId,$updateSession);
+                
             } else {
                 $catValue = ['category' => $cat,
                              'subcategory' => [$subcategory],
                              'document' => Document::where('type','certificate'.$count++)
                                                    ->first(['path','experience'])
                             ];
-                        $catData->put('cat_' . $cat['category_id'], $catValue);
+                $catData->put($catId, $catValue);
+                $sessions->put($catId,[0=>$subcategory->id]);       
             }
-            session()->flash('subcategory_id', $subcategory->id);
+            
         }
+        session()->flash('subcategory_id',$sessions);
 
-        
-        
-        
         return $catData;
     }
 

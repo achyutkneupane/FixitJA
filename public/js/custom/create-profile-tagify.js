@@ -1,8 +1,5 @@
 
- 
 
- 
- 
 function bindSubCat1(data, subcat) {
 
        var toEl = document.getElementById(subcat);
@@ -46,16 +43,7 @@ function bindSubCat1(data, subcat) {
         
 
        
-    });
-
-  
-
-  
-
-     
-   
-   
-    
+    }); 
 }
 
 
@@ -67,7 +55,6 @@ $(document).on('change','.category-select', function (e) {
     if($('#divTagify'+subcatid+'').find('tags').length > 0){
         $('#divTagify'+subcatid+'').find('tags').remove();
     }
-
     var category_id = $(this).val();
     getSubCatData(category_id, subcatid);
 });
@@ -98,26 +85,21 @@ function getSubCatData(categoryId, subcatid) {
           
     });
   
-     if (sessionSubCatId) {
-         console.log(sessionSubCatId);
-        data.forEach((element, index) => {
-            if (element.id === sessionSubCatId) { 
-                tagifyTo.addTags([element]);
-            }
-        });
-    }
-    
-
-
-
-
+    //  if (sessionSubCatId) {
+    //     //  console.log(sessionSubCatId);
+    //     data.forEach((element, index) => {
+    //         if (element.id === sessionSubCatId) { 
+    //             tagifyTo.addTags([element]);
+    //         }
+    //     });
+    // }
 }
 
 
 /* settign fetch data into tagify*/
-var  data = document.getElementById('kt_tagify_subcategory');
+        var  data = document.getElementById('kt_tagify_subcategory');
 
-
+        // console.log(sessionsubCatsId);
         var tagifyfetch = new Tagify(data, {
 
         
@@ -165,23 +147,25 @@ var  data = document.getElementById('kt_tagify_subcategory');
     e.stopImmediatePropagation();
     e.preventDefault();
     var subcatid = this.getAttribute('subcatid');
-    console.log(subcatid);
     if($('#divTagify'+subcatid+'').find('tags').length > 0){
         $('#divTagify'+subcatid+'').find('tags').remove();
     }
 
     var category_id = $(this).val();
+    console.log(category_id);
     getSubCatData(category_id, subcatid);
 });
 
 
 function getSubCatData(categoryId, subcatid) {
+    console.log(categoryId);
     var subcategory = new Array();
     $.ajax({
         type: "GET",
         url: '/api/category/' + categoryId,
         dataType: 'json',
         success: function (result) {
+            console.log(result);
             $.each(result, function (index, item) {
                 var itemObj = {};
                 itemObj.value = item.name;
@@ -199,6 +183,14 @@ function getSubCatData(categoryId, subcatid) {
         }
           
     });
+    if(sessionsubCatsId){
+        console,log(sessionsubCatsId)
+        data.forEach((element, index) => {
+            if (element.id === sessionSubCatsId) { 
+                tagifyfetch.addTags([element]);
+            }
+        });
+}
 }
 
     

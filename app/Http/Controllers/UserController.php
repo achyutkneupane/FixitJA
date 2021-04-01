@@ -120,8 +120,6 @@ class UserController extends Controller
         $city = City::all();
         $users = User::with('references')->get();
         $parishes = Parish::all();
-
-        
         return view('pages.createProfileWizard', compact('page_title','page_description','document', 'category', 'parishes', 'city', 'users'));
     }
 

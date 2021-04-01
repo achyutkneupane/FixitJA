@@ -4,13 +4,18 @@
     var sessionCatId, sessionSubCatsId;
 
 </script>
-@if(!empty(session()->get('subcategory_id')))
+@if(session()->has('subcategory_id'));
 <script>
     var sessionsubCatsId = {
         {
             session() - > get('subcategory_id')
         }
     };
+
+</script>
+@else
+<script>
+    var sessionsubCatsId = "";
 
 </script>
 @endif
@@ -248,34 +253,43 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <h3 class="font-weight-bold text-dark">Enter your up to 3 skill categories</h3>
 
 
+
                             <!--begin::Select-->
                             <div class="card-body">
 
 
+
                                 <!--begin::Accordion-->
                                 @if(auth()->user()->allCategories()->count() != 0)
+
                                 @foreach(auth()->user()->allCategories() as $subcats)
 
+
+
                                 <div class="accordion accordion-solid accordion-toggle-plus"
-                                    id="accordion_category">
+                                    id="accordion_category{{ $loop->index }}">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
-                                           <div class="card-title" data-toggle="collapse" data-target="#collapse1">
+                                            SubCategory id : {{ session()->get('subcategory_id') }}
+
+                                            <div class="card-title" data-toggle="collapse"
+                                                data-target="#collapse{{ $loop->index }}">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
                                                 <span class="category-title"
-                                                    id="categoryTitleselected_catgeory1">{{ ucwords($subcats['category']['category_name']) }}</span>
+                                                    id="categoryTitleselected_catgeory{{ $loop->index }}">{{ ucwords($subcats['category']['category_name']) }}</span>
                                             </div>
                                         </div>
 
 
 
-                                        <div id="collapse1" class="collapse show" data-parent="#accordionExample3">
+                                        <div id="collapse{{ $loop->index }}" class="collapse show"
+                                            data-parent="#accordionExample3">
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Category</label>
 
                                                     <select name="skills_category" subcatid="kt_tagify_subcategory"
-                                                        id="selected_catgeory1"
+                                                        id="selected_catgeory{{ $loop->index + 1 }}"
                                                         class="form-control form-control-solid form-control-lg category-select">
 
 
@@ -304,8 +318,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <div id="divTagifykt_tagify_subcategory">
 
                                                         <input id="kt_tagify_subcategory" class="form-control"
-                                                            name="sub_categories" placeholder="Add sub-categories"
-                                                            value="">
+                                                            name="sub_categories{{ $loop->index + 1 }}"
+                                                            placeholder="Add sub-categories" value="">
                                                         <div class="mt-3 text-muted">Select multiple
                                                             subcategories. If you donot see
                                                             your option just create one.</div>
@@ -322,10 +336,11 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                         </div>
                                     </div>
                                 </div>
-                                @endforeach  
+                                @endforeach
 
 
-                                
+
+
                                 @else
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordion_category">
                                     <div class="card card-category-accordion" id="categoryCard">
@@ -416,23 +431,48 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                 <div class="form-group row">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Certificate
                                                         (PDF, DOC, JPEG, PNG)
-
+                                                        @if(!empty($document))
                                                         <div class="col-md-12">
                                                             <h4 class="font-weight-bold">
-                                                                {{ !empty($document->where('type', 'certificate')->first()) ? asset('storage/' . $documents->where('type', 'certificate')->first()->path) : '' }}
+                                                                
                                                             </h4>
-
+                                                            
                                                             <div class="dropzone dropzone-default dropzone-primary">
-                                                                <button>
-                                                                    {{ asset('storage/certificates'.$document->path) }}</button>
+
+                                                                <div class="dropzone-msg dz-message needsclick">
+                                                                    <a  href = "" class="dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable"><i class="fas fa-long-arrow-alt-down"></i>Downloadd</a>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                           
+                                                            
+                                                            
+
+
+                                                        </div>
+                                                        @else
+                                                        <div class="col-md-12">
+                                                            <h4 class="font-weight-bold">
+                                                                
+                                                            </h4>
+                                                            
+                                                            
+                                                           
+                                                            <div class="dropzone dropzone-default dropzone-primary">
+
+                                                                
                                                                 <div class="dropzone-msg dz-message needsclick"><input
                                                                         id="certificateFile" type="file"
                                                                         category="category-name"
                                                                         value="{{ asset('storage/'. $document->path) }}"
                                                                         accept=".png, .jpg, .jpeg, .pdf, .docx"></div>
                                                             </div>
+                                                            
+
 
                                                         </div>
+
+                                                        @endif
 
                                                     </label class="col-form-label">
                                                 </div>
