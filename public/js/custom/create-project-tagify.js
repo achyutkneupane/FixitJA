@@ -100,6 +100,7 @@ function bindSubCat(data, subcat) {
             maxItems: 5
         }
     });
+
     if (sessionSubCatId) {
         data.forEach((element, index) => {
             if (element.id === sessionSubCatId) { 

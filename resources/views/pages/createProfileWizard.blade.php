@@ -6,16 +6,18 @@
 </script>
 @if(session()->has('subcategory_id'));
 <script>
-    var sessionsubCatsId = {
+    var sessionSubCatsId = {
         {
             session() - > get('subcategory_id')
         }
     };
 
+    
+
 </script>
 @else
 <script>
-    var sessionsubCatsId = "";
+    var sessionSubCatsId = "";
 
 </script>
 @endif
@@ -270,7 +272,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                     id="accordion_category{{ $loop->index }}">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
-                                            SubCategory id : {{ session()->get('subcategory_id') }}
+                                      
+                                            SubCategory id : {{ session()->get('subcategory_id') }})
 
                                             <div class="card-title" data-toggle="collapse"
                                                 data-target="#collapse{{ $loop->index }}">
@@ -419,55 +422,58 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <div class="card-body" id="">
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordionCertificate">
                                     <div class="card">
+                                     
                                         <div class="card-header">
                                             <div class="card-title" data-toggle="collapse" data-target="#collapseCert"
                                                 id="">
                                                 <p id="">{{   ucwords($category['category']['category_name']) }}</p>
                                             </div>
                                         </div>
-                                        @foreach(auth()->user()->documents as $document)
+                                        
                                         <div id="collapseCert" class="collapse show" data-parent="">
                                             <div class="card-body">
                                                 <div class="form-group row">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Certificate
                                                         (PDF, DOC, JPEG, PNG)
-                                                        @if(!empty($document))
+                                                        @if(!empty($category))
                                                         <div class="col-md-12">
                                                             <h4 class="font-weight-bold">
-                                                                
+                                                              
                                                             </h4>
-                                                            
+
                                                             <div class="dropzone dropzone-default dropzone-primary">
 
                                                                 <div class="dropzone-msg dz-message needsclick">
-                                                                    <a  href = "" class="dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable"><i class="fas fa-long-arrow-alt-down"></i>Downloadd</a>
+                                                                    <a href="{{route('getfile', basename($category['document']['path']))}}"
+                                                                        class="dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable"><i
+                                                                            class="fas fa-long-arrow-alt-down"></i><span>{{ basename($category['document']['path']) }} </span></a>
                                                                 </div>
-                                                                
+
                                                             </div>
-                                                           
-                                                            
-                                                            
+
+
+
 
 
                                                         </div>
                                                         @else
                                                         <div class="col-md-12">
                                                             <h4 class="font-weight-bold">
-                                                                
+
                                                             </h4>
-                                                            
-                                                            
-                                                           
+
+
+
                                                             <div class="dropzone dropzone-default dropzone-primary">
 
-                                                                
+
                                                                 <div class="dropzone-msg dz-message needsclick"><input
                                                                         id="certificateFile" type="file"
                                                                         category="category-name"
                                                                         value="{{ asset('storage/'. $document->path) }}"
                                                                         accept=".png, .jpg, .jpeg, .pdf, .docx"></div>
                                                             </div>
-                                                            
+
 
 
                                                         </div>
@@ -480,13 +486,13 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Experience
                                                         <input type="text" id="" class="form-control"
                                                             category="category-name" type="number" placeholder="Years"
-                                                            value="{{ auth()->user()->experience}}">
+                                                            value="{{ $category['document']['experience']}}">
                                                     </label>
                                                 </div>
 
                                             </div>
                                         </div>
-                                        @endforeach
+                                        
                                     </div>
                                 </div>
                             </div>

@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Console\Input\Input;
 use Throwable;
 use Illuminate\Support\Str;
+use Response;
+use File;
 
 use function GuzzleHttp\Promise\all;
 
@@ -582,6 +584,20 @@ class UserController extends Controller
         }
         $user = User::find($id);
         return view('admin.profile.reference', compact('user'));
+    }
+    public function createProfilewithSub($subCatId)
+    {
+        if(!empty($subCatId))
+            session()->flash('subCatId',$subCatId);
+        return redirect()->route('ProfileWizard');
+    }
+    public function downloadcertificate($filename)
+    {
+       $file = 'certificates/'.$filename;
+       return Storage::download($file);
+        
+    	
+        
     }
     
 }

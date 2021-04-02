@@ -145,6 +145,8 @@ Route::get('/category_data', [App\Http\Controllers\CategoryController::class, 'g
 
 Route::get('/addeducation', [App\Http\Controllers\UserController::class, 'addeducation']);
 
+Route::get('download/{filename}', [App\Http\Controllers\UserController::class, 'downloadcertificate'])->name('getfile');
+
 
 
 

@@ -1,6 +1,9 @@
 
 
+  console.log(sessionSubCatsId);
+
 function bindSubCat1(data, subcat) {
+   
 
        var toEl = document.getElementById(subcat);
        
@@ -44,6 +47,17 @@ function bindSubCat1(data, subcat) {
 
        
     }); 
+    // alert(sessionsubCatsId);
+     if (sessionsubCatsId) {
+        console.log(sessionsubCatsId);
+        data.forEach((element, index) => {
+            if (element.id === sessionSubCatId) { 
+                tagifyTo.addTags([element]);
+            }
+        });
+    }
+
+   
 }
 
 
@@ -183,6 +197,7 @@ function getSubCatData(categoryId, subcatid) {
         }
           
     });
+    ;
     if(sessionsubCatsId){
         console,log(sessionsubCatsId)
         data.forEach((element, index) => {
