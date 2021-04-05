@@ -6,24 +6,18 @@
 </script>
 @if(session()->has('subcategory_id'));
 <script>
-    var sessionSubCatsId = {
-        {
-            session() - > get('subcategory_id')
-        }
-    };
-
+    var sessionSubCatsId = {{  session() -> get('subcategory_id')}};
     
-
 </script>
 @else
 <script>
     var sessionSubCatsId = "";
-
 </script>
 @endif
 @php
 $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
 @endphp
+
 
 
 
@@ -272,8 +266,11 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                     id="accordion_category{{ $loop->index }}">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
-                                      
-                                            SubCategory id : {{ session()->get('subcategory_id') }})
+
+
+
+                                            SubCategory id : {{ session()->get('subcategory_id') }}
+
 
                                             <div class="card-title" data-toggle="collapse"
                                                 data-target="#collapse{{ $loop->index }}">
@@ -422,14 +419,14 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <div class="card-body" id="">
                                 <div class="accordion accordion-solid accordion-toggle-plus" id="accordionCertificate">
                                     <div class="card">
-                                     
+
                                         <div class="card-header">
                                             <div class="card-title" data-toggle="collapse" data-target="#collapseCert"
                                                 id="">
                                                 <p id="">{{   ucwords($category['category']['category_name']) }}</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div id="collapseCert" class="collapse show" data-parent="">
                                             <div class="card-body">
                                                 <div class="form-group row">
@@ -438,7 +435,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                         @if(!empty($category))
                                                         <div class="col-md-12">
                                                             <h4 class="font-weight-bold">
-                                                              
+
                                                             </h4>
 
                                                             <div class="dropzone dropzone-default dropzone-primary">
@@ -446,7 +443,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                                 <div class="dropzone-msg dz-message needsclick">
                                                                     <a href="{{route('getfile', basename($category['document']['path']))}}"
                                                                         class="dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable"><i
-                                                                            class="fas fa-long-arrow-alt-down"></i><span>{{ basename($category['document']['path']) }} </span></a>
+                                                                            class="fas fa-long-arrow-alt-down"></i><span>{{ basename($category['document']['path']) }}
+                                                                        </span></a>
                                                                 </div>
 
                                                             </div>
@@ -492,7 +490,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>

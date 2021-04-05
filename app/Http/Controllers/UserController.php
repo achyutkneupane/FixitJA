@@ -587,6 +587,8 @@ class UserController extends Controller
     }
     public function createProfilewithSub($subCatId)
     {
+
+        
         if(!empty($subCatId))
             session()->flash('subCatId',$subCatId);
         return redirect()->route('ProfileWizard');

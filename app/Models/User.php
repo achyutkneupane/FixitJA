@@ -226,11 +226,13 @@ class User extends Authenticatable
             }
             
         }
+        //dd($sessions);
+        
         
          
         session()->flash('subcategory_id',$sessions);
         
-       
+
         return $catData;
     }
 

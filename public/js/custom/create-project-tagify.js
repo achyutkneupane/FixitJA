@@ -102,6 +102,7 @@ function bindSubCat(data, subcat) {
     });
 
     if (sessionSubCatId) {
+        console.log(sessionSubCatId);
         data.forEach((element, index) => {
             if (element.id === sessionSubCatId) { 
                 tagifyTo.addTags([element]);

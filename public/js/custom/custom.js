@@ -306,7 +306,7 @@ function LoadWizardData(wizard) {
         });
         categorySelected = [];
         $.each($(".category-title"), function (index, value) {
-            console.log($("#totalCertificateList").val());
+           
             $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+index+'"},');
             const cloneCertificateAccordion = $("#templateCertificate").clone();
             cloneCertificateAccordion.attr("id", "certificateAccordion" + index);
