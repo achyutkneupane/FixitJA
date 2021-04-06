@@ -14,6 +14,8 @@ use App\Models\Task;
 use App\Models\TaskCreator;
 use App\Models\TaskTimeline;
 use App\Models\TaskWorkingLocation;
+use App\Models\WorkingHour;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Mail;
@@ -308,5 +310,24 @@ class TaskController extends Controller
         $discussion->user_id = auth()->id();
         $discussion->save();
         return redirect()->route('taskDiscussion',$id);
+    }
+    public function taskWorking($id)
+    {
+        $hours = WorkingHour::with('user')->orderBy('created_at','DESC')->where('task_id',$id)->get();
+        $task = Task::find($id);
+        // dd($hours);
+        return view('admin.task.taskWorking',compact('task','hours'));
+    }
+    public function postWorking(Request $request,$id)
+    {
+        $working = new WorkingHour();
+        $start = $request->start_date." ".$request->start_time;
+        $end = $request->end_date." ".$request->end_time;
+        $working->start_time = Carbon::parse($start);
+        $working->end_time = Carbon::parse($end);
+        $working->description = $request->workingText;
+        $working->user_id = auth()->id();
+        Task::find($id)->works()->save($working);
+        return redirect()->route('taskWorking',$id);
     }
 }

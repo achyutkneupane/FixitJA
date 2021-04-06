@@ -70,8 +70,8 @@
                 Expenses
             </a>
             @if ($task->payment_type == 'hourly basis')
-            <a href="{{ route('under_construction', $task->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskWorkHoursIsActive) ? 'active' : '' }}">
+            <a href="{{ route('taskWorking', $task->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskWorkingIsActive) ? 'active' : '' }}">
                 Work Hours
             </a>
             @endif

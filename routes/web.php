@@ -55,6 +55,8 @@ Route::prefix('/task')->group(function () {
     Route::get('/{id}/timeline', [App\Http\Controllers\TaskController::class, 'taskTimeline'])->middleware('auth', 'relatedTaskOnly')->name('taskTimeline');
     Route::get('/{id}/discussions', [App\Http\Controllers\TaskController::class, 'taskDiscussion'])->middleware('auth', 'relatedTaskOnly')->name('taskDiscussion');
     Route::post('/{id}/discussions', [App\Http\Controllers\TaskController::class, 'postDiscussion'])->middleware('auth', 'relatedTaskOnly')->name('postDiscussion');
+    Route::get('/{id}/working_hours', [App\Http\Controllers\TaskController::class, 'taskWorking'])->middleware('auth', 'relatedTaskOnly')->name('taskWorking');
+    Route::post('/{id}/working_hours', [App\Http\Controllers\TaskController::class, 'postWorking'])->middleware('auth', 'relatedTaskOnly')->name('postWorking');
     Route::get('/{id}/edit', [App\Http\Controllers\TaskController::class, 'edit'])->middleware('auth', 'relatedTaskOnly')->name('editTask');
     Route::put('/{id}/edit/creator', [App\Http\Controllers\TaskController::class, 'editTaskCreator'])->middleware('auth', 'relatedTaskOnly')->name('editTaskCreator');
     Route::put('/{id}/edit/detail', [App\Http\Controllers\TaskController::class, 'editTaskDetails'])->middleware('auth', 'relatedTaskOnly')->name('editTaskDetails');
