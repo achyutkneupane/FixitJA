@@ -268,8 +268,9 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                         <div class="card-header">
 
 
-
+                                      
                                             SubCategory id : {{ session()->get('subcategory_id') }}
+                                           
 
 
                                             <div class="card-title" data-toggle="collapse"

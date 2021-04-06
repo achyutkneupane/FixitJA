@@ -227,10 +227,11 @@ class User extends Authenticatable
             
         }
        
-        
+         
         
          
         session()->flash('subcategory_id',$sessions);
+        
         
 
         return $catData;
