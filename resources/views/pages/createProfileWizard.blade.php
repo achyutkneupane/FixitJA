@@ -1,26 +1,19 @@
 @extends('layouts.app')
 @section('content')
 <script>
-    var sessionCatId, sessionSubCatsId;
-
+var sessionCatId,sessionSubCatId;
 </script>
-@if(session()->has('subcategory_id'));
+@if(!empty(session()->get('subcategory_id')))
 <script>
-    var sessionSubCatsId = {{  session() -> get('subcategory_id')}};
-    
-</script>
-@else
-<script>
-    var sessionSubCatsId = "";
+var sessionSubCatId = {!! session()->get('subcategory_id') !!};
 </script>
 @endif
 @php
 $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
 @endphp
-
-
-
-
+<script>
+console.log(sessionSubCatId);
+</script>
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
 <!-- <div class="container"> -->
@@ -321,8 +314,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                             name="sub_categories{{ $loop->index + 1 }}"
                                                             placeholder="Add sub-categories" value="">
                                                         <div class="mt-3 text-muted">Select multiple
-                                                            subcategories. If you donot see
-                                                            your option just create one.</div>
+                                                            subcategories. If you don't see
+                                                            your option, just create one.</div>
 
                                                     </div>
 

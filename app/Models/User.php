@@ -220,19 +220,11 @@ class User extends Authenticatable
                                                    ->first(['path','experience'])
                             ];
                 $catData->put($catId, $catValue);
-                $sessions->put($catId,[0=>$subcategory->id]);   
-                
-               
-            }
+                $sessions->put($catId,[0=>$subcategory->id]);       
+            }   
             
         }
-        //dd($sessions);
-        
-        
-         
         session()->flash('subcategory_id',$sessions);
-        
-
         return $catData;
     }
 
