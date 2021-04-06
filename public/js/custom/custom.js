@@ -149,7 +149,7 @@ $("#add_btn").click(function (e) {
             ' class="form-control" name="sub_categories' + count + '" ' +
             ' placeholder="Add sub-categories"> ' +
             ' <div class="mt-3 text-muted">Select multiple ' +
-            ' subcategories. If you don see ' +
+            ' subcategories. If you dont see ' +
             ' your option just create one.</div> ' +
             ' </div> ' +
             ' <div class="fv-plugins-message-container"> ' +

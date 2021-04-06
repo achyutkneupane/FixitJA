@@ -1,4 +1,7 @@
 
+
+
+ 
 function bindSubCat1(data, subcat) {
 
 
@@ -54,6 +57,7 @@ function bindSubCat1(data, subcat) {
 
 
 
+
 }
 
 
@@ -96,4 +100,120 @@ function getSubCatData(categoryId, subcatid) {
     });
 
 
+
 }
+
+function bindSubCat2(data, subcat) {
+
+ 
+
+
+    var toEl = document.getElementById('kt_tagify_subcategory');
+
+    var tagifyTo = new Tagify(toEl, {
+        delimiters: ", ", // add new tags when a comma or a space character is entered
+        maxTags: 10,
+        blacklist: ["fuck", "shit", "pussy"],
+        keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
+        whitelist: data,
+        templates: {
+            dropdownItem: function (tagData) {
+                try {
+                    var html = '';
+
+                    html += '<div class="tagify__dropdown__item">';
+                    html += '   <div class="d-flex align-items-center">';
+                    html += '       <span class="symbol sumbol-' + (tagData.initialsState ? tagData.initialsState : '') + ' mr-2">';
+                    // html += '           <span class="symbol-label" style="background-image: url(\'' + (tagData.pic ? tagData.pic : '') + '\')">' + (tagData.initials ? tagData.initials : '') + '</span>';
+                    html += '       </span>';
+                    html += '       <div class="d-flex flex-column">';
+                    html += '           <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">' + (tagData.value ? tagData.value : '') + '</a>';
+                    html += '           <span class="text-muted font-weight-bold">' + (tagData.description ? tagData.description : '') + '</span>';
+                    html += '       </div>';
+                    html += '   </div>';
+                    html += '</div>';
+
+                    return html;
+                } catch (err) {}
+            }
+        },
+        transformTag: function (tagData) {
+            tagData.class = 'tagify__tag tagify__tag--primary';
+        },
+        dropdown: {
+            classname: "color-blue",
+            enabled: 0,
+            maxItems: 5
+        },
+
+
+
+
+
+
+    });
+    /* fetching subcategory id */
+var result = sessionSubCatId;
+
+ var subcat = [];
+ Object.keys(result).forEach((key) => {
+      subcat.push(result[key])
+});
+for(i =0; i<subcat.length; i++){
+    
+      
+   data.forEach((element, index) => {
+       console.table(element.id)
+            if (element[index] === subcat[i]) { 
+                console.log("yes valaue match")
+            }
+            else{
+                console.log("sorry for this time", subcat[i])
+            }
+        });
+    
+}
+
+}
+var category = sessionSubCatId;
+ var subcatid = document.getElementById('kt_tagify_subcategory');
+
+Object.keys(category).forEach((key)=>{
+    getSubCatData1(category[key], subcatid);
+    
+})
+
+function getSubCatData1(categoryId, subcat) {
+    var subcategory = new Array();
+    $.ajax({
+        type: "GET",
+        url: '/api/category/' + categoryId,
+        dataType: 'json',
+        success: function (result) {
+            console.table(result)
+            $.each(result, function (index, item) {
+                var itemObj = {};
+                itemObj.value = item.name;
+                itemObj.description = item.description;
+                itemObj.id = item.id;
+                itemObj.initials = '',
+                    itemObj.initialsState = '',
+                    itemObj.id = item.id,
+                    itemObj.class = 'tagify__tag--primary'
+                subcategory.push(itemObj);
+            });
+            bindSubCat2(subcategory, subcat);
+
+
+        }
+
+    });
+
+
+}
+
+    
+
+
+    
+ 
