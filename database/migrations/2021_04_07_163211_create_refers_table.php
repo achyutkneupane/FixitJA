@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddReferredByFieldsToUsersTable extends Migration
+class CreateRefersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class AddReferredByFieldsToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('referred_by')->after('companyname')->nullable();
+        Schema::create('refers', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('referred_by');
+            $table->string('email');
+            $table->string('token');
             $table->foreign('referred_by')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +30,6 @@ class AddReferredByFieldsToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('refers');
     }
 }

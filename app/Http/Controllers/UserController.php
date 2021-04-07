@@ -624,5 +624,10 @@ class UserController extends Controller
     {
         return view('pages.refer');
     }
+    public function referPost(Request $request)
+    {
+        dd(request()->all());
+        return redirect()->route('referGet');
+    }
     
 }

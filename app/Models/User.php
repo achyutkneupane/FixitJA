@@ -84,10 +84,10 @@ class User extends Authenticatable
     }
     public function email()
     {
-        if(!auth()->user()->emails->where('primary', true))
-            return auth()->user()->emails->where('primary', true)->first()->email;
+        if(!$this->emails->where('primary', true))
+            return $this->emails->where('primary', true)->first()->email;
         else
-            return auth()->user()->emails->first()->email;
+            return $this->emails->first()->email;
     }
     public function getEmail($id)
     {
@@ -186,13 +186,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class, 'assigned_to');
     }
-    public function referral()
-    {
-        return $this->belongsTo(User::class,'referred_by');
-    }
     public function refers()
     {
-        return $this->hasMany(User::class,'referred_by');
+        return $this->hasMany(Refer::class,'referred_by');
     }
     public function found_by()
     {
