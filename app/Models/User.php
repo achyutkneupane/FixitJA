@@ -74,6 +74,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Phone::class);
     }
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class);
+    }
+    public function work_hours()
+    {
+        return $this->hasMany(WorkingHour::class);
+    }
     public function email()
     {
         if(!auth()->user()->emails->where('primary', true))
