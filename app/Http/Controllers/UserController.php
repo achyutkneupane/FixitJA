@@ -606,4 +606,23 @@ class UserController extends Controller
         $user = User::find($id);
         return view('admin.profile.reference', compact('user'));
     }
+    public function createProfilewithSub($subCatId)
+    {
+
+        
+        if(!empty($subCatId))
+            session()->flash('subCatId',$subCatId);
+        return redirect()->route('ProfileWizard');
+    }
+    public function downloadcertificate($filename)
+    {
+       $file = 'certificates/'.$filename;
+       return Storage::download($file);
+    }
+
+    public function referGet()
+    {
+        return view('pages.refer');
+    }
+    
 }

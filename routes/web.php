@@ -102,7 +102,7 @@ Route::prefix('/project/create')->group(function(){
     Route::post('/form', [App\Http\Controllers\TaskController::class, 'categoryRequest'])->name('categoryRequest');
 });
 Route::get('/review', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReviews');
-Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferrals');
+Route::get('/referral', [App\Http\Controllers\UserController::class, 'referGet'])->middleware('auth')->name('referGet');
 Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
 Route::get('/resend_email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyMultiEmail'])->name('verifyMultiEmail');

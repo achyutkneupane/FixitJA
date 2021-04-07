@@ -178,9 +178,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class, 'assigned_to');
     }
-
-
-
+    public function referral()
+    {
+        return $this->belongsTo(User::class,'referred_by');
+    }
+    public function refers()
+    {
+        return $this->hasMany(User::class,'referred_by');
+    }
     public function found_by()
     {
         return $this->hasMany(ErrorLog::class, 'found_by');
