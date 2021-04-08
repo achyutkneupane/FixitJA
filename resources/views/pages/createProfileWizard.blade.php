@@ -287,7 +287,7 @@ console.log(sessionSubCatId);
                                                 <div class="form-group">
                                                     <label>Category</label>
 
-                                                    <select name="skills_category" subcatid="kt_tagify_subcategory"
+                                                    <select name="skills_category" subcatid="kt_tagify_subcategory{{ $loop->index +1}}"
                                                         id="selected_catgeory{{ $loop->index + 1 }}"
                                                         class="form-control form-control-solid form-control-lg category-select">
 
@@ -315,8 +315,9 @@ console.log(sessionSubCatId);
 
 
                                                     <div id="divTagifykt_tagify_subcategory">
+                                                    
 
-                                                        <input id="kt_tagify_subcategory" class="form-control"
+                                                        <input id="kt_tagify_subcategory{{ $loop->index + 1}}"  class="form-control"
                                                             name="sub_categories{{ $loop->index + 1 }}"
                                                             placeholder="Add sub-categories" value="">
                                                         <div class="mt-3 text-muted">Select multiple

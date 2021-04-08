@@ -1,7 +1,3 @@
-
-
-
- 
 function bindSubCat1(data, subcat) {
 
 
@@ -104,94 +100,132 @@ function getSubCatData(categoryId, subcatid) {
 }
 
 function bindSubCat2(data, subcat) {
+    var subcatid = subcat;
+    console.table(data)
+    for (i = 0; i < subcatid.length; i++) {
+        var toEl = document.getElementById(subcatid[i]);
+        var tagifyTo1 = new Tagify(toEl, {
+            delimiters: ", ", // add new tags when a comma or a space character is entered
+            maxTags: 10,
+            blacklist: ["fuck", "shit", "pussy"],
+            keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
+            whitelist: data,
+            templates: {
+                dropdownItem: function (tagData) {
+                    try {
+                        var html = '';
 
- 
+                        html += '<div class="tagify__dropdown__item">';
+                        html += '   <div class="d-flex align-items-center">';
+                        html += '       <span class="symbol sumbol-' + (tagData.initialsState ? tagData.initialsState : '') + ' mr-2">';
+                        // html += '           <span class="symbol-label" style="background-image: url(\'' + (tagData.pic ? tagData.pic : '') + '\')">' + (tagData.initials ? tagData.initials : '') + '</span>';
+                        html += '       </span>';
+                        html += '       <div class="d-flex flex-column">';
+                        html += '           <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">' + (tagData.value ? tagData.value : '') + '</a>';
+                        html += '           <span class="text-muted font-weight-bold">' + (tagData.description ? tagData.description : '') + '</span>';
+                        html += '       </div>';
+                        html += '   </div>';
+                        html += '</div>';
 
-
-    var toEl = document.getElementById('kt_tagify_subcategory');
-
-    var tagifyTo = new Tagify(toEl, {
-        delimiters: ", ", // add new tags when a comma or a space character is entered
-        maxTags: 10,
-        blacklist: ["fuck", "shit", "pussy"],
-        keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
-        whitelist: data,
-        templates: {
-            dropdownItem: function (tagData) {
-                try {
-                    var html = '';
-
-                    html += '<div class="tagify__dropdown__item">';
-                    html += '   <div class="d-flex align-items-center">';
-                    html += '       <span class="symbol sumbol-' + (tagData.initialsState ? tagData.initialsState : '') + ' mr-2">';
-                    // html += '           <span class="symbol-label" style="background-image: url(\'' + (tagData.pic ? tagData.pic : '') + '\')">' + (tagData.initials ? tagData.initials : '') + '</span>';
-                    html += '       </span>';
-                    html += '       <div class="d-flex flex-column">';
-                    html += '           <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">' + (tagData.value ? tagData.value : '') + '</a>';
-                    html += '           <span class="text-muted font-weight-bold">' + (tagData.description ? tagData.description : '') + '</span>';
-                    html += '       </div>';
-                    html += '   </div>';
-                    html += '</div>';
-
-                    return html;
-                } catch (err) {}
-            }
-        },
-        transformTag: function (tagData) {
-            tagData.class = 'tagify__tag tagify__tag--primary';
-        },
-        dropdown: {
-            classname: "color-blue",
-            enabled: 0,
-            maxItems: 5
-        },
+                        return html;
+                    } catch (err) {}
+                }
+            },
+            transformTag: function (tagData) {
+                tagData.class = 'tagify__tag tagify__tag--primary';
+            },
+            dropdown: {
+                classname: "color-blue",
+                enabled: 0,
+                maxItems: 5
+            },
 
 
 
 
 
 
-    });
-    /* fetching subcategory id */
-var result = sessionSubCatId;
-
- var subcat = [];
- Object.keys(result).forEach((key) => {
-      subcat.push(result[key])
-});
-for(i =0; i<subcat.length; i++){
-    
-      
-   data.forEach((element, index) => {
-       console.table(element.id)
-            if (element[index] === subcat[i]) { 
-                console.log("yes valaue match")
-            }
-            else{
-                console.log("sorry for this time", subcat[i])
-            }
         });
-    
-}
+    }
+    /* fetching subcategory id */
+    var result = sessionSubCatId;
+
+    var subcat = [];
+    Object.keys(result).forEach((key) => {
+        subcat.push(result[key])
+    });
+    for (i = 0; i < subcat.length; i++) {
+        console.log(subcat[i][0]);
+        data.forEach((element, index) => {
+            console.log(element.id)
+            if (element.id === subcat[i][0]) {
+                if (element) {
+                    
+                    tagifyTo1.addTags([element]);
+
+                }
+
+
+            }
+
+        });
+
+    }
 
 }
-var category = sessionSubCatId;
- var subcatid = document.getElementById('kt_tagify_subcategory');
+var category = sessionCatId;
 
-Object.keys(category).forEach((key)=>{
-    getSubCatData1(category[key], subcatid);
+
+
+
+
+
+
+
+
+
+
+var count = 0;
+var catid;
+var updatesubcatid = new Array();
+Object.keys(category).forEach((key) => {
+
     
+
+    count++
+    var subcatid = "kt_tagify_subcategory" + count
+    catid = category[key];
+    updatesubcatid.push(subcatid);
+
+
+
+
+
+    getSubCatData1(catid, updatesubcatid);
+
+
+
 })
 
+
+
+
 function getSubCatData1(categoryId, subcat) {
-    var subcategory = new Array();
-    $.ajax({
-        type: "GET",
-        url: '/api/category/' + categoryId,
-        dataType: 'json',
-        success: function (result) {
-            console.table(result)
-            $.each(result, function (index, item) {
+
+
+    for(i=0; i< categoryId.length; i++){
+
+
+        
+        
+        var subcategory = new Array();
+         $.ajax({
+             type: "GET",
+             url: '/api/category/' + categoryId[i],
+             dataType: 'json',
+             success: function (result) {
+                 console.table(result)
+                $.each(result, function (index, item) {
                 var itemObj = {};
                 itemObj.value = item.name;
                 itemObj.description = item.description;
@@ -208,12 +242,10 @@ function getSubCatData1(categoryId, subcat) {
         }
 
     });
+       
+        
+    }
+    
 
 
 }
-
-    
-
-
-    
- 
