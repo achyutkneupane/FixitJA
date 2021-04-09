@@ -390,6 +390,7 @@ class UserController extends Controller
            foreach (json_decode($request->working_days) as $days) {
             array_push($dayArray, $days->value);
         }
+          
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;

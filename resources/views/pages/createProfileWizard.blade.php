@@ -13,6 +13,12 @@ var sessionSubCatId = {!! session()->get('subcategory_id') !!};
 var sessionCatId = {!! session()->get('category_id') !!}
 </script>
 @endif
+@if(!empty(auth()->user()->days))
+ <script>
+ var workingdays = {!! auth()->user()->days !!}
+</script>
+@endif
+                      
 @php
 $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
 @endphp
@@ -773,7 +779,7 @@ console.log(sessionSubCatId);
                                 <label class="col-9 col-form-label">10. What are the days you are working?
                                 </label>
 
-
+                           
 
 
                                 <div class="col-9 col-form-label">
@@ -781,10 +787,11 @@ console.log(sessionSubCatId);
                                     <div class="checkbox-inline">
 
                                         <input id="kt_tagify_workingdays" class="form-control" name="working_days"
-                                            placeholder="Add sub-categories" value="{{ auth()->user()->days  ? : '' }}">
+                                            placeholder="Add sub-categories" value="">
                                         <div class="mt-3 text-muted">Select multiple days. If you don't see
                                             your option just create one.</div>
                                     </div>
+                                    <input type="text" id="workingdays" value="{{ auth()->user()->days}}" hidden />
 
                                 </div>
 
