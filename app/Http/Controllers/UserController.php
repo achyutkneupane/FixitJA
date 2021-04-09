@@ -187,6 +187,7 @@ class UserController extends Controller
                 $document = new Document();
                 $tempPath = "";
                 $id = $certificateArray->fieldId;
+                $experience = 'experience'.$id;
                 if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first())) {
                     $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first();
                     $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first()->path;
@@ -194,6 +195,7 @@ class UserController extends Controller
                 $certificate_new = 'certificate'.$id;
                 $document->path = request($certificate_new)->store('certificates');
                 $document->type = 'certificate'.$id;
+                $document->experience = $request->$experience;
                 $document->user()->associate($user->id);
                 $document->save();
                 if ($tempPath)
@@ -214,6 +216,7 @@ class UserController extends Controller
                 
               
         }
+        
 
         
 
@@ -283,9 +286,7 @@ class UserController extends Controller
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
-          $user->experience = request($experince_new);
-          
-          //$user->experience()->attach($skills_experince);
+       
         
          
           $user->street_01 = $request->street;
