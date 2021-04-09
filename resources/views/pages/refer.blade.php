@@ -11,11 +11,11 @@
             <div class="card">
                 <div class="card-body">
                     @php
-                        $referral = \App\Models\Refer::with('referral')->where('email',auth()->user()->email())->first()->referral;
+                        $referral = \App\Models\Refer::with('referral')->where('email',auth()->user()->email())->first();
                     @endphp
                     @isset($referral)
                         <div class="h3 text-center">
-                            You were referred by <a href="{{ route('viewUser',$referral->id) }}">{{ $referral->name }}</a>.
+                            You were referred by <a href="{{ route('viewUser',$referral->referral->id) }}">{{ $referral->referral->name }}</a>.
                         </div>
                     @endisset
                     <div class="container mt-4">
@@ -27,6 +27,9 @@
                                         <label class="col-xl-3 col-lg-3 col-form-label">Refer Someone: </label>
                                         <div class="col-lg-8 col-xl-8">
                                             <input class="form-control form-control-lg form-control-solid" type="email" name="email" id="email" placeholder="Enter email address to refer">
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="col-lg-1 col-xl-1">
                                             <input class="btn btn-primary" type="submit" value="Submit">
@@ -64,7 +67,7 @@
                                                 <td scope="row">{{ $loop->iteration }}</td>
                                                 <td>{{ $refer->email }}</td>
                                                 <td>{{ $refer->created_at->isoFormat('YYYY/MM/DD') }}</td>
-                                                @if($email->count() > 0)
+                                                @if($email)
                                                     <td>{{ $email->user->name }}</td>
                                                     <td>{{ $email->user->created_at->isoFormat('YYYY/MM/DD') }}</td>
                                                 @else

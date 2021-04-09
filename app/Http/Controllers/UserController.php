@@ -22,6 +22,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MailController;
 use App\Models\Parish;
+use App\Models\Refer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -626,8 +627,33 @@ class UserController extends Controller
     }
     public function referPost(Request $request)
     {
-        dd(request()->all());
-        return redirect()->route('referGet');
+        $validator = Validator::make($request->all(), [
+            'email'     => 'required|unique:emails,email',
+        ],[
+            'email.unique' => 'This :attribute is already registered. Try another one.'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        } else {
+            $refer = new Refer();
+            $refer->email = $request->email;
+            $refer->referred_by = auth()->id();
+            $refer->token = $token = Str::random(15);
+            $refer->save();
+            Mail::send('mail.refer', compact('refer'), function($message) use ($request)
+                {
+                    $message->to($request->email)->subject('Sign Up to FixitJA');
+                });
+            return redirect()->route('referGet');
+        }
     }
-    
+    public function registerWithToken($token)
+    {
+        $user = Refer::where('token',$token)->first();
+        if(!$user)
+            ToastHelper::showToast('Invalid referral token.','error');
+        else
+            session()->flash('referral',$user);
+        return redirect()->to('/register');
+    }
 }
