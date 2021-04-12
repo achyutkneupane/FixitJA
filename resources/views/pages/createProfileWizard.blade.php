@@ -17,7 +17,7 @@ var sessionCatId = {!! session()->get('category_id') !!}
 $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
 @endphp
 <script>
-console.log(sessionSubCatId);
+// console.log(sessionSubCatId);
 </script>
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
@@ -264,13 +264,6 @@ console.log(sessionSubCatId);
                                     id="accordion_category{{ $loop->index }}">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
-
-
-                                      
-                                            SubCategory id : {{ session()->get('subcategory_id') }}
-                                           
-
-
                                             <div class="card-title" data-toggle="collapse"
                                                 data-target="#collapse{{ $loop->index }}">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
@@ -482,7 +475,7 @@ console.log(sessionSubCatId);
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Experience
-                                                        <input type="text" id="" class="form-control"
+                                                        <input type="text" class="form-control"
                                                             category="category-name" type="number" placeholder="Years"
                                                             value="{{ $category['document']['experience']}}">
                                                     </label>
