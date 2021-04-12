@@ -1,40 +1,23 @@
 @extends('layouts.app')
 @section('content')
 <script>
-    var sessionCatId, sessionSubCatId;
-
+var sessionCatId,sessionSubCatId;
 </script>
 @if(!empty(session()->get('subcategory_id')))
 <script>
-    var sessionSubCatId = {
-        !!session() - > get('subcategory_id') !!
-    };
-
+var sessionSubCatId = {!! session()->get('subcategory_id') !!};
 </script>
 @endif
 @if(!empty(session()->get('category_id')))
 <script>
-    var sessionCatId = {
-        !!session() - > get('category_id') !!
-    }
-
+var sessionCatId = {!! session()->get('category_id') !!}
 </script>
 @endif
-@if(!empty(auth()->user()->days))
-<script>
-    var workingdays = {
-        !!auth() - > user() - > days!!
-    }
-
-</script>
-@endif
-
 @php
 $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
 @endphp
 <script>
-    console.log(sessionSubCatId);
-
+// console.log(sessionSubCatId);
 </script>
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
@@ -256,7 +239,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                     <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="POST"
                         enctype="multipart/form-data">
                         @csrf
-
+                    
 
 
                         <!--begin::Wizard Step 1-->
@@ -272,23 +255,20 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
                                 <!--begin::Accordion-->
                                 @if(auth()->user()->allCategories()->count() != 0)
+
                                 @foreach(auth()->user()->allCategories() as $subcats)
+
+
+
                                 <div class="accordion accordion-solid accordion-toggle-plus"
                                     id="accordion_category{{ $loop->index }}">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
-
-
-
-                                            SubCategory id : {{ session()->get('subcategory_id') }}
-
-
-
                                             <div class="card-title" data-toggle="collapse"
                                                 data-target="#collapse{{ $loop->index }}">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
                                                 <span class="category-title"
-                                                    id="categoryTitleselected_catgeory{{ $loop->index }}">{{ $subcats['category']['category_name'] }}</span>
+                                                    id="categoryTitleselected_catgeory{{ $loop->index }}">{{ ucwords($subcats['category']['category_name']) }}</span>
                                             </div>
                                         </div>
 
@@ -300,15 +280,14 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                 <div class="form-group">
                                                     <label>Category</label>
 
-                                                    <select name="skills_category"
-                                                        subcatid="kt_tagify_subcategory{{ $loop->index +1}}"
-                                                        id="selected_catgeory{{ $loop->index  }}"
+                                                    <select name="skills_category" subcatid="kt_tagify_subcategory{{ $loop->index +1}}"
+                                                        id="selected_catgeory{{ $loop->index + 1 }}"
                                                         class="form-control form-control-solid form-control-lg category-select">
 
-                                                     {{  $subcats['category']['category_name'] }}
+
                                                         <option
                                                             value="{{$subcats['category']['category_id'] ? 'selected' : ''}}">
-                                                            {{  $subcats['category']['category_name'] }}
+                                                            {{  ucwords($subcats['category']['category_name']) }}
                                                         </option>
                                                         @foreach ($category as $cate)
                                                         <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
@@ -324,15 +303,14 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                 <!--begin::Select-->
 
                                                 <div class="form-group">
-                                                <label>Sub category</label>
+                                                    <label>Sub category</label>
 
 
 
                                                     <div id="divTagifykt_tagify_subcategory">
+                                                    
 
-
-                                                        <input id="kt_tagify_subcategory{{ $loop->index + 1}}"
-                                                            class="form-control"
+                                                        <input id="kt_tagify_subcategory{{ $loop->index + 1}}"  class="form-control"
                                                             name="sub_categories{{ $loop->index + 1 }}"
                                                             placeholder="Add sub-categories" value="">
                                                         <div class="mt-3 text-muted">Select multiple
@@ -340,6 +318,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                             your option, just create one.</div>
 
                                                     </div>
+                                                     <input type="hidden" id="totalCatList" name="totalCatList">
+                                                    
 
 
 
@@ -497,7 +477,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Experience
-                                                        <input type="text" id="" class="form-control"
+                                                        <input type="text" class="form-control"
                                                             category="category-name" type="number" placeholder="Years"
                                                             value="{{ $category['document']['experience']}}">
                                                     </label>
@@ -583,10 +563,9 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
                                 <select class="form-control" id="degree_wizard_profile" name="degree"
                                     value="{{old('degree')}}">
-                                    <option
-                                        value="@foreach(auth()->user()->educations as $education) {{ $education->degree}} ? 'selected' :'' @endforeach">
-                                        @foreach(auth()->user()->educations as $education) {{ $education->degree}}
-                                        @endforeach</option>
+                                    @foreach(auth()->user()->educations as $education)
+                                    <option value="{{ $education->degree}}"> {{ $education->degree}}</option>
+                                    @endforeach
                                     <option value="Secondary Level" id="type1">Secondary level</option>
                                     <option value="Higher Secondary Level" id="type2">Higher Secondary level
                                     </option>
@@ -788,7 +767,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <label class="col-9 col-form-label">10. What are the days you are working?
                                 </label>
 
-
+                            <input type="hidden" id="workingdays" value="{{ auth()->user()->days}}" />
 
 
                                 <div class="col-9 col-form-label">
@@ -800,7 +779,6 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                         <div class="mt-3 text-muted">Select multiple days. If you don't see
                                             your option just create one.</div>
                                     </div>
-                                    <input type="text" id="workingdays" value="{{ auth()->user()->days}}" hidden />
 
                                 </div>
 
@@ -1047,32 +1025,22 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
     var fixedNavbarWebsite = true;
     $(".navbar-marketing").addClass("navbar-scrolled");
     $(".navbar-marketing").removeClass("fixed-top");
-
 </script>
 
 <script>
     var avatar5 = new KTImageInput('kt_image_5');
-
     avatar5.on('cancel', function (imageInput) {
         swal.fire({
-
         });
     });
-
     avatar5.on('change', function (imageInput) {
         swal.fire({
-
-
         });
     });
-
     avatar5.on('remove', function (imageInput) {
         swal.fire({
-
-
         });
     });
-
 </script>
 
 @endsection

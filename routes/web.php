@@ -128,6 +128,7 @@ Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'update
 //Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
 Route::get('/profile/init/subCategoryId/{subCatId}', [App\Http\Controllers\UserController::class, 'createProfilewithSub'])->name('createProfilewithSub');
+Route::put('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofiledetails']);
 
 
 
