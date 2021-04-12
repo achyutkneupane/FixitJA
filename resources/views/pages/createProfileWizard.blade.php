@@ -1,29 +1,40 @@
 @extends('layouts.app')
 @section('content')
 <script>
-var sessionCatId,sessionSubCatId;
+    var sessionCatId, sessionSubCatId;
+
 </script>
 @if(!empty(session()->get('subcategory_id')))
 <script>
-var sessionSubCatId = {!! session()->get('subcategory_id') !!};
+    var sessionSubCatId = {
+        !!session() - > get('subcategory_id') !!
+    };
+
 </script>
 @endif
 @if(!empty(session()->get('category_id')))
 <script>
-var sessionCatId = {!! session()->get('category_id') !!}
+    var sessionCatId = {
+        !!session() - > get('category_id') !!
+    }
+
 </script>
 @endif
 @if(!empty(auth()->user()->days))
- <script>
- var workingdays = {!! auth()->user()->days !!}
+<script>
+    var workingdays = {
+        !!auth() - > user() - > days!!
+    }
+
 </script>
 @endif
-                      
+
 @php
 $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
 @endphp
 <script>
-console.log(sessionSubCatId);
+    console.log(sessionSubCatId);
+
 </script>
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
@@ -261,27 +272,23 @@ console.log(sessionSubCatId);
 
                                 <!--begin::Accordion-->
                                 @if(auth()->user()->allCategories()->count() != 0)
-
                                 @foreach(auth()->user()->allCategories() as $subcats)
-
-
-
                                 <div class="accordion accordion-solid accordion-toggle-plus"
                                     id="accordion_category{{ $loop->index }}">
                                     <div class="card card-category-accordion" id="categoryCard">
                                         <div class="card-header">
 
 
-                                      
+
                                             SubCategory id : {{ session()->get('subcategory_id') }}
-                                           
+
 
 
                                             <div class="card-title" data-toggle="collapse"
                                                 data-target="#collapse{{ $loop->index }}">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
                                                 <span class="category-title"
-                                                    id="categoryTitleselected_catgeory{{ $loop->index }}">{{ ucwords($subcats['category']['category_name']) }}</span>
+                                                    id="categoryTitleselected_catgeory{{ $loop->index }}">{{ $subcats['category']['category_name'] }}</span>
                                             </div>
                                         </div>
 
@@ -293,14 +300,15 @@ console.log(sessionSubCatId);
                                                 <div class="form-group">
                                                     <label>Category</label>
 
-                                                    <select name="skills_category" subcatid="kt_tagify_subcategory{{ $loop->index +1}}"
-                                                        id="selected_catgeory{{ $loop->index + 1 }}"
+                                                    <select name="skills_category"
+                                                        subcatid="kt_tagify_subcategory{{ $loop->index +1}}"
+                                                        id="selected_catgeory{{ $loop->index  }}"
                                                         class="form-control form-control-solid form-control-lg category-select">
 
-
+                                                     {{  $subcats['category']['category_name'] }}
                                                         <option
                                                             value="{{$subcats['category']['category_id'] ? 'selected' : ''}}">
-                                                            {{  ucwords($subcats['category']['category_name']) }}
+                                                            {{  $subcats['category']['category_name'] }}
                                                         </option>
                                                         @foreach ($category as $cate)
                                                         <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
@@ -316,14 +324,15 @@ console.log(sessionSubCatId);
                                                 <!--begin::Select-->
 
                                                 <div class="form-group">
-                                                    <label>Sub category</label>
+                                                <label>Sub category</label>
 
 
 
                                                     <div id="divTagifykt_tagify_subcategory">
-                                                    
 
-                                                        <input id="kt_tagify_subcategory{{ $loop->index + 1}}"  class="form-control"
+
+                                                        <input id="kt_tagify_subcategory{{ $loop->index + 1}}"
+                                                            class="form-control"
                                                             name="sub_categories{{ $loop->index + 1 }}"
                                                             placeholder="Add sub-categories" value="">
                                                         <div class="mt-3 text-muted">Select multiple
@@ -779,7 +788,7 @@ console.log(sessionSubCatId);
                                 <label class="col-9 col-form-label">10. What are the days you are working?
                                 </label>
 
-                           
+
 
 
                                 <div class="col-9 col-form-label">

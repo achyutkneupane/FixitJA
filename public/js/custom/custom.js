@@ -124,6 +124,7 @@ $("#add_btn").click(function (e) {
         $.each(category_data, function (index, item) {
             category_select = category_select + ('<option value="' + item.id + '">' + item.name + ' </option>');
         });
+        
         $('#accordion_category').append(
             '<div class="card card-category-accordion" id="categoryCard' + count + '">' +
             '<div class="card-header">' +
@@ -284,6 +285,7 @@ $(document).on("click", ".remove-accordian_remove", function (e) {
 $(document).on('change', '.category-select', function (e) {
     var data = $(this).children("option:selected").text();
     $("#categoryTitle" + $(this).attr('id') + "").html(data);
+    
 })
 
 //Change certificate wizard if category is changed later
@@ -306,6 +308,7 @@ function LoadWizardData(wizard) {
         });
         categorySelected = [];
         $.each($(".category-title"), function (index, value) {
+            
            
             $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+index+'"},');
             const cloneCertificateAccordion = $("#templateCertificate").clone();
@@ -314,6 +317,7 @@ function LoadWizardData(wizard) {
             cloneCertificateAccordion.show();
 
             var cardTitle = cloneCertificateAccordion.find("#certificateCategoryTitle");
+            console.log(cardTitle)
             cardTitle.html(value.innerHTML);
             cardTitle.attr("id", "certificateCategoryTitle" + index);
 

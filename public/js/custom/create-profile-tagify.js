@@ -101,7 +101,7 @@ function getSubCatData(categoryId, subcatid) {
 
 function bindSubCat2(data, subcat) {
     var subcatid = subcat;
-    console.table(data)
+
     for (i = 0; i < subcatid.length; i++) {
         var toEl = document.getElementById(subcatid[i]);
         var tagifyTo1 = new Tagify(toEl, {
@@ -155,12 +155,12 @@ function bindSubCat2(data, subcat) {
         subcat.push(result[key])
     });
     for (i = 0; i < subcat.length; i++) {
-        console.log(subcat[i][0]);
+        
         data.forEach((element, index) => {
             console.log(element.id)
             if (element.id === subcat[i][0]) {
                 if (element) {
-                    
+
                     tagifyTo1.addTags([element]);
 
                 }
@@ -174,38 +174,19 @@ function bindSubCat2(data, subcat) {
 
 }
 var category = sessionCatId;
-
-
-
-
-
-
-
-
-
-
-
 var count = 0;
 var catid;
 var updatesubcatid = new Array();
-Object.keys(category).forEach((key) => {
+if (category) {
+    Object.keys(category).forEach((key) => {
+        count++
+        var subcatid = "kt_tagify_subcategory" + count
+        catid = category[key];
+        updatesubcatid.push(subcatid);
+        getSubCatData1(catid, updatesubcatid);
+    })
+}
 
-    
-
-    count++
-    var subcatid = "kt_tagify_subcategory" + count
-    catid = category[key];
-    updatesubcatid.push(subcatid);
-
-
-
-
-
-    getSubCatData1(catid, updatesubcatid);
-
-
-
-})
 
 
 
@@ -213,39 +194,39 @@ Object.keys(category).forEach((key) => {
 function getSubCatData1(categoryId, subcat) {
 
 
-    for(i=0; i< categoryId.length; i++){
+    for (i = 0; i < categoryId.length; i++) {
 
 
-        
-        
+
+
         var subcategory = new Array();
-         $.ajax({
-             type: "GET",
-             url: '/api/category/' + categoryId[i],
-             dataType: 'json',
-             success: function (result) {
-                 console.table(result)
+        $.ajax({
+            type: "GET",
+            url: '/api/category/' + categoryId[i],
+            dataType: 'json',
+            success: function (result) {
+                console.table(result)
                 $.each(result, function (index, item) {
-                var itemObj = {};
-                itemObj.value = item.name;
-                itemObj.description = item.description;
-                itemObj.id = item.id;
-                itemObj.initials = '',
-                    itemObj.initialsState = '',
-                    itemObj.id = item.id,
-                    itemObj.class = 'tagify__tag--primary'
-                subcategory.push(itemObj);
-            });
-            bindSubCat2(subcategory, subcat);
+                    var itemObj = {};
+                    itemObj.value = item.name;
+                    itemObj.description = item.description;
+                    itemObj.id = item.id;
+                    itemObj.initials = '',
+                        itemObj.initialsState = '',
+                        itemObj.id = item.id,
+                        itemObj.class = 'tagify__tag--primary'
+                    subcategory.push(itemObj);
+                });
+                bindSubCat2(subcategory, subcat);
 
 
-        }
+            }
 
-    });
-       
-        
+        });
+
+
     }
-    
+
 
 
 }
