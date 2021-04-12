@@ -127,7 +127,7 @@ $("#add_btn").click(function (e) {
         $('#accordion_category').append(
             '<div class="card card-category-accordion" id="categoryCard' + count + '">' +
             '<div class="card-header">' +
-            '<div class="card-title" data-toggle="collapse" data-target="#collapse' + count + '"><span class="category-title" id="' + viewcategory + '"></span></div>' +
+            '<div class="card-title" data-toggle="collapse" data-target="#collapse' + count + '"><span class="category-title" id="' + viewcategory + '">Select Category</span></div>' +
             '</div>' +
             ' <div id="collapse' + count + '" class="collapse show"' +
             ' data-parent="#accordionExample3">' +
@@ -306,7 +306,6 @@ function LoadWizardData(wizard) {
         });
         categorySelected = [];
         $.each($(".category-title"), function (index, value) {
-           
             $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+index+'"},');
             const cloneCertificateAccordion = $("#templateCertificate").clone();
             cloneCertificateAccordion.attr("id", "certificateAccordion" + index);
