@@ -284,13 +284,13 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                         id="selected_catgeory{{ $loop->index + 1 }}"
                                                         class="form-control form-control-solid form-control-lg category-select">
 
-
+                                                      
                                                         <option
-                                                            value="{{$subcats['category']['category_id'] ? 'selected' : ''}}">
+                                                            value="{{ $subcats['category']['category_id'] ? 'selected' : ''}}">
                                                             {{  ucwords($subcats['category']['category_name']) }}
                                                         </option>
                                                         @foreach ($category as $cate)
-                                                        <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
+6                                                        <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
                                                         </option>
                                                         @endforeach
 
@@ -308,9 +308,11 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
 
                                                     <div id="divTagifykt_tagify_subcategory">
+
+                                                   
                                                     
 
-                                                        <input id="kt_tagify_subcategory{{ $loop->index + 1}}"  class="form-control"
+                                                        <input id="kt_tagify_subcategory{{ $loop->index + 1}}"    class="form-control"
                                                             name="sub_categories{{ $loop->index + 1 }}"
                                                             placeholder="Add sub-categories" value="">
                                                         <div class="mt-3 text-muted">Select multiple
@@ -320,7 +322,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     </div>
                                                      <input type="hidden" id="totalCatList" name="totalCatList">
                                                     
-
+                                                 @endphp
 
 
                                                 </div>

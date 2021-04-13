@@ -142,6 +142,8 @@ class UserController extends Controller
                 $user  = new User();
                 $user  = User::find(Auth::user()->id);
                 $email = auth()->user()->getEmail(Auth::user()->id);
+
+              
             
             $Subb = "[".$request->totalCatList."]";
             $Subb = str_replace('},]','}]',$Subb);
@@ -290,22 +292,22 @@ class UserController extends Controller
         if(auth()->user()->status == 'pending')
         {
             try {
-                
 
+              
             
+            dd(request()->all());
              $user  = new User();
              $user  = User::find(Auth::user()->id);
              $email = auth()->user()->getEmail(Auth::user()->id);
-
-             
             
-            $Subb = "[".$request->totalCatList."]";
+            
+            $Subb = "[".$request->totalCatLists."]";
             $Subb = str_replace('},]','}]',$Subb);
             $user_subcategories = new Collection();
             $new = collect();
             foreach(json_decode($Subb) as $subCattArray) {
                 $subCatt = 'sub_categories'. $subCattArray->fieldId;
-                dd($request->$subCatt);
+               
                 $categoryy = 'skills_category'. $subCattArray->fieldId;
                 foreach(json_decode($request->$subCatt) as $subCat){
                     
