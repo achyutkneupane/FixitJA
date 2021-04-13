@@ -40,12 +40,12 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold">Sub-Categories:</span>
-                    <span class="text-muted">
+                    <span class="text-muted float-right">
                         @foreach ($task->subCategories()->get() as $subs)
                         @if($loop->last)
                             {{ ucwords($subs->name) }}
                         @else
-                            {{ ucwords($subs->name) }},
+                            {{ ucwords($subs->name) }}<br>
                         @endif
                         @endforeach
                     </span>
@@ -61,13 +61,23 @@
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskOverviewIsActive) ? 'active' : '' }}">
                 Task Overview
             </a>
-            <a href="{{ route('taskAssignedBy', $task->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskAssignedByIsActive) ? 'active' : '' }}">
-                Assigned By
+            <a href="{{ route('taskDiscussion', $task->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskDiscussionIsActive) ? 'active' : '' }}">
+                Discussion
             </a>
-            <a href="{{ route('taskAssignedTo', $task->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskAssignedToIsActive) ? 'active' : '' }}">
-                Assigned To
+            <a href="{{ route('under_construction', $task->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskExpensesIsActive) ? 'active' : '' }}">
+                Expenses
+            </a>
+            @if ($task->payment_type == 'hourly basis')
+            <a href="{{ route('taskWorking', $task->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskWorkingIsActive) ? 'active' : '' }}">
+                Work Hours
+            </a>
+            @endif
+            <a href="{{ route('taskTimeline', $task->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskTimelineIsActive) ? 'active' : '' }}">
+                Task Timeline
             </a>
             <!--end::Nav-->
         </div>

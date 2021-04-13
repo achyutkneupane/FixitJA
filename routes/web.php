@@ -52,11 +52,16 @@ Route::prefix('/sub_category')->group(function () {
 Route::get('/tasks', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
 Route::prefix('/task')->group(function () {
     Route::get('/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth', 'relatedTaskOnly')->name('viewTask');
-    Route::get('/{id}/edit', [App\Http\Controllers\TaskController::class, 'edit'])->middleware('auth')->name('editTask');
-    Route::put('/{id}/edit/creator', [App\Http\Controllers\TaskController::class, 'editTaskCreator'])->middleware('auth')->name('editTaskCreator');
-    Route::put('/{id}/edit/detail', [App\Http\Controllers\TaskController::class, 'editTaskDetails'])->middleware('auth')->name('editTaskDetails');
-    Route::get('/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth')->name('taskAssignedBy');
-    Route::get('/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth')->name('taskAssignedTo');
+    Route::get('/{id}/timeline', [App\Http\Controllers\TaskController::class, 'taskTimeline'])->middleware('auth', 'relatedTaskOnly')->name('taskTimeline');
+    Route::get('/{id}/discussions', [App\Http\Controllers\TaskController::class, 'taskDiscussion'])->middleware('auth', 'relatedTaskOnly')->name('taskDiscussion');
+    Route::post('/{id}/discussions', [App\Http\Controllers\TaskController::class, 'postDiscussion'])->middleware('auth', 'relatedTaskOnly')->name('postDiscussion');
+    Route::get('/{id}/working_hours', [App\Http\Controllers\TaskController::class, 'taskWorking'])->middleware('auth', 'relatedTaskOnly')->name('taskWorking');
+    Route::post('/{id}/working_hours', [App\Http\Controllers\TaskController::class, 'postWorking'])->middleware('auth', 'relatedTaskOnly')->name('postWorking');
+    Route::get('/{id}/edit', [App\Http\Controllers\TaskController::class, 'edit'])->middleware('auth', 'relatedTaskOnly')->name('editTask');
+    Route::put('/{id}/edit/creator', [App\Http\Controllers\TaskController::class, 'editTaskCreator'])->middleware('auth', 'relatedTaskOnly')->name('editTaskCreator');
+    Route::put('/{id}/edit/detail', [App\Http\Controllers\TaskController::class, 'editTaskDetails'])->middleware('auth', 'relatedTaskOnly')->name('editTaskDetails');
+    Route::get('/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth', 'relatedTaskOnly')->name('taskAssignedBy');
+    Route::get('/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth', 'relatedTaskOnly')->name('taskAssignedTo');
 });
 Route::prefix('/profile')->group(function () {
     Route::get('/', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
@@ -100,14 +105,23 @@ Route::prefix('/project/create')->group(function(){
     Route::post('/', [App\Http\Controllers\TaskController::class, 'store'])->name('addProject');
     Route::post('/form', [App\Http\Controllers\TaskController::class, 'categoryRequest'])->name('categoryRequest');
 });
+Route::prefix('/referral')->group(function() {
+    Route::get('/', [App\Http\Controllers\UserController::class, 'referGet'])->middleware('auth')->name('referGet');
+    Route::post('/', [App\Http\Controllers\UserController::class, 'referPost'])->middleware('auth')->name('referPost');
+});
+
 Route::get('/review', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReviews');
-Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferrals');
 Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
 Route::get('/resend_email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyMultiEmail'])->name('verifyMultiEmail');
 Route::get('/add_user', [App\Http\Controllers\UserController::class, 'adminAddUser'])->middleware('auth','checkIfAdmin')->name('adminAddUser');
 Route::post('/add_user', [App\Http\Controllers\UserController::class, 'adminAddUserSubmit'])->middleware('auth','checkIfAdmin')->name('adminAddUserSubmit');
+Route::get('/register/{token}', [App\Http\Controllers\UserController::class, 'registerWithToken'])->name('registerWithToken');
 Route::get('/test', [App\Http\Controllers\MainController::class, 'test'])->name('test');
+
+//End routes by Achyut Neupane
+
+
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);

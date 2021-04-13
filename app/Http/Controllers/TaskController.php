@@ -7,11 +7,15 @@ namespace App\Http\Controllers;
 use App\Helpers\LogHelper;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Discussion;
 use App\Models\Parish;
 use App\Models\SubCategory;
 use App\Models\Task;
 use App\Models\TaskCreator;
+use App\Models\TaskTimeline;
 use App\Models\TaskWorkingLocation;
+use App\Models\WorkingHour;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Mail;
@@ -82,7 +86,7 @@ class TaskController extends Controller
                     $all_cats->push($cat);
                 }
                 else {
-                    $subCatToPush = SubCategory::find($subCat->id);
+                    $subCatToPush = $subCat->id;
                     $task_subcategories->push($subCatToPush);
                     $all_cats->push($subCatToPush);
                 }
@@ -135,6 +139,11 @@ class TaskController extends Controller
             //     $task->location()->save($location);
             // }
             $task->subcategories()->attach($task_subcategories);
+            $log = new TaskTimeline();
+            $log->status = 'created';
+            $log->user_by = auth()->id();
+            $log->description = "Task <b>".$request->name."</b> has been created.";
+            $task->logs()->save($log);
         }
         $city = City::with('parish')->find($request->city);
         $site_city = City::with('parish')->find($request->site_city);
@@ -236,7 +245,8 @@ class TaskController extends Controller
     }
     public function editTaskCreator(Request $request,$id)
     {
-        $creator = Task::with('creator')->find($id)->creator;
+        $task = Task::with('creator')->find($id);
+        $creator = $task->creator;
         $creator->name = $request->creator_name;
         $creator->email = $request->creator_email;
         $creator->phone = $request->creator_phone;
@@ -244,6 +254,11 @@ class TaskController extends Controller
         $creator->street_01 = $request->creator_street_01;
         $creator->street_02 = $request->creator_street_02;
         $creator->save();
+        $task->logs()->create([
+            'status'=>'changed',
+            'user_by'=>auth()->id(),
+            'description'=>'Task Creator Details has been edited.'
+        ]);
         return redirect()->route('viewTask',$id);
     } 
     public function editTaskDetails(Request $request,$id)
@@ -254,11 +269,65 @@ class TaskController extends Controller
         $task->deadline = $request->deadline;
         $task->is_client_on_site = $request->is_client_on_site;
         $task->is_repair_parts_provided = $request->is_repair_parts_provided;
-        $task->location->city_id = $request->city;
-        $task->location->street_01 = $request->street_01;
-        $task->location->street_02 = $request->street_02;
+        if(!$task->user_equal_working) {
+            $task->location->city_id = $request->workingCity;
+            $task->location->street_01 = $request->street_01;
+            $task->location->street_02 = $request->street_02;
+            $task->location->save();
+            }
+        else {
+            $location = new TaskWorkingLocation();
+            $location->city_id = $request->workingCity;
+            $location->street_01 = $request->street_01;
+            $location->street_02 = $request->street_02;
+            $task->location()->save($location);
+        }
+        $task->user_equal_working ? $task->user_equal_working = '0' : '';
         $task->save();
-        $task->location->save();
+        $task->logs()->create([
+            'status'=>'changed',
+            'user_by'=>auth()->id(),
+            'description'=>'Task Details has been edited.'
+        ]);
         return redirect()->route('viewTask',$id);
     } 
+    public function taskTimeline($id)
+    {
+        $logs = TaskTimeline::with('task','log_by','log_for')->orderBy('created_at','DESC')->where('task_id',$id)->paginate(10);
+        return view('admin.task.taskTimeline',compact('logs'));
+    }
+    public function taskDiscussion($id)
+    {
+        $discussions = Discussion::with('user')->orderBy('created_at','DESC')->where('task_id',$id)->get();
+        $task = Task::find($id);
+        return view('admin.task.taskDiscussion',compact('task','discussions'));
+    }
+    public function postDiscussion(Request $request,$id)
+    {
+        $discussion = new Discussion();
+        $discussion->message = $request->discussionText;
+        $discussion->task_id = $id;
+        $discussion->user_id = auth()->id();
+        $discussion->save();
+        return redirect()->route('taskDiscussion',$id);
+    }
+    public function taskWorking($id)
+    {
+        $hours = WorkingHour::with('user')->orderBy('created_at','DESC')->where('task_id',$id)->get();
+        $task = Task::find($id);
+        // dd($hours);
+        return view('admin.task.taskWorking',compact('task','hours'));
+    }
+    public function postWorking(Request $request,$id)
+    {
+        $working = new WorkingHour();
+        $start = $request->start_date." ".$request->start_time;
+        $end = $request->end_date." ".$request->end_time;
+        $working->start_time = Carbon::parse($start);
+        $working->end_time = Carbon::parse($end);
+        $working->description = $request->workingText;
+        $working->user_id = auth()->id();
+        Task::find($id)->works()->save($working);
+        return redirect()->route('taskWorking',$id);
+    }
 }

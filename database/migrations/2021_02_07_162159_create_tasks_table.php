@@ -43,18 +43,6 @@ class CreateTasksTable extends Migration
             $table->foreign('sub_category_id')->references('id')->on('sub_categories');
             $table->foreign('task_id')->references('id')->on('tasks');
         });
-        Schema::create('task_timeline', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('task_id');
-            $table->enum('status', array('created', 'assigned', 'changed', 'completed', 'declined'));
-            $table->unsignedBigInteger('user_to');
-            $table->unsignedBigInteger('user_by');
-            $table->timestamps();
-
-            $table->foreign('task_id')->references('id')->on('tasks');
-            $table->foreign('user_to')->references('id')->on('users');
-            $table->foreign('user_by')->references('id')->on('users');
-        });
 
         Schema::create('assignedBy_task', function (Blueprint $table) {
             $table->id();

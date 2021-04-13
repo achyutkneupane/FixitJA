@@ -77,12 +77,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Phone::class);
     }
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class);
+    }
+    public function work_hours()
+    {
+        return $this->hasMany(WorkingHour::class);
+    }
     public function email()
     {
-        if(!auth()->user()->emails->where('primary', true))
-            return auth()->user()->emails->where('primary', true)->first()->email;
+        if(!$this->emails->where('primary', true))
+            return $this->emails->where('primary', true)->first()->email;
         else
-            return auth()->user()->emails->first()->email;
+            return $this->emails->first()->email;
     }
     public function getEmail($id)
     {
@@ -181,9 +189,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class, 'assigned_to');
     }
-
-
-
+    public function refers()
+    {
+        return $this->hasMany(Refer::class,'referred_by');
+    }
     public function found_by()
     {
         return $this->hasMany(ErrorLog::class, 'found_by');
@@ -238,11 +247,11 @@ class User extends Authenticatable
 
     public function associatedTasks() {
         if($this->type == 'admin') {
-            return Task::all();
+            return Task::with('subcategories')->get();
         }
         else {
             $user = User::find($this->id);
-            return Task::whereHas('creator',function ($query) use ($user) {
+            return Task::with('subcategories')->whereHas('creator',function ($query) use ($user) {
                             $query->where('email', $user->email());
                         })
                         ->orWhere('created_by',$user->id)

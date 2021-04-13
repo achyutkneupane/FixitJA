@@ -381,7 +381,8 @@ var cityId = {{ auth()->user()->city->id }};
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <input type="checkbox" id="locationCheck" name="user_equal_working" onchange="workingEqualsUser()" />
+                                            <input type="hidden" name="user_equal_working" value="0" />
+                                            <input type="checkbox" id="locationCheck" name="user_equal_working" value="1" onchange="workingEqualsUser()" />
                                             <span class="font-weight-bold ">Working Location is same as User Location</span>
                                         </div>
                                     </div>

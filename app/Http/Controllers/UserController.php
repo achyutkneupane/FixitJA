@@ -22,6 +22,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MailController;
 use App\Models\Parish;
+use App\Models\Refer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -286,6 +287,7 @@ class UserController extends Controller
             LogHelper::storeMessage("Profile Wizard",$e->getMessage(),$user);
             return redirect()->route('profileWizard')->withInput();
         }
+        
 
         }
 
@@ -562,6 +564,11 @@ class UserController extends Controller
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
+
+       
+        
+         
+
           $user->street_01 = $request->street;
           $user->street_02 = $request->house_number;
           $user->city_id = $request->cities;
@@ -698,7 +705,6 @@ class UserController extends Controller
             $user->street_01 = $request->street_01;
             $user->street_02 = $request->street_02;
             $user->companyname = $request->companyname;
-            $user->experience = $request->experience;
             $user->website = $request->website;
             $user->is_travelling = $request->is_travelling;
             $user->is_police_record = $request->is_police_record;
@@ -722,6 +728,7 @@ class UserController extends Controller
             }
             else {
                 ToastHelper::showToast('Error with profile picture.','error');
+                return redirect()->route('viewProfile');
             }
             $user->save();
             ToastHelper::showToast('Profile has been updated');
@@ -894,9 +901,49 @@ class UserController extends Controller
     {
        $file = 'certificates/'.$filename;
        return Storage::download($file);
+
         
     	
         
     }
     
+
+    
+
+    public function referGet()
+    {
+        return view('pages.refer');
+    }
+    public function referPost(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email'     => 'required|unique:emails,email',
+        ],[
+            'email.unique' => 'This :attribute is already registered. Try another one.'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        } else {
+            $refer = new Refer();
+            $refer->email = $request->email;
+            $refer->referred_by = auth()->id();
+            $refer->token = $token = Str::random(15);
+            $refer->save();
+            Mail::send('mail.refer', compact('refer'), function($message) use ($request)
+                {
+                    $message->to($request->email)->subject('Sign Up to FixitJA');
+                });
+            return redirect()->route('referGet');
+        }
+    }
+    public function registerWithToken($token)
+    {
+        $user = Refer::where('token',$token)->first();
+        if(!$user)
+            ToastHelper::showToast('Invalid referral token.','error');
+        else
+            session()->flash('referral',$user);
+        return redirect()->to('/register');
+    }
+
 }

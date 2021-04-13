@@ -19,11 +19,12 @@ use App\Events\UserRegistered;
 use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
 use App\Models\Email;
-<<<<<<< Updated upstream
-=======
+
 use App\Models\Refer;
 use Illuminate\Support\Str;
->>>>>>> Stashed changes
+
+use App\Models\Refer;
+
 
 class RegisterController extends Controller
 {
@@ -82,6 +83,7 @@ class RegisterController extends Controller
                               'regex:/[A-Z]/',      
                               'regex:/[0-9]/', 
                               'confirmed',
+
                             ],
             ]);
 
@@ -109,6 +111,13 @@ class RegisterController extends Controller
                 return redirect()->back()->withErrors(['referralemail'=>["This e-mail doesn't exist"]])->withInput();
             }
         }
+
+       ],   
+            // /* Added by Achyut Neupane */
+        //    'referralemail' => 'required|exists:emails,email'
+        ]);
+
+
         $user = User::create([
             'name' => $request->name,
             'gender' => $request->gender,
@@ -119,6 +128,20 @@ class RegisterController extends Controller
             'verification_code' => sha1(time())
         ]);
         
+
+        /* if someone refer */
+        if($request->referralemail){
+ 
+        $referral = Email::with('user')->where('email',$request->referralemail)->first()->id;
+        $refer = Refer::where('referred_by',$referral)->where('email',$request->email)->first();
+        $refer->registered = true;
+        $refer->save();
+        Refer::where('email',$request->email)->where('registered',false)->delete();
+
+        }
+        
+
+
         $user->emails()->create([
             'email' => $request->email,
             'primary' => true
@@ -129,8 +152,6 @@ class RegisterController extends Controller
             'phone' => $request->phone,
             'primary' => true
         ]);
-       
-
         // event(new UserRegistered($user));
         try {
             MailController::sendVerifyEmail($user->name, $request->email, $user->verification_code);
