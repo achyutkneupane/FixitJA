@@ -19,6 +19,11 @@ use App\Events\UserRegistered;
 use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
 use App\Models\Email;
+<<<<<<< Updated upstream
+=======
+use App\Models\Refer;
+use Illuminate\Support\Str;
+>>>>>>> Stashed changes
 
 class RegisterController extends Controller
 {
@@ -76,12 +81,34 @@ class RegisterController extends Controller
                               'min:6',             
                               'regex:/[A-Z]/',      
                               'regex:/[0-9]/', 
-                              'confirmed'
-                             ]   
-                              
-         
+                              'confirmed',
+                            ],
+            ]);
 
-        ]);
+        /* if someone refer */
+        if($request->referralemail){
+            $referrall = Email::with('user')->where('email',$request->referralemail)->first();
+            if($referrall) {
+                $referral = $referrall->id;
+                $refer = Refer::where('referred_by',$referral)->where('email',$request->email)->first();
+                if($refer) {
+                    $refer->registered = true;
+                    $refer->save();
+                    Refer::where('email',$request->email)->where('registered',false)->delete();
+                }
+                else {
+                    Refer::create([
+                        'referred_by' => $referrall->user->id,
+                        'email' => $request->email,
+                        'token' => Str::random(15),
+                        'registered' => true
+                    ]);
+                }
+            }
+            else {
+                return redirect()->back()->withErrors(['referralemail'=>["This e-mail doesn't exist"]])->withInput();
+            }
+        }
         $user = User::create([
             'name' => $request->name,
             'gender' => $request->gender,
@@ -91,6 +118,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'verification_code' => sha1(time())
         ]);
+        
         $user->emails()->create([
             'email' => $request->email,
             'primary' => true

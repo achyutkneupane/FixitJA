@@ -344,18 +344,15 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                         <div class="card-header">
                                             <div class="card-title" data-toggle="collapse" data-target="#collapse1">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
-                                                <span class="category-title"
-                                                    id="categoryTitleselected_catgeory1"></span>
+                                                <span class="category-title" id="categoryTitleselected_catgeory0">Select Category</span>
                                             </div>
                                         </div>
                                         <div id="collapse1" class="collapse show" data-parent="#accordionExample3">
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Category</label>
-                                                    <select name="skills_category" subcatid="kt_tagify_subcategory"
-                                                        id="selected_catgeory1"
-                                                        class="form-control form-control-solid form-control-lg category-select">
-
+                                                    <select name="skills_category" subcatid="kt_tagify_subcategory" id="selected_catgeory0" class="form-control form-control-solid form-control-lg category-select">
+                                                        <option value="">Select Category</option>
                                                         @foreach ($category as $cate)
                                                         <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
                                                         </option>
