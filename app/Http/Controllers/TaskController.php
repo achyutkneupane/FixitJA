@@ -7,12 +7,15 @@ namespace App\Http\Controllers;
 use App\Helpers\LogHelper;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Discussion;
 use App\Models\Parish;
 use App\Models\SubCategory;
 use App\Models\Task;
 use App\Models\TaskCreator;
 use App\Models\TaskTimeline;
 use App\Models\TaskWorkingLocation;
+use App\Models\WorkingHour;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Mail;
@@ -292,5 +295,39 @@ class TaskController extends Controller
     {
         $logs = TaskTimeline::with('task','log_by','log_for')->orderBy('created_at','DESC')->where('task_id',$id)->paginate(10);
         return view('admin.task.taskTimeline',compact('logs'));
+    }
+    public function taskDiscussion($id)
+    {
+        $discussions = Discussion::with('user')->orderBy('created_at','DESC')->where('task_id',$id)->get();
+        $task = Task::find($id);
+        return view('admin.task.taskDiscussion',compact('task','discussions'));
+    }
+    public function postDiscussion(Request $request,$id)
+    {
+        $discussion = new Discussion();
+        $discussion->message = $request->discussionText;
+        $discussion->task_id = $id;
+        $discussion->user_id = auth()->id();
+        $discussion->save();
+        return redirect()->route('taskDiscussion',$id);
+    }
+    public function taskWorking($id)
+    {
+        $hours = WorkingHour::with('user')->orderBy('created_at','DESC')->where('task_id',$id)->get();
+        $task = Task::find($id);
+        // dd($hours);
+        return view('admin.task.taskWorking',compact('task','hours'));
+    }
+    public function postWorking(Request $request,$id)
+    {
+        $working = new WorkingHour();
+        $start = $request->start_date." ".$request->start_time;
+        $end = $request->end_date." ".$request->end_time;
+        $working->start_time = Carbon::parse($start);
+        $working->end_time = Carbon::parse($end);
+        $working->description = $request->workingText;
+        $working->user_id = auth()->id();
+        Task::find($id)->works()->save($working);
+        return redirect()->route('taskWorking',$id);
     }
 }
