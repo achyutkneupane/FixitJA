@@ -35,6 +35,10 @@ class Task extends Model
     {
         return $this->hasMany(Discussion::class);
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
     public function works()
     {
         return $this->hasMany(WorkingHour::class);
