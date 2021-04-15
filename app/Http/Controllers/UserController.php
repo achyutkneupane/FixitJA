@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MailController;
 use App\Models\Parish;
 use App\Models\Refer;
+use App\Models\Review;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -605,8 +606,36 @@ class UserController extends Controller
         if (User::find($id) == auth()->user()) {
             return redirect()->route('viewReferences');
         }
-        $user = User::find($id);
+        $user = User::with('references')->find($id);
         return view('admin.profile.reference', compact('user'));
+    }
+
+    public function profileReview()
+    {
+        $user = auth()->user();
+        $reviews = $user->reviews()->orderBy('created_at','DESC')->get();
+        return view('admin.profile.review', compact('user','reviews'));
+    }
+    public function userReview($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('viewReview');
+        }
+        $user = User::with('reviews.reviewer')->find($id);
+        $reviews = $user->reviews()->orderBy('created_at','DESC')->get();
+        return view('admin.profile.review', compact('user','reviews'));
+    }
+
+    public function postUserReview(Request $request,$id)
+    {
+        Review::create([
+            'review_by' => auth()->id(),
+            'review_for' => $id,
+            'type' => 'user',
+            'review' => $request->reviewText,
+            'rating' => $request->rating
+        ]);
+        return redirect()->route('viewUserReview',$id);
     }
     public function createProfilewithSub($subCatId)
     {
