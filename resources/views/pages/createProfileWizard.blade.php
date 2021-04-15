@@ -438,7 +438,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                                     <a href="{{route('getfile', basename($category['document']['path']))}}"
                                                                         class="dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable"><i
                                                                             class="fas fa-long-arrow-alt-down"></i><span>{{ basename($category['document']['path']) }}
-                                                                        </span></a>
+                                                                        </span></a><br><br>
+                                                                        
                                                                 </div>
 
                                                             </div>
@@ -579,11 +580,11 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Start Date</label>
-
+                           @foreach(auth()->user()->educations as $education) {{ \Carbon\Carbon::parse($education->start_date)->format('m/d/Y') }} @endforeach
                                 <div class="col-10">
-                                    <input class="form-control" type="date" value="" id="selectstartdate"
+                                    <input class="form-control" type="date" format="m/d/Y" value="@foreach(auth()->user()->educations as $education) {{ $education->start_date }} @endforeach" id="selectstartdate"
                                         name="start_date"
-                                        value="@foreach(auth()->user()->educations as $education) {{ $education->start_date }} @endforeach" />
+                                         />
                                 </div>
                                 <!--end::Form Group-->
                                 <!--begin::Form Group-->
