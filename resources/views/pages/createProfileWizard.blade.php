@@ -2,6 +2,7 @@
 @section('content')
 <script>
 var sessionCatId,sessionSubCatId;
+var status = "{{ auth()->user()->status }}";
 </script>
 @if(!empty(session()->get('subcategory_id')))
 <script>
@@ -320,9 +321,6 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                             your option, just create one.</div>
 
                                                     </div>
-                                                     <input type="hidden" id="totalCatList" name="totalCatList">
-                                                    
-                                                 @endphp
 
 
                                                 </div>

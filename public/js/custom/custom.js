@@ -111,7 +111,8 @@ $(document).ready(function (e) {
     }
 });
 //Adding more category
-$("#totalCatList").val('{"fieldId": ""},');
+if(status !== 'pending')
+    $("#totalCatList").val('{"fieldId": ""},');
 $("#add_btn").click(function (e) {
     e.stopImmediatePropagation();
     if ($(".card-category-accordion").length < 3) {
@@ -308,11 +309,6 @@ function LoadWizardData(wizard) {
         });
         categorySelected = [];
         $.each($(".category-title"), function (index, value) {
-<<<<<<< HEAD
-            
-           
-=======
->>>>>>> 2dd53291270bbd55314295efc9cc6d13e3040df5
             $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+index+'"},');
             const cloneCertificateAccordion = $("#templateCertificate").clone();
             cloneCertificateAccordion.attr("id", "certificateAccordion" + index);

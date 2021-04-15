@@ -39,8 +39,6 @@ function bindSubCat1(data, subcat) {
 
 }
 
-
-// var select_category = $(this).attr('selectcategoryid');
 $(document).on('change', '.category-select', function (e) {
     e.stopImmediatePropagation();
     e.preventDefault();
@@ -149,6 +147,7 @@ var catid;
 var updatesubcatid = new Array();
 Object.keys(category).forEach((key) => {
     var subcatid = "kt_tagify_subcategory" + ++count;
+    $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "'+count+'"},');
     getSubCatData1(category[key], subcatid);
 });
 
