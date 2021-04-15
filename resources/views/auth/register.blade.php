@@ -108,7 +108,7 @@ $show_sidebar = false;
                             <!--end::Form Group-->
 
                             <!--begin::Form Group-->
-                            <div class="form-group">
+                            <div class="form-group" id="genders">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Gender</label>
 
                                 <select class="form-control" name="gender" value="{{ old('gender') }}">

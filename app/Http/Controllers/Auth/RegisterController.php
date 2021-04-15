@@ -112,12 +112,6 @@ class RegisterController extends Controller
             }
         }
 
-       ],   
-            // /* Added by Achyut Neupane */
-        //    'referralemail' => 'required|exists:emails,email'
-        ]);
-
-
         $user = User::create([
             'name' => $request->name,
             'gender' => $request->gender,
