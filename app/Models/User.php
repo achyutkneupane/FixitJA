@@ -9,6 +9,7 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\CacheHelper;
+use Carbon;
 
 
 class User extends Authenticatable
@@ -265,4 +266,26 @@ class User extends Authenticatable
                         ->get();
         }
     }
+
+    /*Added by Ashish Pokhrel */
+
+    // public function setEducationStartDateAttribute($value)
+    // {
+    //     $this->attributes['start_date'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
+    // }
+
+    // public function getEducationStartDateAttribute()
+    // {
+    //     return Carbon::createFromFormat('Y-m-d', $this->attributes['start_date'])->format('m/d/Y');
+    // }
+
+    // public function setEducationEndDateAttribute($value)
+    // {
+    //     $this->attributes['end_date'] = Carbon::createFromFormat('m/d/y', $value)->format('Y-m-d');
+    // }
+
+    // public function getEducationEndDateAttribute()
+    // {
+    //     return Carbon::createFromFormat('Y-m-d', $this->attributes['end_date'])->format('m/d/Y');
+    // }
 }

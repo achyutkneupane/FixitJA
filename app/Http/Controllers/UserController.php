@@ -297,7 +297,7 @@ class UserController extends Controller
 
               
             
-            dd(request()->all());
+            
              $user  = new User();
              $user  = User::find(Auth::user()->id);
              $email = auth()->user()->getEmail(Auth::user()->id);
@@ -319,7 +319,7 @@ class UserController extends Controller
                         'description' => 'Proposed Category'
                     ]);
                     $cat->status = "proposed";
-                    $cat->save();
+                    $cat->update();
                     $user_subcategories->push(SubCategory::find($cat->id));
                 }
                 else
@@ -340,7 +340,7 @@ class UserController extends Controller
                 $document->type = 'profile_picture';
                 $document->user()->associate($user->id);
                 
-                $document->save();
+                $document->update();
                 if ($tempPath)
                     Storage::delete($tempPath);
             };
@@ -366,7 +366,7 @@ class UserController extends Controller
                 $document->type = 'certificate'.$id;
                 $document->experience = $request->$experience;
                 $document->user()->associate($user->id);
-                $document->save();
+                $document->update();
                 if ($tempPath)
                     Storage::delete($tempPath);
             }
@@ -388,7 +388,7 @@ class UserController extends Controller
                 $references->refemail = request($references_email);
                 $references->refphone = request($references_phone);
                 $references->user()->associate($user->id);
-                $references->save();
+                $references->update();
                 
             }
             /*inserting Education qualification */
@@ -398,7 +398,7 @@ class UserController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             ];
-            $user->educations()->create($education);
+            $user->educations()->update($education);
              
 
             /* Storing radio button value */
@@ -416,10 +416,7 @@ class UserController extends Controller
 
           
             /* Converting skills array */
-            $skillArray = array();
-            foreach (json_decode($request->sub_categories) as $category) {
-                array_push($skillArray, $category->value);
-            }
+           
             /* converting  days array */
            $dayArray = array();
            foreach (json_decode($request->working_days) as $days) {
@@ -434,7 +431,7 @@ class UserController extends Controller
           $user->total_distance = $request->total_distance;
           $user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
-          $user->save();
+          $user->update();
           
           Mail::send('mail.createProfile', compact('request', 'user_subcategories'), function($message) use ($request, $email)
             {
@@ -458,6 +455,7 @@ class UserController extends Controller
     {
       
         try {
+            
             $user = new User;
             $user  = User::find(Auth::user()->id);
             

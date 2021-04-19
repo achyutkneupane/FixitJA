@@ -5,6 +5,7 @@
 var CategoryFV;
 var CertificateFV;
 var ReferencFv;
+var ProfileFV;
 const skills_category = {
     validators: {
         notEmpty: {
@@ -64,6 +65,20 @@ const certificateValidator = {
     }
 }
 
+const profilevalidator = {
+    validators:{
+        notEmpty: {
+            message: 'Profile is required'
+        }
+    },
+    file : {
+        extension: 'jpeg, jpg,png',
+        type: 'image/jpeg,image/png',
+        maxSize: 2097152,   // 2048 * 1024
+        message: 'The selected file is not valid'
+    }
+}
+
 const referal_name = {
     validators: {
         notEmpty:{
@@ -96,6 +111,8 @@ const referal_phone = {
         }
     }
 }
+
+
 
 // Class definition
 var KTWizard1 = function () {
@@ -352,24 +369,10 @@ var KTWizard1 = function () {
         ));
 
         //step 6
-        _validations.push(FormValidation.formValidation(
+        ProfileFV = FormValidation.formValidation(
             _formEl,
             {
                 fields: {
-                    profile: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Profile image is required',
-                                callback: function(input) {
-                                    return !!input.value;
-                                },
-                            }
-                        }
-                    },
-
-
-
-
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -377,12 +380,16 @@ var KTWizard1 = function () {
                     bootstrap: new FormValidation.plugins.Bootstrap({
                         //eleInvalidClass: '',
                         eleValidClass: '',
-                    }), alias: new FormValidation.plugins.Alias({
+                    }),
+                      alias: new FormValidation.plugins.Alias({
 						 notEmpty: 'callback',
 					}),
                 }
             }
-        ));
+        );
+        _validations.push(ProfileFV);
+        
+        
 
 
 
