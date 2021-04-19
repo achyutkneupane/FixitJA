@@ -55,6 +55,8 @@ Route::prefix('/task')->group(function () {
     Route::get('/{id}/timeline', [App\Http\Controllers\TaskController::class, 'taskTimeline'])->middleware('auth', 'relatedTaskOnly')->name('taskTimeline');
     Route::get('/{id}/discussions', [App\Http\Controllers\TaskController::class, 'taskDiscussion'])->middleware('auth', 'relatedTaskOnly')->name('taskDiscussion');
     Route::post('/{id}/discussions', [App\Http\Controllers\TaskController::class, 'postDiscussion'])->middleware('auth', 'relatedTaskOnly')->name('postDiscussion');
+    Route::get('/{id}/reviews', [App\Http\Controllers\TaskController::class, 'taskReviews'])->middleware('auth', 'relatedTaskOnly')->name('taskReviews');
+    Route::post('/{id}/reviews', [App\Http\Controllers\TaskController::class, 'postReviews'])->middleware('auth', 'relatedTaskOnly')->name('postReviews');
     Route::get('/{id}/working_hours', [App\Http\Controllers\TaskController::class, 'taskWorking'])->middleware('auth', 'relatedTaskOnly')->name('taskWorking');
     Route::post('/{id}/working_hours', [App\Http\Controllers\TaskController::class, 'postWorking'])->middleware('auth', 'relatedTaskOnly')->name('postWorking');
     Route::get('/{id}/edit', [App\Http\Controllers\TaskController::class, 'edit'])->middleware('auth', 'relatedTaskOnly')->name('editTask');
@@ -67,6 +69,7 @@ Route::prefix('/profile')->group(function () {
     Route::get('/', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
     Route::get('/documents', [App\Http\Controllers\UserController::class, 'profileDocuments'])->middleware('auth')->name('viewDocuments');
     Route::get('/education', [App\Http\Controllers\UserController::class, 'profileEducations'])->middleware('auth')->name('viewEducations');
+    Route::get('/review', [App\Http\Controllers\UserController::class, 'profileReview'])->middleware('auth')->name('viewReview');
     Route::get('/reference', [App\Http\Controllers\UserController::class, 'profileReferences'])->middleware('auth')->name('viewReferences');
     Route::get('/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->middleware('auth')->name('editProfile');
     Route::put('/edit', [App\Http\Controllers\UserController::class, 'putEditProfile'])->middleware('auth')->name('putEditProfile');
@@ -80,6 +83,8 @@ Route::prefix('/user/{id}')->group(function () {
     Route::get('/skills', [App\Http\Controllers\UserController::class, 'userSkills'])->middleware('auth')->name('userSkills');
     Route::get('/documents', [App\Http\Controllers\UserController::class, 'userDocuments'])->middleware('auth')->name('viewUserDocuments');
     Route::get('/education', [App\Http\Controllers\UserController::class, 'userEducations'])->middleware('auth')->name('viewUserEducations');
+    Route::get('/review', [App\Http\Controllers\UserController::class, 'userReview'])->middleware('auth')->name('viewUserReview');
+    Route::post('/review', [App\Http\Controllers\UserController::class, 'postUserReview'])->middleware('auth')->name('postUserReview');
     Route::get('/reference', [App\Http\Controllers\UserController::class, 'userReferences'])->middleware('auth')->name('viewUserReferences');
 });
 Route::prefix('/error_log')->group(function () {
@@ -110,7 +115,9 @@ Route::prefix('/referral')->group(function() {
     Route::post('/', [App\Http\Controllers\UserController::class, 'referPost'])->middleware('auth')->name('referPost');
 });
 
-Route::get('/review', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReviews');
+Route::get('/review', function() {
+    return redirect()->route('viewReview');
+})->middleware('auth')->name('viewReviews');
 Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
 Route::get('/resend_email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyMultiEmail'])->name('verifyMultiEmail');

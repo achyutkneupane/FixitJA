@@ -44,6 +44,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    protected $appends = [
+        'rating'
+    ];
+    
+    public function getRatingAttribute()
+    {
+        return round($this->reviews()->avg('rating'),2);
+    }
 
     public function documents()
     {
@@ -189,6 +198,14 @@ class User extends Authenticatable
     public function assigned_to()
     {
         return $this->hasMany(Task::class, 'assigned_to');
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'review_for');
+    }
+    public function createdReviews()
+    {
+        return $this->hasMany(Review::class, 'review_by');
     }
     public function refers()
     {
