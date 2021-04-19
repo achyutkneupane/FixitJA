@@ -79,6 +79,10 @@
                 class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskTimelineIsActive) ? 'active' : '' }}">
                 Task Timeline
             </a>
+            <a href="{{ route('taskReviews', $task->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskReviewIsActive) ? 'active' : '' }}">
+                Reviews
+            </a>
             <!--end::Nav-->
         </div>
         <!--end::Body-->

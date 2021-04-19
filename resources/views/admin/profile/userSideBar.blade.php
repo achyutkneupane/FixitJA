@@ -14,8 +14,11 @@
                 </div>
                 <h4 class="font-weight-bold my-2">{{ ucwords($user->name) }}</h4>
                 <div class="text-muted mb-2">{{ $user->userType() }}</div>
+                @if ($user->rating)
+                    <div class="font-weight-bold">Rating: <b>{{ $user->rating }}</b>/5 <span class="text-muted">({{ $user->reviews->count() }})</span></div>
+                @endif
                 <span
-                    class="label label-light-{{ $user->userStatus()['class'] }} label-inline font-weight-bold label-lg">{{ $user->userStatus()['name'] }}</span>
+                    class="label label-light-{{ $user->userStatus()['class'] }} label-inline font-weight-bold label-lg mt-2">{{ $user->userStatus()['name'] }}</span>
                 <br>
                 @isAdminOrUser($user->id)
                 <a href="#" class="font-weight-bold" data-toggle="modal" data-target="#changeUserStatus">
@@ -62,6 +65,8 @@
                     class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileSkillIsActive) ? 'active' : '' }}">Skills</a>
                 <a href="{{ Auth::user()->id === $user->id ? route('viewEducations') : route('viewUserEducations', $user->id) }}"
                     class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileEducationIsActive) ? 'active' : '' }}">Education</a>
+                    <a href="{{ Auth::user()->id === $user->id ? route('viewReview') : route('viewUserReview', $user->id) }}"
+                        class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileReviewIsActive) ? 'active' : '' }}">Reviews</a>
                 <a href="{{ Auth::user()->id === $user->id ? route('viewReferences') : route('viewUserReferences', $user->id) }}"
                     class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 text-center btn-block {{ !empty($profileReferenceIsActive) ? 'active' : '' }}">References</a>
                 {{-- <a href="#"
