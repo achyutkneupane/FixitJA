@@ -435,8 +435,12 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                                 <div class="dropzone-msg dz-message needsclick">
                                                                     <a href="{{route('getfile', basename($category['document']['path']))}}"
                                                                         class="dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable"><i
-                                                                            class="fas fa-long-arrow-alt-down"></i><span>{{ basename($category['document']['path']) }}
+                                                                            class="fas fa-long-arrow-alt-down"></i><span>Download certiifcate
                                                                         </span></a><br><br>
+                                                                       <input
+                                                                        id="certificateFile" type="file"
+                                                                        category="category-name"
+                                                                        accept=".png, .jpg, .jpeg, .pdf, .docx">
                                                                         
                                                                 </div>
 
@@ -824,8 +828,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                         <img src="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}"
                                             id="profilePicture" style="height:200px; width:200px;">
                                     </div>
-                                    <input id="profile_image" type="file" accept=".jpg,.gif,.png,.jpeg" name="profile" value="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}"
-                                        onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                                    <input id="profile_image" type="file" accept=".jpg,.gif,.png,.jpeg" name="profile"
+                                        onload="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
                                     @error('profile_image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -1069,6 +1073,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
    
 
 </script>
+
+<!-- Added by Ashish Pokhrel  -->
 <script>
     $(function(){
         $(".datepicker").datepicker();

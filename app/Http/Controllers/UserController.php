@@ -298,7 +298,7 @@ class UserController extends Controller
 
               
             
-            
+            dd($request->all());
              $user  = new User();
              $user  = User::find(Auth::user()->id);
              $email = auth()->user()->getEmail(Auth::user()->id);
