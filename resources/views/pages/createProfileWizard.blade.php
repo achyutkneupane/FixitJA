@@ -679,14 +679,14 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                             data-parent="#accordionExample3">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referral
                                                         Name
                                                         <input type="text" id="refname" class="form-control" type="text"
                                                             name="referal_name" placeholder="Referal Name" value="">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referral
                                                         Email
                                                         <input type="email" id="refemail" class="form-control"
                                                             type="email" name="referal_email"
@@ -694,7 +694,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referral
                                                         Contact Number
                                                         <input type="text" id="refphone" class="form-control"
                                                             type="text" name="referal_phone"
@@ -727,9 +727,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <h4 class="mb-10 font-weight-bold text-dark">Please answer the question</h4>
                             <!--begin::Input-->
                             <div class="form-group fv-plugins-icon-container">
-                                <label class="col-9 col-form-label">7. Are you willing to go for backgroud check or
-                                    criminal
-                                    report?</label>
+                                <label class="col-9 col-form-label">7. Are you willing to go for backgroud check or criminal report?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
                                         <input type="radio" name="police_report"
@@ -745,7 +743,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
-                                    <label for="exampleTextarea">8.Write short description about yourself?
+                                    <label for="exampleTextarea">8. Write short description about yourself?
                                         <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="exampleTextarea" rows="3"
                                         name="personal_description">{{ auth()->user()->introduction }}</textarea>
@@ -773,8 +771,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
                                         <input id="kt_tagify_workingdays" class="form-control" name="working_days"
                                             placeholder="Add sub-categories" value="">
-                                        <div class="mt-3 text-muted">Select multiple days. If you don't see
-                                            your option just create one.</div>
+                                        <div class="mt-3 text-muted">Select multiple days. If you don't see your option just create one.</div>
                                     </div>
 
                                 </div>
@@ -829,11 +826,9 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 </div>
                             </div>
                         </div>
-                </div>
-            </div>
-            <!--end::wizard step 6-->
 
-            <!--begin::wizard step 7-->
+            <!--end::wizard step 6-->
+                        <!--begin::wizard step 7-->
             <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                 <h3 class="mb-10 font-weight-bold text-dark">Enter your Address</h3>
                 <!--begin::Select-->
@@ -852,8 +847,6 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                 <div class="form-group fv-plugins-icon-container">
                     <label>City</label>
                     <select class="form-control select2" id="userCitySelect" name="cities">
-
-
                     </select>
                 </div>
                 <div class="form-group fv-plugins-icon-container">
@@ -969,6 +962,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                 </div>
             </div>
             <!--end:: wizard step 8-->
+                </div>
+            </div>
 
             <!--begin::Wizard Actions-->
             <div class="d-flex justify-content-between border-top mt-5 pt-10">

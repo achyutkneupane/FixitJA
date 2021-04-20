@@ -23,8 +23,6 @@ use App\Models\Email;
 use App\Models\Refer;
 use Illuminate\Support\Str;
 
-use App\Models\Refer;
-
 
 class RegisterController extends Controller
 {
