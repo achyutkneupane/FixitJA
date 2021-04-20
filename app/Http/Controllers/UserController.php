@@ -147,30 +147,30 @@ class UserController extends Controller
 
               
             
-            $Subb = "[".$request->totalCatList."]";
-            $Subb = str_replace('},]','}]',$Subb);
-            $user_subcategories = new Collection();
-            $new = collect();
-            foreach(json_decode($Subb) as $subCattArray) {
-                $subCatt = 'sub_categories'. $subCattArray->fieldId;
-                $categoryy = 'skills_category'. $subCattArray->fieldId;
-                foreach(json_decode($request->$subCatt) as $subCat){
+        //     $Subb = "[".$request->totalCatList."]";
+        //     $Subb = str_replace('},]','}]',$Subb);
+        //     $user_subcategories = new Collection();
+        //     $new = collect();
+        //     foreach(json_decode($Subb) as $subCattArray) {
+        //         $subCatt = 'sub_categories'. $subCattArray->fieldId;
+        //         $categoryy = 'skills_category'. $subCattArray->fieldId;
+        //         foreach(json_decode($request->$subCatt) as $subCat){
                     
-                    if(empty($subCat->id)){
-                    $cat = Category::find($request->$categoryy)->sub_categories()->create([
-                        'name' => $subCat->value,
-                        'description' => 'Proposed Category'
-                    ]);
-                    $cat->status = "proposed";
-                    $cat->save();
-                    $user_subcategories->push(SubCategory::find($cat->id));
-                }
-                else
-                    $user_subcategories->push(SubCategory::find($subCat->id));
-            }
-         }
+        //             if(empty($subCat->id)){
+        //             $cat = Category::find($request->$categoryy)->sub_categories()->create([
+        //                 'name' => $subCat->value,
+        //                 'description' => 'Proposed Category'
+        //             ]);
+        //             $cat->status = "proposed";
+        //             $cat->save();
+        //             $user_subcategories->push(SubCategory::find($cat->id));
+        //         }
+        //         else
+        //             $user_subcategories->push(SubCategory::find($subCat->id));
+        //     }
+        //  }
        
-  
+        
         /* Storing Profile Picture */
          if (request('profile')) {
                 $tempPath = "";
@@ -275,17 +275,18 @@ class UserController extends Controller
           $user->street_02 = $request->house_number;
           $user->city_id = $request->cities;
           $user->total_distance = $request->total_distance;
-          $user->subcategories()->attach($user_subcategories);
+          //$user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
           $user->save();
           
-          Mail::send('mail.createProfile', compact('request', 'user_subcategories'), function($message) use ($request, $email)
+          Mail::send('mail.createProfile', compact('request'), function($message) use ($request, $email)
             {
                 $message->to($email, $request->name)->subject('Profile Created');
             });
             return redirect('/profile');
         } catch (Throwable $e) {
-            LogHelper::storeMessage("Profile Wizard",$e->getMessage(),$user);
+             dd($e);
+            //LogHelper::storeMessage("Profile Wizard",$e->getMessage(),$user);
             return redirect()->route('profileWizard')->withInput();
         }
         
@@ -298,35 +299,35 @@ class UserController extends Controller
 
               
             
-            dd($request->all());
+            dd($request->profile);
              $user  = new User();
              $user  = User::find(Auth::user()->id);
              $email = auth()->user()->getEmail(Auth::user()->id);
             
             
-            $Subb = "[".$request->totalCatLists."]";
-            $Subb = str_replace('},]','}]',$Subb);
-            $user_subcategories = new Collection();
-            $new = collect();
-            foreach(json_decode($Subb) as $subCattArray) {
-                $subCatt = 'sub_categories'. $subCattArray->fieldId;
+        //     $Subb = "[".$request->totalCatLists."]";
+        //     $Subb = str_replace('},]','}]',$Subb);
+        //     $user_subcategories = new Collection();
+        //     $new = collect();
+        //     foreach(json_decode($Subb) as $subCattArray) {
+        //         $subCatt = 'sub_categories'. $subCattArray->fieldId;
                
-                $categoryy = 'skills_category'. $subCattArray->fieldId;
-                foreach(json_decode($request->$subCatt) as $subCat){
+        //         $categoryy = 'skills_category'. $subCattArray->fieldId;
+        //         foreach(json_decode($request->$subCatt) as $subCat){
                     
-                    if(empty($subCat->id)){
-                    $cat = Category::find($request->$categoryy)->sub_categories()->create([
-                        'name' => $subCat->value,
-                        'description' => 'Proposed Category'
-                    ]);
-                    $cat->status = "proposed";
-                    $cat->update();
-                    $user_subcategories->push(SubCategory::find($cat->id));
-                }
-                else
-                    $user_subcategories->push(SubCategory::find($subCat->id));
-            }
-         }
+        //             if(empty($subCat->id)){
+        //             $cat = Category::find($request->$categoryy)->sub_categories()->create([
+        //                 'name' => $subCat->value,
+        //                 'description' => 'Proposed Category'
+        //             ]);
+        //             $cat->status = "proposed";
+        //             $cat->update();
+        //             $user_subcategories->push(SubCategory::find($cat->id));
+        //         }
+        //         else
+        //             $user_subcategories->push(SubCategory::find($subCat->id));
+        //     }
+        //  }
        
   
         /* Storing Profile Picture */
@@ -430,11 +431,11 @@ class UserController extends Controller
           $user->street_02 = $request->house_number;
           $user->city_id = $request->cities;
           $user->total_distance = $request->total_distance;
-          $user->subcategories()->attach($user_subcategories);
+          //$user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
           $user->update();
           
-          Mail::send('mail.createProfile', compact('request', 'user_subcategories'), function($message) use ($request, $email)
+          Mail::send('mail.createProfile', compact('request'), function($message) use ($request, $email)
             {
                 $message->to($email, $request->name)->subject('Profile Updated');
             });
