@@ -553,7 +553,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or
                                     University</label>
                                    
-                                    @foreach(auth()->user()->educations as $education) {{ $education->education_institution_name}} @endforeach
+                                  
                                 <input type="text" class="form-control " name="educationinstutional_name"
                                     placeholder="Name"
                                    value="@foreach(auth()->user()->educations as $education) {{ $education->education_institution_name}} @endforeach " />
@@ -584,7 +584,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Start Date</label>
-                                 @foreach(auth()->user()->educations as $education) {{ $education->start_date}} @endforeach
+                                 
                                  
                                 <div class="col-10">
                                 <div class='input-group date' id='datetimepicker1'>
@@ -595,7 +595,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <!--begin::Form Group-->
                                 <div class="form-group">
                                     <label class="font-size-h6 font-weight-bolder text-dark">End Date</label>
-                                @foreach(auth()->user()->educations as $education) {{ $education->end_date}} @endforeach
+                               
                                     <div class="col-10">
                                     <div class='input-group date' id='datetimepicker1'>
                                          <input type="text" class="form-control datepicker" name="end_date" id="selectendtdate" format="Y-m-d"  placeholder="Select date" value="@foreach(auth()->user()->educations as $education) {{ $education->end_date }} @endforeach" />
@@ -687,14 +687,14 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                             data-parent="#accordionExample3">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referral
                                                         Name
                                                         <input type="text" id="refname" class="form-control" type="text"
                                                             name="referal_name" placeholder="Referal Name" value="">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referral
                                                         Email
                                                         <input type="email" id="refemail" class="form-control"
                                                             type="email" name="referal_email"
@@ -702,7 +702,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referral
                                                         Contact Number
                                                         <input type="text" id="refphone" class="form-control"
                                                             type="text" name="referal_phone"
@@ -735,9 +735,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <h4 class="mb-10 font-weight-bold text-dark">Please answer the question</h4>
                             <!--begin::Input-->
                             <div class="form-group fv-plugins-icon-container">
-                                <label class="col-9 col-form-label">7. Are you willing to go for backgroud check or
-                                    criminal
-                                    report?</label>
+                                <label class="col-9 col-form-label">7. Are you willing to go for backgroud check or criminal report?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
                                         <input type="radio" name="police_report"
@@ -753,7 +751,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
-                                    <label for="exampleTextarea">8.Write short description about yourself?
+                                    <label for="exampleTextarea">8. Write short description about yourself?
                                         <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="exampleTextarea" rows="3"
                                         name="personal_description">{{ auth()->user()->introduction }}</textarea>
@@ -781,8 +779,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
                                         <input id="kt_tagify_workingdays" class="form-control" name="working_days"
                                             placeholder="Add sub-categories" value="">
-                                        <div class="mt-3 text-muted">Select multiple days. If you don't see
-                                            your option just create one.</div>
+                                        <div class="mt-3 text-muted">Select multiple days. If you don't see your option just create one.</div>
                                     </div>
 
                                 </div>
@@ -793,24 +790,25 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="col-9 col-form-label">11. Are you willing to travel long distance?</label>
                                 <div class="radio-inline">
-                                    <label class="radio radio-primary">
+                                    <label class="radio radio-primary1">
                                         <input type="radio" name="is_travelling"
-                                            {{ auth()->user()->is_travelling ? 'checked' : '' }} value="1" />
+                                            {{ auth()->user()->is_travelling  ? 'checked' : ''}} value="1" />
                                         <span></span>Yes</label>
-                                    <label class="radio radio-primary">
+                                    <label class="radio radio-primary1">
                                         <input type="radio" name="is_travelling"
-                                            {{ auth()->user()->is_travelling ? ' checked' : '' }} value="0" />
+                                            {{ auth()->user()->is_travelling == '0' ? 'checked' : ''}} value="0" />
                                         <span></span>No</label>
+                                        <label class="radio radio-primary1 radio-disabled">
                                 </div>
                             </div>
-
+                             
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">12. How long distance you are willing to travel?
                                         <div class="slidecontainer">
-                                            <input type="range" min="1" max="100" value="0" class="slider" id="myRange"
-                                                name="total_distance" value="{{ auth()->user()->total_distance }}">
-                                            <p>Total Distance: <span id="demo"></span>km</p>
+                                            <input type="range" min="1" max="100" value="{{ auth()->user()->total_distance ? : 0 }}" class="slider" id="myRange"
+                                                name="total_distance" >
+                                            <p>Total Distance: <span id="demo" value=""></span>{{ auth()->user()->total_distance }}km</p>
                                         </div>
                                 </div>
                             </div>
@@ -860,18 +858,18 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             
                             
                         </div>
-                </div>
-            </div>
-            <!--end::wizard step 6-->
 
-            <!--begin::wizard step 7-->
+            <!--end::wizard step 6-->
+                        <!--begin::wizard step 7-->
             <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                 <h3 class="mb-10 font-weight-bold text-dark">Enter your Address</h3>
+
+               
                 <!--begin::Select-->
                 <div class="form-group fv-plugins-icon-container">
                     <label>Parishes</label>
                     <select class="form-control select2" id="userParishSelect" name="parish">
-                        <option label=""></option>
+                        <option  value="{{ auth()->user()->city->parish->id ? 'selected' : '' }}"> {{ auth()->user()->city->parish->name}}</option>
                         
                         @foreach($parishes as $parish)
                         <option value="{{ $parish->id }}"
@@ -881,13 +879,19 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                         @endforeach
                     </select>
                 </div>
+                
+                
+                
+                
                 <div class="form-group fv-plugins-icon-container">
                     <label>City</label>
                     <select class="form-control select2" id="userCitySelect" name="cities">
-
-
+                    <option value="{{ auth()->user()->city_id ? 'selected': ''}}">{{ auth()->user()->city->name }}</option>
                     </select>
                 </div>
+                
+
+                
                 <div class="form-group fv-plugins-icon-container">
                     <label>Street</label>
                     <input type="text" name="street" class="form-control" placeholder="Enter your street"
@@ -896,7 +900,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                 <div class="form-group fv-plugins-icon-container">
                     <label>House Number or Unit (Optional)</label>
                     <input type="text" name="house_number" class="form-control "
-                        placeholder="Enter your House number" />
+                        placeholder="Enter your House number" value="{{ auth()->user()->street_02 ? : ''}}" />
                 </div>
                 <div class="form-group fv-plugins-icon-container">
                     <label> Postal Code (Optional)</label>
@@ -1001,6 +1005,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                 </div>
             </div>
             <!--end:: wizard step 8-->
+                </div>
+            </div>
 
             <!--begin::Wizard Actions-->
             <div class="d-flex justify-content-between border-top mt-5 pt-10">
