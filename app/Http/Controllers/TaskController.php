@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Discussion;
 use App\Models\Parish;
+use App\Models\Review;
 use App\Models\SubCategory;
 use App\Models\Task;
 use App\Models\TaskCreator;
@@ -329,5 +330,22 @@ class TaskController extends Controller
         $working->user_id = auth()->id();
         Task::find($id)->works()->save($working);
         return redirect()->route('taskWorking',$id);
+    }
+    public function taskReviews($id)
+    {
+        $task = Task::find($id);
+        $reviews = $task->reviews()->orderBy('created_at','DESC')->get();
+        return view('admin.task.taskReview',compact('task','reviews'));
+    }
+    public function postReviews(Request $request,$id)
+    {
+        Review::create([
+            'review_by' => auth()->id(),
+            'task_id' => $id,
+            'type' => 'task',
+            'review' => $request->reviewText,
+            'rating' => $request->rating
+        ]);
+        return redirect()->route('taskReviews',$id);
     }
 }

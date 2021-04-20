@@ -436,7 +436,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                                     <a href="{{route('getfile', basename($category['document']['path']))}}"
                                                                         class="dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable"><i
                                                                             class="fas fa-long-arrow-alt-down"></i><span>{{ basename($category['document']['path']) }}
-                                                                        </span></a>
+                                                                        </span></a><br><br>
+                                                                        
                                                                 </div>
 
                                                             </div>
@@ -547,9 +548,11 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or
                                     University</label>
+                                   
+                                    @foreach(auth()->user()->educations as $education) {{ $education->education_institution_name}} @endforeach
                                 <input type="text" class="form-control " name="educationinstutional_name"
                                     placeholder="Name"
-                                    value="@foreach(auth()->user()->educations as $education) {{ $education->education_institution_name}} @endforeach" />
+                                   value="@foreach(auth()->user()->educations as $education) {{ $education->education_institution_name}} @endforeach " />
                                 @if ($errors->has('educationinstutional_name'))
                                 <span class="text-danger">{{ $errors->first('educationinstutional_name') }}</span>
                                 @endif
@@ -577,21 +580,22 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Start Date</label>
-
+                                 @foreach(auth()->user()->educations as $education) {{ $education->start_date}} @endforeach
+                                 
                                 <div class="col-10">
-                                    <input class="form-control" type="date" value="" id="selectstartdate"
-                                        name="start_date"
-                                        value="@foreach(auth()->user()->educations as $education) {{ $education->start_date }} @endforeach" />
+                                <div class='input-group date' id='datetimepicker1'>
+                                    <input type="text" class="form-control datepicker" name="start_date" id="selectstartdate" format="Y-m-d"  placeholder="Select date" value="@foreach(auth()->user()->educations as $education) {{ $education->start_date }} @endforeach" />
+                    </div>
                                 </div>
                                 <!--end::Form Group-->
                                 <!--begin::Form Group-->
                                 <div class="form-group">
                                     <label class="font-size-h6 font-weight-bolder text-dark">End Date</label>
-
+                                @foreach(auth()->user()->educations as $education) {{ $education->end_date}} @endforeach
                                     <div class="col-10">
-                                        <input class="form-control" type="date" value="{{ auth()->user()->end_date }}"
-                                            id="selectenddate" name="end_date"
-                                            value="@foreach(auth()->user()->educations as $education) {{ $education->end_date }} @endforeach" />
+                                    <div class='input-group date' id='datetimepicker1'>
+                                         <input type="text" class="form-control datepicker" name="end_date" id="selectendtdate" format="Y-m-d"  placeholder="Select date" value="@foreach(auth()->user()->educations as $education) {{ $education->end_date }} @endforeach" />
+                    </div>
                                     </div>
                                     <!--end::Form Group-->
                                     <!--end::Form Group-->
@@ -810,13 +814,14 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                         <div class="pb-5" data-wizard-type="step-content">
                             <h4 class="mb-10 font-weight-bold text-dark">Upload Your Profile Image</h4>
                             <!--begin::Input-->
+                            @if(Auth::user()->documents)
                             <div class="form-group row">
                                 <div class="col-lg-9 col-xl-6">
                                     <div class="editProfileImage mb-3">
                                         <img src="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}"
                                             id="profilePicture" style="height:200px; width:200px;">
                                     </div>
-                                    <input id="profile_image" type="file" accept=".jpg,.gif,.png,.jpeg" name="profile"
+                                    <input id="profile_image" type="file" accept=".jpg,.gif,.png,.jpeg" name="profile" value="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}"
                                         onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
                                     @error('profile_image')
                                     <span class="invalid-feedback" role="alert">
@@ -825,6 +830,26 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                     @enderror
                                 </div>
                             </div>
+                            @else
+                             <div class="form-group row">
+                                <div class="col-lg-9 col-xl-6">
+                                    <div class="editProfileImage mb-3">
+                                        <img src="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}"
+                                            id="profilePicture" style="height:200px; width:200px;">
+                                    </div>
+                                    <input id="profile_image" type="file" accept=".jpg,.gif,.png,.jpeg" name="profile" value="{{ !empty(Auth::user()->documents->where('type', 'profile_picture')->first()) ? asset('storage/' . Auth::user()->documents->where('type', 'profile_picture')->first()->path) : asset('images/unknown-avatar.png') }}"
+                                        onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                                    @error('profile_image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            @endif
+
+                            
+                            
                         </div>
 
             <!--end::wizard step 6-->
@@ -836,6 +861,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                     <label>Parishes</label>
                     <select class="form-control select2" id="userParishSelect" name="parish">
                         <option label=""></option>
+                        
                         @foreach($parishes as $parish)
                         <option value="{{ $parish->id }}"
                             {{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
@@ -999,6 +1025,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
 @endsection
 {{-- Scripts Section --}}
+
 @section('scripts')
 <script src="{{ asset('js/custom/custom.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/custom/create-profile-wizard-custom.js') }}" type="text/javascript"></script>
@@ -1033,6 +1060,15 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
         swal.fire({
         });
     });
+
+   
+
+</script>
+<script>
+    $(function(){
+        $(".datepicker").datepicker();
+    });
+
 </script>
 
 @endsection

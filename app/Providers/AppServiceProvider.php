@@ -66,7 +66,7 @@ class AppServiceProvider extends ServiceProvider
             return auth()->user() && (auth()->user() == User::find($id) || auth()->user()->type == "admin");
         });
         Blade::if('onlyForRespectiveUser', function ($id) {
-            return auth()->user() && (auth()->user() == User::find($id));
+            return (auth()->user() == User::find($id));
         });
         Blade::if('userIsContractor', function ($user) {
             return auth()->user() && $user->type == "independent_contractor";

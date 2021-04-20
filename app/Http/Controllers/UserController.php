@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MailController;
 use App\Models\Parish;
 use App\Models\Refer;
+use App\Models\Review;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -297,7 +298,7 @@ class UserController extends Controller
 
               
             
-            dd(request()->all());
+            
              $user  = new User();
              $user  = User::find(Auth::user()->id);
              $email = auth()->user()->getEmail(Auth::user()->id);
@@ -319,7 +320,7 @@ class UserController extends Controller
                         'description' => 'Proposed Category'
                     ]);
                     $cat->status = "proposed";
-                    $cat->save();
+                    $cat->update();
                     $user_subcategories->push(SubCategory::find($cat->id));
                 }
                 else
@@ -340,7 +341,7 @@ class UserController extends Controller
                 $document->type = 'profile_picture';
                 $document->user()->associate($user->id);
                 
-                $document->save();
+                $document->update();
                 if ($tempPath)
                     Storage::delete($tempPath);
             };
@@ -366,7 +367,7 @@ class UserController extends Controller
                 $document->type = 'certificate'.$id;
                 $document->experience = $request->$experience;
                 $document->user()->associate($user->id);
-                $document->save();
+                $document->update();
                 if ($tempPath)
                     Storage::delete($tempPath);
             }
@@ -388,7 +389,7 @@ class UserController extends Controller
                 $references->refemail = request($references_email);
                 $references->refphone = request($references_phone);
                 $references->user()->associate($user->id);
-                $references->save();
+                $references->update();
                 
             }
             /*inserting Education qualification */
@@ -398,7 +399,7 @@ class UserController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             ];
-            $user->educations()->create($education);
+            $user->educations()->update($education);
              
 
             /* Storing radio button value */
@@ -416,10 +417,7 @@ class UserController extends Controller
 
           
             /* Converting skills array */
-            $skillArray = array();
-            foreach (json_decode($request->sub_categories) as $category) {
-                array_push($skillArray, $category->value);
-            }
+           
             /* converting  days array */
            $dayArray = array();
            foreach (json_decode($request->working_days) as $days) {
@@ -434,7 +432,7 @@ class UserController extends Controller
           $user->total_distance = $request->total_distance;
           $user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
-          $user->save();
+          $user->update();
           
           Mail::send('mail.createProfile', compact('request', 'user_subcategories'), function($message) use ($request, $email)
             {
@@ -458,6 +456,7 @@ class UserController extends Controller
     {
       
         try {
+            
             $user = new User;
             $user  = User::find(Auth::user()->id);
             
@@ -886,8 +885,36 @@ class UserController extends Controller
         if (User::find($id) == auth()->user()) {
             return redirect()->route('viewReferences');
         }
-        $user = User::find($id);
+        $user = User::with('references')->find($id);
         return view('admin.profile.reference', compact('user'));
+    }
+
+    public function profileReview()
+    {
+        $user = auth()->user();
+        $reviews = $user->reviews()->orderBy('created_at','DESC')->get();
+        return view('admin.profile.review', compact('user','reviews'));
+    }
+    public function userReview($id)
+    {
+        if (User::find($id) == auth()->user()) {
+            return redirect()->route('viewReview');
+        }
+        $user = User::with('reviews.reviewer')->find($id);
+        $reviews = $user->reviews()->orderBy('created_at','DESC')->get();
+        return view('admin.profile.review', compact('user','reviews'));
+    }
+
+    public function postUserReview(Request $request,$id)
+    {
+        Review::create([
+            'review_by' => auth()->id(),
+            'review_for' => $id,
+            'type' => 'user',
+            'review' => $request->reviewText,
+            'rating' => $request->rating
+        ]);
+        return redirect()->route('viewUserReview',$id);
     }
     public function createProfilewithSub($subCatId)
     {
