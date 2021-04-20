@@ -147,28 +147,28 @@ class UserController extends Controller
 
               
             
-        //     $Subb = "[".$request->totalCatList."]";
-        //     $Subb = str_replace('},]','}]',$Subb);
-        //     $user_subcategories = new Collection();
-        //     $new = collect();
-        //     foreach(json_decode($Subb) as $subCattArray) {
-        //         $subCatt = 'sub_categories'. $subCattArray->fieldId;
-        //         $categoryy = 'skills_category'. $subCattArray->fieldId;
-        //         foreach(json_decode($request->$subCatt) as $subCat){
+            $Subb = "[".$request->totalCatList."]";
+            $Subb = str_replace('},]','}]',$Subb);
+            $user_subcategories = new Collection();
+            $new = collect();
+            foreach(json_decode($Subb) as $subCattArray) {
+                $subCatt = 'sub_categories'. $subCattArray->fieldId;
+                $categoryy = 'skills_category'. $subCattArray->fieldId;
+                foreach(json_decode($request->$subCatt) as $subCat){
                     
-        //             if(empty($subCat->id)){
-        //             $cat = Category::find($request->$categoryy)->sub_categories()->create([
-        //                 'name' => $subCat->value,
-        //                 'description' => 'Proposed Category'
-        //             ]);
-        //             $cat->status = "proposed";
-        //             $cat->save();
-        //             $user_subcategories->push(SubCategory::find($cat->id));
-        //         }
-        //         else
-        //             $user_subcategories->push(SubCategory::find($subCat->id));
-        //     }
-        //  }
+                    if(empty($subCat->id)){
+                    $cat = Category::find($request->$categoryy)->sub_categories()->create([
+                        'name' => $subCat->value,
+                        'description' => 'Proposed Category'
+                    ]);
+                    $cat->status = "proposed";
+                    $cat->save();
+                    $user_subcategories->push(SubCategory::find($cat->id));
+                }
+                else
+                    $user_subcategories->push(SubCategory::find($subCat->id));
+            }
+         }
        
         
         /* Storing Profile Picture */
@@ -275,7 +275,7 @@ class UserController extends Controller
           $user->street_02 = $request->house_number;
           $user->city_id = $request->cities;
           $user->total_distance = $request->total_distance;
-          //$user->subcategories()->attach($user_subcategories);
+          $user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
           $user->save();
           
@@ -299,35 +299,35 @@ class UserController extends Controller
 
               
             
-            dd($request->profile);
+            
              $user  = new User();
              $user  = User::find(Auth::user()->id);
              $email = auth()->user()->getEmail(Auth::user()->id);
             
             
-        //     $Subb = "[".$request->totalCatLists."]";
-        //     $Subb = str_replace('},]','}]',$Subb);
-        //     $user_subcategories = new Collection();
-        //     $new = collect();
-        //     foreach(json_decode($Subb) as $subCattArray) {
-        //         $subCatt = 'sub_categories'. $subCattArray->fieldId;
+            $Subb = "[".$request->totalCatLists."]";
+            $Subb = str_replace('},]','}]',$Subb);
+            $user_subcategories = new Collection();
+            $new = collect();
+            foreach(json_decode($Subb) as $subCattArray) {
+                $subCatt = 'sub_categories'. $subCattArray->fieldId;
                
-        //         $categoryy = 'skills_category'. $subCattArray->fieldId;
-        //         foreach(json_decode($request->$subCatt) as $subCat){
+                $categoryy = 'skills_category'. $subCattArray->fieldId;
+                foreach(json_decode($request->$subCatt) as $subCat){
                     
-        //             if(empty($subCat->id)){
-        //             $cat = Category::find($request->$categoryy)->sub_categories()->create([
-        //                 'name' => $subCat->value,
-        //                 'description' => 'Proposed Category'
-        //             ]);
-        //             $cat->status = "proposed";
-        //             $cat->update();
-        //             $user_subcategories->push(SubCategory::find($cat->id));
-        //         }
-        //         else
-        //             $user_subcategories->push(SubCategory::find($subCat->id));
-        //     }
-        //  }
+                    if(empty($subCat->id)){
+                    $cat = Category::find($request->$categoryy)->sub_categories()->create([
+                        'name' => $subCat->value,
+                        'description' => 'Proposed Category'
+                    ]);
+                    $cat->status = "proposed";
+                    $cat->update();
+                    $user_subcategories->push(SubCategory::find($cat->id));
+                }
+                else
+                    $user_subcategories->push(SubCategory::find($subCat->id));
+            }
+         }
        
   
         /* Storing Profile Picture */
@@ -424,6 +424,7 @@ class UserController extends Controller
            foreach (json_decode($request->working_days) as $days) {
             array_push($dayArray, $days->value);
         }
+        dd($user_subcategories);
           $user->hours = $request->hours;
           $user->days = implode(',',$dayArray) ;
           $user->introduction = $request->personal_description;
@@ -431,7 +432,7 @@ class UserController extends Controller
           $user->street_02 = $request->house_number;
           $user->city_id = $request->cities;
           $user->total_distance = $request->total_distance;
-          //$user->subcategories()->attach($user_subcategories);
+          $user->subcategories()->attach($user_subcategories);
           $user->status = "pending";
           $user->update();
           
@@ -456,136 +457,136 @@ class UserController extends Controller
     public function updateprofiledetails(Request $request  )
     {
       
-        try {
+        // try {
             
-            $user = new User;
-            $user  = User::find(Auth::user()->id);
+        //     $user = new User;
+        //     $user  = User::find(Auth::user()->id);
             
-             /* Updating Profile Picture */
-         if (request('profile')) {
-                $tempPath = "";
-                $document = new Document();
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first();
-                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first()->path;
-                }
+        //      /* Updating Profile Picture */
+        //  if (request('profile')) {
+        //         $tempPath = "";
+        //         $document = new Document();
+        //         if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first())) {
+        //             $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first();
+        //             $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'profile_picture')->first()->path;
+        //         }
                 
-                $document->path = request('profile')->store('userprofile');
-                $document->type = 'profile_picture';
-                $document->user()->associate($user->id);
+        //         $document->path = request('profile')->store('userprofile');
+        //         $document->type = 'profile_picture';
+        //         $document->user()->associate($user->id);
                 
-                $document->save();
-                if ($tempPath)
-                    Storage::delete($tempPath);
-            };
+        //         $document->save();
+        //         if ($tempPath)
+        //             Storage::delete($tempPath);
+        //     };
 
 
            
 
-            /* Updating certificate*/
-            $Certificate = "[".$request->totalCertificateList."]";
-            $Certificate1 = str_replace('},]','}]',$Certificate);
-            $skills_certificate = new Collection();
-            $skills_experince = new Collection();
-            foreach(json_decode($Certificate1) as $certificateArray){
-                $document = new Document();
-                $tempPath = "";
-                $id = $certificateArray->fieldId;
-                $experience = 'experience'.$id;
-                if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first())) {
-                    $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first();
-                    $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first()->path;
-                }
-                $certificate_new = 'certificate'.$id;
-                $document->path = request($certificate_new)->store('certificates');
-                $document->type = 'certificate'.$id;
-                $document->experience = $request->$experience;
-                $document->user()->associate($user->id);
-                $document->save();
-                if ($tempPath)
-                    Storage::delete($tempPath);
-            }
+        //     /* Updating certificate*/
+        //     $Certificate = "[".$request->totalCertificateList."]";
+        //     $Certificate1 = str_replace('},]','}]',$Certificate);
+        //     $skills_certificate = new Collection();
+        //     $skills_experince = new Collection();
+        //     foreach(json_decode($Certificate1) as $certificateArray){
+        //         $document = new Document();
+        //         $tempPath = "";
+        //         $id = $certificateArray->fieldId;
+        //         $experience = 'experience'.$id;
+        //         if (!is_null(Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first())) {
+        //             $document = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first();
+        //             $tempPath = Document::where('user_id', Auth::user()->id)->get()->where('type', 'certificate'.$id)->first()->path;
+        //         }
+        //         $certificate_new = 'certificate'.$id;
+        //         $document->path = request($certificate_new)->store('certificates');
+        //         $document->type = 'certificate'.$id;
+        //         $document->experience = $request->$experience;
+        //         $document->user()->associate($user->id);
+        //         $document->save();
+        //         if ($tempPath)
+        //             Storage::delete($tempPath);
+        //     }
 
-            /*  updating  Reference */
-            $Refernces = "[".$request->totalRefList."]";
-            $Refernces1 = str_replace('},]','}]',$Refernces);
-            $user_references= new Collection();
-            foreach(json_decode($Refernces1) as $referencesArray){
+        //     /*  updating  Reference */
+        //     $Refernces = "[".$request->totalRefList."]";
+        //     $Refernces1 = str_replace('},]','}]',$Refernces);
+        //     $user_references= new Collection();
+        //     foreach(json_decode($Refernces1) as $referencesArray){
                 
                
-                $references = new References();
-                $id = $referencesArray->fieldId;
+        //         $references = new References();
+        //         $id = $referencesArray->fieldId;
                 
-                $references_name = 'referal_name'.$id;
-                $references_email = 'referal_email'.$id;
-                $references_phone = 'referal_phone'.$id;
-                $references->refname = request($references_name);
-                $references->refemail = request($references_email);
-                $references->refphone = request($references_phone);
-                $references->user()->associate($user->id);
-                $references->save();
+        //         $references_name = 'referal_name'.$id;
+        //         $references_email = 'referal_email'.$id;
+        //         $references_phone = 'referal_phone'.$id;
+        //         $references->refname = request($references_name);
+        //         $references->refemail = request($references_email);
+        //         $references->refphone = request($references_phone);
+        //         $references->user()->associate($user->id);
+        //         $references->save();
                 
-            }
-            /*updating  Education qualification */
-            $education = [
-            'education_institution_name' => $request->educationinstutional_name,
-            'degree' => $request->degree,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            ];
-            $user->educations()->create($education);
+        //     }
+        //     /*updating  Education qualification */
+        //     $education = [
+        //     'education_institution_name' => $request->educationinstutional_name,
+        //     'degree' => $request->degree,
+        //     'start_date' => $request->start_date,
+        //     'end_date' => $request->end_date,
+        //     ];
+        //     $user->educations()->create($education);
              
 
-            /* updating  radio button value */
-            if ($request->police_report == "1") {
-                $user->is_police_record = 1;
-            } elseif ($request->police_report == "0") {
-                $user->is_police_record = 0;
-            }
-             if($request->is_travelling == "1")
-            {
-                $user->is_travelling = 1;
-            } elseif ($request->is_travelling == "0") {
-                $user->is_travelling = 0;
-            }
+        //     /* updating  radio button value */
+        //     if ($request->police_report == "1") {
+        //         $user->is_police_record = 1;
+        //     } elseif ($request->police_report == "0") {
+        //         $user->is_police_record = 0;
+        //     }
+        //      if($request->is_travelling == "1")
+        //     {
+        //         $user->is_travelling = 1;
+        //     } elseif ($request->is_travelling == "0") {
+        //         $user->is_travelling = 0;
+        //     }
 
           
-            /* Converting skills array */
-            $skillArray = array();
-            foreach (json_decode($request->sub_categories) as $category) {
-                array_push($skillArray, $category->value);
-            }
-            /* converting  days array */
-           $dayArray = array();
-           foreach (json_decode($request->working_days) as $days) {
-            array_push($dayArray, $days->value);
-        }
+        //     /* Converting skills array */
+        //     $skillArray = array();
+        //     foreach (json_decode($request->sub_categories) as $category) {
+        //         array_push($skillArray, $category->value);
+        //     }
+        //     /* converting  days array */
+        //    $dayArray = array();
+        //    foreach (json_decode($request->working_days) as $days) {
+        //     array_push($dayArray, $days->value);
+        // }
           
-          $user->hours = $request->hours;
-          $user->days = implode(',',$dayArray) ;
-          $user->introduction = $request->personal_description;
+        //   $user->hours = $request->hours;
+        //   $user->days = implode(',',$dayArray) ;
+        //   $user->introduction = $request->personal_description;
 
        
         
          
 
-          $user->street_01 = $request->street;
-          $user->street_02 = $request->house_number;
-          $user->city_id = $request->cities;
-          $user->total_distance = $request->total_distance;
-          $user->subcategories()->attach($user_subcategories);
-          $user->status = "pending";
-          $user->save();
+        //   $user->street_01 = $request->street;
+        //   $user->street_02 = $request->house_number;
+        //   $user->city_id = $request->cities;
+        //   $user->total_distance = $request->total_distance;
+        //   $user->subcategories()->attach($user_subcategories);
+        //   $user->status = "pending";
+        //   $user->save();
           
-          Mail::send('mail.createProfile', compact('request', 'user_subcategories'), function($message) use ($request, $email)
-            {
-                $message->to($email, $request->name)->subject('Profile Updated');
-            });
-            return redirect('/profile');
-        } catch (\Throwable $e) {
-            LogHelper::storeMessage("Profile Wizard",$e->getMessage(),$user);
-            return redirect()->route('profileWizard')->withInput();
-        }
+        //   Mail::send('mail.createProfile', compact('request', 'user_subcategories'), function($message) use ($request, $email)
+        //     {
+        //         $message->to($email, $request->name)->subject('Profile Updated');
+        //     });
+        //     return redirect('/profile');
+        // } catch (\Throwable $e) {
+        //     LogHelper::storeMessage("Profile Wizard",$e->getMessage(),$user);
+        //     return redirect()->route('profileWizard')->withInput();
+        // }
     }
 
     public function security()

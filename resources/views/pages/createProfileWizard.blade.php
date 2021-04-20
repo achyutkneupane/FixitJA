@@ -822,8 +822,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <h4 class="mb-10 font-weight-bold text-dark">Upload Your Profile Image</h4>
                             <!--begin::Input-->
                             @if(Auth::user()->documents)
-                            @csrf
-                           @method('PUT')
+                            
+                           
                             <div class="form-group row">
                                 <div class="col-lg-9 col-xl-6">
                                     <div class="editProfileImage mb-3">
