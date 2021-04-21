@@ -11,7 +11,7 @@
         <div class="col-lg-8">
             <div class="card card-custom">
 
-                @onlyForRespectiveUser($user->id)
+                @onlyForRespectiveUser($user)
                 <div class="card-header">
                     <div class="card-title">
                         <h3 class="card-label">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="card-body">
 
-                    @foreach ($user->emails()->get() as $email)
+                @foreach ($user->emails as $email)
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 col-form-label">
                                 @if ($loop->first)
@@ -95,7 +95,7 @@
                 </div>
 
                 {{-- Account Setting --}}
-                @onlyForRespectiveUser($user->id)
+                @onlyForRespectiveUser($user)
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-12">

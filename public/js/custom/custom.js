@@ -37,17 +37,6 @@ $(document).ready(function (e) {
 
     });
 
-    /* for dymanic accordance */
-    $.ajax({
-        type: 'GET',
-        url: '/category_data',
-        dataType: 'json',
-        success: function (response) {
-            //var response = JSON.parse(response);
-            category_data = response;
-        }
-    });
-
     function getCatgeory(categoryId) {
         var subcategory = new Array();
         $.ajax({
