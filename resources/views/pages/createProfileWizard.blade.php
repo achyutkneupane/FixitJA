@@ -869,7 +869,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                 <div class="form-group fv-plugins-icon-container">
                     <label>Parishes</label>
                     <select class="form-control select2" id="userParishSelect" name="parish">
-                        <option  value="{{ auth()->user()->city->parish->id ? 'selected' : '' }}"> {{ auth()->user()->city->parish->name}}</option>
+                        
                         
                         @foreach($parishes as $parish)
                         <option value="{{ $parish->id }}"
@@ -886,7 +886,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                 <div class="form-group fv-plugins-icon-container">
                     <label>City</label>
                     <select class="form-control select2" id="userCitySelect" name="cities">
-                    <option value="{{ auth()->user()->city_id ? 'selected': ''}}">{{ auth()->user()->city->name }}</option>
+                   
                     </select>
                 </div>
                 
