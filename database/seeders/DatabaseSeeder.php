@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(StaticTextSeeder::class);
         $faker = Faker::create();
         $this->call(UserSeeder::class);
         if (app()->environment() == 'local') {
