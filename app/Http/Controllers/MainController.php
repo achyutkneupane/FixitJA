@@ -28,7 +28,7 @@ class MainController extends Controller
     {
         $users = User::limit(6)
           ->where('type','independent_contractor')
-          ->with(['subcategories'])
+          ->with(['subcategories.category','documents','city'])
           ->where('status', 'active')->get();
         
         $documents = DB::table('users')
@@ -36,9 +36,9 @@ class MainController extends Controller
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
             
-        
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
-        $categories = $categories = Category::with('sub_categories')->get();
+        $categories = Category::with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = $categories;
+        // $navBarCategories = $categories->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
 
 
         $page_title = 'Welcome';

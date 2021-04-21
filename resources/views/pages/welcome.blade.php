@@ -155,9 +155,7 @@
             <div class="col-lg-8">
                 <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/register">Become Our Fixician</a>
                 <h2 class="text-white">{{ $statics->where('slug','use_your_skills_and_earn_money')->first()->title }}</h2>
-                <p class="lead text-white-50 mb-5">
-                    Enter information about you and your skills in very easily guided steps and start taking projects.
-                </p>
+                    {!! $statics->where('slug','use_your_skills_and_earn_money')->first()->content !!}
             </div>
         </div>
         <div class="row my-10">
@@ -293,8 +291,8 @@
     <div class="container-website mt-5">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h4>Ready to get started?</h4>
-                <p class="lead mb-5 mb-lg-0 text-gray-500">Get in touch or create an account.</p>
+                <h4>{{ $statics->where('slug','ready_to_get_started')->first()->title }}</h4>
+                {!! $statics->where('slug','ready_to_get_started')->first()->content !!}
             </div>
             <div class="col-lg-6 text-lg-right">
                 <a class="btn-website btn-website-primary font-weight-500 mr-3 my-website-2" href="/contact">Contact Us</a>
