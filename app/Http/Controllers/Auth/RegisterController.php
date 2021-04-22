@@ -83,34 +83,12 @@ class RegisterController extends Controller
                               'regex:/[A-Z]/',      
                               'regex:/[0-9]/', 
                               'confirmed',
-
-                            ],
-            ]);
-
-        /* if someone refer */
-        if($request->referralemail){
-            $referrall = Email::with('user')->where('email',$request->referralemail)->first();
-            if($referrall) {
-                $referral = $referrall->id;
-                $refer = Refer::where('referred_by',$referral)->where('email',$request->email)->first();
-                if($refer) {
-                    $refer->registered = true;
-                    $refer->save();
-                    Refer::where('email',$request->email)->where('registered',false)->delete();
-                }
-                else {
-                    Refer::create([
-                        'referred_by' => $referrall->user->id,
-                        'email' => $request->email,
-                        'token' => Str::random(15),
-                        'registered' => true
-                    ]);
-                }
-            }
-            else {
-                return redirect()->back()->withErrors(['referralemail'=>["This e-mail doesn't exist"]])->withInput();
-            }
-        }
+       ],
+            /* Added by Achyut Neupane */
+           'referralemail' => 'exists:emails,email'
+        ],[
+            'referralemail.exists' => 'This email doesn\'t exist in our system.'
+        ]);
 
         $user = User::create([
             'name' => $request->name,
@@ -128,6 +106,13 @@ class RegisterController extends Controller
  
         $referral = Email::with('user')->where('email',$request->referralemail)->first()->id;
         $refer = Refer::where('referred_by',$referral)->where('email',$request->email)->first();
+        if(!$refer) {
+            $refer = new Refer();
+            $refer->referred_by = $referral;
+            $refer->email = $request->email;
+            $refer->token = Str::random(15);
+            $refer->user_id = $user->id;
+        }
         $refer->registered = true;
         $refer->save();
         Refer::where('email',$request->email)->where('registered',false)->delete();

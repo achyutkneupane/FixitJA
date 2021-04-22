@@ -19,11 +19,11 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
         <div class="d-flex align-items-center mt-5">
             <div class="symbol symbol-85 mr-5">
                 @auth
-                @if (!is_null(Auth::user()
-                ->documents->where('type', 'profile_picture')
-                ->first()
-                ))
-                <div class="symbol-label" style="background-image:url('{{ asset('storage/'.Auth::user()->documents->where('type', 'profile_picture')->first()->path)}}')">
+                @php
+                    $docs = auth()->user()->documents->where('type', 'profile_picture')->first();
+                @endphp
+                @if (!is_null($docs))
+                <div class="symbol-label" style="background-image:url('{{ asset('storage/'.$docs->path)}}')">
                 </div>
                 @else
                 <div class="symbol-label" style="background-image:url('{{ asset('images/unknown-avatar.png') }}')"></div>
@@ -36,13 +36,13 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
                     @auth
                     <a href="{{ route('viewProfile') }}">
                         <span class="text-dark font-weight-bold">
-                            {{ Auth::user()->name }}
+                            {{ auth()->user()->name }}
                         </span>
                     </a>
                     @endauth
                 </a>
                 <div class="text-muted mt-1">
-                    {{ Auth::user()->userType() }}
+                    {{ auth()->user()->userType() }}
                 </div>
                 <div class="navi mt-2">
                     <a href="#" class="navi-item">
@@ -52,7 +52,7 @@ $direction = config('layout.extras.user.offcanvas.direction', 'right');
                             </span>
                             <span class="navi-text text-muted text-hover-primary">
                                 @auth
-                                {{ Auth::user()->email() }}
+                                {{ auth()->user()->email() }}
                                 @endauth
                             </span>
                         </span>

@@ -5,7 +5,7 @@
     @php
     $profileIsActive = 'true';
     @endphp
-    @onlyForRespectiveUser($user->id)
+    @onlyForRespectiveUser($user)
         @php
             $page_title = 'Profile';
         @endphp
@@ -14,7 +14,7 @@
             $page_title = 'User Overview';
         @endphp
     @endonlyForRespectiveUser
-    @isAdminOrUser($user->id)
+    @isAdminOrUser($user)
     @php
     $subhead_button = [['class' => 'primary', 'text' => 'Edit', 'link' => $user->id == auth()->id() ? route('editProfile') : route('editUserProfile', $user->id)]];
     @endphp

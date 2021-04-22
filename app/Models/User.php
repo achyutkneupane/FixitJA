@@ -51,7 +51,7 @@ class User extends Authenticatable
     
     public function getRatingAttribute()
     {
-        return round($this->reviews()->avg('rating'),2);
+        return round($this->reviews->avg('rating'),2);
     }
 
     public function documents()
@@ -104,15 +104,15 @@ class User extends Authenticatable
     }
     public function getEmail($id)
     {
-        return User::find($id)->emails->where('primary', true)->first()->email;
+        return $this->email();
     }
     public function phone()
     {
-        return User::find(auth()->id())->phones->where('primary', true)->first()->phone;
+        return $this->phones->where('primary', true)->first()->phone;
     }
     public function getPhone($id)
     {
-        return User::find($id)->phones->where('primary', true)->first()->phone;
+        return $this->phone();
     }
     public function first_name()
     {
@@ -201,7 +201,7 @@ class User extends Authenticatable
     }
     public function reviews()
     {
-        return $this->hasMany(Review::class, 'review_for');
+        return $this->hasMany(Review::class, 'review_for')->orderBy('created_at','DESC');
     }
     public function createdReviews()
     {
@@ -210,6 +210,10 @@ class User extends Authenticatable
     public function refers()
     {
         return $this->hasMany(Refer::class,'referred_by');
+    }
+    public function referrer()
+    {
+        return $this->hasOne(Refer::class,'user_id');
     }
     public function found_by()
     {
@@ -227,7 +231,7 @@ class User extends Authenticatable
         $sessions = collect();
         $catSessions = collect();
         $count = 0;
-
+        $documents = $this->documents;
         foreach ($subcategories as $subcategory) {
             $category = $subcategory->category;
             $cat = ['category_id' => $category->id, 'category_name' => $category->name];
@@ -249,8 +253,7 @@ class User extends Authenticatable
             } else {
                 $catValue = ['category' => $cat,
                              'subcategory' => [$subcategory],
-                             'document' => Document::where('type','certificate'.$count++)
-                                                   ->first(['path','experience'])
+                             'document' => ($documents->count() > 0) ? $documents->where('type','certificate'.$count++)->first() : ''
                             ];
                 $catData->put($catId, $catValue);
                 $sessions->put($catId,[0=>$subcategory->id]);       
