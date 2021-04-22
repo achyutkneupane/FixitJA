@@ -1,3 +1,4 @@
+var selectedCategoryData = {};
 function bindSubCat1(data, subcat) {
     var toEl = document.getElementById(subcat);
     var tagifyTo = new Tagify(toEl, {
@@ -47,6 +48,17 @@ $(document).on('change', '.category-select', function (e) {
         $('#divTagify' + subcatid + '').find('tags').remove();
     }
     var category_id = $(this).val();
+    selectedCategoryData[$(this).attr("id")] = $(this).val();
+    $(".category-select").each(function () {
+        var selectID = $(this).attr("id");
+        $("#" + selectID + " option").prop("disabled", false);
+        $("#" + selectID + " option[value='']").prop("disabled", true);
+        $.each(selectedCategoryData, function (id, val) {
+            console.log(id);
+            console.log(val);
+            $("#" + selectID + " option[value=" + val + "]").prop("disabled", true);
+        });
+    });
     getSubCatData(category_id, subcatid);
 });
 

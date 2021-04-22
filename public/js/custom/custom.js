@@ -63,40 +63,6 @@ $(document).ready(function (e) {
         });
 
     }
-    // /* for calandar validation */
-    // var dateControler = {
-    //     currentDate: null
-    // }
-    // var selectedsDate;
-    // $('#selectstartdate').on("change", function (e) {
-    //     var now = new Date();
-    //     selectedsDate = new Date($(this).val());
-
-
-    //     if (selectedsDate > now) {
-    //         $(this).val(dateControler.currentDate)
-    //     } else {
-    //         dateControler.currentDate = $(this).val();
-    //     }
-
-
-    // })
-
-    // $('#selectenddate').on("change", function (e) {
-
-    //     var now = new Date();
-    //     var selectedeDate = new Date($(this).val());
-
-
-
-    //     if (selectedeDate < selectedsDate  ) {
-    //         $(this).val(dateControler.currentDate)
-    //     } else {
-    //         dateControler.currentDate = $(this).val();
-    //     }
-
-
-    // });
 
 /*  for  Range slider */
     var slider = document.getElementById("myRange");
