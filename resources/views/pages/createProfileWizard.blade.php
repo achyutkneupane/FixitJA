@@ -14,6 +14,15 @@ var sessionSubCatId = {!! session()->get('subcategory_id') !!};
 var sessionCatId = {!! session()->get('category_id') !!}
 </script>
 @endif
+@if(!empty(auth()->user()->city->name))
+<script>
+var cityId = {{ auth()->user()->city->id }};
+</script>
+@else
+<script>
+    var cityId = '';
+</script>
+@endif
 @php
 $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
 @endphp
