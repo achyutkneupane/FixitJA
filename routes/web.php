@@ -153,6 +153,8 @@ Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'u
 Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->middleware('auth', 'checkIfSkillworker')->name('profileWizard');
 //Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
+Route::get('/profile/init/subCategoryId/{subCatId}', [App\Http\Controllers\UserController::class, 'createProfilewithSub'])->name('createProfilewithSub');
+Route::put('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofiledetails']);
 
 
 
@@ -169,6 +171,8 @@ Route::get('/category_data', [App\Http\Controllers\CategoryController::class, 'g
 
 
 Route::get('/addeducation', [App\Http\Controllers\UserController::class, 'addeducation']);
+
+Route::get('download/{filename}', [App\Http\Controllers\UserController::class, 'downloadcertificate'])->name('getfile');
 
 
 

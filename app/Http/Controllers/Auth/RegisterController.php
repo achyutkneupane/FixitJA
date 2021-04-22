@@ -19,8 +19,12 @@ use App\Events\UserRegistered;
 use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
 use App\Models\Email;
+
 use App\Models\Refer;
 use Illuminate\Support\Str;
+
+
+
 
 class RegisterController extends Controller
 {
@@ -96,6 +100,7 @@ class RegisterController extends Controller
             'verification_code' => sha1(time())
         ]);
         
+
         /* if someone refer */
         if($request->referralemail){
  
@@ -114,6 +119,7 @@ class RegisterController extends Controller
 
         }
         
+
 
         $user->emails()->create([
             'email' => $request->email,

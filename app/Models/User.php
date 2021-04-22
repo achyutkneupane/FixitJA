@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\CacheHelper;
+use Carbon;
 
 
 class User extends Authenticatable
@@ -19,7 +21,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-
+   
 
     protected $guarded = [];
 
@@ -31,6 +33,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'pivot',
     ];
 
     /**
@@ -74,6 +77,7 @@ class User extends Authenticatable
     public function subcategories()
     {
         return $this->belongsToMany(SubCategory::class, 'subcategory_user', 'user_id', 'sub_category_id');
+        
     }
     public function emails()
     {
@@ -224,23 +228,41 @@ class User extends Authenticatable
     {
         $subcategories = $this->subcategories;
         $catData = collect([]);
+        $sessions = collect();
+        $catSessions = collect();
         $count = 0;
         $documents = $this->documents;
         foreach ($subcategories as $subcategory) {
             $category = $subcategory->category;
             $cat = ['category_id' => $category->id, 'category_name' => $category->name];
+            $catSessions->put($category->name, $category->id);
+            
+            
+           $catId = 'cat_' . $cat['category_id'];
+           
             if ($catData->has('cat_' . $cat['category_id'])) {
                 $updateCat = $catData->get('cat_' . $cat['category_id']);
+                
                 $updateCat['subcategory'][] = $subcategory;
-                $catData->put('cat_' . $cat['category_id'], $updateCat);
+                $updateSession = $sessions->get('cat_' . $cat['category_id']);
+                
+                $updateSession[] = $subcategory->id;
+                $catData->put($catId, $updateCat);
+                $sessions->put($catId,$updateSession);
+                
             } else {
                 $catValue = ['category' => $cat,
                              'subcategory' => [$subcategory],
                              'document' => ($documents->count() > 0) ? $documents->where('type','certificate'.$count++)->first() : ''
                             ];
-                $catData->put('cat_' . $cat['category_id'], $catValue);
-            }
+                $catData->put($catId, $catValue);
+                $sessions->put($catId,[0=>$subcategory->id]);       
+            }   
+            
         }
+        
+        session()->flash('category_id', $catSessions);
+        session()->flash('subcategory_id',$sessions);
         return $catData;
     }
 
@@ -264,4 +286,26 @@ class User extends Authenticatable
                         ->get();
         }
     }
+
+    /*Added by Ashish Pokhrel */
+
+    // public function setEducationStartDateAttribute($value)
+    // {
+    //     $this->attributes['start_date'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
+    // }
+
+    // public function getEducationStartDateAttribute()
+    // {
+    //     return Carbon::createFromFormat('Y-m-d', $this->attributes['start_date'])->format('m/d/Y');
+    // }
+
+    // public function setEducationEndDateAttribute($value)
+    // {
+    //     $this->attributes['end_date'] = Carbon::createFromFormat('m/d/y', $value)->format('Y-m-d');
+    // }
+
+    // public function getEducationEndDateAttribute()
+    // {
+    //     return Carbon::createFromFormat('Y-m-d', $this->attributes['end_date'])->format('m/d/Y');
+    // }
 }

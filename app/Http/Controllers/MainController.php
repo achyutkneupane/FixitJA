@@ -128,3 +128,4 @@ class MainController extends Controller
         return view('pages.test', compact('parishes'));
     }
 }
+ 

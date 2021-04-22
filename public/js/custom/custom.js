@@ -37,6 +37,17 @@ $(document).ready(function (e) {
 
     });
 
+    /* for dymanic accordance */
+    $.ajax({
+        type: 'GET',
+        url: '/category_data',
+        dataType: 'json',
+        success: function (response) {
+            //var response = JSON.parse(response);
+            category_data = response;
+        }
+    });
+
     function getCatgeory(categoryId) {
         var subcategory = new Array();
         $.ajax({
@@ -52,40 +63,6 @@ $(document).ready(function (e) {
         });
 
     }
-    // /* for calandar validation */
-    // var dateControler = {
-    //     currentDate: null
-    // }
-    // var selectedsDate;
-    // $('#selectstartdate').on("change", function (e) {
-    //     var now = new Date();
-    //     selectedsDate = new Date($(this).val());
-
-
-    //     if (selectedsDate > now) {
-    //         $(this).val(dateControler.currentDate)
-    //     } else {
-    //         dateControler.currentDate = $(this).val();
-    //     }
-
-
-    // })
-
-    // $('#selectenddate').on("change", function (e) {
-
-    //     var now = new Date();
-    //     var selectedeDate = new Date($(this).val());
-
-
-
-    //     if (selectedeDate < selectedsDate  ) {
-    //         $(this).val(dateControler.currentDate)
-    //     } else {
-    //         dateControler.currentDate = $(this).val();
-    //     }
-
-
-    // });
 
 /*  for  Range slider */
     var slider = document.getElementById("myRange");
@@ -100,7 +77,8 @@ $(document).ready(function (e) {
     }
 });
 //Adding more category
-$("#totalCatList").val('{"fieldId": ""},');
+if(status !== 'pending')
+    $("#totalCatList").val('{"fieldId": ""},');
 $("#add_btn").click(function (e) {
     e.stopImmediatePropagation();
     if ($(".card-category-accordion").length < 3) {
@@ -113,10 +91,11 @@ $("#add_btn").click(function (e) {
         $.each(category_data, function (index, item) {
             category_select = category_select + ('<option value="' + item.id + '">' + item.name + ' </option>');
         });
+        
         $('#accordion_category').append(
             '<div class="card card-category-accordion" id="categoryCard' + count + '">' +
             '<div class="card-header">' +
-            '<div class="card-title" data-toggle="collapse" data-target="#collapse' + count + '"><span class="category-title" id="' + viewcategory + '"></span></div>' +
+            '<div class="card-title" data-toggle="collapse" data-target="#collapse' + count + '"><span class="category-title" id="' + viewcategory + '">Select Category</span></div>' +
             '</div>' +
             ' <div id="collapse' + count + '" class="collapse show"' +
             ' data-parent="#accordionExample3">' +
@@ -138,7 +117,7 @@ $("#add_btn").click(function (e) {
             ' class="form-control" name="sub_categories' + count + '" ' +
             ' placeholder="Add sub-categories"> ' +
             ' <div class="mt-3 text-muted">Select multiple ' +
-            ' subcategories. If you don see ' +
+            ' subcategories. If you dont see ' +
             ' your option just create one.</div> ' +
             ' </div> ' +
             ' <div class="fv-plugins-message-container"> ' +
@@ -191,7 +170,7 @@ $("#add_more_reference").click(function(e){
     e.stopImmediatePropagation();
     if ($(".card-reference-accordion").length < 3){
         count++;
-          $("#totalRefList").val($("#totalRefList").val() + '{"fieldId": "'+ count +'"},');
+        $("#totalRefList").val($("#totalRefList").val() + '{"fieldId": "'+count+'"},');
 
         $("#accordion_reference").append(
             '<div class="card card-reference-accordion" id="referenceCard' + count + '">'+
@@ -273,6 +252,7 @@ $(document).on("click", ".remove-accordian_remove", function (e) {
 $(document).on('change', '.category-select', function (e) {
     var data = $(this).children("option:selected").text();
     $("#categoryTitle" + $(this).attr('id') + "").html(data);
+    
 })
 
 //Change certificate wizard if category is changed later
@@ -290,12 +270,11 @@ function LoadWizardData(wizard) {
     if (wizard.getStep() == 2 && wizard.lastStep == 1 && clearSecondWizard) {
         clearSecondWizard = false;
         $("#certificateSection").empty();
-        categorySelected.forEach(item => {
+        categorySelected.forEach(item => { 
             CertificateFV.removeField(item);
         });
         categorySelected = [];
         $.each($(".category-title"), function (index, value) {
-            console.log($("#totalCertificateList").val());
             $("#totalCertificateList").val($("#totalCertificateList").val() + '{"fieldId": "'+index+'"},');
             const cloneCertificateAccordion = $("#templateCertificate").clone();
             cloneCertificateAccordion.attr("id", "certificateAccordion" + index);
@@ -303,6 +282,7 @@ function LoadWizardData(wizard) {
             cloneCertificateAccordion.show();
 
             var cardTitle = cloneCertificateAccordion.find("#certificateCategoryTitle");
+            console.log(cardTitle)
             cardTitle.html(value.innerHTML);
             cardTitle.attr("id", "certificateCategoryTitle" + index);
 
@@ -338,14 +318,12 @@ function LoadWizardData(wizard) {
     }
 }
 
-/* hide slider if travelling is no
-$(document).ready(function () {
-     $('#is_travelling_no').on('click', function () {
-    var value = document.getElementById('is_travelling_no');
-     if (value == "0") {
-         document.getElementById('distanceslider').style.display = "none";
-     }else{
-          document.getElementById('distanceslider').style.display = "block";*/
+/* updating subcategory*/
+
+
+
+
+
 
 
 
