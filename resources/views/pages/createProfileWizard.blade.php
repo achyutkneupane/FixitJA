@@ -14,15 +14,6 @@ var sessionSubCatId = {!! session()->get('subcategory_id') !!};
 var sessionCatId = {!! session()->get('category_id') !!}
 </script>
 @endif
-@if(!empty(auth()->user()->city->name))
-<script>
-var cityId = {{ auth()->user()->city->id }};
-</script>
-@else
-<script>
-    var cityId = '';
-</script>
-@endif
 @php
 $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
 @endphp
@@ -713,7 +704,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                 <div class="form-group">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Referral
                                                         Contact Number
-                                                        <input type="text" id="refphone" class="form-control"
+                                                        <input type="tel" id="refphone" class="form-control"
                                                             type="text" name="referal_phone"
                                                             placeholder="Referal Contact Number" value="">
                                                     </label>
@@ -878,9 +869,11 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                 <div class="form-group fv-plugins-icon-container">
                     <label>Parishes</label>
                     <select class="form-control select2" id="userParishSelect" name="parish">
-                        @foreach($parishes as $parish)
+                        
+                        
+                       @foreach($parishes as $parish)
                         <option value="{{ $parish->id }}"
-                            {{ !empty($user->city) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
+                            {{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
                             {{ $parish->name }}
                         </option>
                         @endforeach
@@ -928,10 +921,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <span class="font-weight-bold">Skills: </span>
                             <span class="text-muted" id='skill'></span>
                         </div>
-                        <div class="col-md-6">
-                            <span class="font-weight-bold">Experience: </span>
-                            <span class="text-muted" id='experience'></span>
-                        </div>
+                       >
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-2 row">
                         <h3 class="col-md-12 my-3">Education</h3>
@@ -968,7 +958,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                         </div>
                         <div class="col-md-6">
                             <span class="font-weight-bold">Working days: </span>
-                            <span class="text-muted" id='workingdays'></span>
+                            <span class="text-muted" id='working_days'></span>
                         </div>
                         <div class="col-md-6">
                             <span class="font-weight-bold">Is travelling?: </span>
@@ -988,23 +978,13 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <span class="text-muted" id='workingCityId'>N/A</span>
                             </div>
                             <div class="col-md-6">
-                                <span class="font-weight-bold">Street Address 1: </span>
+                                <span class="font-weight-bold">Address: </span>
                                 <span class="text-muted" id='workingStreet1Id'>N/A</span>
                             </div>
+                            
+                            
                             <div class="col-md-6">
-                                <span class="font-weight-bold">Street Address 2: </span>
-                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
-                            </div>
-                            <div class="col-md-6">
-                                <span class="font-weight-bold">House Number: </span>
-                                <span class="text-muted" id='workingHouseNumberId'>N/A</span>
-                            </div>
-                            <div class="col-md-6">
-                                <span class="font-weight-bold">Postal Code: </span>
-                                <span class="text-muted" id='workingPostalCodeId'>N/A</span>
-                            </div>
-                            <div class="col-md-6">
-                                <span class="font-weight-bold">Perish: </span>
+                                <span class="font-weight-bold">Parish: </span>
                                 <span class="text-muted" id='workingPerishId'>N/A</span>
                             </div>
                         </div>

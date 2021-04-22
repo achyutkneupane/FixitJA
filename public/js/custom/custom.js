@@ -2,6 +2,7 @@
 
 var category_data;
 var selectcategoryid = "selected_catgeory1";
+var selectedCategoryData = {};
 var count = 0;
 $(document).ready(function (e) {
    
@@ -284,6 +285,7 @@ $(document).on("click", ".remove-accordian_remove", function (e) {
 
 //Adding selected category in the accordion title
 $(document).on('change', '.category-select', function (e) {
+    
     var data = $(this).children("option:selected").text();
     $("#categoryTitle" + $(this).attr('id') + "").html(data);
     
@@ -352,7 +354,7 @@ function LoadWizardData(wizard) {
     }
 }
 
-/* updating subcategory*/
+
 
 
 
