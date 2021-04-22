@@ -2,7 +2,6 @@
 
 var category_data;
 var selectcategoryid = "selected_catgeory1";
-var selectedCategoryData = {};
 var count = 0;
 $(document).ready(function (e) {
    
@@ -36,6 +35,17 @@ $(document).ready(function (e) {
         var category_id = $(this).val();
         $('.card-title').attr("category_id");
 
+    });
+
+    /* for dymanic accordance */
+    $.ajax({
+        type: 'GET',
+        url: '/category_data',
+        dataType: 'json',
+        success: function (response) {
+            //var response = JSON.parse(response);
+            category_data = response;
+        }
     });
 
     function getCatgeory(categoryId) {
@@ -274,7 +284,6 @@ $(document).on("click", ".remove-accordian_remove", function (e) {
 
 //Adding selected category in the accordion title
 $(document).on('change', '.category-select', function (e) {
-    
     var data = $(this).children("option:selected").text();
     $("#categoryTitle" + $(this).attr('id') + "").html(data);
     
@@ -343,7 +352,7 @@ function LoadWizardData(wizard) {
     }
 }
 
-
+/* updating subcategory*/
 
 
 

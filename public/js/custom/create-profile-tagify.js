@@ -1,4 +1,3 @@
-var selectedCategoryData = {};
 function bindSubCat1(data, subcat) {
     var toEl = document.getElementById(subcat);
     var tagifyTo = new Tagify(toEl, {
@@ -43,35 +42,13 @@ function bindSubCat1(data, subcat) {
 $(document).on('change', '.category-select', function (e) {
     e.stopImmediatePropagation();
     e.preventDefault();
-    selectedCategoryData[$(this).attr("id")] = $(this).val();
-    console.log(selectcategoryid)
-    
-   
     var subcatid = this.getAttribute('subcatid');
     if ($('#divTagify' + subcatid + '').find('tags').length > 0) {
         $('#divTagify' + subcatid + '').find('tags').remove();
     }
-   
-    
     var category_id = $(this).val();
-    updateAllCategorySelect();
     getSubCatData(category_id, subcatid);
-     
 });
-
-/* Update Catgeory */
-
-function updateAllCategorySelect() {
-    $(".category-select").each(function () {
-        var selectID = $(this).attr("id");
-        console.log(selectID)
-        $("#" + selectID + " option").prop("disabled", false);
-        $("#" + selectID + " option[value='']").prop("disabled", true);
-        $.each(selectedCategoryData, function (id, val) {
-            $("#" + selectID + " option[value=" + val + "]").prop("disabled", true);
-        });
-    });
-}
 
 
 function getSubCatData(categoryId, subcatid) {
@@ -196,4 +173,3 @@ function getSubCatData1(categoryId, subcat) {
         }
     });
 }
-
