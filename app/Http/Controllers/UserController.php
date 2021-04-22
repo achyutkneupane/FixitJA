@@ -97,20 +97,20 @@ class UserController extends Controller
     public function profile()
     {
         
-        $user = User::with('emails', 'phones')->find(Auth::user()->id);
+        $user = auth()->user();
         return view('pages.profile', compact('user'));
     }
     public function show($id)
     {
-        if (User::find($id) == Auth::user()) {
+        $user = User::with('emails', 'phones')->find($id);
+        if ($user == Auth::user()) {
             return redirect()->route('viewProfile');
         }
-        $user = User::with('emails', 'phones')->find($id);
         return view('pages.profile', compact('user'));
     }
     public function index()
     {
-        $users = User::with('emails', 'phones')->get();
+        $users = User::with('emails', 'phones','city','documents')->get();
         return view('admin.profile.users', compact('users'));
     }
     public function updateprofile1()
@@ -311,15 +311,15 @@ class UserController extends Controller
 
     public function security()
     {
-        $user = User::with('emails', 'phones')->find(Auth::user()->id);
+        $user = auth()->user();
         return view('admin.profile.security', compact('user'));
     }
     public function viewSecurity($id)
     {
-        if (User::find($id) == Auth::user()) {
+        $user = User::with('emails', 'phones','documents')->find($id);
+        if ($user == Auth::user()) {
             return redirect()->route('accountSecurity');
         }
-        $user = User::with('emails', 'phones')->find($id);
         return view('admin.profile.security', compact('user'));
     }
     public function changePassword(Request $request)
@@ -403,10 +403,10 @@ class UserController extends Controller
     }
     public function userSkills($id)
     {
-        if (User::find($id) == Auth::user()) {
+        $user = User::with('subcategories','reviews')->find($id);
+        if ($user == Auth::user()) {
             return redirect()->route('profileSkills');
         }
-        $user = User::find($id);
         $subCats = $user->allCategories();
         return view('admin.profile.skills', compact('user', 'subCats'));
     }
@@ -577,10 +577,10 @@ class UserController extends Controller
     }
     public function userDocuments($id)
     {
-        if (User::find($id) == auth()->user()) {
+        $user = User::with('documents')->find($id);
+        if ($user == auth()->user()) {
             return redirect()->route('viewDocuments');
         }
-        $user = User::find($id);
         return view('admin.profile.documents', compact('user'));
     }
 
@@ -591,10 +591,10 @@ class UserController extends Controller
     }
     public function userEducations($id)
     {
-        if (User::find($id) == auth()->user()) {
+        $user = User::with('educations','reviews','documents')->find($id);
+        if ($user == auth()->user()) {
             return redirect()->route('viewEducations');
         }
-        $user = User::find($id);
         return view('admin.profile.education', compact('user'));
     }
     public function profileReferences()
@@ -604,26 +604,26 @@ class UserController extends Controller
     }
     public function userReferences($id)
     {
-        if (User::find($id) == auth()->user()) {
+        $user = User::with('references','documents','reviews')->find($id);
+        if ($user == auth()->user()) {
             return redirect()->route('viewReferences');
         }
-        $user = User::with('references')->find($id);
         return view('admin.profile.reference', compact('user'));
     }
 
     public function profileReview()
     {
         $user = auth()->user();
-        $reviews = $user->reviews()->orderBy('created_at','DESC')->get();
+        $reviews = $user->reviews;
         return view('admin.profile.review', compact('user','reviews'));
     }
     public function userReview($id)
     {
-        if (User::find($id) == auth()->user()) {
+        $user = User::with(['reviews.reviewer.documents'])->find($id);
+        if ($user == auth()->user()) {
             return redirect()->route('viewReview');
         }
-        $user = User::with('reviews.reviewer')->find($id);
-        $reviews = $user->reviews()->orderBy('created_at','DESC')->get();
+        $reviews = $user->reviews;
         return view('admin.profile.review', compact('user','reviews'));
     }
 
@@ -654,7 +654,10 @@ class UserController extends Controller
 
     public function referGet()
     {
-        return view('pages.refer');
+        $user = User::with('refers.user','referrer.referral')->find(auth()->id());
+        $referral = $user->referrer->referral;
+        $refers = $user->refers;
+        return view('pages.refer',compact('refers','referral'));
     }
     public function referPost(Request $request)
     {

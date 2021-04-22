@@ -14,13 +14,16 @@
                 </div>
                 <h4 class="font-weight-bold my-2">{{ ucwords($user->name) }}</h4>
                 <div class="text-muted mb-2">{{ $user->userType() }}</div>
-                @if ($user->rating)
-                    <div class="font-weight-bold">Rating: <b>{{ $user->rating }}</b>/5 <span class="text-muted">({{ $user->reviews->count() }})</span></div>
+                @php
+                    $rating = $user->rating;
+                @endphp
+                @if ($rating)
+                    <div class="font-weight-bold">Rating: <b>{{ $rating }}</b>/5 <span class="text-muted">({{ $user->reviews->count() }})</span></div>
                 @endif
                 <span
                     class="label label-light-{{ $user->userStatus()['class'] }} label-inline font-weight-bold label-lg mt-2">{{ $user->userStatus()['name'] }}</span>
                 <br>
-                @isAdminOrUser($user->id)
+                @isAdminOrUser($user)
                 <a href="#" class="font-weight-bold" data-toggle="modal" data-target="#changeUserStatus">
                     Change Status
                 </a>
@@ -45,7 +48,7 @@
                 </a>
                 @endif
             </div>
-            @onlyForRespectiveUser($user->id)
+            @onlyForRespectiveUser($user)
             <div class="mb-5 text-center">
                 <a href="#" class="font-weight-bold" data-toggle="modal" data-target="#changeSocialLinks">
                     Change Links
@@ -83,7 +86,7 @@
     </div>
     <!--end::Card-->
 </div>
-@isAdminOrUser($user->id)
+@isAdminOrUser($user)
 <div class="modal fade" id="changeUserStatus" data-backdrop="static" tabindex="-1" role="dialog"
     aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -123,7 +126,7 @@
 </div>
 @endisAdminOrUser
 
-@onlyForRespectiveUser($user->id)
+@onlyForRespectiveUser($user)
 <div class="modal fade" id="changeSocialLinks" data-backdrop="static" tabindex="-1" role="dialog"
     aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

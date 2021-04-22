@@ -99,6 +99,18 @@ return [
             'new-tab' => false,
             'admin' => true
         ],
+        [
+            'section' => 'Settings',
+            'admin' => true
+        ],
+        [
+            'title' => 'Site Setting',
+            'root' => false,
+            'icon' => 'flaticon-settings-1', // flaticon-*
+            'page' => '/setting/statics',
+            'new-tab' => false,
+            'admin' => true
+        ],
     ]
 
 ];

@@ -19,7 +19,9 @@ class CreateRefersTable extends Migration
             $table->string('email');
             $table->string('token');
             $table->boolean('registered')->default(false);
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('referred_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

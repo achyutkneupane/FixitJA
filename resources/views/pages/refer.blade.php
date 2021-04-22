@@ -10,12 +10,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    @php
-                        $referral = \App\Models\Refer::with('referral')->where('email',auth()->user()->email())->first();
-                    @endphp
                     @isset($referral)
                         <div class="h3 text-center">
-                            You were referred by <a href="{{ route('viewUser',$referral->referral->id) }}">{{ $referral->referral->name }}</a>.
+                            You were referred by <a href="{{ route('viewUser',$referral->id) }}">{{ $referral->name }}</a>.
                         </div>
                     @endisset
                     <div class="container mt-4">
@@ -42,7 +39,7 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-8">
-                                @if (auth()->user()->refers->count() > 0)
+                                @if ($refers->count() > 0)
                                 <div class="h6 text-center col-12">
                                     Follow are your referrals.
                                 </div>
@@ -58,18 +55,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (auth()->user()->refers->count() > 0)
-                                        @foreach (auth()->user()->refers as $refer)
-                                        @php
-                                            $email = \App\Models\Email::with('user')->where('email',$refer->email)->first();
-                                        @endphp
+                                        @if ($refers->count() > 0)
+                                        @foreach ($refers as $refer)
                                             <tr>
                                                 <td scope="row">{{ $loop->iteration }}</td>
                                                 <td>{{ $refer->email }}</td>
                                                 <td>{{ $refer->created_at->isoFormat('YYYY/MM/DD') }}</td>
-                                                @if($email)
-                                                    <td>{{ $email->user->name }}</td>
-                                                    <td>{{ $email->user->created_at->isoFormat('YYYY/MM/DD') }}</td>
+                                                @if($refer->registered)
+                                                    <td>{{ $refer->user->name }}</td>
+                                                    <td>{{ $refer->user->created_at->isoFormat('YYYY/MM/DD') }}</td>
                                                 @else
                                                 <td colspan="2" class="bg-light-warning text-center">Not Registered Yet</td>
                                                 @endif

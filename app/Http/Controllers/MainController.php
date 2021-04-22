@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Document;
 use App\Models\Parish;
+use App\Models\StaticText;
 use App\Models\SubCategory;
 use App\Models\Task;
 use App\Models\TaskCreator;
@@ -27,7 +28,7 @@ class MainController extends Controller
     {
         $users = User::limit(6)
           ->where('type','independent_contractor')
-          ->with(['subcategories'])
+          ->with(['subcategories.category','documents','city'])
           ->where('status', 'active')->get();
         
         $documents = DB::table('users')
@@ -35,21 +36,23 @@ class MainController extends Controller
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
             
-        
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
-        $categories = $categories = Category::with('sub_categories')->get();
+        $categories = Category::with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = $categories;
+        // $navBarCategories = $categories->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
 
 
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
-        return view('pages.welcome', compact('page_title', 'page_description','categories','navBarCategories'),  ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
+        $statics = StaticText::get();
+        return view('pages.welcome', compact('page_title', 'page_description','categories','navBarCategories','statics'),  ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
     }
     public function about()
     {
+        $content = StaticText::where('slug','about_fixitja')->first();
         $page_title = 'About';
         $page_description = 'This is about us page';
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
-        return view('pages.about', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
+        return view('pages.about', compact('page_title', 'page_description', 'navBarCategories','content'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function services()
     {
@@ -105,10 +108,11 @@ class MainController extends Controller
 
     public function termsandconditions()
     {
+        $content = StaticText::where('slug','terms_and_conditions')->first();
         $page_title = 'Terms & Conditions';
         $page_description = 'Our terms and conditions for all users.';
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
-        return view('pages.termsAndConditions', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
+        return view('pages.termsAndConditions', compact('page_title', 'page_description', 'navBarCategories','content'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function categories()
     {

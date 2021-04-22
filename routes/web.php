@@ -78,7 +78,7 @@ Route::prefix('/profile')->group(function () {
 });
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
 Route::prefix('/user/{id}')->group(function () {
-    Route::get('/', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
+    Route::get('/', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth')->name('viewUser');
     Route::get('/edit', [App\Http\Controllers\UserController::class, 'editUserProfile'])->middleware('auth')->name('editUserProfile');
     Route::get('/skills', [App\Http\Controllers\UserController::class, 'userSkills'])->middleware('auth')->name('userSkills');
     Route::get('/documents', [App\Http\Controllers\UserController::class, 'userDocuments'])->middleware('auth')->name('viewUserDocuments');
@@ -126,6 +126,11 @@ Route::post('/add_user', [App\Http\Controllers\UserController::class, 'adminAddU
 Route::get('/register/{token}', [App\Http\Controllers\UserController::class, 'registerWithToken'])->name('registerWithToken');
 Route::get('/test', [App\Http\Controllers\MainController::class, 'test'])->name('test');
 
+
+Route::prefix('/setting')->group(function() {
+    Route::get('/statics', [App\Http\Controllers\AdminController::class, 'staticTexts'])->middleware('auth','checkIfAdmin')->name('staticTexts');
+    Route::post('/statics', [App\Http\Controllers\AdminController::class, 'postStaticTexts'])->middleware('auth','checkIfAdmin')->name('postStaticTexts');
+});
 //End routes by Achyut Neupane
 
 
