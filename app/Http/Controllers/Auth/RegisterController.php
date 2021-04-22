@@ -20,6 +20,7 @@ use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
 use App\Models\Email;
 use App\Models\Refer;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -78,9 +79,11 @@ class RegisterController extends Controller
                               'regex:/[A-Z]/',      
                               'regex:/[0-9]/', 
                               'confirmed',
-       ],   
-            // /* Added by Achyut Neupane */
-        //    'referralemail' => 'required|exists:emails,email'
+       ],
+            /* Added by Achyut Neupane */
+           'referralemail' => 'exists:emails,email'
+        ],[
+            'referralemail.exists' => 'This email doesn\'t exist in our system.'
         ]);
 
         $user = User::create([
@@ -98,6 +101,13 @@ class RegisterController extends Controller
  
         $referral = Email::with('user')->where('email',$request->referralemail)->first()->id;
         $refer = Refer::where('referred_by',$referral)->where('email',$request->email)->first();
+        if(!$refer) {
+            $refer = new Refer();
+            $refer->referred_by = $referral;
+            $refer->email = $request->email;
+            $refer->token = Str::random(15);
+            $refer->user_id = $user->id;
+        }
         $refer->registered = true;
         $refer->save();
         Refer::where('email',$request->email)->where('registered',false)->delete();
