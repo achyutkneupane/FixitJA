@@ -14,6 +14,15 @@ var sessionSubCatId = {!! session()->get('subcategory_id') !!};
 var sessionCatId = {!! session()->get('category_id') !!}
 </script>
 @endif
+@if(!empty(auth()->user()->city->name))
+<script>
+var cityId = {{ auth()->user()->city->id }};
+</script>
+@else
+<script>
+    var cityId = '';
+</script>
+@endif
 @php
 $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
 @endphp
@@ -869,11 +878,9 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                 <div class="form-group fv-plugins-icon-container">
                     <label>Parishes</label>
                     <select class="form-control select2" id="userParishSelect" name="parish">
-                        
-                        
                         @foreach($parishes as $parish)
                         <option value="{{ $parish->id }}"
-                            {{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
+                            {{ !empty($user->city) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
                             {{ $parish->name }}
                         </option>
                         @endforeach

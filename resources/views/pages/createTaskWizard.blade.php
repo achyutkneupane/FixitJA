@@ -315,9 +315,9 @@ var cityId = {{ auth()->user()->city->id }};
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Parish</label>
                                                 <select class="form-control select2" id="userParishSelect" name="parish">
-                                                    <option label=""></option>
                                                     @foreach($parishes as $parish)
-                                                    <option value="{{ $parish->id }}"{{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
+                                                    <option value="{{ $parish->id }}"
+                                                        {{ !empty($user->city) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
                                                         {{ $parish->name }}
                                                     </option>
                                                     @endforeach
