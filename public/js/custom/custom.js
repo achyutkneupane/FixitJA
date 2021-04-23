@@ -1,5 +1,7 @@
 /* for register select jquery */
 
+
+
 var category_data;
 var selectcategoryid = "selected_catgeory1";
 var count = 0;
@@ -103,6 +105,7 @@ $(document).ready(function (e) {
     if(slider) {
     var output = document.getElementById("demo");
     output.innerHTML = slider.value;
+    
 
 
         slider.oninput = function () {
@@ -163,6 +166,7 @@ $("#add_btn").click(function (e) {
             ' </div> ' +
             ' </div>'
         )
+      
         //adding dynamic validator
         CategoryFV.addField('skills_category' + count + '', skills_category)
             .addField('sub_categories' + count + '', sub_categories);

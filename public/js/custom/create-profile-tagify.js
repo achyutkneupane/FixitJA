@@ -129,8 +129,13 @@ function bindSubCat2(data, subcat) {
         data.forEach((element, index) => {
             if (element.id === subcat[i]) {
                 if (element) {
+                     
+
                     tagifyTo1.addTags([element]);
                 }
+                
+                        $("#skill").append([element.value]+ ",");
+                 
 
 
             }

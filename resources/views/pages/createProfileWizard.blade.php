@@ -815,9 +815,9 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">12. How long distance you are willing to travel?
                                         <div class="slidecontainer">
-                                            <input type="range" min="1" max="100" value="{{ auth()->user()->total_distance ? : 0 }}" class="slider" id="myRange"
+                                            <input type="range" min="1" max="100" value="{{ auth()->user()->total_distance ? : '' }}" class="slider" id="myRange"
                                                 name="total_distance" >
-                                            <p>Total Distance: <span id="demo" value=""></span>{{ auth()->user()->total_distance }}km</p>
+                                            <p>Total Distance: <span id="demo" > {{ auth()->user()->total_distance ? : '1' }} </span>Km</p>
                                         </div>
                                 </div>
                             </div>
@@ -872,12 +872,41 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                         <!--begin::wizard step 7-->
             <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                 <h3 class="mb-10 font-weight-bold text-dark">Enter your Address</h3>
-
-               
+                @if(auth()->user()->city)
                 <!--begin::Select-->
                 <div class="form-group fv-plugins-icon-container">
                     <label>Parishes</label>
                     <select class="form-control select2" id="userParishSelect" name="parish">
+                        
+                        <option value= "{{ auth()->user()->city->parish->id ? 'selected' : '' }}">{{ auth()->user()->city->parish->name }}</option>
+                       @foreach($parishes as $parish)
+                        <option value="{{ $parish->id }}"
+                            {{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
+                            {{ $parish->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                
+                
+                
+                
+                <div class="form-group fv-plugins-icon-container">
+                    <label>City</label>
+                    <select class="form-control select2" id="userCitySelect" name="cities">
+                    <option value="{{ auth()->user()->city->id ? 'selected' : ''}}">{{ auth()->user()->city->name}}</option>
+                   
+                    </select>
+                </div>
+                @else
+
+           
+          
+               
+                <!--begin::Select-->
+                <div class="form-group fv-plugins-icon-container">
+                    <label>Parishes</label>
+                    <select class="form-control select2" id="userParishSelect" name="parish" >
                         
                         
                        @foreach($parishes as $parish)
@@ -895,9 +924,14 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                 <div class="form-group fv-plugins-icon-container">
                     <label>City</label>
                     <select class="form-control select2" id="userCitySelect" name="cities">
+                    
                    
                     </select>
                 </div>
+
+                @endif
+
+                
                 
 
                 
