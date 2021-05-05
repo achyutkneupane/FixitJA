@@ -123,11 +123,12 @@ var cityId = {{ auth()->user()->city->id }};
                             <input class="form-control form-control-lg form-control-solid" name="hours" value="{{ $user->hours }}" placeholder="Working hours per week">
                         </div>
                     </div>
-                    <div class="form-group row">
+                   <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Working days:</label>
+                        <input type="hidden" id="workingdays" value="{{ auth()->user()->days}}" />
                         <div class="col-lg-9 col-xl-6">
-                            <input class="form-control form-control-lg form-control-solid" name="days" value="{{ $user->days }}">
-                            </input>
+                            <input id="kt_tagify_workingdays" class="form-control" name="working_days"
+                                            placeholder="Add sub-categories" value="">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -176,6 +177,7 @@ var cityId = {{ auth()->user()->city->id }};
     </script>
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/pages/custom/profile/profile.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/custom/create-workingdays-tagify.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
             $('#genderSelect').select2({
