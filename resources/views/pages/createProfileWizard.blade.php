@@ -817,7 +817,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                         <div class="slidecontainer">
                                             <input type="range" min="1" max="100" value="{{ auth()->user()->total_distance ? : 0 }}" class="slider" id="myRange"
                                                 name="total_distance" >
-                                            <p>Total Distance: <span id="demo" value=""></span>{{ auth()->user()->total_distance }}km</p>
+                                            <p>Total Distance: <span id="demo" value="">{{ auth()->user()->total_distance }}</span>km</p>
                                         </div>
                                 </div>
                             </div>
