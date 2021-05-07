@@ -137,7 +137,6 @@ class UserController extends Controller
 
     public function addprofiledetails(Request $request)
     {
-        dd(request()->all());
         /* For new Skilled worker  to fillup application*/
         if(auth()->user()->status == 'new')
         {
