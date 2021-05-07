@@ -82,8 +82,10 @@
         </div>
         <div class="p-5" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
             <div class="row justify-content-center text-center mb-2">
-                <div class="col-lg-8 mb-3">
+                <div class="col-lg-8 mb-3 pt-3">
+                    @guest
                     <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/register">Create An Account</a>
+                    @endguest
                     <h2 class="text-black">For more convenience in your project</h2>
                 </div>
             </div>
@@ -153,7 +155,9 @@
         </div>
         <div class="row justify-content-center text-center">
             <div class="col-lg-8">
+                @guest
                 <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/register">Become Our Fixician</a>
+                @endguest
                 <h2 class="text-white">{{ $statics->where('slug','use_your_skills_and_earn_money')->first()->title }}</h2>
                     {!! $statics->where('slug','use_your_skills_and_earn_money')->first()->content !!}
             </div>
@@ -296,7 +300,9 @@
             </div>
             <div class="col-lg-6 text-lg-right">
                 <a class="btn-website btn-website-primary font-weight-500 mr-3 my-website-2" href="/contact">Contact Us</a>
+                @guest
                 <a class="btn-website btn-website-white font-weight-500 my-website-2 shadow" href="/register">Create Account</a>
+                @endguest
             </div>
         </div>
     </div>
