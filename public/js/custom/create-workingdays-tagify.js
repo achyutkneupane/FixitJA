@@ -1,3 +1,9 @@
+
+/* fetching workingdays from views*/
+ var workingdays = document.getElementById('workingdays').value;
+ var days = workingdays.split(',');
+
+ /* Jquery function start */
 jQuery(document).ready(function () {
     var toEl = document.getElementById('kt_tagify_workingdays');
         var tagifyTo = new Tagify(toEl, {
@@ -75,6 +81,18 @@ jQuery(document).ready(function () {
                 enabled: 0,
                 maxItems: 5
             }
+         
+            
         });
+        /* putting valaue in tagify*/
+        if(days){
+            tagifyTo.addTags(days);
+
+        }
+
+        
+       
+        
+        
 });
 

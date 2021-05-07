@@ -8,8 +8,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-6" data-aos="fade-up">
                     <div class="row align-items-center">
-                        <h1 class="page-header-title">Find Best Fixician to Work On Any Project</h1>
-                        <p class="page-header-text mb-5">Trusted local pros (Fixician) available to address your home or business projects – Simple Click, create project and be impressed.</p>
+                        <h1 class="page-header-title">{{ $statics->where('slug','find_best_fixician_to_work_on_any_project')->first()->title }}</h1>
+                        {!!  $statics->where('slug','find_best_fixician_to_work_on_any_project')->first()->content  !!}
                     </div>
                     <form action="{{ route('categoryRequest') }}" method="POST">
                         @csrf
@@ -49,9 +49,8 @@
                     <div class="card-website-body d-flex-website">
                         <div class="d-flex-website flex-column-website align-items-start flex-grow-1">
                             <div class="flex-grow-1">
-                                <a href="#" class="text-white font-weight-bolder font-size-h3">How FixitJA works?</a>
-                                <p class="text-white opacity-75 font-weight-bold mt-3 custom-paragraph custom-paragraph-width-80">
-                                    The focus of this site is on the skilled self-employed individuals working as independent contractors (IC) who prefer the world of being independent entrepreneurs rather than people seeking full time employment with other businesses.
+                                <a href="#" class="text-white font-weight-bolder font-size-h3">{{ $statics->where('slug','how_fixitja_works')->first()->title }}</a>
+                                    {!! $statics->where('slug','how_fixitja_works')->first()->content !!}
                             </div>
                             <a href="#" class="btn btn-link btn-link-white font-weight-bold">Read More
                                 <span class="svg-icon svg-icon-lg svg-icon-white">
@@ -74,12 +73,8 @@
         <div class="row justify-content-center text-center mb-2">
             <div class="col-lg-8 py-website-5" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
                 <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/project/create">Get Started Now!</a>
-                <h2 class="text-black">No need to create an account to place your project</h2>
-                <p class="lead text-black-50">
-                    We have made it very easy to place your project in our FixitJA system.
-                    Enter your information and within few steps you are ready to submit your request.
-                    We will contact you once your request is submitted for further process.
-                </p>
+                <h2 class="text-black">{{ $statics->where('slug','no_need_to_create_an_account_to_place_your_project')->first()->title }}</h2>
+                    {!! $statics->where('slug','no_need_to_create_an_account_to_place_your_project')->first()->content !!}
             </div>
         </div>
         <div class="row justify-content-center text-center py-website-5">
@@ -87,34 +82,23 @@
         </div>
         <div class="p-5" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
             <div class="row justify-content-center text-center mb-2">
-                <div class="col-lg-8 mb-3">
+                <div class="col-lg-8 mb-3 pt-3">
+                    @guest
                     <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/register">Create An Account</a>
-                    <h2 class="text-black">For more convinience in your project</h2>
+                    @endguest
+                    <h2 class="text-black">For more convenience in your project</h2>
                 </div>
             </div>
             <div class="row text-center">
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i data-feather="file-plus"></i></div>
-                    <h3>Place a project</h3>
-                    <p class="mb-0">
-                        Placing your project is very easy and can be accoplished in few steps.
-                        Simply provide us information on your project requirements
-                    </p>
-                </div>
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i data-feather="list"></i></div>
-                    <h3>Track your project</h3>
-                    <p class="mb-0">
-                        Once signed up with us all your projects can be tracked and their status viewed from the dashboard.
-                    </p>
-                </div>
-                <div class="col-lg-4">
-                    <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4"><i data-feather="edit"></i></div>
-                    <h3>Review our services</h3>
-                    <p class="mb-0">
-                        Your reviewes and feedbacks are very important for continued improvement of oursystems and provide excellent service to you our clients and the professionals that service your needs.
-                    </p>
-                </div>
+                @foreach ($statics->where('title','For more convenience in your project') as $content)
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4">{!! $content->logo_html !!}</div>
+                        <h3>{{ $content->sub_title }}</h3>
+                        <p class="mb-0">
+                            {!! $content->content !!}
+                        </p>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -148,10 +132,8 @@
                     <div class="card-website-body d-flex-website">
                         <div class="d-flex-website flex-column-website align-items-start flex-grow-1">
                             <div class="flex-grow-1">
-                                <a href="#" class="text-white font-weight-bolder font-size-h3">What is our hiring process?</a>
-                                <p class="text-white opacity-75 font-weight-bold mt-3 custom-paragraph-width-60">
-                                    FixitJA uses an extensive screening process to screen skilled workers. We perform screening when a skilled worker applies to join our network and, if they are accepted, whenever concerns are brought to our attention, we assure you it will be investigated and where necessary action taken to remedy your concerns.
-                                </p>
+                                <a href="#" class="text-white font-weight-bolder font-size-h3">{{ $statics->where('slug','what_is_our_hiring_process')->first()->title }}</a>
+                                    {!! $statics->where('slug','what_is_our_hiring_process')->first()->content !!}
                             </div>
                             <a href="#" class="btn btn-link btn-link-white font-weight-bold">Read More
                                 <span class="svg-icon svg-icon-lg svg-icon-white">
@@ -173,11 +155,11 @@
         </div>
         <div class="row justify-content-center text-center">
             <div class="col-lg-8">
+                @guest
                 <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/register">Become Our Fixician</a>
-                <h2 class="text-white">Use your skills and earn money</h2>
-                <p class="lead text-white-50 mb-5">
-                    Enter information about you and your skills in very easily guided steps and start taking projects.
-                </p>
+                @endguest
+                <h2 class="text-white">{{ $statics->where('slug','use_your_skills_and_earn_money')->first()->title }}</h2>
+                    {!! $statics->where('slug','use_your_skills_and_earn_money')->first()->content !!}
             </div>
         </div>
         <div class="row my-10">
@@ -313,12 +295,14 @@
     <div class="container-website mt-5">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h4>Ready to get started?</h4>
-                <p class="lead mb-5 mb-lg-0 text-gray-500">Get in touch or create an account.</p>
+                <h4>{{ $statics->where('slug','ready_to_get_started')->first()->title }}</h4>
+                {!! $statics->where('slug','ready_to_get_started')->first()->content !!}
             </div>
             <div class="col-lg-6 text-lg-right">
                 <a class="btn-website btn-website-primary font-weight-500 mr-3 my-website-2" href="/contact">Contact Us</a>
+                @guest
                 <a class="btn-website btn-website-white font-weight-500 my-website-2 shadow" href="/register">Create Account</a>
+                @endguest
             </div>
         </div>
     </div>

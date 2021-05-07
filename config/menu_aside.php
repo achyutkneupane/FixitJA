@@ -44,10 +44,31 @@ return [
         [
             'title' => 'Users',
             'root' => false,
-            'icon' => 'flaticon-users', // flaticon-*
+            // 'icon' => 'flaticon-users', // flaticon-*
             'page' => '/users',
             'new-tab' => false,
-            'admin' => true
+            'admin' => true,
+            'icon' => 'flaticon-users',
+            'submenu' => [
+                [
+                    'title' => 'New User',
+                    'page' => '/users/newUsers',
+                    'admin' => true,
+                    'icon' => 'flaticon-list-2',
+                ],
+                [
+                    'title' => 'Applicant User',
+                    'page' => '/users/applicantUsers',
+                    'admin' => true,
+                    'icon' => 'flaticon-doc',
+                ],
+                [
+                    'title' => 'All User',
+                    'page' => '/users/activeUsers',
+                    'admin' => true,
+                    'icon' => 'flaticon-doc',
+                ]
+            ]
         ],
         [
             'title' => 'Reviews',
@@ -96,6 +117,18 @@ return [
             'root' => false,
             'icon' => 'flaticon-exclamation', // flaticon-*
             'page' => '/error_log',
+            'new-tab' => false,
+            'admin' => true
+        ],
+        [
+            'section' => 'Settings',
+            'admin' => true
+        ],
+        [
+            'title' => 'Site Setting',
+            'root' => false,
+            'icon' => 'flaticon-settings-1', // flaticon-*
+            'page' => '/setting/statics',
             'new-tab' => false,
             'admin' => true
         ],

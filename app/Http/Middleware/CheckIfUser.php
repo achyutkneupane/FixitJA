@@ -9,7 +9,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-//This middleware will check if the user is admin or not. Redirect to homepage if not admin.
+//This middleware will check if the user is general user or not. Redirect to homepage if not general user.
 class CheckIfUser
 {
     /**

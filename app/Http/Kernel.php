@@ -63,11 +63,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkIfAdmin' => \App\Http\Middleware\CheckIfAdmin::class,
-        'generaluser'  => \App\Http\Middleware\GeneralUser::class,
-        'individualcontractor' => \App\Http\Middleware\IndividualContractor::class,
-        'business' => \App\Http\Middleware\Business::class,
         'checkIfSkillworker' => \App\Http\Middleware\CheckIfSkillWorker::class,
-        'ifUserIsSkillworker' => \App\Http\Middleware\CheckSkillsWorker::class
+        'relatedTaskOnly' => \App\Http\Middleware\relatedTaskOnly::class
 
     ];
 }

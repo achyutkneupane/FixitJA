@@ -39,6 +39,12 @@ Route::prefix('/category')->group(function () {
     Route::put('/edit/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
     Route::get('/delete/{id}', [App\Http\Controllers\CategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
 });
+
+Route::prefix('/users')->group(function() {
+    Route::get('/newUsers', [App\Http\Controllers\AdminController::class, 'newUser'])->middleware('auth', 'checkIfAdmin');
+    Route::get('/applicantUsers', [App\Http\Controllers\AdminController::class, 'applicantUser'])->middleware('auth', 'checkIfAdmin');
+     Route::get('/activeUsers', [App\Http\Controllers\AdminController::class, 'activeUser'])->middleware('auth', 'checkIfAdmin');
+});
 Route::prefix('/categories')->group(function () {
     Route::get('/', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
     Route::get('/all', [App\Http\Controllers\MainController::class, 'categories']);
@@ -51,14 +57,25 @@ Route::prefix('/sub_category')->group(function () {
 });
 Route::get('/tasks', [App\Http\Controllers\TaskController::class, 'index'])->middleware('auth')->name('listTask');
 Route::prefix('/task')->group(function () {
-    Route::get('/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth')->name('viewTask');
-    Route::get('/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth')->name('taskAssignedBy');
-    Route::get('/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth')->name('taskAssignedTo');
+    Route::get('/{id}', [App\Http\Controllers\TaskController::class, 'show'])->middleware('auth', 'relatedTaskOnly')->name('viewTask');
+    Route::get('/{id}/timeline', [App\Http\Controllers\TaskController::class, 'taskTimeline'])->middleware('auth', 'relatedTaskOnly')->name('taskTimeline');
+    Route::get('/{id}/discussions', [App\Http\Controllers\TaskController::class, 'taskDiscussion'])->middleware('auth', 'relatedTaskOnly')->name('taskDiscussion');
+    Route::post('/{id}/discussions', [App\Http\Controllers\TaskController::class, 'postDiscussion'])->middleware('auth', 'relatedTaskOnly')->name('postDiscussion');
+    Route::get('/{id}/reviews', [App\Http\Controllers\TaskController::class, 'taskReviews'])->middleware('auth', 'relatedTaskOnly')->name('taskReviews');
+    Route::post('/{id}/reviews', [App\Http\Controllers\TaskController::class, 'postReviews'])->middleware('auth', 'relatedTaskOnly')->name('postReviews');
+    Route::get('/{id}/working_hours', [App\Http\Controllers\TaskController::class, 'taskWorking'])->middleware('auth', 'relatedTaskOnly')->name('taskWorking');
+    Route::post('/{id}/working_hours', [App\Http\Controllers\TaskController::class, 'postWorking'])->middleware('auth', 'relatedTaskOnly')->name('postWorking');
+    Route::get('/{id}/edit', [App\Http\Controllers\TaskController::class, 'edit'])->middleware('auth', 'relatedTaskOnly')->name('editTask');
+    Route::put('/{id}/edit/creator', [App\Http\Controllers\TaskController::class, 'editTaskCreator'])->middleware('auth', 'relatedTaskOnly')->name('editTaskCreator');
+    Route::put('/{id}/edit/detail', [App\Http\Controllers\TaskController::class, 'editTaskDetails'])->middleware('auth', 'relatedTaskOnly')->name('editTaskDetails');
+    Route::get('/{id}/assigned_by', [App\Http\Controllers\TaskController::class, 'assignedBy'])->middleware('auth', 'relatedTaskOnly')->name('taskAssignedBy');
+    Route::get('/{id}/assigned_to', [App\Http\Controllers\TaskController::class, 'assignedTo'])->middleware('auth', 'relatedTaskOnly')->name('taskAssignedTo');
 });
 Route::prefix('/profile')->group(function () {
     Route::get('/', [App\Http\Controllers\UserController::class, 'profile'])->middleware('auth')->name('viewProfile');
     Route::get('/documents', [App\Http\Controllers\UserController::class, 'profileDocuments'])->middleware('auth')->name('viewDocuments');
     Route::get('/education', [App\Http\Controllers\UserController::class, 'profileEducations'])->middleware('auth')->name('viewEducations');
+    Route::get('/review', [App\Http\Controllers\UserController::class, 'profileReview'])->middleware('auth')->name('viewReview');
     Route::get('/reference', [App\Http\Controllers\UserController::class, 'profileReferences'])->middleware('auth')->name('viewReferences');
     Route::get('/edit', [App\Http\Controllers\UserController::class, 'editProfile'])->middleware('auth')->name('editProfile');
     Route::put('/edit', [App\Http\Controllers\UserController::class, 'putEditProfile'])->middleware('auth')->name('putEditProfile');
@@ -67,11 +84,13 @@ Route::prefix('/profile')->group(function () {
 });
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('viewUsers');
 Route::prefix('/user/{id}')->group(function () {
-    Route::get('/', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth', 'checkIfAdmin')->name('viewUser');
+    Route::get('/', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth')->name('viewUser');
     Route::get('/edit', [App\Http\Controllers\UserController::class, 'editUserProfile'])->middleware('auth')->name('editUserProfile');
     Route::get('/skills', [App\Http\Controllers\UserController::class, 'userSkills'])->middleware('auth')->name('userSkills');
     Route::get('/documents', [App\Http\Controllers\UserController::class, 'userDocuments'])->middleware('auth')->name('viewUserDocuments');
     Route::get('/education', [App\Http\Controllers\UserController::class, 'userEducations'])->middleware('auth')->name('viewUserEducations');
+    Route::get('/review', [App\Http\Controllers\UserController::class, 'userReview'])->middleware('auth')->name('viewUserReview');
+    Route::post('/review', [App\Http\Controllers\UserController::class, 'postUserReview'])->middleware('auth')->name('postUserReview');
     Route::get('/reference', [App\Http\Controllers\UserController::class, 'userReferences'])->middleware('auth')->name('viewUserReferences');
 });
 Route::prefix('/error_log')->group(function () {
@@ -91,20 +110,36 @@ Route::prefix('/security')->middleware('auth')->group(function () {
 });
 Route::get('/edittask/{taskid}',[App\Http\Controllers\MainController::class, 'edittask']);
 Route::prefix('/project/create')->group(function(){
-    Route::get('/', [App\Http\Controllers\MainController::class, 'createProject'])->name('createProject');
-    Route::get('/categoryId/{catId}', [App\Http\Controllers\MainController::class, 'createProjectwithCat'])->name('createProjectWithCat');
-    Route::get('/subCategoryId/{subCatId}', [App\Http\Controllers\MainController::class, 'createProjectwithSub'])->name('createProjectWithSub');
-    Route::post('/', [App\Http\Controllers\MainController::class, 'addProject'])->name('addProject');
-    Route::post('/form', [App\Http\Controllers\MainController::class, 'categoryRequest'])->name('categoryRequest');
+    Route::get('/', [App\Http\Controllers\TaskController::class, 'create'])->name('createProject');
+    Route::get('/categoryId/{catId}', [App\Http\Controllers\TaskController::class, 'createProjectwithCat'])->name('createProjectWithCat');
+    Route::get('/subCategoryId/{subCatId}', [App\Http\Controllers\TaskController::class, 'createProjectwithSub'])->name('createProjectWithSub');
+    Route::post('/', [App\Http\Controllers\TaskController::class, 'store'])->name('addProject');
+    Route::post('/form', [App\Http\Controllers\TaskController::class, 'categoryRequest'])->name('categoryRequest');
 });
-Route::get('/review', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReviews');
-Route::get('/referral', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewReferrals');
+Route::prefix('/referral')->group(function() {
+    Route::get('/', [App\Http\Controllers\UserController::class, 'referGet'])->middleware('auth')->name('referGet');
+    Route::post('/', [App\Http\Controllers\UserController::class, 'referPost'])->middleware('auth')->name('referPost');
+});
+
+Route::get('/review', function() {
+    return redirect()->route('viewReview');
+})->middleware('auth')->name('viewReviews');
 Route::get('/subscription', [App\Http\Controllers\UserController::class, 'emptyPage'])->middleware('auth')->name('viewSubscriptions');
 Route::get('/resend_email', [App\Http\Controllers\Auth\VerificationController::class, 'resendVerifyEmail'])->name('resendEmail');
 Route::get('/resend_email/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyMultiEmail'])->name('verifyMultiEmail');
 Route::get('/add_user', [App\Http\Controllers\UserController::class, 'adminAddUser'])->middleware('auth','checkIfAdmin')->name('adminAddUser');
 Route::post('/add_user', [App\Http\Controllers\UserController::class, 'adminAddUserSubmit'])->middleware('auth','checkIfAdmin')->name('adminAddUserSubmit');
+Route::get('/register/{token}', [App\Http\Controllers\UserController::class, 'registerWithToken'])->name('registerWithToken');
 Route::get('/test', [App\Http\Controllers\MainController::class, 'test'])->name('test');
+
+
+Route::prefix('/setting')->group(function() {
+    Route::get('/statics', [App\Http\Controllers\AdminController::class, 'staticTexts'])->middleware('auth','checkIfAdmin')->name('staticTexts');
+    Route::post('/statics', [App\Http\Controllers\AdminController::class, 'postStaticTexts'])->middleware('auth','checkIfAdmin')->name('postStaticTexts');
+});
+//End routes by Achyut Neupane
+
+
 
 // Route for about page
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
@@ -124,6 +159,8 @@ Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'u
 Route::get('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofile1'])->middleware('auth', 'checkIfSkillworker')->name('profileWizard');
 //Route::get('/profile/init', [App\Http\Controllers\UserController::class,  'getprofileImage'])->name('profileWizard');
 Route::post('/profile/init', [App\Http\Controllers\UserController::class, 'addprofiledetails']);
+Route::get('/profile/init/subCategoryId/{subCatId}', [App\Http\Controllers\UserController::class, 'createProfilewithSub'])->name('createProfilewithSub');
+Route::put('/profile/init', [App\Http\Controllers\UserController::class, 'updateprofiledetails']);
 
 
 
@@ -140,6 +177,8 @@ Route::get('/category_data', [App\Http\Controllers\CategoryController::class, 'g
 
 
 Route::get('/addeducation', [App\Http\Controllers\UserController::class, 'addeducation']);
+
+Route::get('download/{filename}', [App\Http\Controllers\UserController::class, 'downloadcertificate'])->name('getfile');
 
 
 

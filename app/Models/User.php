@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\CacheHelper;
+use Carbon;
 
 
 class User extends Authenticatable
@@ -19,7 +21,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-
+   
 
     protected $guarded = [];
 
@@ -31,6 +33,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'pivot',
     ];
 
     /**
@@ -41,6 +44,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    protected $appends = [
+        'rating'
+    ];
+    
+    public function getRatingAttribute()
+    {
+        return round($this->reviews->avg('rating'),2);
+    }
 
     public function documents()
     {
@@ -65,6 +77,7 @@ class User extends Authenticatable
     public function subcategories()
     {
         return $this->belongsToMany(SubCategory::class, 'subcategory_user', 'user_id', 'sub_category_id');
+        
     }
     public function emails()
     {
@@ -74,24 +87,32 @@ class User extends Authenticatable
     {
         return $this->hasMany(Phone::class);
     }
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class);
+    }
+    public function work_hours()
+    {
+        return $this->hasMany(WorkingHour::class);
+    }
     public function email()
     {
-        if(!auth()->user()->emails->where('primary', true))
-            return auth()->user()->emails->where('primary', true)->first()->email;
+        if(!$this->emails->where('primary', true))
+            return $this->emails->where('primary', true)->first()->email;
         else
-            return auth()->user()->emails->first()->email;
+            return $this->emails->first()->email;
     }
     public function getEmail($id)
     {
-        return User::find($id)->emails->where('primary', true)->first()->email;
+        return $this->email();
     }
     public function phone()
     {
-        return User::find(auth()->id())->phones->where('primary', true)->first()->phone;
+        return $this->phones->where('primary', true)->first()->phone;
     }
     public function getPhone($id)
     {
-        return User::find($id)->phones->where('primary', true)->first()->phone;
+        return $this->phone();
     }
     public function first_name()
     {
@@ -178,9 +199,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class, 'assigned_to');
     }
-
-
-
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'review_for')->orderBy('created_at','DESC');
+    }
+    public function createdReviews()
+    {
+        return $this->hasMany(Review::class, 'review_by');
+    }
+    public function refers()
+    {
+        return $this->hasMany(Refer::class,'referred_by');
+    }
+    public function referrer()
+    {
+        return $this->hasOne(Refer::class,'user_id');
+    }
     public function found_by()
     {
         return $this->hasMany(ErrorLog::class, 'found_by');
@@ -194,27 +228,51 @@ class User extends Authenticatable
     {
         $subcategories = $this->subcategories;
         $catData = collect([]);
+        $sessions = collect();
+        $catSessions = collect();
+        $count = 0;
+        $documents = $this->documents;
         foreach ($subcategories as $subcategory) {
-            $cat = CacheHelper::subcategory($subcategory);
+            $category = $subcategory->category;
+            $cat = ['category_id' => $category->id, 'category_name' => $category->name];
+            $catSessions->put($category->name, $category->id);
+            
+            
+           $catId = 'cat_' . $cat['category_id'];
+           
             if ($catData->has('cat_' . $cat['category_id'])) {
                 $updateCat = $catData->get('cat_' . $cat['category_id']);
+                
                 $updateCat['subcategory'][] = $subcategory;
-                $catData->put('cat_' . $cat['category_id'], $updateCat);
+                $updateSession = $sessions->get('cat_' . $cat['category_id']);
+                
+                $updateSession[] = $subcategory->id;
+                $catData->put($catId, $updateCat);
+                $sessions->put($catId,$updateSession);
+                
             } else {
-                $catValue = ['category' => $cat, 'subcategory' => [$subcategory]];
-                $catData->put('cat_' . $cat['category_id'], $catValue);
-            }
+                $catValue = ['category' => $cat,
+                             'subcategory' => [$subcategory],
+                             'document' => ($documents->count() > 0) ? $documents->where('type','certificate'.$count++)->first() : ''
+                            ];
+                $catData->put($catId, $catValue);
+                $sessions->put($catId,[0=>$subcategory->id]);       
+            }   
+            
         }
+        
+        session()->flash('category_id', $catSessions);
+        session()->flash('subcategory_id',$sessions);
         return $catData;
     }
 
     public function associatedTasks() {
         if($this->type == 'admin') {
-            return Task::all();
+            return Task::with('subcategories')->get();
         }
         else {
             $user = User::find($this->id);
-            return Task::whereHas('creator',function ($query) use ($user) {
+            return Task::with('subcategories')->whereHas('creator',function ($query) use ($user) {
                             $query->where('email', $user->email());
                         })
                         ->orWhere('created_by',$user->id)
@@ -228,4 +286,26 @@ class User extends Authenticatable
                         ->get();
         }
     }
+
+    /*Added by Ashish Pokhrel */
+
+    // public function setEducationStartDateAttribute($value)
+    // {
+    //     $this->attributes['start_date'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
+    // }
+
+    // public function getEducationStartDateAttribute()
+    // {
+    //     return Carbon::createFromFormat('Y-m-d', $this->attributes['start_date'])->format('m/d/Y');
+    // }
+
+    // public function setEducationEndDateAttribute($value)
+    // {
+    //     $this->attributes['end_date'] = Carbon::createFromFormat('m/d/y', $value)->format('Y-m-d');
+    // }
+
+    // public function getEducationEndDateAttribute()
+    // {
+    //     return Carbon::createFromFormat('Y-m-d', $this->attributes['end_date'])->format('m/d/Y');
+    // }
 }

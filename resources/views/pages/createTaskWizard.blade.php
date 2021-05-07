@@ -315,9 +315,9 @@ var cityId = {{ auth()->user()->city->id }};
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label>Parish</label>
                                                 <select class="form-control select2" id="userParishSelect" name="parish">
-                                                    <option label=""></option>
                                                     @foreach($parishes as $parish)
-                                                    <option value="{{ $parish->id }}"{{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
+                                                    <option value="{{ $parish->id }}"
+                                                        {{ !empty($user->city) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
                                                         {{ $parish->name }}
                                                     </option>
                                                     @endforeach
@@ -381,8 +381,9 @@ var cityId = {{ auth()->user()->city->id }};
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <input type="checkbox" id="locationCheck" name="user_equal_working" onchange="workingEqualsUser()" />
-                                            <span class="font-weight-bold">Working Location is same as User Location</span>
+                                            <input type="hidden" name="user_equal_working" value="0" />
+                                            <input type="checkbox" id="locationCheck" name="user_equal_working" value="1" onchange="workingEqualsUser()" />
+                                            <span class="font-weight-bold ">Working Location is same as User Location</span>
                                         </div>
                                     </div>
                                     <div id="workingLocation" class="mt-3">
@@ -468,108 +469,108 @@ var cityId = {{ auth()->user()->city->id }};
                                 <div class="pb-5" data-wizard-type="step-content">
                                     <div class="d-flex align-items-center justify-content-between mb-2 row">
                                         <h3 class="col-md-12 my-3">Project Details</h3>
-                                        <div class="col-md-12">
-                                            <span class="font-weight-bold">Subcategories: </span>
-                                            <span class="text-muted text-capitalize" id='subCatsId'></span>
+                                        <div class="col-md-12 row">
+                                            <span class="font-weight-bold col-lg-2">Subcategories: </span>
+                                            <span class="text-muted col-lg-10 text-capitalize" id='subCatsId'></span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Task Title: </span>
-                                            <span class="text-muted" id='taskTitleId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Task Title: </span>
+                                            <span class="text-muted col-7" id='taskTitleId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Task Description: </span>
-                                            <span class="text-muted" id='taskDescriptionId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Task Description: </span>
+                                            <span class="text-muted col-7" id='taskDescriptionId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Project Type: </span>
-                                            <span class="text-muted" id='taskTypeId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Project Type: </span>
+                                            <span class="text-muted col-7" id='taskTypeId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Payment Type: </span>
-                                            <span class="text-muted" id='paymentTypeId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Payment Type: </span>
+                                            <span class="text-muted col-7" id='paymentTypeId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Project Deadline: </span>
-                                            <span class="text-muted" id='projectDeadlineId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Project Deadline: </span>
+                                            <span class="text-muted col-7" id='projectDeadlineId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Are you on site while working? </span>
-                                            <span class="text-muted" id='onSiteId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Are you on site while working? </span>
+                                            <span class="text-muted col-7" id='onSiteId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Are repair parts provided? </span>
-                                            <span class="text-muted" id='repairPartId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Are repair parts provided? </span>
+                                            <span class="text-muted col-7" id='repairPartId'>N/A</span>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-2 row">
                                         <h3 class="col-md-12 my-3">User Details</h3>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Name: </span>
-                                            <span class="text-muted" id='userNameId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Name: </span>
+                                            <span class="text-muted col-7" id='userNameId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Email: </span>
-                                            <span class="text-muted" id='userEmailId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Email: </span>
+                                            <span class="text-muted col-7" id='userEmailId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Phone: </span>
-                                            <span class="text-muted" id='userPhoneId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Phone: </span>
+                                            <span class="text-muted col-7" id='userPhoneId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Parish: </span>
-                                            <span class="text-muted" id='userParishId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Parish: </span>
+                                            <span class="text-muted col-7" id='userParishId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">City: </span>
-                                            <span class="text-muted" id='userCityId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">City: </span>
+                                            <span class="text-muted col-7" id='userCityId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Street Address 1: </span>
-                                            <span class="text-muted" id='userStreet1Id'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Street Address 1: </span>
+                                            <span class="text-muted col-7" id='userStreet1Id'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Street Address 2: </span>
-                                            <span class="text-muted" id='userStreet1Id'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Street Address 2: </span>
+                                            <span class="text-muted col-7" id='userStreet1Id'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">House Number: </span>
-                                            <span class="text-muted" id='userHouseNumberId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">House Number: </span>
+                                            <span class="text-muted col-7" id='userHouseNumberId'>N/A</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="font-weight-bold">Postal Code: </span>
-                                            <span class="text-muted" id='userPostalCodeId'>N/A</span>
+                                        <div class="col-md-6 row">
+                                            <span class="font-weight-bold col-5">Postal Code: </span>
+                                            <span class="text-muted col-7" id='userPostalCodeId'>N/A</span>
                                         </div>
-                                        <div class="col-md-12">
-                                            <span class="font-weight-bold">Working Location is same as User Location: </span>
-                                            <span class="text-muted" id='workingEqualUserId'>N/A</span>
+                                        <div class="col-md-12 row my-3">
+                                            <span class="font-weight-bold col-lg-3">Working Location is same as User Location: </span>
+                                            <span class="text-muted col-lg-9" id='workingEqualUserId'>N/A</span>
                                         </div>
                                     </div>
                                     <div class="workingLocationReview" style="display:block;">
                                         <div class="d-flex align-items-center justify-content-between mb-2 row">
                                             <h3 class="col-md-12 my-3">Working Location</h3>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">Parish: </span>
-                                                <span class="text-muted" id='workingParishId'>N/A</span>
+                                            <div class="col-md-6 row">
+                                                <span class="font-weight-bold col-5">Parish: </span>
+                                                <span class="text-muted col-7" id='workingParishId'>N/A</span>
                                             </div>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">City: </span>
-                                                <span class="text-muted" id='workingCityId'>N/A</span>
+                                            <div class="col-md-6 row">
+                                                <span class="font-weight-bold col-5">City: </span>
+                                                <span class="text-muted col-7" id='workingCityId'>N/A</span>
                                             </div>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">Street Address 1: </span>
-                                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
+                                            <div class="col-md-6 row">
+                                                <span class="font-weight-bold col-5">Street Address 1: </span>
+                                                <span class="text-muted col-7" id='workingStreet1Id'>N/A</span>
                                             </div>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">Street Address 2: </span>
-                                                <span class="text-muted" id='workingStreet1Id'>N/A</span>
+                                            <div class="col-md-6 row">
+                                                <span class="font-weight-bold col-5">Street Address 2: </span>
+                                                <span class="text-muted col-7" id='workingStreet1Id'>N/A</span>
                                             </div>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">House Number: </span>
-                                                <span class="text-muted" id='workingHouseNumberId'>N/A</span>
+                                            <div class="col-md-6 row">
+                                                <span class="font-weight-bold col-5">House Number: </span>
+                                                <span class="text-muted col-7" id='workingHouseNumberId'>N/A</span>
                                             </div>
-                                            <div class="col-md-6">
-                                                <span class="font-weight-bold">Postal Code: </span>
-                                                <span class="text-muted" id='workingPostalCodeId'>N/A</span>
+                                            <div class="col-md-6 row">
+                                                <span class="font-weight-bold col-5">Postal Code: </span>
+                                                <span class="text-muted col-7" id='workingPostalCodeId'>N/A</span>
                                             </div>
                                         </div>
                                     </div>

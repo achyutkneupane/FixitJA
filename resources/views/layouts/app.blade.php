@@ -37,7 +37,6 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     @endif
     
-    <script src="{{ asset('js/custom/custom.js') }}" defer></script>
     <link href="{{ asset('css/custom/custom-css.css') }}" rel="stylesheet">
     <!-- <link href="{{ asset('css/modern-business.css') }}" rel="stylesheet"> -->
 </head>

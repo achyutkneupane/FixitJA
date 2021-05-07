@@ -20,6 +20,12 @@ use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
 use App\Models\Email;
 
+use App\Models\Refer;
+use Illuminate\Support\Str;
+
+
+
+
 class RegisterController extends Controller
 {
     /*
@@ -76,12 +82,14 @@ class RegisterController extends Controller
                               'min:6',             
                               'regex:/[A-Z]/',      
                               'regex:/[0-9]/', 
-                              'confirmed'
-                             ]   
-                              
-         
-
+                              'confirmed',
+       ],
+            /* Added by Achyut Neupane */
+           'referralemail' => 'exists:emails,email'
+        ],[
+            'referralemail.exists' => 'This email doesn\'t exist in our system.'
         ]);
+
         $user = User::create([
             'name' => $request->name,
             'gender' => $request->gender,
@@ -91,6 +99,28 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'verification_code' => sha1(time())
         ]);
+        
+
+        /* if someone refer */
+        if($request->referralemail){
+ 
+        $referral = Email::with('user')->where('email',$request->referralemail)->first()->id;
+        $refer = Refer::where('referred_by',$referral)->where('email',$request->email)->first();
+        if(!$refer) {
+            $refer = new Refer();
+            $refer->referred_by = $referral;
+            $refer->email = $request->email;
+            $refer->token = Str::random(15);
+            $refer->user_id = $user->id;
+        }
+        $refer->registered = true;
+        $refer->save();
+        Refer::where('email',$request->email)->where('registered',false)->delete();
+
+        }
+        
+
+
         $user->emails()->create([
             'email' => $request->email,
             'primary' => true
@@ -101,13 +131,10 @@ class RegisterController extends Controller
             'phone' => $request->phone,
             'primary' => true
         ]);
-       
-
         // event(new UserRegistered($user));
         try {
             MailController::sendVerifyEmail($user->name, $request->email, $user->verification_code);
         } catch (\Throwable $t) {
-            dd($t);
             LogHelper::store('Register', $t);
         }
         Auth::login($user);

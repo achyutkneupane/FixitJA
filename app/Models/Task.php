@@ -27,6 +27,22 @@ class Task extends Model
     {
         return $this->hasOne(TaskWorkingLocation::class);
     }
+    public function logs()
+    {
+        return $this->hasMany(TaskTimeline::class);
+    }
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function works()
+    {
+        return $this->hasMany(WorkingHour::class);
+    }
     public function subcategories()
     {
         return $this->belongsToMany(SubCategory::class, 'subcategory_task', 'task_id', 'sub_category_id');

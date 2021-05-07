@@ -1,6 +1,6 @@
 <style>
 .container {
-	width: 100%;
+	width: 100vw;
 	padding-right: 15px;
 	padding-left: 15px;
 	margin-right: auto;
@@ -42,7 +42,7 @@
     @endif
     <div class="row">
         <h4 class="col-12">Project Details:</h4><br>
-        <span class="col-3">Categories:</span>
+        {{-- <span class="col-3">Categories:</span>
         <span class="col-9">
             @foreach ($all_cats as $subs)
                 @if($loop->last)
@@ -51,7 +51,7 @@
                     {{ ucwords($subs->name).", " }}
                 @endif
             @endforeach
-        </span>
+        </span> --}}
         <span class="col-3">Title:</span> <span class="col-9">{{ $request->name }}</span>
         <span class="col-3">Description:</span> <span class="col-9">{{ $request->description }}</span>
         <span class="col-3">Project Type: </span> <span class="col-9">{{ ucwords($request->type) }}</span>

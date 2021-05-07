@@ -6,9 +6,9 @@
         <div class="card-body pt-15">
             <!--begin::User-->
             <div class="mb-10">
-                <h4 class="font-weight-bold my-2">Task Detail</h4>
+                <h4 class="font-weight-bold my-2">{{ ucwords($task->name) }}</h4>
                 <div class="text-muted mb-6">Task Id: {{ $task->id }}</div>
-                @if (!empty($task->related_tasks()))
+                @if ($task->related_tasks()->count() != 0)
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="font-weight-bold">Related Tasks:</span>
                         <span class="text-muted text-right">
@@ -27,10 +27,6 @@
                     </div>
                 @endif
                 <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="font-weight-bold">Name:</span>
-                    <span class="text-muted">{{ ucwords($task->name) }}</span>
-                </div>
-                <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold">Status:</span>
                     <span class="text-muted">{{ ucwords($task->status) }}</span>
                 </div>
@@ -44,12 +40,12 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold">Sub-Categories:</span>
-                    <span class="text-muted">
+                    <span class="text-muted float-right">
                         @foreach ($task->subCategories()->get() as $subs)
                         @if($loop->last)
                             {{ ucwords($subs->name) }}
                         @else
-                            {{ ucwords($subs->name) }},
+                            {{ ucwords($subs->name) }}<br>
                         @endif
                         @endforeach
                     </span>
@@ -62,16 +58,30 @@
             <!--end::User-->
             <!--begin::Nav-->
             <a href="{{ route('viewTask', $task->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block active">
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskOverviewIsActive) ? 'active' : '' }}">
                 Task Overview
             </a>
-            <a href="{{ route('taskAssignedBy', $task->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">
-                Assigned By
+            <a href="{{ route('taskDiscussion', $task->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskDiscussionIsActive) ? 'active' : '' }}">
+                Discussion
             </a>
-            <a href="{{ route('taskAssignedTo', $task->id) }}"
-                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">
-                Assigned To
+            <a href="{{ route('under_construction', $task->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskExpensesIsActive) ? 'active' : '' }}">
+                Expenses
+            </a>
+            @if ($task->payment_type == 'hourly basis')
+            <a href="{{ route('taskWorking', $task->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskWorkingIsActive) ? 'active' : '' }}">
+                Work Hours
+            </a>
+            @endif
+            <a href="{{ route('taskTimeline', $task->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskTimelineIsActive) ? 'active' : '' }}">
+                Task Timeline
+            </a>
+            <a href="{{ route('taskReviews', $task->id) }}"
+                class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block {{ !empty($taskReviewIsActive) ? 'active' : '' }}">
+                Reviews
             </a>
             <!--end::Nav-->
         </div>

@@ -5,11 +5,12 @@
 var CategoryFV;
 var CertificateFV;
 var ReferencFv;
+var ProfileFV;
 const skills_category = {
     validators: {
         notEmpty: {
             message: 'Category is required',
-            callback: function(input) {
+            callback: function (input) {
                 return !!input.value;
             },
         }
@@ -19,26 +20,45 @@ const skills_category = {
 const sub_categories = {
     validators: {
         notEmpty: {
-            message: 'Sub-category is required',
-            callback: function(input) {
-                const subArray = JSON.parse(input.value);
-                subArray.forEach((element,index) => {
-                    $("#skill").append(element.value + ",");
-                });
+            message: 'Sub-Category is required',
+            callback: function (input) {
+               
+                if (input.value.length > 0) {
+                    const subArray = JSON.parse(input.value);
+                    
+                      
+                    subArray.forEach((element, index) => {
+                        $("#skill").append(element.value + ", ");
+                    });
+                }
+
+              
+                    const subArray = JSON.parse(input.value);
+                    console.log(subArray);
+                    subArray.forEach((element, index) => {
+                        $("#skill").append(element.value + ",");
+                    });
+                
+                
                 return !!input.value;
             },
         }
     }
 }
 
+
+
+
+
+
 const experienceValidator = {
     validators: {
         notEmpty: {
             message: 'Experience is required',
-            callback: function(input) {
-                            $("#experience").text(input.value);
-                            return !!input.value;
-                        },
+            callback: function (input) {
+                $("#experience").text(input.value);
+                return !!input.value;
+            },
         },
         digits: {
             message: 'Value must be numeric and cannot contain decimal'
@@ -49,24 +69,38 @@ const certificateValidator = {
     validators: {
         notEmpty: {
             message: 'Certificate is required',
-            callback: function(input) {
+            callback: function (input) {
                 return !!input.value;
             },
         },
         file: {
             extension: 'jpeg,jpg,png,pdf,doc,docx',
             type: 'image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            maxSize: 4194304,   // 4096 * 1024
+            maxSize: 4194304, // 4096 * 1024
             message: 'The selected file is not valid or exceeded the size limit.'
         }
     }
 }
 
+const profilevalidator = {
+    validators: {
+        notEmpty: {
+            message: 'Profile is required'
+        }
+    },
+    file: {
+        extension: 'jpeg, jpg,png',
+        type: 'image/jpeg,image/png',
+        maxSize: 2097152, // 2048 * 1024
+        message: 'The selected file is not valid'
+    }
+}
+
 const referal_name = {
     validators: {
-        notEmpty:{
+        notEmpty: {
             message: 'Referable Name is required',
-            callback: function(input) {
+            callback: function (input) {
                 return !!input.value;
             },
         }
@@ -75,9 +109,12 @@ const referal_name = {
 
 const referal_email = {
     validators: {
-        notEmpty:{
-            message: 'Referable Email is required',
-            callback: function(input) {
+        emailAddress: {
+            message: 'The value is not a valid email address'
+        },
+        notEmpty: {
+            message: 'Referable email is required',
+            callback: function (input) {
                 return !!input.value;
             },
         }
@@ -85,15 +122,20 @@ const referal_email = {
 }
 
 const referal_phone = {
-    validators:{
-        notEmpty:{
+    validators: {
+        notEmpty: {
             message: 'Referable phone is required',
-            callback: function(input) {
+            callback: function (input) {
                 return !!input.value;
             },
+            phone: {
+                message: ' The input is not a valid for phone number'
+            }
         }
     }
 }
+
+
 
 // Class definition
 var KTWizard1 = function () {
@@ -110,8 +152,7 @@ var KTWizard1 = function () {
 
         // Step 1
         CategoryFV = FormValidation.formValidation(
-            _formEl,
-            {
+            _formEl, {
                 fields: {
                     'skills_category': skills_category,
                     'sub_categories': sub_categories,
@@ -124,8 +165,8 @@ var KTWizard1 = function () {
                         eleValidClass: '',
                     }),
                     alias: new FormValidation.plugins.Alias({
-						 notEmpty: 'callback',
-					}),
+                        notEmpty: 'callback',
+                    }),
                 }
             }
         );
@@ -133,10 +174,8 @@ var KTWizard1 = function () {
 
         // Step 2
         CertificateFV = FormValidation.formValidation(
-            _formEl,
-            {
-                fields: {
-                },
+            _formEl, {
+                fields: {},
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
                     // Bootstrap Framework Integration
@@ -144,9 +183,9 @@ var KTWizard1 = function () {
                         //eleInvalidClass: '',
                         eleValidClass: '',
                     }),
-                      alias: new FormValidation.plugins.Alias({
-						 notEmpty: 'callback',
-					}),
+                    alias: new FormValidation.plugins.Alias({
+                        notEmpty: 'callback',
+                    }),
                 }
             }
         );
@@ -154,17 +193,16 @@ var KTWizard1 = function () {
 
         // Step 3
         _validations.push(FormValidation.formValidation(
-            _formEl,
-            {
+            _formEl, {
                 fields: {
-                    education_institutional_name: {
+                    educationinstutional_name: {
                         validators: {
                             notEmpty: {
                                 message: 'Education Institutional Name is required',
-                                callback: function(input) {
-									$("#educationname").text(input.value);
-									return !!input.value;
-								},
+                                callback: function (input) {
+                                    $("#educationname").text(input.value);
+                                    return !!input.value;
+                                },
 
                             }
                         }
@@ -173,10 +211,10 @@ var KTWizard1 = function () {
                         validators: {
                             notEmpty: {
                                 message: 'Degree type is required',
-                                callback: function(input) {
-									$("#educationdegree").text(input.value);
-									return !!input.value;
-								},
+                                callback: function (input) {
+                                    $("#educationdegree").text(input.value);
+                                    return !!input.value;
+                                },
                             }
                         }
                     },
@@ -184,18 +222,18 @@ var KTWizard1 = function () {
                         validators: {
                             notEmpty: {
                                 message: 'Start Date is required',
-                                callback: function(input) {
-									$("#educationstartdate").text(input.value);
-									return !!input.value;
-								},
+                                callback: function (input) {
+                                    $("#educationstartdate").text(input.value);
+                                    return !!input.value;
+                                },
                             },
                             dateAfterToday: {
                                 message: 'Start date cannot be greater than current date',
-                                callback: function(input) {
+                                callback: function (input) {
                                     var endDate = new Date(input.value);
                                     var nowDate = new Date();
-									return (endDate.setHours(0,0,0,0) <= nowDate.setHours(0,0,0,0));
-								},
+                                    return (endDate.setHours(0, 0, 0, 0) <= nowDate.setHours(0, 0, 0, 0));
+                                },
                             }
                         }
                     },
@@ -203,10 +241,10 @@ var KTWizard1 = function () {
                         validators: {
                             notEmpty: {
                                 message: 'End Date is required',
-                                callback: function(input) {
-									$("#educationenddate").text(input.value);
-									return !!input.value;
-								},
+                                callback: function (input) {
+                                    $("#educationenddate").text(input.value);
+                                    return !!input.value;
+                                },
                             }
                         }
                     },
@@ -219,22 +257,21 @@ var KTWizard1 = function () {
                         //eleInvalidClass: '',
                         eleValidClass: '',
                     }),
-                     alias: new FormValidation.plugins.Alias({
-						 notEmpty: 'callback',
-                         dateAfterToday: 'callback'
-					}),
+                    alias: new FormValidation.plugins.Alias({
+                        notEmpty: 'callback',
+                        dateAfterToday: 'callback'
+                    }),
                 }
             }
         ));
 
         // Step 4
         ReferencFv = FormValidation.formValidation(
-            _formEl,
-            {
-             fields: {
-                 'referal_name': referal_name,
-                 'referal_email': referal_email,
-                 'referal_phone' : referal_phone,
+            _formEl, {
+                fields: {
+                    'referal_name': referal_name,
+                    'referal_email': referal_email,
+                    'referal_phone': referal_phone,
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -243,9 +280,9 @@ var KTWizard1 = function () {
                         //eleInvalidClass: '',
                         eleValidClass: '',
                     }),
-                     alias: new FormValidation.plugins.Alias({
-						 notEmpty: 'callback',
-					}),
+                    alias: new FormValidation.plugins.Alias({
+                        notEmpty: 'callback',
+                    }),
                 }
             }
         );
@@ -253,17 +290,16 @@ var KTWizard1 = function () {
 
         /* step 5 */
         _validations.push(FormValidation.formValidation(
-            _formEl,
-            {
+            _formEl, {
                 fields: {
                     personal_description: {
                         validators: {
                             notEmpty: {
                                 message: 'Personal description is required',
-                                callback: function(input) {
-									$("#description").text(input.value);
-									return !!input.value;
-								},
+                                callback: function (input) {
+                                    $("#description").text(input.value);
+                                    return !!input.value;
+                                },
                             }
                         }
                     },
@@ -271,65 +307,119 @@ var KTWizard1 = function () {
                         validators: {
                             notEmpty: {
                                 message: 'Hours is required',
-                                callback: function(input) {
-									$("#hours").text(input.value);
-									return !!input.value;
-								},
+                                callback: function (input) {
+                                    $("#hours").text(input.value);
+                                    return !!input.value;
+                                },
                             }
                         }
                     },
-                    police_report:{
-                         validators: {
+                    police_report: {
+                        validators: {
                             notEmpty: {
                                 message: "This field must be selected",
-                                callback: function(input) {
-									$("#policereport").text(input.value);
-									return !!input.value;
-								},
+                                callback: function (input) {
+                                    if(input.value === "1"){
+                                        var status = "Yes"
+                                        $("#policereport").text(status);
+                                    }
+                                     if(input.value === "0"){
+                                        var status = 'No'
+                                        $("#policereport").text(status);
+                                    }
+                                    
+                                    return !!input.value;
+                                },
                             }
                         }
 
                     },
 
-                      is_travelling:{
-                         validators: {
+                    is_travelling: {
+                        validators: {
                             notEmpty: {
                                 message: "This field must be selected",
-                                callback: function(input) {
-									$("#istravelling").text(input.value);
-									return !!input.value;
-								},
+                                callback: function (input) {
+                                    if(input.value == 1){
+                                        var status = "Yes"
+                                        $("#istravelling").text(status);
+                                    }
+                                    if(input.value == 0){
+                                        var status = 'No'
+                                        $("#istravelling").text(status);
+                                    }
+                                    
+                                    return !!input.value;
+                                },
                             }
                         }
 
                     },
-                    totaldistance:{
-                         validators: {
+                    total_distance: {
+                        validators: {
                             notEmpty: {
 
-                                callback: function(input) {
-									$("#totaldistance").text(input.value);
-									return !!input.value;
-								},
+                                callback: function (input) {
+                                    $("#totaldistance").text(input.value);
+                                    return !!input.value;
+                                },
                             }
                         }
 
                     },
-                      working_days:{
-                         validators: {
+                    working_days: {
+                        validators: {
                             notEmpty: {
                                 message: "Working days must be selected",
-                                callback: function(input) {
+                                callback: function (input) {
                                     const subArray = JSON.parse(input.value);
-				                    subArray.forEach((element,index) => {
-						            $("#workingdays").append(element.value + ",");
-				                    });
-									return !!input.value;
-								},
+                                    subArray.forEach((element, index) => {
+                                        $("#working_days").append(element.value + ",");
+                                    });
+                                    return !!input.value;
+                                },
                             }
                         }
 
                     },
+                    parish: {
+                        validators: {
+                            notEmpty: {
+                                message: "Parish must be selected",
+                                callback: function (input) {
+                                    $('#userParishSelect').on('change', function () {
+                                        var parish = $("#userParishSelect  option:selected").text();
+                                        $("#workingPerishId").text(parish);
+                                    })
+                                    var parish = $("#userParishSelect  option:selected").text();
+                                        $("#workingPerishId").text(parish);
+
+                                      
+                                    return !!input.value;
+
+                                }
+                            }
+                        }
+                    },
+                    cities: {
+                        validators: {
+                            notEmpty: {
+                                message: "Cities must be selected",
+                                callback: function (input) {
+                                    $('#userCitySelect').on('change', function () {
+                                        var city = $("#userCitySelect  option:selected").text();
+                                        $("#workingCityId").text(city);
+                                    })
+                                    var city = $("#userCitySelect  option:selected").text();
+                                        $("#workingCityId").text(city);
+
+
+                                    return !!input.value;
+
+                                }
+                            }
+                        }
+                    }
 
 
 
@@ -342,112 +432,98 @@ var KTWizard1 = function () {
                         //eleInvalidClass: '',
                         eleValidClass: '',
                     }),
-                     alias: new FormValidation.plugins.Alias({
-						 notEmpty: 'callback',
-					}),
+                    alias: new FormValidation.plugins.Alias({
+                        notEmpty: 'callback',
+                    }),
                 }
             }
         ));
 
         //step 6
-        _validations.push(FormValidation.formValidation(
-            _formEl,
-            {
-                fields: {
-                    profile: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Profile image is required',
-                                callback: function(input) {
-                                    return !!input.value;
-                                },
-                            }
-                        }
-                    },
-
-
-
-
-                },
+        ProfileFV = FormValidation.formValidation(
+            _formEl, {
+                fields: {},
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
                     // Bootstrap Framework Integration
                     bootstrap: new FormValidation.plugins.Bootstrap({
                         //eleInvalidClass: '',
                         eleValidClass: '',
-                    }), alias: new FormValidation.plugins.Alias({
-						 notEmpty: 'callback',
-					}),
+                    }),
+                    alias: new FormValidation.plugins.Alias({
+                        notEmpty: 'callback',
+                    }),
                 }
             }
-        ));
+        );
+        _validations.push(ProfileFV);
+
+
 
 
 
         // step 7
         _validations.push(FormValidation.formValidation(
-            _formEl,
-            {
+            _formEl, {
                 fields: {
                     street: {
                         validators: {
                             notEmpty: {
                                 message: 'Street is required',
-                                callback: function(input) {
-									$("#workingStreet1Id").text(input.value);
-									return !!input.value;
-								},
+                                callback: function (input) {
+                                    $("#workingStreet1Id").text(input.value);
+                                    return !!input.value;
+                                },
                             }
                         }
                     },
-                        parishes: {
+                    parishes: {
                         validators: {
                             notEmpty: {
                                 message: 'Parishes is required',
-                                callback: function(input) {
-									$("#workingPerishId").text($("select[name='cities'] option:selected").text());
-									return !!input.value;
-								},
+                                callback: function (input) {
+                                    $("#workingPerishId").text($("select[name='cities'] option:selected").text());
+                                    return !!input.value;
+                                },
                             }
                         }
                     },
                     postal_code: {
-						validators: {
-							checkIfRequired: {
-								callback: function(input) {
-									$("#workingPostalCodeId").text(input.value);
-								},
-							}
-						}
-					},
-
-                    cities: {
                         validators: {
-                            notEmpty: {
-                                message: 'City is required',
-                                callback: function(input) {
-									$("#workingCityId").text($("select[name='cities'] option:selected").text());
-									return !!input.value;
-								},
+                            checkIfRequired: {
+                                callback: function (input) {
+                                    $("#workingPostalCodeId").text(input.value);
+                                },
                             }
                         }
                     },
-                    house_number:
-                    {
+
+                    // cities: {
+                    //     validators: {
+                    //         notEmpty: {
+                    //             message: 'City is required',
+                    //             callback: function (input) {
+                    //                 $("#workingCityId").text($("select[name='cities'] option:selected").text());
+                    //                 return !!input.value;
+                    //             },
+                    //         }
+                    //     }
+                    // },
+                    house_number: {
                         validators: {
-							notEmpty: {
-								callback: function(input) {
-									$("#workingHouseNumberId").text(input.value);
-								},
-							}
-						}
+                            notEmpty: {
+                                callback: function (input) {
+                                    $("#workingHouseNumberId").text(input.value);
+                                },
+                            }
+                        }
                     },
 
                     loccountry: {
                         validators: {
                             notEmpty: {
                                 message: 'Country is required',
-                                callback: function(input) {
+                                callback: function (input) {
                                     return !!input.value;
                                 },
                             }
@@ -462,8 +538,8 @@ var KTWizard1 = function () {
                         eleValidClass: '',
                     }),
                     alias: new FormValidation.plugins.Alias({
-						 notEmpty: 'callback',
-					}),
+                        notEmpty: 'callback',
+                    }),
                 }
             }
         ));
@@ -475,7 +551,7 @@ var KTWizard1 = function () {
         // Initialize form wizard
         _wizardObj = new KTWizard(_wizardEl, {
             startStep: 1, // initial active step number
-            clickableSteps: false  // allow step clicking
+            clickableSteps: false // allow step clicking
         });
 
         // Validation before going to next page
@@ -509,7 +585,7 @@ var KTWizard1 = function () {
                 });
             }
 
-            return false;  // Do not change wizard step, further action will be handled by he validator
+            return false; // Do not change wizard step, further action will be handled by he validator
         });
 
         // Change event
@@ -564,4 +640,3 @@ var KTWizard1 = function () {
 jQuery(document).ready(function () {
     KTWizard1.init();
 });
-

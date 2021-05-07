@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Document;
 use App\Models\Parish;
+use App\Models\StaticText;
 use App\Models\SubCategory;
 use App\Models\Task;
 use App\Models\TaskCreator;
@@ -27,7 +28,7 @@ class MainController extends Controller
     {
         $users = User::limit(6)
           ->where('type','independent_contractor')
-          ->with(['subcategories'])
+          ->with(['subcategories.category','documents','city'])
           ->where('status', 'active')->get();
         
         $documents = DB::table('users')
@@ -35,21 +36,23 @@ class MainController extends Controller
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
             
-        
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
-        $categories = $categories = Category::with('sub_categories')->get();
+        $categories = Category::with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = $categories;
+        // $navBarCategories = $categories->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
 
 
         $page_title = 'Welcome';
         $page_description = 'This is welcome page';
-        return view('pages.welcome', compact('page_title', 'page_description','categories','navBarCategories'),  ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
+        $statics = StaticText::get();
+        return view('pages.welcome', compact('page_title', 'page_description','categories','navBarCategories','statics'),  ['users' => $users, 'documents' => $documents, "show_sidebar" => false, "show_navbar" => true]);
     }
     public function about()
     {
+        $content = StaticText::where('slug','about_fixitja')->first();
         $page_title = 'About';
         $page_description = 'This is about us page';
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
-        return view('pages.about', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
+        return view('pages.about', compact('page_title', 'page_description', 'navBarCategories','content'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function services()
     {
@@ -105,127 +108,11 @@ class MainController extends Controller
 
     public function termsandconditions()
     {
+        $content = StaticText::where('slug','terms_and_conditions')->first();
         $page_title = 'Terms & Conditions';
         $page_description = 'Our terms and conditions for all users.';
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
-        return view('pages.termsAndConditions', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
-    }
-
-
-    public function createProject()
-    {
-        $page_title = 'Create Project Wizard';
-        $page_description = 'This is create project wizard page';
-        $user = Auth::user();
-        $cats = Category::with('sub_categories')->get();
-        $subs = SubCategory::all();
-        $parishes = Parish::all();
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
-        if(!empty(auth()->user()))
-            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','parishes','user', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
-        else
-            return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','parishes', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
-    }
-    public function createProjectwithCat($catId)
-    {
-        if(!empty($catId))
-            session()->flash('catId',$catId);
-        return redirect()->route('createProject');
-    }
-    public function categoryRequest(Request $request)
-    {
-        session()->flash('catId',$request->catId);
-        return redirect()->route('createProject');
-    }
-    public function createProjectwithSub($subCatId)
-    {
-        if(!empty($subCatId))
-            session()->flash('subCatId',$subCatId);
-        return redirect()->route('createProject');
-    }
-    public function addProject(Request $request)
-    {
-        // Classify Sub-Categories
-        $Subb = "[".$request->totalProjectCatList."]";
-        $Subb = str_replace('},]','}]',$Subb);
-        $Subb = json_decode($Subb);
-        $all_cats = collect();
-        $taskList = collect();
-        $parentTask = new Task();
-        foreach($Subb as $index => $subCattArray) {
-            $subCatt = 'sub_categories'. $subCattArray->fieldId;
-            $categoryy = 'categoryTemplate'. $subCattArray->fieldId;
-            $task_subcategories = new Collection();
-            $jsonSubCat = json_decode($request->$subCatt);
-            foreach($jsonSubCat as $subCat){
-                if(empty($subCat->id)){
-                    $cat = Category::find($request->$categoryy)->sub_categories()->create([
-                        'name' => $subCat->value,
-                        'description' => 'Proposed Category'
-                    ]);
-                    $cat->status = "proposed";
-                    $cat->save();
-                    $task_subcategories->push($cat);
-                    $all_cats->push($cat);
-                }
-                else {
-                    $subCatToPush = SubCategory::find($subCat->id);
-                    $task_subcategories->push($subCatToPush);
-                    $all_cats->push($subCatToPush);
-                }
-            }
-            // Task Store
-            $task = new Task();
-            $task->created_by = auth()->id() ? auth()->id() : 1;
-            $task->name = $request->name;
-            $task->description = $request->description;
-            $task->type = $request->type;
-            $task->payment_type = $request->payment_type;
-            $task->deadline = $request->deadline;
-            $task->user_equal_working = $request->user_equal_working;
-            $task->is_client_on_site = $request->is_client_on_site;
-            $task->is_repair_parts_provided = $request->is_repair_parts_provided;
-            $task->save();
-            if($index == 0)
-                $parentTask = $task;
-            else
-                $taskList->push($task->id);
-            // Task Creator Store
-            $creator = new TaskCreator();
-            $creator->name = $request->user_name;
-            $creator->phone = $request->phone;
-            $creator->email = $request->email;
-            $creator->city_id = $request->city;
-            $creator->street_01 = $request->street_01;
-            $creator->street_02 = $request->street_02;
-            $creator->house_number = $request->house_number;
-            $creator->postal_code = $request->postal_code;
-            $task->creator()->save($creator);
-
-            //Task Location Store
-            if(!$request->user_equal_working) {
-                $location = new TaskWorkingLocation();
-                $location->city_id = $request->site_city;
-                $location->street_01 = $request->site_street_01;
-                $location->street_02 = $request->site_street_02;
-                $location->house_number = $request->site_house_number;
-                $location->postal_code = $request->site_postal_code;
-                $task->location()->save($location);
-            }
-            $task->subcategories()->attach($task_subcategories);
-        }
-        $city = City::with('parish')->find($request->city);
-        $site_city = City::with('parish')->find($request->site_city);
-        try {
-            Mail::send('mail.createTask', compact('request','all_cats','city','site_city'), function($message) use ($request)
-            {
-                $message->to($request->email, $request->user_name)->subject('Task Created');
-            });
-        } catch(Throwable $e) {
-            LogHelper::storeMessage('Create task E-mail',$e->getMessage(),auth()->user(),'Email Cant be sent.');
-        }
-        $parentTask->related_tasks()->attach($taskList);
-        return redirect()->route('listTask');
+        return view('pages.termsAndConditions', compact('page_title', 'page_description', 'navBarCategories','content'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function categories()
     {
@@ -241,3 +128,4 @@ class MainController extends Controller
         return view('pages.test', compact('parishes'));
     }
 }
+ 

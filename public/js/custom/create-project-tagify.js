@@ -100,9 +100,10 @@ function bindSubCat(data, subcat) {
             maxItems: 5
         }
     });
+
     if (sessionSubCatId) {
         data.forEach((element, index) => {
-            if (element.id === sessionSubCatId) {
+            if (element.id === sessionSubCatId) { 
                 tagifyTo.addTags([element]);
             }
         });
@@ -161,13 +162,15 @@ function AddCategoryProjectWizard() {
         else {
             project_wizard_footer.remove();
         }
+
+        $('.spinner-border').hide();
+        $('#kt_form').show();
         jQuery.ajaxSetup({
             beforeSend: function () {
                 $('.spinner-border').show();
             },
             complete: function () {
                 $('.spinner-border').hide();
-                $('#kt_form').show();
             },
             success: cloneProjectWizardCategory.show()
         });
@@ -194,6 +197,9 @@ function AddCategoryProjectWizard() {
         }
         else if(sessionSubCatId) {
             $("#categorySelect1").val(sessionsubCatCatId).change();
+        }
+        else {
+            $("#categorySelect1").val(3).change();
         }
     }
 }

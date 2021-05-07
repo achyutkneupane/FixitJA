@@ -3,6 +3,13 @@ $page_title = 'Register';
 $page_description = 'This is registration page';
 $show_sidebar = false;
 @endphp
+
+@if (session()->has('referral'))
+@php
+    $referral = App\Models\User::find(session()->get('referral')->referred_by)->email();
+    $toRegister = session()->get('referral')->email;
+@endphp
+@endif
 @extends('layouts.app')
 @section('content')
 
@@ -58,7 +65,7 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Email (Required)</label>
-                                <input type="email" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="email" placeholder="Email" value="{{old('email')}}" />
+                                <input type="email" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="email" placeholder="Email" value="{{ session()->has('referral') ? $toRegister : old('email')}}" />
                                 @if ($errors->has('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
@@ -73,7 +80,15 @@ $show_sidebar = false;
                                 @endif
                             </div>
                             <!--end::Form Group-->
-
+                            <!--begin::Form Group-->
+                            <div class="form-group">
+                                <label class="font-size-h6 font-weight-bolder text-dark">Referred By(Optional)</label>
+                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="referralemail" placeholder="Referred By (Optional)" value="{{ session()->has('referral') ? $referral : old('referralemail') }}" />
+                                @if ($errors->has('referralemail'))
+                                <span class="text-danger">{{ $errors->first('referralemail') }}</span>
+                                @endif
+                            </div>
+                            <!--end::Form Group-->
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Type (Required)</label>
@@ -110,7 +125,6 @@ $show_sidebar = false;
 
                             <!--end::Form Group-->
 
-                            <!--end::Form Group-->
                             <!--begin::Form Group-->
                             <div class="form-group" id="webpersonal">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Website</label>

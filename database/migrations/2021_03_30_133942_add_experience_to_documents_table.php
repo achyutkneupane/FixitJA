@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExperincesTable extends Migration
+class AddExperienceToDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateExperincesTable extends Migration
      */
     public function up()
     {
-        Schema::create('experinces', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('documents', function (Blueprint $table) {
+            $table->integer('experience')->nullable();
         });
     }
 
@@ -26,6 +25,8 @@ class CreateExperincesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('experinces');
+        Schema::table('documents', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -62,9 +62,7 @@
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-dark-75 font-weight-bolder mr-2">Location:</span>
-                            @foreach(json_decode($user->city()->get(), true) as $value)
-                            <span class="text-muted">{{  $value['name']}}</span>
-                            @endforeach
+                            <span class="text-muted">{{ $user->city->name }}</span>
                         </div>
                     </div>
                     <!--end::Info-->
