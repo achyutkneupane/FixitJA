@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ErrorLog;
 use App\Models\StaticText;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,5 +52,28 @@ class AdminController extends Controller
             'slug' => ($request->sub_title != NULL) ? Str::slug($request->sub_title,'_') : Str::slug($request->title,'_'),
         ]);
         return redirect()->route('staticTexts');
+    }
+
+    /* Added by Ashish Pokhrel */
+
+    public function newUser()
+    {
+        $users = User::where('status', 'new')->get();
+        return view('admin.profile.newUser', compact('users'));
+        
+
+    }
+
+    public function applicantUser()
+    {
+        $users = User::where('status', 'pending')->get();
+        return view('admin.profile.applicantUser', compact('users'));
+
+    }
+
+    public function activeUser()
+    {
+        $users = User::all();
+        return view('admin.profile.activeUser', compact('users'));
     }
 }
