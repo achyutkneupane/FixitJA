@@ -86,7 +86,7 @@
                     @guest
                     <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/register">Create An Account</a>
                     @endguest
-                    <h2 class="text-black">For more convenience in your project</h2>
+                    <h2 class="text-black">For more convenience with your project</h2>
                 </div>
             </div>
             <div class="row text-center">
@@ -258,7 +258,7 @@
                             <div class="testimonial-brand text-gray-400">
                                 <img src="{{asset('images/cumbv-logo.png')}}" width="200px">
                             </div>
-                            <p class="testimonial-quote text-primary">&quot;We are pleased to have a partnership with FixijJA  and salute their dedication to creating new opportunities for skilled workers while improving the wayconsumers repair needs are met.&quot;</p>
+                            <p class="testimonial-quote text-primary">&quot;We are pleased to have a partnership with FixijJA  and salute their dedication to creating new opportunities for skilled workers while improving the way consumers repair needs are met.&quot;</p>
                             <div class="testimonial-name">Claude Powell</div>
                             <div class="testimonial-position">Business Development Manager</div>
                         </div>

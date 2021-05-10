@@ -254,7 +254,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
                         <!--begin::Wizard Step 1-->
                         <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
-                            <h3 class="font-weight-bold text-dark">Enter your up to 3 skill categories</h3>
+                            <h3 class="font-weight-bold text-dark">List up to 3 skills</h3>
 
 
 
@@ -776,7 +776,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             </div>
 
                             <div class="form-group fv-plugins-icon-container">
-                                <label class="col-9 col-form-label">10. What are the days you are working?
+                                <label class="col-9 col-form-label">10. What days are you available to work?
                                 </label>
 
                             <input type="hidden" id="workingdays" value="{{ auth()->user()->days}}" />
