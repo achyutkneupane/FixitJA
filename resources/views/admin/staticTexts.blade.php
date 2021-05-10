@@ -66,15 +66,16 @@
     });
     $('#staticContent{{ $static->id }} > .ql-editor').html(statictext{{ $static->id }});
     function validateAndGo{{ $static->id }}() {
-        var form = document.querySelector('form');
+        var form = document.querySelector('#staticForm{{ $static->id }}');
         form.onsubmit = function() {
             event.preventDefault();
-            var text = $('.ql-editor').html();
+            var text = $('#staticContent{{ $static->id }} > .ql-editor').html();
             if (text == "<p><br></p>") {
                 toastr.error("You must enter the content");
             } else {
                 var discussionText = document.querySelector('#static{{ $static->id }}');
                 discussionText.value = text;
+                console.log(discussionText.value);
                 document.getElementById("staticForm{{ $static->id }}").submit();
             }
         };
