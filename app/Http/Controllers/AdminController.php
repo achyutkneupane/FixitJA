@@ -43,14 +43,13 @@ class AdminController extends Controller
         $statics = StaticText::get();
         return view('admin.staticTexts',compact('statics'));
     }
-    public function postStaticTexts(Request $request)
+    public function postStaticTexts(Request $request, $id)
     {
-        StaticText::create([
-            'title' => $request->title,
-            'sub_title' => $request->sub_title,
-            'content' => $request->staticContent,
-            'slug' => ($request->sub_title != NULL) ? Str::slug($request->sub_title,'_') : Str::slug($request->title,'_'),
-        ]);
+        $static = StaticText::find($id);
+        $static->title = $request->title;
+        $static->sub_title = $request->sub_title;
+        $static->content = $request->staticContent;
+        $static->save();
         return redirect()->route('staticTexts');
     }
 

@@ -135,7 +135,7 @@ Route::get('/test', [App\Http\Controllers\MainController::class, 'test'])->name(
 
 Route::prefix('/setting')->group(function() {
     Route::get('/statics', [App\Http\Controllers\AdminController::class, 'staticTexts'])->middleware('auth','checkIfAdmin')->name('staticTexts');
-    Route::post('/statics', [App\Http\Controllers\AdminController::class, 'postStaticTexts'])->middleware('auth','checkIfAdmin')->name('postStaticTexts');
+    Route::post('/statics/{id}', [App\Http\Controllers\AdminController::class, 'postStaticTexts'])->middleware('auth','checkIfAdmin')->name('postStaticTexts');
 });
 //End routes by Achyut Neupane
 
