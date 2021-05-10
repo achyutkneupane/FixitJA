@@ -72,7 +72,7 @@
         </div>
         <div class="row justify-content-center text-center mb-2">
             <div class="col-lg-8 py-website-5" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
-                <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/project/create">Get Started Now!</a>
+                <a class="btn-website btn-website-teal font-weight-500 mb-3" href="/project/create">Get Started Now</a>
                 <h2 class="text-black">{{ $statics->where('slug','no_need_to_create_an_account_to_place_your_project')->first()->title }}</h2>
                     {!! $statics->where('slug','no_need_to_create_an_account_to_place_your_project')->first()->content !!}
             </div>
