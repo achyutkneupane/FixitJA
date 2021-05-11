@@ -22,17 +22,34 @@ const sub_categories = {
         notEmpty: {
             message: 'Sub-Category is required',
             callback: function (input) {
+               
                 if (input.value.length > 0) {
                     const subArray = JSON.parse(input.value);
+                    
+                      
                     subArray.forEach((element, index) => {
                         $("#skill").append(element.value + ", ");
                     });
                 }
+
+              
+                    const subArray = JSON.parse(input.value);
+                    console.log(subArray);
+                    subArray.forEach((element, index) => {
+                        $("#skill").append(element.value + ",");
+                    });
+                
+                
                 return !!input.value;
             },
         }
     }
 }
+
+
+
+
+
 
 const experienceValidator = {
     validators: {
@@ -90,12 +107,12 @@ const referal_name = {
     }
 }
 
-    const referal_email = {
-        validators: {
-            emailAddress: {
-                message: 'The value is not a valid email address'
-            },
-            notEmpty: {
+const referal_email = {
+    validators: {
+        emailAddress: {
+            message: 'The value is not a valid email address'
+        },
+        notEmpty: {
             message: 'Referable email is required',
             callback: function (input) {
                 return !!input.value;
@@ -302,7 +319,15 @@ var KTWizard1 = function () {
                             notEmpty: {
                                 message: "This field must be selected",
                                 callback: function (input) {
-                                    $("#policereport").text(input.value);
+                                    if(input.value === "1"){
+                                        var status = "Yes"
+                                        $("#policereport").text(status);
+                                    }
+                                     if(input.value === "0"){
+                                        var status = 'No'
+                                        $("#policereport").text(status);
+                                    }
+                                    
                                     return !!input.value;
                                 },
                             }
@@ -315,7 +340,15 @@ var KTWizard1 = function () {
                             notEmpty: {
                                 message: "This field must be selected",
                                 callback: function (input) {
-                                    $("#istravelling").text(input.value);
+                                    if(input.value == 1){
+                                        var status = "Yes"
+                                        $("#istravelling").text(status);
+                                    }
+                                    if(input.value == 0){
+                                        var status = 'No'
+                                        $("#istravelling").text(status);
+                                    }
+                                    
                                     return !!input.value;
                                 },
                             }
@@ -349,12 +382,38 @@ var KTWizard1 = function () {
                         }
 
                     },
-                    parish : {
+                    parish: {
                         validators: {
-                            notEmpty:{
+                            notEmpty: {
                                 message: "Parish must be selected",
-                                callback: function (input){
-                                    $("#workingPerishId").text(input.value);
+                                callback: function (input) {
+                                    $('#userParishSelect').on('change', function () {
+                                        var parish = $("#userParishSelect  option:selected").text();
+                                        $("#workingPerishId").text(parish);
+                                    })
+                                    var parish = $("#userParishSelect  option:selected").text();
+                                        $("#workingPerishId").text(parish);
+
+                                      
+                                    return !!input.value;
+
+                                }
+                            }
+                        }
+                    },
+                    cities: {
+                        validators: {
+                            notEmpty: {
+                                message: "Cities must be selected",
+                                callback: function (input) {
+                                    $('#userCitySelect').on('change', function () {
+                                        var city = $("#userCitySelect  option:selected").text();
+                                        $("#workingCityId").text(city);
+                                    })
+                                    var city = $("#userCitySelect  option:selected").text();
+                                        $("#workingCityId").text(city);
+
+
                                     return !!input.value;
 
                                 }

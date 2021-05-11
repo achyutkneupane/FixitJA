@@ -39,6 +39,12 @@ Route::prefix('/category')->group(function () {
     Route::put('/edit/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->middleware('auth', 'checkIfAdmin');
     Route::get('/delete/{id}', [App\Http\Controllers\CategoryController::class, 'destroy'])->middleware('auth', 'checkIfAdmin');
 });
+
+Route::prefix('/users')->group(function() {
+    Route::get('/newUsers', [App\Http\Controllers\AdminController::class, 'newUser'])->middleware('auth', 'checkIfAdmin');
+    Route::get('/applicantUsers', [App\Http\Controllers\AdminController::class, 'applicantUser'])->middleware('auth', 'checkIfAdmin');
+     Route::get('/activeUsers', [App\Http\Controllers\AdminController::class, 'activeUser'])->middleware('auth', 'checkIfAdmin');
+});
 Route::prefix('/categories')->group(function () {
     Route::get('/', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
     Route::get('/all', [App\Http\Controllers\MainController::class, 'categories']);
@@ -129,7 +135,7 @@ Route::get('/test', [App\Http\Controllers\MainController::class, 'test'])->name(
 
 Route::prefix('/setting')->group(function() {
     Route::get('/statics', [App\Http\Controllers\AdminController::class, 'staticTexts'])->middleware('auth','checkIfAdmin')->name('staticTexts');
-    Route::post('/statics', [App\Http\Controllers\AdminController::class, 'postStaticTexts'])->middleware('auth','checkIfAdmin')->name('postStaticTexts');
+    Route::post('/statics/{id}', [App\Http\Controllers\AdminController::class, 'postStaticTexts'])->middleware('auth','checkIfAdmin')->name('postStaticTexts');
 });
 //End routes by Achyut Neupane
 

@@ -2,7 +2,7 @@
 @section('content')
 <div class="container py-10">
     <div class="row">
-        <h1 class="font-weight-bolder text-uppercase m-auto py-5 float-center">All Our Categories</h1>
+        <h1 class="font-weight-bolder text-uppercase m-auto py-5 float-center">All Categories</h1>
     </div>
     <div class="row">
     @foreach($categories as $category)

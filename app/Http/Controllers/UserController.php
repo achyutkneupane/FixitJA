@@ -137,7 +137,7 @@ class UserController extends Controller
 
     public function addprofiledetails(Request $request)
     {
-        dd(request()->all());
+        
         /* For new Skilled worker  to fillup application*/
         if(auth()->user()->status == 'new')
         {
@@ -805,7 +805,7 @@ class UserController extends Controller
     public function referGet()
     {
         $user = User::with('refers.user','referrer.referral')->find(auth()->id());
-        $referral = $user->referrer->referral;
+        $referral = $user->referral;
         $refers = $user->refers;
         return view('pages.refer',compact('refers','referral'));
     }
