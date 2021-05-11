@@ -51,7 +51,7 @@
                             <td>{{ $cat->created_at->diffForHumans() }}</td>
                             <td>
                                 <a href="#" class="btn btn-primary">Approve</a>
-                                <a href="#" class="btn btn-danger">Delete</a>
+                                <a href="#" class="btn btn-danger">Reject</a>
                             </td>
                         </tr>
                     @endforeach
