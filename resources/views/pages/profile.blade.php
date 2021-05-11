@@ -112,11 +112,9 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Working days:</label>
-                        <input type="hidden" id="workingdays" value="{{ auth()->user()->days}}" />
-                        <div class="col-lg-9 col-xl-6">
-                            <input id="kt_tagify_workingdays" class="form-control" name="working_days"
-                                            placeholder="Add sub-categories" value="">
-                        </div>
+                        <div class="p-5 rounded" style="background-color: #f5f6fa;">
+                                {!! $user->days ? $user->days : "<span class='text-muted'>N/A</span>" !!}
+                            </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Willing to travel long distace</label>

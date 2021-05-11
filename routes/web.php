@@ -42,8 +42,9 @@ Route::prefix('/category')->group(function () {
 
 Route::prefix('/users')->group(function() {
     Route::get('/newUsers', [App\Http\Controllers\AdminController::class, 'newUser'])->middleware('auth', 'checkIfAdmin');
-    Route::get('/applicantUsers', [App\Http\Controllers\AdminController::class, 'applicantUser'])->middleware('auth', 'checkIfAdmin');
-     Route::get('/activeUsers', [App\Http\Controllers\AdminController::class, 'activeUser'])->middleware('auth', 'checkIfAdmin');
+    Route::get('/applicantUsers', [App\Http\Controllers\AdminController::class, 'applicantUser'])->middleware('auth', 'checkIfAdmin')->name('applicantUsers');
+    Route::get('/activeUsers', [App\Http\Controllers\AdminController::class, 'activeUser'])->middleware('auth', 'checkIfAdmin');
+    Route::get('/rejectUsers', [App\Http\Controllers\AdminController::class, 'rejectedUser'])->middleware('auth', 'checkIfAdmin');
 });
 Route::prefix('/categories')->group(function () {
     Route::get('/', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
@@ -180,6 +181,12 @@ Route::get('/addeducation', [App\Http\Controllers\UserController::class, 'addedu
 
 Route::get('download/{filename}', [App\Http\Controllers\UserController::class, 'downloadcertificate'])->name('getfile');
 
+
+/* for approve and reject skilled worker application -- Ashish Pokhrel */
+Route::get('/approve/{id}', [App\Http\Controllers\UserController::class, 'approveApplication']);
+Route::put('/approve/{id}', [App\Http\Controllers\UserController::class, 'approveApplication']);
+Route::get('/reject/{id}', [App\Http\Controllers\UserController::class, 'rejectApplication']);
+Route::put('/reject/{id}', [App\Http\Controllers\UserController::class, 'rejectApplication']);
 
 
 

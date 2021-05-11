@@ -841,4 +841,24 @@ class UserController extends Controller
         return redirect()->to('/register');
     }
 
+
+    /* Ashish Pokhrel */
+
+    public function approveApplication($id)
+    {
+        $user = User::find($id);
+        $user->status = "active";
+        $user->update();
+
+        return redirect()->route('applicantUsers');
+    }
+
+    public function rejectApplication($id)
+    {
+        $user = User::find($id);
+        $user->status = "declined";
+        $user->update();
+        return redirect()->route('applicantUsers');
+    }
+
 }

@@ -67,6 +67,12 @@ return [
                     'page' => '/users/activeUsers',
                     'admin' => true,
                     'icon' => 'flaticon-doc',
+                ],
+                [
+                    'title' => 'Rejected User',
+                    'page' => '/users/rejectUsers',
+                    'admin' => true,
+                    'icon' => 'flaticon-doc',
                 ]
             ]
         ],
