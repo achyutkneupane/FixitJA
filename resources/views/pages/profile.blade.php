@@ -112,9 +112,11 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Working days:</label>
-                        <div class="p-5 rounded" style="background-color: #f5f6fa;">
+                        <div class="col-lg-9 col-xl-6">
+                            <div class="p-5 rounded" style="background-color: #f5f6fa;">
                                 {!! $user->days ? $user->days : "<span class='text-muted'>N/A</span>" !!}
                             </div>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Willing to travel long distace</label>

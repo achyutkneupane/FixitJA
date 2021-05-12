@@ -591,8 +591,6 @@ class UserController extends Controller
                     Storage::delete($tempPath);
             }
             else {
-                ToastHelper::showToast('Error with profile picture.','error');
-                return redirect()->route('viewProfile');
             }
             $user->save();
             ToastHelper::showToast('Profile has been updated');
