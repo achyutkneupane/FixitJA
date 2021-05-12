@@ -142,7 +142,7 @@ class CategoryController extends Controller
         $cats = SubCategory::where('status','proposed')->get();
         return view('admin.proposed', compact('cats'));
     }
-
+    /* Added by Ashish Pokhrel */
     public function reject()
     {
         $cats = SubCategory::where('status','reject')->get();
