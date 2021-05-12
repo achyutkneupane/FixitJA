@@ -50,8 +50,8 @@
                             <td>{{ $cat->category->name }}</td>
                             <td>{{ $cat->created_at->diffForHumans() }}</td>
                             <td>
-                                <a href="/approveCat/{{ $cat->id }}" class="btn btn-primary">Approve</a>
-                                <a href="/rejectCat/{{$cat->id}}" class="btn btn-danger">Reject</a>
+                                <a href="/approve/{{$cat->id}}" class="btn btn-primary">Approve</a>
+                                <a href="/reject/{{$cat->id}}" class="btn btn-danger">Reject</a>
                             </td>
                         </tr>
                     @endforeach

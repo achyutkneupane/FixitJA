@@ -18,7 +18,7 @@ class CreateSubCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('status')->default('active');
+            $table->enum('status', array('new','pending', 'reviewing', 'active', 'reject', 'proposed',  'deleted'))->default('new');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
@@ -29,6 +29,7 @@ class CreateSubCategoriesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('sub_category_id');
+        
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');

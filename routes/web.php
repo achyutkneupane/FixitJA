@@ -50,6 +50,9 @@ Route::prefix('/categories')->group(function () {
     Route::get('/', [App\Http\Controllers\CategoryController::class, 'index'])->middleware('auth', 'checkIfAdmin')->name('listCategory');
     Route::get('/all', [App\Http\Controllers\MainController::class, 'categories']);
     Route::get('/proposed', [App\Http\Controllers\CategoryController::class, 'proposed'])->middleware('auth', 'checkIfAdmin')->name('proposedCategory');
+    Route::get('/approve', [App\Http\Controllers\CategoryController::class, 'approveCategory'])->middleware('auth', 'checkIfAdmin');
+     Route::get('/reject', [App\Http\Controllers\CategoryController::class, 'reject'])->middleware('auth', 'checkIfAdmin');
+    
 });
 Route::prefix('/sub_category')->group(function () {
     Route::post('/add', [App\Http\Controllers\SubCategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');
@@ -187,6 +190,13 @@ Route::get('/approve/{id}', [App\Http\Controllers\UserController::class, 'approv
 Route::put('/approve/{id}', [App\Http\Controllers\UserController::class, 'approveApplication']);
 Route::get('/reject/{id}', [App\Http\Controllers\UserController::class, 'rejectApplication']);
 Route::put('/reject/{id}', [App\Http\Controllers\UserController::class, 'rejectApplication']);
+
+
+Route::get('/approveCat/{catid}', [App\Http\Controllers\CategoryController::class, 'approveCategory']);
+Route::put('/approveCat/{catid}', [App\Http\Controllers\CategoryController::class, 'approveCategory']);
+
+Route::get('/rejectCat/{catid}', [App\Http\Controllers\CategoryController::class, 'rejectCategory']);
+Route::put('/rejectCat/{catid}', [App\Http\Controllers\CategoryController::class, 'rejectCategory']);
 
 
 

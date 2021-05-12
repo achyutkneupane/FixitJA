@@ -39,6 +39,12 @@ return [
                     'admin' => true,
                     'icon' => 'flaticon-doc',
                 ],
+                [
+                    'title' => 'Reject category',
+                    'page' => '/categories/reject',
+                    'admin' => true,
+                    'icon' => 'flaticon-doc',
+                ],
             ]
         ],
         [
