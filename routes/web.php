@@ -191,7 +191,7 @@ Route::put('/approve/{id}', [App\Http\Controllers\UserController::class, 'approv
 Route::get('/reject/{id}', [App\Http\Controllers\UserController::class, 'rejectApplication']);
 Route::put('/reject/{id}', [App\Http\Controllers\UserController::class, 'rejectApplication']);
 
-
+/* for approve and reject categories  -- Ashish Pokhrel */
 Route::get('/approveCat/{catid}', [App\Http\Controllers\CategoryController::class, 'approveCategory']);
 Route::put('/approveCat/{catid}', [App\Http\Controllers\CategoryController::class, 'approveCategory']);
 
