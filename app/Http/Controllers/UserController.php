@@ -716,11 +716,23 @@ class UserController extends Controller
     public function profileDocuments()
     {
         $user = auth()->user();
-        return view('admin.profile.documents', compact('user'));
+        
+        $certificates = $user->documents;
+        $certs = collect();
+        foreach($certificates as $cert) {
+            preg_match('(certificate)',$cert->type,$output);
+            if(!empty($output)) {
+                $certs->push($cert);
+            }
+        }
+        
+        return view('admin.profile.documents', compact('user','certs'));
     }
     public function userDocuments($id)
     {
         $user = User::with('documents')->find($id);
+        $certificates = $user->documents;
+        dd($certificates);
         if ($user == auth()->user()) {
             return redirect()->route('viewDocuments');
         }

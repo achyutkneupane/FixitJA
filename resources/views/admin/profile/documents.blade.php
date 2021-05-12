@@ -48,20 +48,18 @@ $profileDocumentIsActive = 'true';
             </div>
             <h3 class="card-label">Certificates</h3>
             @if ($user->documents->count() != 0)
-            @foreach ($user->documents as $document)
+            @foreach ($certs as $certificate)
+
              <a href="" class="dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable"><span>{{ Auth::user()->name}}_Certificate{{$loop->index}}
+             <a type="button" href="{{route('getfile', basename($certificate['path']))}}" class="btn btn-success"><i
+                                                                            class="fas fa-long-arrow-alt-down"></i>Download</a> </a>
                                                                         </span>
-                                                                        <button type="button" id="button" class="btn btn-warning"> <i class="far fa-eye-slash"></i>view</button> 
-                                                                        <button type="button" href="{{route('getfile', basename($document['path']))}}" class="btn btn-success"><i
-                                                                            class="fas fa-long-arrow-alt-down"></i>Download</button></a> <br/> <br/>
+                                                                        
+                                                                        <br/> <br/>
 
             @endforeach
 
             
-
-
-
-
 
             @else
             <div class="container">
@@ -81,17 +79,7 @@ $profileDocumentIsActive = 'true';
 
     {{-- Scripts Section --}}
     @section('scripts')
-    <script type="text/javascript">
-
-   $(function(){
-    $('#button').click(function(){ 
-        if(!$('#iframe').length) {
-                $('#iframeHolder').html('<iframe id="iframe" src="//player.vimeo.com/video/90429499" width="700" height="450"></iframe>');
-        }
-    });   
-});
-
-    </script> 
+     
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/pages/custom/profile/profile.js') }}" type="text/javascript"></script>
     @endsection
