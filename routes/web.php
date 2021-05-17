@@ -141,20 +141,22 @@ Route::prefix('/setting')->group(function() {
     Route::get('/statics', [App\Http\Controllers\AdminController::class, 'staticTexts'])->middleware('auth','checkIfAdmin')->name('staticTexts');
     Route::post('/statics/{id}', [App\Http\Controllers\AdminController::class, 'postStaticTexts'])->middleware('auth','checkIfAdmin')->name('postStaticTexts');
 });
+
+Route::get('/terms-and-conditions', [App\Http\Controllers\MainController::class, 'termsandconditions'])->name('termsandconditions');
+Route::get('/privacy-policy', [App\Http\Controllers\MainController::class, 'privacypolicy'])->name('privacypolicy');
+Route::get('/hiring-process', [App\Http\Controllers\MainController::class, 'hiringProcess'])->name('hiringProcess');
 //End routes by Achyut Neupane
 
 
 
 // Route for about page
-Route::get('/about', [App\Http\Controllers\MainController::class, 'about']);
+Route::get('/about-us', [App\Http\Controllers\MainController::class, 'about'])->name('aboutUs');
 //Route for contact us page
-Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact']);
+Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact'])->name('contactUs');
 Route::post('/contact', [App\Http\Controllers\MainController::class, 'submitContact'])->name('submitContact');
 //Route for faqs page
 Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 
-//Route for Terms & Conditions page
-Route::get('/termsandconditions', [App\Http\Controllers\MainController::class, 'termsandconditions']);
 
 //Route for faqs page
 Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'underConstruction'])->name('under_construction');

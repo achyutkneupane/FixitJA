@@ -37,13 +37,13 @@ return [
                     'title' => 'Proposed',
                     'page' => '/categories/proposed',
                     'admin' => true,
-                    'icon' => 'flaticon-doc',
+                    'icon' => 'flaticon2-writing',
                 ],
                 [
-                    'title' => 'Reject category',
+                    'title' => 'Rejected',
                     'page' => '/categories/reject',
                     'admin' => true,
-                    'icon' => 'flaticon-doc',
+                    'icon' => 'flaticon-interface-4',
                 ],
             ]
         ],
@@ -57,28 +57,28 @@ return [
             'icon' => 'flaticon-users',
             'submenu' => [
                 [
-                    'title' => 'New User',
-                    'page' => '/users/newUsers',
-                    'admin' => true,
-                    'icon' => 'flaticon-list-2',
-                ],
-                [
-                    'title' => 'Applicant User',
-                    'page' => '/users/applicantUsers',
-                    'admin' => true,
-                    'icon' => 'flaticon-doc',
-                ],
-                [
-                    'title' => 'All User',
+                    'title' => 'All',
                     'page' => '/users/activeUsers',
                     'admin' => true,
-                    'icon' => 'flaticon-doc',
+                    'icon' => 'flaticon-profile',
                 ],
                 [
-                    'title' => 'Rejected User',
+                    'title' => 'New',
+                    'page' => '/users/newUsers',
+                    'admin' => true,
+                    'icon' => 'flaticon-user-add',
+                ],
+                [
+                    'title' => 'Applicants',
+                    'page' => '/users/applicantUsers',
+                    'admin' => true,
+                    'icon' => 'flaticon2-writing',
+                ],
+                [
+                    'title' => 'Rejected',
                     'page' => '/users/rejectUsers',
                     'admin' => true,
-                    'icon' => 'flaticon-doc',
+                    'icon' => 'flaticon-interface-4',
                 ]
             ]
         ],
