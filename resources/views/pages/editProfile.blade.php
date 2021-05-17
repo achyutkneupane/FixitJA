@@ -127,7 +127,7 @@ var cityId = {{ auth()->user()->city->id }};
                         <label class="col-xl-3 col-lg-3 col-form-label">Working days:</label>
                         <input type="hidden" id="workingdays" value="{{ auth()->user()->days}}" />
                         <div class="col-lg-9 col-xl-6">
-                            <input id="kt_tagify_workingdays" class="form-control" name="working_days"
+                            <input id="kt_tagify_workingdays" class="form-control form-control-lg form-control-solid" name="days"
                                             placeholder="Add sub-categories" value="">
                         </div>
                     </div>
