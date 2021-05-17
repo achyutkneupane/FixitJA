@@ -6,15 +6,15 @@
                     <div class="footer-brand">FixitJA</div>
                     <div class="mb-3">Project made easy</div>
                     <div class="icon-list-social mb-5">
-                        <a class="icon-list-social-link" href="#!">
+                        <a class="icon-list-social-link" href="https://www.facebook.com/Cumberland-Business-Ventures-102445978395205/">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a class="icon-list-social-link" href="https://www.instagram.com/cumberlandbusinessventures/">
                             <i class="fab fa-instagram">
                             </i>
                         </a>
-                        <a class="icon-list-social-link" href="#!">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a class="icon-list-social-link" href="#!">
-                            <i class="fab fa-twitter">
+                        <a class="icon-list-social-link" href="https://www.linkedin.com/company/cumberlandbusinessventures/">
+                            <i class="fab fa-linkedin">
                             </i>
                         </a>
                     </div>
