@@ -4,13 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="google-site-verification" content="5vNFZJlx-U06x1mqVJskNMGK2FtW1EtHv2owoub6S5Q" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- Title Section --}}
     <title>{{ config('app.name') }} | @yield('title', $page_title ?? '')</title>
 
     {{-- Meta Data --}}
+    <meta name="title" content="{{ config('app.name') }} | @yield('title', $page_title ?? '')" />
     <meta name="description" content="@yield('page_description', $page_description ?? '')" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
@@ -123,5 +124,12 @@
         }
     </script>
 </body>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3QFKBQFZG6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-3QFKBQFZG6');
+</script>
 </html>

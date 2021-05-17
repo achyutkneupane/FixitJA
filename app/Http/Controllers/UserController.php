@@ -591,8 +591,6 @@ class UserController extends Controller
                     Storage::delete($tempPath);
             }
             else {
-                ToastHelper::showToast('Error with profile picture.','error');
-                return redirect()->route('viewProfile');
             }
             $user->save();
             ToastHelper::showToast('Profile has been updated');
@@ -716,11 +714,23 @@ class UserController extends Controller
     public function profileDocuments()
     {
         $user = auth()->user();
-        return view('admin.profile.documents', compact('user'));
+        
+        $certificates = $user->documents;
+        $certs = collect();
+        foreach($certificates as $cert) {
+            preg_match('(certificate)',$cert->type,$output);
+            if(!empty($output)) {
+                $certs->push($cert);
+            }
+        }
+        
+        return view('admin.profile.documents', compact('user','certs'));
     }
     public function userDocuments($id)
     {
         $user = User::with('documents')->find($id);
+        $certificates = $user->documents;
+        dd($certificates);
         if ($user == auth()->user()) {
             return redirect()->route('viewDocuments');
         }
@@ -839,6 +849,26 @@ class UserController extends Controller
         else
             session()->flash('referral',$user);
         return redirect()->to('/register');
+    }
+
+
+    /* Ashish Pokhrel */
+
+    public function approveApplication($id)
+    {
+        $user = User::find($id);
+        $user->status = "active";
+        $user->update();
+
+        return redirect()->route('applicantUsers');
+    }
+
+    public function rejectApplication($id)
+    {
+        $user = User::find($id);
+        $user->status = "declined";
+        $user->update();
+        return redirect()->route('applicantUsers');
     }
 
 }
