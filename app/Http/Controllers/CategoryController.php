@@ -142,12 +142,40 @@ class CategoryController extends Controller
         $cats = SubCategory::where('status','proposed')->get();
         return view('admin.proposed', compact('cats'));
     }
+    /* Added by Ashish Pokhrel */
+    public function reject()
+    {
+        $cats = SubCategory::where('status','reject')->get();
+        return view('admin.rejectCategory', compact('cats'));
+    }
 
     public function getCategory()
     {
        
      $cat  =  Category::with('sub_categories')->get();
      return response($cat);
+
+    }
+  /* Added by Ashish Pokhrel */
+    public function approveCategory($id)
+    {
+
+        $cats = SubCategory::find($id);
+        $cats->status = "active";
+        $cats->update();
+        return redirect()->route('proposedCategory');
+
+        
+
+
+    }
+
+    public function rejectCategory($id)
+    {
+         $cats = SubCategory::find($id);
+         $cats->status = "reject";
+         $cats->update();
+         return redirect()->route('proposedCategory');
 
     }
 }

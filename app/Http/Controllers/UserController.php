@@ -591,8 +591,6 @@ class UserController extends Controller
                     Storage::delete($tempPath);
             }
             else {
-                ToastHelper::showToast('Error with profile picture.','error');
-                return redirect()->route('viewProfile');
             }
             $user->save();
             ToastHelper::showToast('Profile has been updated');
@@ -851,6 +849,26 @@ class UserController extends Controller
         else
             session()->flash('referral',$user);
         return redirect()->to('/register');
+    }
+
+
+    /* Ashish Pokhrel */
+
+    public function approveApplication($id)
+    {
+        $user = User::find($id);
+        $user->status = "active";
+        $user->update();
+
+        return redirect()->route('applicantUsers');
+    }
+
+    public function rejectApplication($id)
+    {
+        $user = User::find($id);
+        $user->status = "declined";
+        $user->update();
+        return redirect()->route('applicantUsers');
     }
 
 }

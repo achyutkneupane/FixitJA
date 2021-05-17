@@ -77,7 +77,7 @@
                         <th title="Email">Email</th>
                         <th title="Phone">Phone</th>
                         <th title="Address">Address</th>
-  <th title="Role">Action</th>
+                        <th title="Role">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,8 +97,8 @@
                             <td>{{ $user->phone() }}</td>
                             <td>{!! !empty($user->city->name) ? $user->city->name : "<span class='text-muted'>N/A</span>" !!}</td>
                             <td>
-                                <a href="/approve/{{ $user->id }}" class="btn btn-primary">Approve</a>
-                                <a href="/reject/{{ $user->id }}" class="btn btn-danger">Reject</a>
+                                <!-- <a href="" class="btn btn-primary">Approve</a>
+                                <a href="" class="btn btn-danger">Reject</a> -->
                             </td>
                         </tr>
                     @endforeach
@@ -116,5 +116,5 @@
 
 {{-- Scripts Section --}}
 @section('scripts')
-    <script src="{{ asset('js/custom/custom_user_datatable.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/custom/custom_reject_user_datatables.js') }}" type="text/javascript"></script>
 @endsection

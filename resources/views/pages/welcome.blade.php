@@ -132,10 +132,10 @@
                     <div class="card-website-body d-flex-website">
                         <div class="d-flex-website flex-column-website align-items-start flex-grow-1">
                             <div class="flex-grow-1">
-                                <a href="#" class="text-white font-weight-bolder font-size-h3">{{ $statics->where('slug','what_is_our_hiring_process')->first()->title }}</a>
+                                <a href="{{ route('hiringProcess') }}" class="text-white font-weight-bolder font-size-h3">{{ $statics->where('slug','what_is_our_hiring_process')->first()->title }}</a>
                                     {!! $statics->where('slug','what_is_our_hiring_process')->first()->content !!}
                             </div>
-                            <a href="#" class="btn btn-link btn-link-white font-weight-bold">Read More
+                            <a href="{{ route('hiringProcess') }}" class="btn btn-link btn-link-white font-weight-bold">Read More
                                 <span class="svg-icon svg-icon-lg svg-icon-white">
                                     <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Navigation/Arrow-right.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">

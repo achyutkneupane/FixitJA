@@ -624,7 +624,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
                         <!--begin::Wizard Step 4-->
                         <div class="pb-5" data-wizard-type="step-content">
-                            <h4 class="mb-10 font-weight-bold text-dark">Reference certificate for each selected
+                            <h4 class="mb-10 font-weight-bold text-dark">Reference for each selected
                                 skills category</h4>
                             <!--begin::Select-->
                             @if(auth()->user()->references->count() != 0)

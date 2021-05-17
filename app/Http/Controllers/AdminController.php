@@ -75,4 +75,10 @@ class AdminController extends Controller
         $users = User::all();
         return view('admin.profile.activeUser', compact('users'));
     }
+
+    public function rejectedUser()
+    {
+        $users = User::where('status', 'declined')->get();
+        return view('admin.profile.rejectedUser', compact('users'));
+    }
 }

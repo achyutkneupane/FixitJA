@@ -24,11 +24,11 @@
                         <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                             <div class="text-uppercase-expanded text-xs mb-4">About FixitJA</div>
                             <ul class="list-unstyled mb-0">
-                                <li class="mb-2"><a href="/about">About the comapany</a></li>
+                                <li class="mb-2"><a href="{{ route('aboutUs') }}">About the comapany</a></li>
                                 <li class="mb-2"><a href="/underconstruction">Fixician Directory</a></li>
                                 <li class="mb-2"><a href="/underconstruction">Services</a></li>
                                 <li class="mb-2"><a href="/underconstruction">How it works</a></li>
-                                <li class="mb-2"><a href="/underconstruction">Hiring Process</a></li>
+                                <li class="mb-2"><a href="{{ route('hiringProcess') }}">Hiring Process</a></li>
                             </ul>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
@@ -42,7 +42,7 @@
                         <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
                             <div class="text-uppercase-expanded text-xs mb-4">Support</div>
                             <ul class="list-unstyled mb-0">
-                                <li class="mb-2"><a href="/contact">Contact</a></li>
+                                <li class="mb-2"><a href="{{ route('contactUs') }}">Contact</a></li>
                                 <li class="mb-2"><a href="/underconstruction">FAQs</a></li>
                                 <li class="mb-2"><a href="/underconstruction">Careers</a></li>
                             </ul>
@@ -50,8 +50,8 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="text-uppercase-expanded text-xs mb-4">Legal</div>
                             <ul class="list-unstyled mb-0">
-                                <li class="mb-2"><a href="/underconstruction">Privacy Policy</a></li>
-                                <li class="mb-2"><a href="/termsandconditions">Terms and Conditions</a></li>
+                                <li class="mb-2"><a href="{{ route('privacypolicy') }}">Privacy Policy</a></li>
+                                <li class="mb-2"><a href="{{ route('termsandconditions') }}">Terms and Conditions</a></li>
                                 <li><a href="/underconstruction">License</a></li>
                             </ul>
                         </div>

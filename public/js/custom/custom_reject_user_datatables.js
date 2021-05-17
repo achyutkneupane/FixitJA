@@ -66,7 +66,7 @@ var KTDatatableHtmlTableDemo = (function () {
                                 class: " label-light-danger",
                             },
                         };
-                        return (
+                         return (
                             '<span class="label font-weight-bold label-lg' +
                             status[row.Status].class +
                             ' label-inline">' +
@@ -81,7 +81,7 @@ var KTDatatableHtmlTableDemo = (function () {
                     width: "90",
                     // callback function support for column rendering
                     template: function template(row) {
-                        var status1 = {
+                        var status = {
                             admin: {
                                 title: "Admin",
                                 state: "success",
@@ -101,11 +101,11 @@ var KTDatatableHtmlTableDemo = (function () {
                         };
                         return (
                             '<span class="label label-' +
-                            status1[row.Role].state +
+                            status[row.Role].state +
                             ' label-dot mr-2"></span><span class="font-weight-bold text-' +
-                            status1[row.Role].state +
+                            status[row.Role].state +
                             '">' +
-                            status1[row.Role].title +
+                            status[row.Role].title +
                             "</span>"
                         );
                     },
@@ -125,24 +125,7 @@ var KTDatatableHtmlTableDemo = (function () {
                     type: "string",
                     width: 100,
                 },
-                {
-      field: 'Actions',
-      type: 'Actions',
-      width: '40',
-       template: function template(row) {
-          var status = {
-            'edit': {
-              'title': 'Edit',
-              'state': 'success'
-            },
-            'delete': {
-              'title': 'delete',
-              'state': 'danger'
-            },
-            
-          };
-          return '<span class=\"label label-' + status[row.Actions].state + ' label-dot mr-2\"></span><span class=\"font-weight-bold text-' + status[row.Actions].state + '\">' + status[row.Actions].title + '</span>';}
-    }],
+        ],
     });
         $("#kt_datatable_search_status").on("change", function () {
             datatable.search($(this).val().toLowerCase(), "Status");
