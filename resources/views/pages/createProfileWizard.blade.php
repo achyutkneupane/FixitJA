@@ -444,7 +444,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                                 <div class="dropzone-msg dz-message needsclick">
                                                                     <a href="{{route('getfile', basename($category['document']['path']))}}"
                                                                         class="dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable"><i
-                                                                            class="fas fa-long-arrow-alt-down"></i><span>Download certiifcate
+                                                                            class="fas fa-long-arrow-alt-down"></i><span>Download certificate
                                                                         </span></a><br><br>
                                                                        <input
                                                                         id="certificateFile" type="file"
