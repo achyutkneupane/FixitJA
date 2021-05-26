@@ -744,7 +744,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <h4 class="mb-10 font-weight-bold text-dark">Please answer the question</h4>
                             <!--begin::Input-->
                             <div class="form-group fv-plugins-icon-container">
-                                <label class="col-9 col-form-label">7. Are you willing to go for backgroud check or criminal report?</label>
+                                <label class="col-9 col-form-label">7. Are you willing to do a background check?</label>
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
                                         <input type="radio" name="police_report"
@@ -760,7 +760,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             </div>
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
-                                    <label for="exampleTextarea">8. Write short description about yourself?
+                                    <label for="exampleTextarea">8. Provide a short description about yourself.
                                         <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="exampleTextarea" rows="3"
                                         name="personal_description">{{ auth()->user()->introduction }}</textarea>
@@ -813,7 +813,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                              
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
-                                    <label for="exampleTextarea">12. How long distance you are willing to travel?
+                                    <label for="exampleTextarea">12. Select the distance you are willing to travel.
                                         <div class="slidecontainer">
                                             <input type="range" min="1" max="100" value="{{ auth()->user()->total_distance ? : '' }}" class="slider" id="myRange"
                                                 name="total_distance" >

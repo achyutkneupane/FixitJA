@@ -67,12 +67,6 @@ const experienceValidator = {
 }
 const certificateValidator = {
     validators: {
-        notEmpty: {
-            message: 'Certificate is required',
-            callback: function (input) {
-                return !!input.value;
-            },
-        },
         file: {
             extension: 'jpeg,jpg,png,pdf,doc,docx',
             type: 'image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
