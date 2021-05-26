@@ -4,12 +4,28 @@
 @php
 $page_title = 'Dashboard';
 @endphp
+@formToBeFilled
 <div class="col-xl-12">
     <div class="card card-custom bgi-no-repeat gutter-b card-stretch" style="background-color: #1B283F; background-position: 0 calc(100% + 0.5rem); background-size: 100% auto;">
         <!--begin::Body-->
         <div class="card-body">
             <div class="p-4">
-                <h3 class="text-white font-weight-bolder my-7">Create your home project now</h3>
+                <h3 class="text-white font-weight-bolder my-7">Welcome to FixitJA</h3>
+                <p class="text-muted font-size-lg mb-7">Congratulations you have successfully registered with FixitJA. Please verify your email address and complete your application process.
+                </p>
+                <a href="{{ route('profileWizard') }}" class="btn btn-primary font-weight-bold px-6 py-3">Complete Application</a>
+            </div>
+        </div>
+        <!--end::Body-->
+    </div>
+</div>
+@else
+<div class="col-xl-12">
+    <div class="card card-custom bgi-no-repeat gutter-b card-stretch" style="background-color: #1B283F; background-position: 0 calc(100% + 0.5rem); background-size: 100% auto;">
+        <!--begin::Body-->
+        <div class="card-body">
+            <div class="p-4">
+                <h3 class="text-white font-weight-bolder my-7">Create your homee project now</h3>
                 <p class="text-muted font-size-lg mb-7">Placing your project is very easy and can be accoplished in few steps. All your have to give is your project information.
                 </p>
                 <a href="{{ route('createProject') }}" class="btn btn-primary font-weight-bold px-6 py-3">Create Project</a>
@@ -18,9 +34,8 @@ $page_title = 'Dashboard';
         <!--end::Body-->
     </div>
 </div>
-@isContractor()
-@else
-<div class="col-xl-12">
+@endformToBeFilled
+{{-- <div class="col-xl-12">
     <!--begin::Engage Widget 6-->
     <div class="card card-custom card-stretch gutter-b">
         <div class="card-body d-flex p-0">
@@ -34,8 +49,7 @@ $page_title = 'Dashboard';
         </div>
     </div>
     <!--end::Engage Widget 6-->
-</div>
-@endisContractor
+</div> --}}
 {{-- @userIsContractor($loggedUser)
 <div class="col-xl-12">
     <!--begin::Engage Widget 7-->

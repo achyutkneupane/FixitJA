@@ -286,7 +286,7 @@ function LoadWizardData(wizard) {
             cloneCertificateAccordion.show();
 
             var cardTitle = cloneCertificateAccordion.find("#certificateCategoryTitle");
-            console.log(cardTitle)
+            console.log(cardTitle);
             cardTitle.html(value.innerHTML);
             cardTitle.attr("id", "certificateCategoryTitle" + index);
 

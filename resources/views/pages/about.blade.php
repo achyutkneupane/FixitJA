@@ -28,7 +28,7 @@
                 <p>With FIXIT-JA,users can view average project costs, find local pre-screened home professionals, and instantly book appointments online. <b>Our mission is to create a better connection between the right consumer and the right service professional. We want you to get your job done right!</b></p>
 
                 <p>Operating in the Caribbean region we showcase the talents of independent professionals and match the right talents with the demands for their services.We also hold each side accountable to keep up their end of the arrangements. We are a truly customer centric organization, which hopefully is reflected through our processes and ease of use of our platform.</p>
-                <h1>What differentiates FIXIT-JA from others</h1>
+                <h1>What differentiates FIXIT-JA</h1>
                 <ol>
                 <li>This platform is focussed on skilled self-employed individuals working as independent contractors (IC) who prefer the world of being independent entrepreneurs rather than people seeking full time employment with other businesses.</li>
                 <li>We are committed to providing The ENTREPRENEURS (IC) listed on our platform exposure of their skills and expertise as we match the demand for their talent with the right consumers.</li>

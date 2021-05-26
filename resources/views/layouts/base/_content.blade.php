@@ -5,7 +5,7 @@
     @notVerified
         @include('layouts.partials._custom_alert_heading',[
         'alert_type' => 'danger',
-        'content' => 'Your account is not activated yet. Please verify your email to activate your account.',
+        'content' => 'Your account is not yet activated. An email has been sent to you. Please verify your email address to activate your account.',
         'has_button' => 'true',
         'button_text' => 'Resend verify link again',
         'button_link' => route('resendEmail')
