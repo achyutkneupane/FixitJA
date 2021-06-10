@@ -21,7 +21,6 @@ class relatedTaskOnlyy
      */
     public function handle($request, Closure $next)
     {
-        dd($request);
         if ($request->user()->type !== 'admin') {
             return redirect()->route('home');
         }

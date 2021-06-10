@@ -48,7 +48,11 @@ class TaskController extends Controller
         $cats = Category::with('sub_categories')->get();
         $subs = SubCategory::all();
         $parishes = Parish::all();
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = Category::limit(6)->with([
+            'sub_categories' => function($query){
+                return $query->whereBetween('id',[8,14]);
+            }
+            ])->get();
         if(!empty(auth()->user()))
             return view('pages.createTaskWizard', compact('page_title', 'page_description','subs','cats','parishes','user', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
         else
@@ -316,7 +320,6 @@ class TaskController extends Controller
     {
         $hours = WorkingHour::with('user')->orderBy('created_at','DESC')->where('task_id',$id)->get();
         $task = Task::find($id);
-        // dd($hours);
         return view('admin.task.taskWorking',compact('task','hours'));
     }
     public function postWorking(Request $request,$id)

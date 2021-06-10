@@ -22,20 +22,25 @@
                 <div class="card-body row">
                 @if($subCats->count() > 0)
                     @foreach ($subCats as $subCat)
-                        <div class="col-sm-6 card card-custom gutter-b">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <h3 class="card-label">
-                                        {{ ucwords($subCat['category']['category_name']) }}
-                                    </h3>
+                        <div class="col-sm-6">
+                            <div class="col-sm-12">
+                                <div class="gutter-b border border-4 rounded-lg px-5 py-4">
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <h3 class="text-uppercase">
+                                            {{ ucwords($subCat['category']['category_name']) }}
+                                        </h3>
+                                        @if(isset($subCat['document']->experience))
+                                        <div class="d-flex justify-content-end">
+                                            Experience: <div class="text-muted ml-3">{{ $subCat['document']->experience }} years</div>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <ul>
+                                        @foreach ($subCat['subcategory'] as $subs)
+                                            <li>{{ ucwords($subs->name) }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <ul>
-                                    @foreach ($subCat['subcategory'] as $subs)
-                                        <li>{{ ucwords($subs->name) }}</li>
-                                    @endforeach
-                                </ul>
                             </div>
                         </div>
                     @endforeach

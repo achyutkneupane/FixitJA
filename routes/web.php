@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\MainController::class, 'home'])->name('homePage');
 Auth::routes([
     'verify' => true,
+    'register' => false,
     ]);
 Route::get('verify/{verification_code}/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyUser']);
 Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
@@ -33,6 +34,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/login', function () {
     return view('auth.login');
 })->middleware('guest')->name('login');
+Route::get('/register', function () {
+    if(isset($_GET['as']))
+    $sessionType = $_GET['as'];
+    else
+    $sessionType = null;
+    return view('auth.register',compact('sessionType'));
+})->middleware('guest')->name('register');
+Route::post('/register',[App\Http\Controllers\Auth\RegisterController::class, 'register'])->middleware('guest')->name('signup');
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'authenticate'])->middleware('guest')->name('authenticate');
 Route::prefix('/category')->group(function () {
     Route::post('/add', [App\Http\Controllers\CategoryController::class, 'store'])->middleware('auth', 'checkIfAdmin');

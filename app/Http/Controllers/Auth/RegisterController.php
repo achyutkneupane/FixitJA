@@ -64,14 +64,14 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-
+    
     /* Add by Ashish Pokhrel */
     public function register(Request $request)
     {
        $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:emails,email'],
-            'phone' => ['required', 'string', 'min:8', 'unique:phones,phone'],
+            'phone' => ['required', 'string', 'digits:10'],
             /* Add by Ashish Pokhrel */
             'type' => ['required' ,Rule::in(['admin', 'independent_contractor', 'Business', 'general_user'])],
             'gender' => ['nullable', 'string'],

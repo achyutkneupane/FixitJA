@@ -56,7 +56,7 @@
                     <div class="dropdown-menu dropdown-menu-md py-5">
                         <ul class="navi navi-hover">
                             <li class="navi-item">
-                                <a class="navi-link" href="/register">
+                                <a class="navi-link" href="/register?as=business">
                                     <span class="navi-icon"><i class="flaticon2-user-1 text-danger"></i></span>
                                     <span class="navi-text">Sign Up</span>
                                 </a>
@@ -77,7 +77,7 @@
                     <div class="dropdown-menu dropdown-menu-md py-5">
                         <ul class="navi navi-hover">
                             <li class="navi-item">
-                                <a class="navi-link" href="/register">
+                                <a class="navi-link" href="/register?as=general_user">
                                     <span class="navi-icon"><i class="flaticon2-user-1 text-danger"></i></span>
                                     <span class="navi-text">Sign Up</span>
                                 </a>
@@ -95,7 +95,7 @@
                 <!-- <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/register">Sign Up</a>
                     <a class="btn-website font-weight-500 ml-lg-4 btn-website-teal" href="/register">Business</i></a> -->
                 <li class="nav-item no-caret mt-5">
-                    <a class="btn-website font-weight-500 btn-website-teal" style="display: block;" href="/register">Become Our Fixician</a>
+                    <a class="btn-website font-weight-500 btn-website-teal" style="display: block;" href="/register?as=independent_contractor">Become Our Fixician</a>
                 </li>
                 <li class="nav-item no-caret mt-5">
                     @if (Route::has('login'))

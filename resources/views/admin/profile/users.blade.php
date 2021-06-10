@@ -76,6 +76,7 @@
                         <th title="Role">Role</th>
                         <th title="Email">Email</th>
                         <th title="Phone">Phone</th>
+                        <th title="Registered">Registered</th>
                         <th title="Address">Address</th>
                     </tr>
                 </thead>
@@ -94,6 +95,7 @@
                             <td>{{ $user->type }}</td>
                             <td>{{ $user->email() }}</td>
                             <td>{{ $user->phone() }}</td>
+                            <td>{{ $user->created_at->toDateTimeString() }}</td>
                             <td>{!! !empty($user->city->name) ? $user->city->name : "<span class='text-muted'>N/A</span>" !!}</td>
                         </tr>
                     @endforeach

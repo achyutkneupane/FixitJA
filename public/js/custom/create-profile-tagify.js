@@ -1,4 +1,5 @@
 var selectedCategoryData = {};
+
 function bindSubCat1(data, subcat) {
     var toEl = document.getElementById(subcat);
     var tagifyTo = new Tagify(toEl, {
@@ -8,7 +9,7 @@ function bindSubCat1(data, subcat) {
         keepInvalidTags: true, // do not remove invalid tags (but keep them marked as invalid)
         whitelist: data,
         templates: {
-            dropdownItem: function (tagData) {
+            dropdownItem: function(tagData) {
                 try {
                     var html = '';
 
@@ -28,7 +29,7 @@ function bindSubCat1(data, subcat) {
                 } catch (err) {}
             }
         },
-        transformTag: function (tagData) {
+        transformTag: function(tagData) {
             tagData.class = 'tagify__tag tagify__tag--primary';
         },
         dropdown: {
@@ -40,7 +41,7 @@ function bindSubCat1(data, subcat) {
 
 }
 
-$(document).on('change', '.category-select', function (e) {
+$(document).on('change', '.category-select', function(e) {
     e.stopImmediatePropagation();
     e.preventDefault();
     var subcatid = this.getAttribute('subcatid');
@@ -49,13 +50,11 @@ $(document).on('change', '.category-select', function (e) {
     }
     var category_id = $(this).val();
     selectedCategoryData[$(this).attr("id")] = $(this).val();
-    $(".category-select").each(function () {
+    $(".category-select").each(function() {
         var selectID = $(this).attr("id");
         $("#" + selectID + " option").prop("disabled", false);
         $("#" + selectID + " option[value='']").prop("disabled", true);
-        $.each(selectedCategoryData, function (id, val) {
-            console.log(id);
-            console.log(val);
+        $.each(selectedCategoryData, function(id, val) {
             $("#" + selectID + " option[value=" + val + "]").prop("disabled", true);
         });
     });
@@ -69,8 +68,8 @@ function getSubCatData(categoryId, subcatid) {
         type: "GET",
         url: '/api/category/' + categoryId,
         dataType: 'json',
-        success: function (result) {
-            $.each(result, function (index, item) {
+        success: function(result) {
+            $.each(result, function(index, item) {
                 var itemObj = {};
                 itemObj.value = item.name;
                 itemObj.description = item.description;
@@ -101,7 +100,7 @@ function bindSubCat2(data, subcat) {
         keepInvalidTags: false, // do not remove invalid tags (but keep them marked as invalid)
         whitelist: data,
         templates: {
-            dropdownItem: function (tagData) {
+            dropdownItem: function(tagData) {
                 try {
                     var html = '';
 
@@ -120,7 +119,7 @@ function bindSubCat2(data, subcat) {
                 } catch (err) {}
             }
         },
-        transformTag: function (tagData) {
+        transformTag: function(tagData) {
             tagData.class = 'tagify__tag tagify__tag--primary';
         },
         dropdown: {
@@ -133,7 +132,7 @@ function bindSubCat2(data, subcat) {
     var result = sessionSubCatId;
     var subcat = [];
     Object.keys(result).forEach((key) => {
-        result[key].forEach((element,index)=>{
+        result[key].forEach((element, index) => {
             subcat.push(element);
         });
     });
@@ -141,13 +140,13 @@ function bindSubCat2(data, subcat) {
         data.forEach((element, index) => {
             if (element.id === subcat[i]) {
                 if (element) {
-                     
+
 
                     tagifyTo1.addTags([element]);
                 }
-                
-                        $("#skill").append([element.value]+ ",");
-                 
+
+                $("#skill").append([element.value] + ",");
+
 
 
             }
@@ -164,19 +163,19 @@ var catid;
 var updatesubcatid = new Array();
 Object.keys(category).forEach((key) => {
     var subcatid = "kt_tagify_subcategory" + ++count;
-    $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "'+count+'"},');
+    $("#totalCatList").val($("#totalCatList").val() + '{"fieldId": "' + count + '"},');
     getSubCatData1(category[key], subcatid);
 });
 
 function getSubCatData1(categoryId, subcat) {
     var subcategory = new Array();
     var count = 0;
-        $.ajax({
-            type: "GET",
-            url: '/api/category/' + categoryId,
-            dataType: 'json',
-            success: function (result) {
-            $.each(result, function (index, item) {
+    $.ajax({
+        type: "GET",
+        url: '/api/category/' + categoryId,
+        dataType: 'json',
+        success: function(result) {
+            $.each(result, function(index, item) {
                 var itemObj = {};
                 itemObj.value = item.name;
                 itemObj.initials = '';

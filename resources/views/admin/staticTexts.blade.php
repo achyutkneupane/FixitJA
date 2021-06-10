@@ -75,7 +75,6 @@
             } else {
                 var discussionText = document.querySelector('#static{{ $static->id }}');
                 discussionText.value = text;
-                console.log(discussionText.value);
                 document.getElementById("staticForm{{ $static->id }}").submit();
             }
         };

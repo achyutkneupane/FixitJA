@@ -11,9 +11,15 @@ $page_title = 'Dashboard';
         <div class="card-body">
             <div class="p-4">
                 <h3 class="text-white font-weight-bolder my-7">Welcome to FixitJA</h3>
+                @notVerified
                 <p class="text-muted font-size-lg mb-7">Congratulations you have successfully registered with FixitJA. Please verify your email address and complete your application process.
+                @else
+                <p class="text-muted font-size-lg mb-7">Congratulations you have successfully verified your email. Please complete your application process.
+                @endnotVerified
                 </p>
+                @isVerified
                 <a href="{{ route('profileWizard') }}" class="btn btn-primary font-weight-bold px-6 py-3">Complete Application</a>
+                @endisVerified
             </div>
         </div>
         <!--end::Body-->

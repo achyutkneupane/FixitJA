@@ -121,14 +121,6 @@ class SubCategoryController extends Controller
        
         
     }
-    public function getSubCategory()
-    {
-        
-       
-        
-        //dd($users->allCategories());
-       
-    }
 
     public function listcats()
     {

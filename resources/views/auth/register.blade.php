@@ -41,7 +41,7 @@ $show_sidebar = false;
                 <!--begin::Signin-->
                 <div class="login-form">
                     <!--begin::Form-->
-                    <form id="demoForm" method="POST" action="{{ route('register') }}">
+                    <form id="demoForm" method="POST" action="{{ route('signup') }}">
                         @csrf
                         <!--begin: Wizard Step 1-->
                         <div class="" data-wizard-type="step-content" data-wizard-state="current">
@@ -65,7 +65,7 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Email (Required)</label>
-                                <input type="email" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="email" placeholder="Email" value="{{ session()->has('referral') ? $toRegister : old('email')}}" />
+                                <input type="email" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="email" placeholder="info@fixitja.com" value="{{ session()->has('referral') ? $toRegister : old('email')}}" />
                                 @if ($errors->has('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
@@ -74,7 +74,15 @@ $show_sidebar = false;
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Phone (Required)</label>
-                                <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone" placeholder="Phone" value="{{old('phone')}}" />
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="form-control form-control-solid h-auto py-7 px-6 border-0 font-size-h6" id="phone_number">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Flag_of_Jamaica.svg/255px-Flag_of_Jamaica.svg.png" height="25" width="30">
+                                        +1
+                                    </span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 font-size-h6" name="phone" placeholder="8442000161" value="{{old('phone')}}"  id="basic-url" aria-describedby="phone_number"/>
+                                </div>
                                 @if ($errors->has('phone'))
                                 <span class="text-danger">{{ $errors->first('phone') }}</span>
                                 @endif
@@ -93,11 +101,11 @@ $show_sidebar = false;
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Type (Required)</label>
 
-                                <select class="form-control" id="user_type" name="type" value="{{ old('user_type') }}">
-                                    <option value="">Select</option>
-                                    <option value="general_user"   id="type1" @if (old('type') == "general_user") {{ 'selected' }} && (old('id') == "type1") {{ 'selected' }} @endif  >General</option>
-                                    <option value="Business"   id="type2" @if (old('type') == "Business") {{ 'selected' }} @endif>Business</option>
-                                    <option value="independent_contractor"   id="type3" @if (old('type') == "independent_contractor") {{ 'selected' }} @endif>Skilled Worker</option>
+                                <select class="form-control" id="user_type" name="type">
+                                    <option value="" disabled>Select</option>
+                                    <option value="general_user" @if (old('type') == "general_user" || $sessionType == "general_user") {{ 'selected' }} @endif>General User</option>
+                                    <option value="business" @if (old('type') == "business" || $sessionType == "business") {{ 'selected' }} @endif>Business</option>
+                                    <option value="independent_contractor" @if (old('type') == "independent_contractor" || $sessionType == "independent_contractor") {{ 'selected' }} @endif>Skilled Worker</option>
                                 </select>
                                 @if ($errors->has('type'))
                                 <span class="text-danger">{{ $errors->first('type') }}</span>
@@ -218,23 +226,35 @@ $show_sidebar = false;
             $('.select2').select2();
         });
     </script>
-
-
     <script>
-    @if (old('type') == "general_user" || old('type') == "independent_contractor")
-        document.getElementById("genders").style.display = "block";
-        document.getElementById("webpersonal").style.display = "block";
-        @else
-        document.getElementById("genders").style.display = "none";
-        document.getElementById("webpersonal").style.display = "none";
-        @endif
+        function changeType()
+        {
+            var type = $('#user_type').val();
+            if (type == "general_user" || type == "independent_contractor") 
+            {
+                document.getElementById("genders").style.display = "block";
+                document.getElementById("webpersonal").style.display = "block";
+            }
+            else
+            {
+                document.getElementById("genders").style.display = "none";
+                document.getElementById("webpersonal").style.display = "none";
+            }
 
-        @if(old('type') == "Business")
-        document.getElementById("webcompany").style.display = "block";
-        document.getElementById("companyname").style.display = "block";
-        @else
-        document.getElementById("webcompany").style.display = "none";
-        document.getElementById("companyname").style.display = "none";
-        @endif
+            if(type == "business")
+            {
+                document.getElementById("webcompany").style.display = "block";
+                document.getElementById("companyname").style.display = "block";
+            }
+            else
+            {
+            document.getElementById("webcompany").style.display = "none";
+            document.getElementById("companyname").style.display = "none";
+            }
+        }
+        changeType();
+        $("#user_type").change(function() {
+            changeType();
+        });
     </script>
     @endsection

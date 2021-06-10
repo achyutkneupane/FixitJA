@@ -27,7 +27,6 @@ var cityId = {{ auth()->user()->city->id }};
 $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
 @endphp
 <script>
-// console.log(sessionSubCatId);
 </script>
 <!-- <div class="d-flex flex-column-fluid"> -->
 <!--begin::Container-->
@@ -397,7 +396,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <!--begin::Accordion-->
                             </div>
                             <input type="hidden" id="totalCatList" name="totalCatList">
-                            <button type="button" name="add" id="add_btn" class="btn btn-success">Add More</button>'
+                            <button type="button" name="add" id="add_btn" class="btn btn-success">Add More</button>
                             <!--end::Select-->
                         </div>
 
@@ -442,10 +441,13 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                             <div class="dropzone dropzone-default dropzone-primary">
 
                                                                 <div class="dropzone-msg dz-message needsclick">
+                                                                    @if($category['document'])
                                                                     <a href="{{route('getfile', basename($category['document']['path']))}}"
                                                                         class="dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable"><i
                                                                             class="fas fa-long-arrow-alt-down"></i><span>Download certificate
-                                                                        </span></a><br><br>
+                                                                        </span></a>
+                                                                    @endif
+                                                                        <br><br>
                                                                        <input
                                                                         id="certificateFile" type="file"
                                                                         category="category-name"
@@ -490,7 +492,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                     <label class="font-size-h6 font-weight-bolder text-dark">Experience
                                                         <input type="text" class="form-control"
                                                             category="category-name" type="number" placeholder="Years"
-                                                            value="{{ $category['document']['experience']}}">
+                                                            value="{{ $category['document'] ? $category['document']['experience'] : '' }}">
                                                     </label>
                                                 </div>
 
@@ -593,19 +595,17 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Start Date</label>
-                                 
-                                 
-                                <div class="col-10">
-                                <div class='input-group date' id='datetimepicker1'>
-                                    <input type="text" class="form-control datepicker" name="start_date" id="selectstartdate" format="Y-m-d"  placeholder="Select date" value="@foreach(auth()->user()->educations as $education) {{ $education->start_date }} @endforeach" />
-                    </div>
+                                <div class="col-12">
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <input type="text" class="form-control datepicker" name="start_date" id="selectstartdate" format="Y-m-d"  placeholder="Select date" value="@foreach(auth()->user()->educations as $education) {{ $education->start_date }} @endforeach" />
+                                    </div>
                                 </div>
                                 <!--end::Form Group-->
                                 <!--begin::Form Group-->
                                 <div class="form-group">
                                     <label class="font-size-h6 font-weight-bolder text-dark">End Date</label>
                                
-                                    <div class="col-10">
+                                    <div class="col-12">
                                     <div class='input-group date' id='datetimepicker1'>
                                          <input type="text" class="form-control datepicker" name="end_date" id="selectendtdate" format="Y-m-d"  placeholder="Select date" value="@foreach(auth()->user()->educations as $education) {{ $education->end_date }} @endforeach" />
                     </div>
@@ -643,30 +643,27 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                         </div>
                                         <div id="collapseReference1" class="collapse show"
                                             data-parent="#accordionExample3">
-                                            <div class="card-body">
+                                            <div class="card-body col-12">
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
-                                                        Name
+                                                    <label class="font-size-h6 font-weight-bolder text-dark col-12">Referral Name
                                                         <input type="text" id="refname" class="form-control" type="text"
-                                                            name="referal_name" placeholder="Referal Name"
+                                                            name="referal_name" placeholder="Referral Name"
                                                             value="{{ $reference->refname }}">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
-                                                        Email
+                                                    <label class="font-size-h6 font-weight-bolder text-dark col-12">Referral Email <span class="text-muted lead">(Optional)</span>
                                                         <input type="email" id="refemail" class="form-control"
                                                             type="email" name="referal_email"
-                                                            placeholder="Referal Email"
+                                                            placeholder="Referral Email"
                                                             value="{{ $reference->refemail }}">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referal
-                                                        Contact Number
+                                                    <label class="font-size-h6 font-weight-bolder text-dark col-12">Referral Contact Number
                                                         <input type="text" id="refphone" class="form-control"
                                                             type="text" name="referal_phone"
-                                                            placeholder="Referal Contact Number"
+                                                            placeholder="Referral Contact Number"
                                                             value="{{ $reference->refphone }}">
                                                     </label>
                                                 </div>
@@ -689,38 +686,31 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                             <div class="card-title" data-toggle="collapse"
                                                 data-target="#collapseReference1">
                                                 <span class="glyphicon glyphicon-remove-circle pull-right "></span>
-
                                             </div>
                                         </div>
                                         <div id="collapseReference1" class="collapse show"
                                             data-parent="#accordionExample3">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referral
-                                                        Name
+                                                    <label class="font-size-h6 font-weight-bolder text-dark col-12">Referral Name
                                                         <input type="text" id="refname" class="form-control" type="text"
                                                             name="referal_name" placeholder="Referal Name" value="">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referral
-                                                        Email
+                                                    <label class="font-size-h6 font-weight-bolder text-darkc col-12">Referral Email <span class="text-muted lead">(Optional)</span>
                                                         <input type="email" id="refemail" class="form-control"
                                                             type="email" name="referal_email"
                                                             placeholder="Referal Email" value="">
                                                     </label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">Referral
-                                                        Contact Number
+                                                    <label class="font-size-h6 font-weight-bolder text-dark col-12">Referral Contact Number
                                                         <input type="tel" id="refphone" class="form-control"
                                                             type="text" name="referal_phone"
                                                             placeholder="Referal Contact Number" value="">
                                                     </label>
                                                 </div>
-
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -748,11 +738,11 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <div class="radio-inline">
                                     <label class="radio radio-primary">
                                         <input type="radio" name="police_report"
-                                            {{ auth()->user()->is_police_record  ? 'checked' : ''}} value="1" />
+                                            {{ auth()->user()->is_police_record ? 'checked' : ''}} value="1" />
                                         <span></span>Yes</label>
                                     <label class="radio radio-primary">
                                         <input type="radio" name="police_report"
-                                            {{ auth()->user()->is_police_record == '0' ? 'checked' : ''}} value="0" />
+                                            {{ !auth()->user()->is_police_record ? 'checked' : ''}} value="0" />
                                         <span></span>No</label>
                                     <label class="radio radio-primary radio-disabled">
 
@@ -769,8 +759,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <div class="form-group fv-plugins-icon-container">
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">9. How many working hours per week?
-                                        <input type="text" class=" form-control " name="hours"
-                                            placeholder="enter your work hours" rows="1"
+                                        <input type="text" class="form-control " name="hours"
+                                            placeholder="Enter your working hours" rows="1"
                                             value="{{ auth()->user()->hours}}" />
                                 </div>
                             </div>
@@ -783,9 +773,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 
 
                                 <div class="col-9 col-form-label">
-
                                     <div class="checkbox-inline">
-
                                         <input id="kt_tagify_workingdays" class="form-control" name="working_days"
                                             placeholder="Add sub-categories" value="">
                                         <div class="mt-3 text-muted">Select multiple days. If you don't see your option just create one.</div>
@@ -815,7 +803,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <div class="col-9 col-form-label">
                                     <label for="exampleTextarea">12. Select the distance you are willing to travel.
                                         <div class="slidecontainer">
-                                            <input type="range" min="1" max="100" value="{{ auth()->user()->total_distance ? : '' }}" class="slider" id="myRange"
+                                            <input type="range" min="1" max="100" value="{{ auth()->user()->total_distance ? auth()->user()->total_distance : '1' }}" class="slider" id="myRange"
                                                 name="total_distance" >
                                             <p>Total Distance: <span id="demo" > {{ auth()->user()->total_distance ? : '1' }} </span>Km</p>
                                         </div>
@@ -872,68 +860,23 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                         <!--begin::wizard step 7-->
             <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                 <h3 class="mb-10 font-weight-bold text-dark">Enter your Address</h3>
-                @if(auth()->user()->city)
                 <!--begin::Select-->
                 <div class="form-group fv-plugins-icon-container">
                     <label>Parishes</label>
                     <select class="form-control select2" id="userParishSelect" name="parish">
-                        
-                        <option value= "{{ auth()->user()->city->parish->id ? 'selected' : '' }}">{{ auth()->user()->city->parish->name }}</option>
-                       @foreach($parishes as $parish)
-                        <option value="{{ $parish->id }}"
-                            {{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
+                        <option label=""></option>
+                        @foreach($parishes as $parish)
+                        <option value="{{ $parish->id }}"{{ !empty(auth()->user()->city->parish) && $parish->id == auth()->user()->city->parish->id ? ' selected' : '' }}>
                             {{ $parish->name }}
                         </option>
                         @endforeach
                     </select>
                 </div>
-                
-                
-                
-                
                 <div class="form-group fv-plugins-icon-container">
                     <label>City</label>
                     <select class="form-control select2" id="userCitySelect" name="cities">
-                    <option value="{{ auth()->user()->city->id ? 'selected' : ''}}">{{ auth()->user()->city->name}}</option>
-                   
                     </select>
                 </div>
-                @else
-
-           
-          
-               
-                <!--begin::Select-->
-                <div class="form-group fv-plugins-icon-container">
-                    <label>Parishes</label>
-                    <select class="form-control select2" id="userParishSelect" name="parish" >
-                        
-                        
-                       @foreach($parishes as $parish)
-                        <option value="{{ $parish->id }}"
-                            {{ !empty($user) && $parish->id == $user->city->parish->id ? ' selected' : '' }}>
-                            {{ $parish->name }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-                
-                
-                
-                
-                <div class="form-group fv-plugins-icon-container">
-                    <label>City</label>
-                    <select class="form-control select2" id="userCitySelect" name="cities">
-                    
-                   
-                    </select>
-                </div>
-
-                @endif
-
-                
-                
-
                 
                 <div class="form-group fv-plugins-icon-container">
                     <label>Street</label>
@@ -1078,7 +1021,9 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
 <script src="{{ asset('js/custom/create-profile-wizard-custom.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('js/custom/create-profile-tagify.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/custom/parish-city-select.js') }}" type="text/javascript"></script>
+<script
+    src="{{ asset('js/custom/parish-city-select.js') }}" type="text/javascript">
+</script>
 
 <script src="{{ asset('js/pages/custom/login/login-4.js') }}" type="text/javascript"></script>
 <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>
@@ -1093,31 +1038,11 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
     $(".navbar-marketing").removeClass("fixed-top");
 </script>
 
-<script>
-    var avatar5 = new KTImageInput('kt_image_5');
-    avatar5.on('cancel', function (imageInput) {
-        swal.fire({
-        });
-    });
-    avatar5.on('change', function (imageInput) {
-        swal.fire({
-        });
-    });
-    avatar5.on('remove', function (imageInput) {
-        swal.fire({
-        });
-    });
-
-   
-
-</script>
 
 <!-- Added by Ashish Pokhrel  -->
 <script>
     $(function(){
         $(".datepicker").datepicker();
     });
-
 </script>
-
 @endsection
