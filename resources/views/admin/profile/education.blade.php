@@ -35,7 +35,19 @@
                             <label class="col-xl-3 col-lg-3 col-form-label">Degree:</label>
                             <div class="col-lg-9 col-xl-6">
                                 <span class="form-control form-control-lg form-control-solid">
-                                    {!! $education->degree ? $education->degree : "<span class='text-muted'>N/A</span>" !!}
+                                    @if($education->degree)
+                                    @if($education->degree == 'secondary_level')
+                                    Secondary Level
+                                    @elseif($education->degree == 'higher_secondary_level')
+                                    Higher Secondary Level
+                                    @elseif($education->degree == 'bachelors')
+                                    Bachelors
+                                    @elseif($education->degree == 'masters')
+                                    Masters
+                                    @endif
+                                    @else
+                                    <span class='text-muted'>N/A</span>
+                                    @endif
                                 </span>
                             </div>
                         </div>

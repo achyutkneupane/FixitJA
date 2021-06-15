@@ -198,7 +198,7 @@ var KTWizard1 = function() {
                     degree: {
                         validators: {
                             notEmpty: {
-                                message: 'Degree type is required',
+                                message: 'Degree is required',
                                 callback: function(input) {
                                     $("#educationdegree").text(input.value);
                                     return !!input.value;
@@ -209,18 +209,34 @@ var KTWizard1 = function() {
                     start_date: {
                         validators: {
                             notEmpty: {
-                                message: 'Start Date is required',
+                                message: 'Start Date is required with End Date',
                                 callback: function(input) {
                                     $("#educationstartdate").text(input.value);
-                                    return !!input.value;
+                                    if($("#selectenddate").val() != '')
+                                    {
+                                        return !!input.value;
+                                    }
+                                    else
+                                        return true;
                                 },
                             },
-                            dateAfterToday: {
-                                message: 'Start date cannot be greater than current date',
+                            dateMatch: {
+                                message: 'Start date cannot be greater than End date',
                                 callback: function(input) {
-                                    var endDate = new Date(input.value);
+                                    $("#educationstartdate").text(input.value);
+                                    var startDate = new Date(input.value);
+                                    var endDate = new Date($("#selectenddate").val());
                                     var nowDate = new Date();
-                                    return (endDate.setHours(0, 0, 0, 0) <= nowDate.setHours(0, 0, 0, 0));
+                                    if(!!input.value)
+                                    {
+                                        if(startDate.setHours(0, 0, 0, 0) >= endDate.setHours(0,0,0,0)) {
+                                            return false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        return true;
+                                    }
                                 },
                             }
                         }
@@ -228,10 +244,15 @@ var KTWizard1 = function() {
                     end_date: {
                         validators: {
                             notEmpty: {
-                                message: 'End Date is required',
+                                message: 'End Date is required with Start Date',
                                 callback: function(input) {
                                     $("#educationenddate").text(input.value);
-                                    return !!input.value;
+                                    if($("#selectstartdate").val() != '')
+                                    {
+                                        return !!input.value;
+                                    }
+                                    else
+                                        return true;
                                 },
                             }
                         }
@@ -247,7 +268,7 @@ var KTWizard1 = function() {
                     }),
                     alias: new FormValidation.plugins.Alias({
                         notEmpty: 'callback',
-                        dateAfterToday: 'callback'
+                        dateMatch: 'callback'
                     }),
                 }
             }
@@ -564,7 +585,7 @@ var KTWizard1 = function() {
     var _initWizard = function() {
         // Initialize form wizard
         _wizardObj = new KTWizard(_wizardEl, {
-            startStep: 1, // initial active step number
+            startStep: 3, // initial active step number
             clickableSteps: false // allow step clicking
         });
 

@@ -49,15 +49,15 @@ class MainController extends Controller
     public function about()
     {
         $content = StaticText::where('slug','about_fixitja')->first();
-        $page_title = 'About';
-        $page_description = 'This is about us page';
+        $page_title = 'About Us';
+        $page_description = 'Our company culture, and how we do things';
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
         return view('pages.about', compact('page_title', 'page_description', 'navBarCategories','content'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function services()
     {
         $page_title = 'Services';
-        $page_description = 'This is services page';
+        $page_description = 'What we offer';
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
         return view('pages.services', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
@@ -93,7 +93,7 @@ class MainController extends Controller
     public function faqs()
     {
         $page_title = 'FAQs';
-        $page_description = 'This is frequently asked questions page';
+        $page_description = 'Here are some answers to some commonly asked questions';
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
         return view('pages.faqs', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }

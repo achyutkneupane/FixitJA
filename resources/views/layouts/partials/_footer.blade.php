@@ -26,7 +26,7 @@
                             <ul class="list-unstyled mb-0">
                                 <li class="mb-2"><a href="{{ route('aboutUs') }}">About the comapany</a></li>
                                 <li class="mb-2"><a href="/underconstruction">Fixician Directory</a></li>
-                                <li class="mb-2"><a href="/underconstruction">Services</a></li>
+                                <li class="mb-2"><a href="{{ route('services') }}">Services</a></li>
                                 <li class="mb-2"><a href="/underconstruction">How it works</a></li>
                                 <li class="mb-2"><a href="{{ route('hiringProcess') }}">Hiring Process</a></li>
                             </ul>
@@ -43,7 +43,7 @@
                             <div class="text-uppercase-expanded text-xs mb-4">Support</div>
                             <ul class="list-unstyled mb-0">
                                 <li class="mb-2"><a href="{{ route('contactUs') }}">Contact</a></li>
-                                <li class="mb-2"><a href="/underconstruction">FAQs</a></li>
+                                <li class="mb-2"><a href="{{ route('faq') }}">FAQs</a></li>
                                 <li class="mb-2"><a href="/underconstruction">Careers</a></li>
                             </ul>
                         </div>

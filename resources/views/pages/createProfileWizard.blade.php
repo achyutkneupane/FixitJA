@@ -25,6 +25,7 @@ var cityId = {{ auth()->user()->city->id }};
 @endif
 @php
 $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create Profile';
+$education = auth()->user()->educations->first();
 @endphp
 <script>
 </script>
@@ -299,7 +300,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                                             {{  ucwords($subcats['category']['category_name']) }}
                                                         </option>
                                                         @foreach ($category as $cate)
-6                                                        <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
+                                                         <option value="{{ $cate->id }}">{{ ucwords($cate->name) }}
                                                         </option>
                                                         @endforeach
 
@@ -561,13 +562,8 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <h3 class="mb-10 font-weight-bold text-dark">Add upto 3 of your education background</h3>
 
                             <div class="form-group">
-                                <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or
-                                    University</label>
-                                   
-                                  
-                                <input type="text" class="form-control " name="educationinstutional_name"
-                                    placeholder="Name"
-                                   value="@foreach(auth()->user()->educations as $education) {{ $education->education_institution_name}} @endforeach " />
+                                <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or University</label>
+                                <input type="text" class="form-control " name="educationinstutional_name" placeholder="Name" value="@if($education){{ $education->education_institution_name }}@endif"/>
                                 @if ($errors->has('educationinstutional_name'))
                                 <span class="text-danger">{{ $errors->first('educationinstutional_name') }}</span>
                                 @endif
@@ -575,17 +571,12 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <!--begin::Form Group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Degree</label>
-
-                                <select class="form-control" id="degree_wizard_profile" name="degree"
-                                    value="{{old('degree')}}">
-                                    @foreach(auth()->user()->educations as $education)
-                                    <option value="{{ $education->degree}}"> {{ $education->degree}}</option>
-                                    @endforeach
-                                    <option value="Secondary Level" id="type1">Secondary level</option>
-                                    <option value="Higher Secondary Level" id="type2">Higher Secondary level
-                                    </option>
-                                    <option value="Bachelors" id="type3">Bachelors</option>
-                                    <option value="Masters" id="type3">Masters</option>
+                                <select class="form-control" id="degree_wizard_profile" name="degree">
+                                    <option value="" disabled selected>Select a degree</option>
+                                    <option value="secondary_level" id="type1" {{ ($education && $education->degree == 'secondary_level') ? 'selected disabled' : '' }}>Secondary level</option>
+                                    <option value="higher_secondary_level" id="type2" {{ ($education && $education->degree == 'higher_secondary_level') ? 'selected disabled' : '' }}>Higher Secondary level</option>
+                                    <option value="bachelors" id="type3" {{ ($education && $education->degree == 'bachelors') ? 'selected disabled' : '' }}>Bachelors</option>
+                                    <option value="masters" id="type3" {{ ($education && $education->degree == 'masters') ? 'selected disabled' : '' }}>Masters</option>
                                 </select>
                                 @if ($errors->has('degree'))
                                 <span class="text-danger">{{ $errors->first('degree') }}</span>
@@ -594,7 +585,7 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                             <!--end::Form Group-->
                             <!--begin::Form Group-->
                             <div class="form-group">
-                                <label class="font-size-h6 font-weight-bolder text-dark">Start Date</label>
+                                <label class="font-size-h6 font-weight-bolder text-dark">Start Date <strong class="text-muted">(Optional)</strong></label>
                                 <div class="col-12">
                                     <div class='input-group date' id='datetimepicker1'>
                                         <input type="text" class="form-control datepicker" name="start_date" id="selectstartdate" format="Y-m-d"  placeholder="Select date" value="@foreach(auth()->user()->educations as $education) {{ $education->start_date }} @endforeach" />
@@ -603,11 +594,11 @@ $page_title = auth()->user()->status == 'pending' ? 'Edit Application' : 'Create
                                 <!--end::Form Group-->
                                 <!--begin::Form Group-->
                                 <div class="form-group">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">End Date</label>
+                                    <label class="font-size-h6 font-weight-bolder text-dark">End Date <strong class="text-muted">(Optional)</strong></label>
                                
                                     <div class="col-12">
                                     <div class='input-group date' id='datetimepicker1'>
-                                         <input type="text" class="form-control datepicker" name="end_date" id="selectendtdate" format="Y-m-d"  placeholder="Select date" value="@foreach(auth()->user()->educations as $education) {{ $education->end_date }} @endforeach" />
+                                         <input type="text" class="form-control datepicker" name="end_date" id="selectenddate" format="Y-m-d"  placeholder="Select date" value="@foreach(auth()->user()->educations as $education) {{ $education->end_date }} @endforeach" />
                     </div>
                                     </div>
                                     <!--end::Form Group-->

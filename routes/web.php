@@ -154,6 +154,8 @@ Route::prefix('/setting')->group(function() {
 Route::get('/terms-and-conditions', [App\Http\Controllers\MainController::class, 'termsandconditions'])->name('termsandconditions');
 Route::get('/privacy-policy', [App\Http\Controllers\MainController::class, 'privacypolicy'])->name('privacypolicy');
 Route::get('/hiring-process', [App\Http\Controllers\MainController::class, 'hiringProcess'])->name('hiringProcess');
+Route::get('/services', [App\Http\Controllers\MainController::class, 'services'])->name('services');
+Route::get('/faq', [App\Http\Controllers\MainController::class, 'faqs'])->name('faq');
 //End routes by Achyut Neupane
 
 
@@ -163,8 +165,6 @@ Route::get('/about-us', [App\Http\Controllers\MainController::class, 'about'])->
 //Route for contact us page
 Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact'])->name('contactUs');
 Route::post('/contact', [App\Http\Controllers\MainController::class, 'submitContact'])->name('submitContact');
-//Route for faqs page
-Route::get('/faqs', [App\Http\Controllers\MainController::class, 'faqs']);
 
 
 //Route for faqs page

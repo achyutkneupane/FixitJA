@@ -5,8 +5,8 @@
         <div class="container-website text-center">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <h1 class="page-header-title mb-3">{{ $content->title }}</h1>
-                    <p class="page-header-text">{{ $content->sub_title }}</p>
+                    <h1 class="page-header-title mb-3">{{ $page_title }}</h1>
+                    <p class="page-header-text">{{ $page_description }}</p>
                 </div>
             </div>
         </div>

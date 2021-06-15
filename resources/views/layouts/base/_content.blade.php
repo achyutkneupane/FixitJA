@@ -14,6 +14,7 @@
 
     @formToBeFilled
     @isVerified
+    @if(!request()->routeIs('profileWizard'))
         @include('layouts.partials._custom_alert_heading',[
         'alert_type' => 'danger',
         'content' => 'Please complete your application to become our Fixician and to start earning.',
@@ -21,6 +22,7 @@
         'button_text' => 'Complete Application',
         'button_link' => route('profileWizard')
         ])
+    @endif
     @endisVerified
     @endformToBeFilled
 

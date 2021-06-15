@@ -7,8 +7,8 @@
             <div class="container-website text-center">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
-                        <h1 class="page-header-title mb-3">Knowledgebase</h1>
-                        <p class="page-header-text">Here are some answers to some commonly asked questions</p>
+                        <h1 class="page-header-title mb-3">{{ $page_title }}</h1>
+                        <p class="page-header-text">{{ $page_description }}</p>
                     </div>
                 </div>
             </div>
@@ -21,150 +21,66 @@
     </header>
     <section class="bg-light py-website-10">
         <div class="container-website">
-            <div class="d-flex-website align-items-center mb-5">
-                <div class="icon-stack icon-stack-lg bg-primary text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                    </svg></div>
-                <div class="ml-3">
-                    <h2 class="mb-0">Account</h2>
-                    <p class="lead mb-0">Let's see if we can help.</p>
-                </div>
-            </div>
-            <div class="accordion accordion-faq mb-5" id="authAccordion">
-                <div class="card-website border-bottom">
-                    <div class="card-website-body">
-                        <div class="accordion-faq-title">
-                            <div class="mr-2">
-                                <h4 class="mb-0">Authentication issues</h4>
-                                <p class="card-website-text text-gray-500">Issues related to logging in, registering a new account, and setting your account password</p>
-                            </div>
-                            <div class="badge badge-success-soft badge-pill text-success">3 Answers</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-website accordion-faq-item">
-                    <a class="card-website-header" id="authHeadingOne" data-toggle="collapse" data-target="#authCollapseOne" aria-expanded="true" aria-controls="authCollapseOne" href="javascript:void(0);">
-                        <div class="accordion-faq-item-heading">I can't remember my account email address.<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+            <div class="accordion accordion-faq mb-5 text-justify" id="FAQAccordian">
+                <div class="card-website accordion-faq-item mb-4">
+                    <a class="card-website-header" id="FAQHeadingOne" data-toggle="collapse" data-target="#FAQCollapseOne" aria-expanded="true" aria-controls="FAQCollapseOne" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">Who should use FixitJA?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg></div>
                     </a>
-                    <div class="collapse show" id="authCollapseOne" aria-labelledby="authHeadingOne" data-parent="#authAccordion">
-                        <div class="card-website-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div>
+                    <div class="collapse show" id="FAQCollapseOne" aria-labelledby="FAQHeadingOne" data-parent="#FAQAccordian">
+                        <div class="card-website-body">Anyone who need the services of a professional for repairs or new constructions.</div>
                     </div>
                 </div>
-                <div class="card-website accordion-faq-item">
-                    <a class="card-website-header collapsed" id="authHeadingTwo" data-toggle="collapse" data-target="#authCollapseTwo" aria-expanded="true" aria-controls="authCollapseTwo" href="javascript:void(0);">
-                        <div class="accordion-faq-item-heading">Why doesn't my password work?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                <div class="card-website accordion-faq-item my-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingTwo" data-toggle="collapse" data-target="#FAQCollapseTwo" aria-expanded="true" aria-controls="FAQCollapseTwo" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">Are we able to see the cost of labour online?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg></div>
                     </a>
-                    <div class="collapse" id="authCollapseTwo" aria-labelledby="authHeadingTwo" data-parent="#authAccordion">
-                        <div class="card-website-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div>
+                    <div class="collapse" id="FAQCollapseTwo" aria-labelledby="FAQHeadingTwo" data-parent="#FAQAccordian">
+                        <div class="card-website-body">There are some Professionals who choose to have their hourly charges listed on the platform. There are other jobs that first requires assessments of the tasks before cost of the job can be determined.</div>
                     </div>
                 </div>
-                <div class="card-website accordion-faq-item">
-                    <a class="card-website-header collapsed" id="authHeadingThree" data-toggle="collapse" data-target="#authCollapseThree" aria-expanded="true" aria-controls="authCollapseThree" href="javascript:void(0);">
-                        <div class="accordion-faq-item-heading">Why do I keep getting logged out of my account?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingThree" data-toggle="collapse" data-target="#FAQCollapseThree" aria-expanded="true" aria-controls="FAQCollapseThree" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">How does it work?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg></div>
                     </a>
-                    <div class="collapse" id="authCollapseThree" aria-labelledby="authHeadingThree" data-parent="#authAccordion">
-                        <div class="card-website-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div>
+                    <div class="collapse" id="FAQCollapseThree" aria-labelledby="FAQHeadingThree" data-parent="#FAQAccordian">
+                        <div class="card-website-body">Consumers needing a repair job done merely log onto the platform review the professionals’ profile, see which one fits their work requirements and submit their project to commence discussion.</div>
                     </div>
                 </div>
-            </div>
-            <div class="accordion accordion-faq" id="billingAccordion">
-                <div class="card-website border-bottom">
-                    <div class="card-website-body">
-                        <div class="accordion-faq-title">
-                            <div class="mr-2">
-                                <h4 class="mb-0">Billing</h4>
-                                <p class="card-website-text text-gray-500">Issues related to logging in, registering a new account, and setting your account password</p>
-                            </div>
-                            <div class="badge badge-success-soft badge-pill text-success">3 Answers</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-website accordion-faq-item">
-                    <a class="card-website-header collapsed" id="billingHeadingOne" data-toggle="collapse" data-target="#billingCollapseOne" aria-expanded="true" aria-controls="billingCollapseOne" href="javascript:void(0);">
-                        <div class="accordion-faq-item-heading">I can't remember my account email address.<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingFour" data-toggle="collapse" data-target="#FAQCollapseFour" aria-expanded="true" aria-controls="FAQCollapseThree" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">Why use FixItJA?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg></div>
                     </a>
-                    <div class="collapse" id="billingCollapseOne" aria-labelledby="authHeadingOne" data-parent="#billingAccordion">
-                        <div class="card-website-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div>
+                    <div class="collapse" id="FAQCollapseFour" aria-labelledby="FAQHeadingFour" data-parent="#FAQAccordian">
+                        <div class="card-website-body">Convenience, Assurance of work assigned, Background checks on Professionals, several options fromwhich to choose, Convenient payment options.</div>
                     </div>
                 </div>
-                <div class="card-website accordion-faq-item">
-                    <a class="card-website-header collapsed" id="billingHeadingTwo" data-toggle="collapse" data-target="#billingCollapseTwo" aria-expanded="true" aria-controls="billingCollapseTwo" href="javascript:void(0);">
-                        <div class="accordion-faq-item-heading">Why doesn't my password work?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingFive" data-toggle="collapse" data-target="#FAQCollapseFive" aria-expanded="true" aria-controls="FAQCollapseThree" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">Is there a cost to register to FixItJA?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg></div>
                     </a>
-                    <div class="collapse" id="billingCollapseTwo" aria-labelledby="authHeadingTwo" data-parent="#billingAccordion">
-                        <div class="card-website-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div>
+                    <div class="collapse" id="FAQCollapseFive" aria-labelledby="FAQHeadingFive" data-parent="#FAQAccordian">
+                        <div class="card-website-body">Currently Professionals are allowed to register for free. Businesses and other consumers registration and listing projects are free on our platform.</div>
                     </div>
                 </div>
-                <div class="card-website accordion-faq-item">
-                    <a class="card-website-header collapsed" id="billingHeadingThree" data-toggle="collapse" data-target="#billingCollapseThree" aria-expanded="true" aria-controls="billingCollapseThree" href="javascript:void(0);">
-                        <div class="accordion-faq-item-heading">Why do I keep getting logged out of my account?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingSix" data-toggle="collapse" data-target="#FAQCollapseSix" aria-expanded="true" aria-controls="FAQCollapseThree" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">Why Businesses?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg></div>
                     </a>
-                    <div class="collapse" id="billingCollapseThree" aria-labelledby="authHeadingThree" data-parent="#billingAccordion">
-                        <div class="card-website-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div>
+                    <div class="collapse" id="FAQCollapseSix" aria-labelledby="FAQHeadingSix" data-parent="#FAQAccordian">
+                        <div class="card-website-body">Our goal is to cater our services to meet the needs of all consumers, “General Users”, “Businesses” and Trades Professionals. There are other services not suitable for “General Users” that will be added as options for businesses to subscribe for use in their operations.</div>
                     </div>
-                </div>
-            </div>
-            <hr class="my-website-5">
-            <div class="row text-center">
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <a class="card-website card-website-link border-top border-top-lg border-primary h-100 lift" href="#!">
-                        <div class="card-website-body p-5">
-                            <div class="icon-stack icon-stack-lg bg-primary-soft text-primary mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg></div>
-                            <h6>Account</h6>
-                            <p class="card-website-text">Issues related to logging in, out, or about multiple devices.</p>
-                        </div>
-                        <div class="card-website-footer bg-transparent pt-website-0 pb-website-5">
-                            <div class="badge badge-pill badge-light font-weight-normal px-3 py-website-2">21 Entries</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <a class="card-website card-website-link border-top border-top-lg border-green h-100 lift" href="#!">
-                        <div class="card-website-body p-5">
-                            <div class="icon-stack icon-stack-lg bg-green-soft text-green mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg></div>
-                            <h6>Integrations</h6>
-                            <p class="card-website-text">Connecting with 3rd party apps to exchange data.</p>
-                        </div>
-                        <div class="card-website-footer bg-transparent pt-website-0 pb-website-5">
-                            <div class="badge badge-pill badge-light font-weight-normal px-3 py-website-2">9 Entries</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4">
-                    <a class="card-website card-website-link border-top border-top-lg border-yellow h-100 lift" href="#!">
-                        <div class="card-website-body p-5">
-                            <div class="icon-stack icon-stack-lg bg-yellow-soft text-yellow mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg></div>
-                            <h6>Billing</h6>
-                            <p class="card-website-text">Issues with payments or invoicing.</p>
-                        </div>
-                        <div class="card-website-footer bg-transparent pt-website-0 pb-website-5">
-                            <div class="badge badge-pill badge-light font-weight-normal px-3 py-website-2">14 Entries</div>
-                        </div>
-                    </a>
                 </div>
             </div>
         </div>
