@@ -36,23 +36,6 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
-    public function redirectTo()
-    {
-
-        $type = Auth::user()->type;
-
-        if ($type == 'admin') {
-            return '/home';
-        } elseif ($type == 'general_user') {
-            return '/home';
-        } elseif ($type == 'business') {
-            return  '/home';
-        } elseif ($type == 'independent_contractor') {
-            return  '/home';
-        } else {
-            return '/login';
-        }
-    }
     public function authenticate(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -68,7 +51,7 @@ class LoginController extends Controller
                 ->where('email', $request->email)
                 ->first();
             if($AuthUser) {
-                $user = User::find($AuthUser->id);
+                $user = User::with('subcategories')->find($AuthUser->id);
                 if($user->status == "deleted")
                 {
                     return redirect()->route('login')->withErrors(['email' => 'Your account has been deleted.']);
@@ -84,6 +67,20 @@ class LoginController extends Controller
                 else {
                     if(Hash::check($request->password, $user->password)) {
                         Auth::login($AuthUser);
+                        if($user->status == "deactivated")
+                        {
+                            if($user->subcategories->count() > 0) {
+                                $user->update([
+                                    'status' => 'active'
+                                ]);
+                            }
+                            else {
+                                $user->update([
+                                    'status' => 'new'
+                                ]);
+                            }
+                            ToastHelper::showToast('Your account has been re-activated.');
+                        }
                         return redirect()->route('home');
                     }
                     else {

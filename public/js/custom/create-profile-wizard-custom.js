@@ -82,8 +82,8 @@ const profileValidation = {
             },
         },
         file: {
-            extension: 'jpeg, jpg,png',
-            type: 'image/jpeg,image/png',
+            extension: 'jpeg,jpg,png',
+            type: 'image/jpeg,image/jpg,image/png',
             maxSize: 2097152, // 2048 * 1024
             message: 'The selected file is not valid'
         }

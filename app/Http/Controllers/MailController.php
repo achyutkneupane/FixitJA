@@ -24,13 +24,7 @@ class MailController extends Controller
             'verification_code' => $verification_code,
             'email' => $email
         ];
-        try {
-            Mail::send('auth.verifyuser', $data, function ($message) use ($email, $subject) {
-                $message->to($email)->subject($subject);
-            });
-        } catch (Exception $ex) {
-            LogHelper::store('Mail', $ex);
-        }
+            Mail::to($email)->send(new VerifyEmail($data));
     }
 
 

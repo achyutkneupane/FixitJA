@@ -2,7 +2,7 @@ $('#userParishSelect').select2({
     placeholder: "Select a Parish"
 });
 $('#userCitySelect').select2({
-    placeholder: "Select a Cityy"
+    placeholder: "Select a City"
 });
 $('#workingParishSelect').select2({
     placeholder: "Select a Parish"

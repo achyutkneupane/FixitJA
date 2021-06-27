@@ -1,93 +1,52 @@
-<style>
-.container {
-	width: 100%;
-	padding-right: 15px;
-	padding-left: 15px;
-	margin-right: auto;
-	margin-left: auto;
-	width: 992px !important;
-}
+@component('mail::message')
+# {{ $subject }}
 
-.row {
-	display: flex;
-	flex-wrap: wrap;
-	margin-right: -15px;
-	margin-left: -15px;
-	width: 100%;
-}
+Hello <b>{{ $request->name }}</b>,
+Thankyou for filling up the application.
 
-.col-3 {
-	flex: 0 0 25%;
-	max-width: 25%;
-	font-weight: 700 !important;
-}
+# Skills:
+@foreach ($user_subcategories as $subs) @if($loop->last) {{ $subs->name }} @else {{ $subs->name }}, @endif @endforeach
 
-.col-9 {
-	flex: 0 0 75%;
-	max-width: 75%;
-	color: #6c757d !important;
-	font-weight: 300;
-}
-.col-12 {
-	flex: 0 0 100%;
-	max-width: 100%;
-}
-</style>
-<h2 style="text-align: center;">{{ config('app.name', 'FixitJA') }}</h2>
-<div class="container">
-   
-    Thankyou for creating your profile <b>.<br><br>
-    @if(!auth()->user())
-    You will get to view the profile details after you <a href="{{ asset('/') }}register" target="_blank">Sign Up</a> using <b>{{ $request->email }}</b> as email-address.<br><br>
-    @endif
-    <div class="row">
-        <h4 class="col-12">Profiles Details:</h4><br>
-        <span class="col-3">Skills:</span>
-        <span class="col-9">
-            @foreach ($user_subcategories as $subs)
-                @if($loop->last)
-                    {{ $subs->name }}
-              
-                @endif
-            @endforeach
-        </span>
-        <h4 class="col-12">Education Information: </h4><br>
-        <span class="col-3">Education Institutional Name:</span> <span class="col-9">{{ $request->education_institutional_name }}</span><br>
-        <span class="col-3">Degree:</span> <span class="col-9">{{ $request->degree }}</span><br>
-        <span class="col-3">Start Date: </span> <span class="col-9">{{ $request->start_date }}</span><br>
-        <span class="col-3">End Date: </span> <span class="col-9">{{ $request->end_date }}</span><br>
 
-        <h4 class="col-12"> other information: </h4> <br>
-        <span class="col-3">Police Report(yes/no)</span> <span class="col-9">
-            @if ($request->police_report == 1)
-                yes
-            @elseif ($request->police_report == 0)
-                no
-            @else
-                <span class="text-muted">N/A</span>
-            @endif
-        </span><br>
-        <span class="col-3">Do you want to travelling(yes/no)</span> <span class="col-9"> 
-            @if ($request->is_travelling == 1)
-                yes
-            @elseif ($request->is_travelling == 0)
-                no
-            @else
-                <span class="text-muted">N/A</span>
-            @endif
-        </span><br>
-        <span class="col-3">Description: </span> <span class="col-9">{{ $request->personal_description }}</span><br>
-        <span class="col-3">Working Hours: </span> <span class="col-9">{{ $request->hours }}</span><br>
-    </div>
+# Education Details:
 
-    <div class="row">
-        <h4 class="col-12">Address:</h4><br>
-        
-       
-        <span class="col-3">Street Address:</span> <span class="col-9">{{ $request->street}}</span><br>
-        <span class="col-3">Parish:</span> <span class="col-9">{{ $request->parishes}}</span><br>
-        <span class="col-3">City:</span> <span class="col-9">{{ $request->cities}}</span><br>
-    </div>
-</div>
-<br><br>
+@component('mail::table')
+| Name       | Value         |
+| ------------- |-------------|
+| Education Institutional Name | {{ $request->educationinstutional_name }} |
+| Degree | @if($request->degree) @if($request->degree == 'secondary_level') Secondary Level @elseif($request->degree == 'higher_secondary_level') Higher Secondary Level @elseif($request->degree == 'bachelors') Bachelors @elseif($request->degree == 'masters') Masters @endif @else N/A @endif |
+@if($request->start_date && $request->end_date)
+| Start Date | {{ $request->start_date }} |
+| End Date | {{ $request->end_date }}
+@endif
+@endcomponent
 
+# Other Informations:
+@component('mail::table')
+| Name       | Value         |
+| ------------- |-------------|
+| Police Report | @if ($request->police_report == 1) Yes @elseif ($request->police_report == 0) No @else N/A @endif |
+| Do you wish to travel to site? | @if ($request->is_travelling == 1) Yes @elseif ($request->is_travelling == 0) No @else N/A @endif |
+| Description | {{ $request->personal_description }} |
+| Working Hours | {{ $request->hours }} hours per week |
+@endcomponent
+
+# Address:
+@component('mail::table')
+| Name       | Value         |
+| ------------- |-------------|
+| Parish | {{ $city->parish->name }} |
+| City | {{ $city->name }} |
+| Street Address | {{ $request->street_01 }} |
+@if($request->street_02)
+|  | {{ $request->street_02 }} |
+@endif
+@endcomponent
+
+@component('mail::button', ['url' => route('viewUser',auth()->id())])
+View Profile
+@endcomponent
+
+Thanks,<br>
+{{ config('app.name') }}
+@endcomponent

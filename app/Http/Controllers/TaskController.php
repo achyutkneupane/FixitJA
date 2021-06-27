@@ -5,6 +5,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\LogHelper;
+use App\Mail\TaskCreated;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Discussion;
@@ -152,15 +153,8 @@ class TaskController extends Controller
         }
         $city = City::with('parish')->find($request->city);
         $site_city = City::with('parish')->find($request->site_city);
-        try {
-            Mail::send('mail.createTask', compact('request','all_cats','city','site_city'), function($message) use ($request)
-            {
-                $message->to($request->email, $request->user_name)->subject('Task Created');
-            });
-        } catch(Throwable $e) {
-            LogHelper::storeMessage('Create task E-mail',$e->getMessage(),auth()->user(),'Email Cant be sent.');
-        }
         $parentTask->related_tasks()->attach($taskList);
+        Mail::to($request->email)->send(new TaskCreated($request,$all_cats,$city,$site_city));
         return redirect()->route('listTask');
     }
 

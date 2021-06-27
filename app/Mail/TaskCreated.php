@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Author : Ashish Pokhrel
- * Date : 3 feb 2021
- */
-
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -12,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class VerifyEmail extends Mailable
+class TaskCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -21,10 +16,14 @@ class VerifyEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($data)
+    public $email_data;
+    public function __construct($request,$all_cats,$city,$site_city)
     {
-        $this->email_data = $data;
-        
+        $this->email_data = collect();
+        $this->email_data->put('request',$request);
+        $this->email_data->put('all_cats',$all_cats);
+        $this->email_data->put('city',$city);
+        $this->email_data->put('site_city',$site_city);
     }
 
     /**
@@ -34,8 +33,8 @@ class VerifyEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.verifyemail')
-                    ->subject('Welcome to FixitJA')
+        return $this->markdown('mail.taskCreated')
+                    ->subject('Task Confirmation')
                     ->with('email_data',$this->email_data);
     }
 }

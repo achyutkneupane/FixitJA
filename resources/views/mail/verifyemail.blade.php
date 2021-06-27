@@ -1,4 +1,4 @@
-Hello ,{{ $email_data['name'] }}
+{{-- Hello ,{{ $email_data['name'] }}
 
 <br><br>
 Welcome {{ config('app.name', 'FixitJA') }}!
@@ -13,4 +13,19 @@ Please click the link below to verify your email and activate your account!
 <br><br>
 Thank you!
 <br>
-{{ config('app.name', 'FixitJA') }}
+{{ config('app.name', 'FixitJA') }} --}}
+
+
+@component('mail::message')
+# Welcome to {{ config('app.name', 'FixitJA') }}
+
+Hello <b>{{ $email_data['name'] }}</b>,<br>
+Please click the button below to verify your email and activate your account!
+
+@component('mail::button', ['url' => asset('/').'verify/'.$email_data['verification_code'].'/'.$email_data['email']])
+Verify Your Email
+@endcomponent
+
+Thanks,<br>
+{{ config('app.name') }}
+@endcomponent

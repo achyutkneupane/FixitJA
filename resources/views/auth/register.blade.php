@@ -92,6 +92,7 @@ $show_sidebar = false;
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Referred By(Optional)</label>
                                 <input type="text" class="form-control form-control-solid h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="referralemail" placeholder="Referred By (Optional)" value="{{ session()->has('referral') ? $referral : old('referralemail') }}" />
+                                <div class="text-muted">*Referrals must be from the person already registered with FixitJA.</div>
                                 @if ($errors->has('referralemail'))
                                 <span class="text-danger">{{ $errors->first('referralemail') }}</span>
                                 @endif
@@ -99,7 +100,7 @@ $show_sidebar = false;
                             <!--end::Form Group-->
                             <!--begin::Form Group-->
                             <div class="form-group">
-                                <label class="font-size-h6 font-weight-bolder text-dark">Type (Required)</label>
+                                <label class="font-size-h6 font-weight-bolder text-dark">Registration Type (Required)</label>
 
                                 <select class="form-control" id="user_type" name="type">
                                     <option value="" disabled>Select</option>

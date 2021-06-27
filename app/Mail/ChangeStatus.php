@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Author : Ashish Pokhrel
- * Date : 3 feb 2021
- */
-
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -12,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class VerifyEmail extends Mailable
+class ChangeStatus extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -21,10 +16,11 @@ class VerifyEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($data)
+    public $user,$status;
+    public function __construct($user,$status)
     {
-        $this->email_data = $data;
-        
+        $this->user = $user;
+        $this->status = $status;
     }
 
     /**
@@ -34,8 +30,6 @@ class VerifyEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.verifyemail')
-                    ->subject('Welcome to FixitJA')
-                    ->with('email_data',$this->email_data);
+        return $this->subject('Status Changed')->markdown('mail.changeStatus')->with('user',$this->user)->with('status',$this->status);
     }
 }

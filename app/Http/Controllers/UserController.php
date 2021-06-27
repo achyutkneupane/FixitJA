@@ -20,6 +20,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\MailController;
+use App\Mail\AdminAddUser;
+use App\Mail\ChangeStatus;
+use App\Mail\CreateProfile;
+use App\Mail\ReferralEmail;
 use App\Models\Parish;
 use App\Models\Refer;
 use App\Models\Review;
@@ -103,11 +107,11 @@ class UserController extends Controller
     }
     public function show($id)
     {
-        $user = User::with('emails', 'phones')->find($id);
-        if ($user == Auth::user())
+        if ($id == auth()->id())
         {
             return redirect()->route('viewProfile');
         }
+        $user = User::with('emails', 'phones')->find($id);
         return view('pages.profile', compact('user'));
     }
     public function index()
@@ -293,24 +297,21 @@ class UserController extends Controller
                 $user->hours = $request->hours;
                 $user->days = implode(',', $dayArray);
                 $user->introduction = $request->personal_description;
-                $user->street_01 = $request->street;
-                $user->street_02 = $request->house_number;
+                $user->street_01 = $request->street_01;
+                $user->street_02 = $request->street_02;
                 $user->city_id = $request->cities;
                 $user->total_distance = $request->total_distance;
                 $user->subcategories()
                     ->attach($user_subcategories);
                 $user->status = "pending";
                 $user->save();
-
-                Mail::send('mail.createProfile', compact('request', 'user_subcategories') , function ($message) use ($request, $email)
-                {
-                    $message->to($email, $request->name)
-                        ->subject('Profile Created');
-                });
+                $city = $user->city;
+                Mail::to($email, $request->name)->send(new CreateProfile($request,$user_subcategories,$city,'Profile Application Submitted'));
                 return redirect('/profile');
             }
             catch(Throwable $e)
             {
+                dd($e);
                 LogHelper::storeMessage("Profile Wizard", $e->getMessage() , $user);
                 return redirect()->route('profileWizard')
                     ->withInput();
@@ -325,10 +326,8 @@ class UserController extends Controller
         {
             try
             {
-                $user = new User();
-                $user = User::find(Auth::user()->id);
-                $email = auth()->user()->getEmail(Auth::user()->id);
-
+                $user = User::with('city.parish')->find(auth()->id());
+                $email = auth()->user()->email();
                 $Subb = "[" . $request->totalCatList . "]";
                 $Subb = str_replace('},]', '}]', $Subb);
                 $user_subcategories = new Collection();
@@ -469,24 +468,21 @@ class UserController extends Controller
                 $user->hours = $request->hours;
                 $user->days = implode(',', $dayArray);
                 $user->introduction = $request->personal_description;
-                $user->street_01 = $request->street;
-                $user->street_02 = $request->house_number;
+                $user->street_01 = $request->street_01;
+                $user->street_02 = $request->street_02;
                 $user->city_id = $request->cities;
                 $user->total_distance = $request->total_distance;
                 $user->subcategories()
                     ->attach($user_subcategories);
                 $user->status = "pending";
                 $user->update();
-
-                Mail::send('mail.createProfile', compact('request', 'user_subcategories') , function ($message) use ($request, $email)
-                {
-                    $message->to($email, $request->name)
-                        ->subject('Profile Updated');
-                });
-                return redirect('/profile');
+                $city = $user->city;
+                Mail::to($email, $request->name)->send(new CreateProfile($request,$user_subcategories,$city,'Profile Application Updated'));
+                return redirect()->route('viewUser',auth()->id());
             }
             catch(Throwable $e)
             {
+                dd($e);
                 LogHelper::storeMessage("Profile Wizard", $e->getMessage() , $user);
                 return redirect()->route('profileWizard')
                     ->withInput();
@@ -571,16 +567,10 @@ class UserController extends Controller
         $user->save();
         ToastHelper::showToast('User Status Changed.');
         $email = $user->getEmail($request->user);
-        Mail::send('mail.changeStatus', ['user' => $user, 'status' => $request
-            ->status], function ($m) use ($email)
+        Mail::to($email)->send(new ChangeStatus($user,$request->status));
+        if ($user->id == auth()->id() && ($request->status == 'deactivated' || $request->status == 'deleted'))
         {
-            $m->to($email)->subject('User Status Changed');
-        });
-        if ($user->id == auth()
-            ->id() && ($request->status == 'deactivated' || $request->status == 'deleted'))
-        {
-            auth()
-                ->logout();
+            auth()->logout();
         }
         return redirect()
             ->back();
@@ -683,6 +673,84 @@ class UserController extends Controller
         }
     }
 
+    public function editUserProfile($id)
+    {
+        if (User::find($id) == auth()->user())
+        {
+            return redirect()->route('editProfile');
+        }
+        $user = User::find($id);
+        $parishes = City::all();
+        return view('pages.editProfile', compact('user', 'parishes'));
+    }
+
+    public function putEditUserProfile(Request $request, $id)
+    {
+        $user = User::find($id);
+        // dd($user,request()->all());
+        try
+        {
+            $request->validate([
+                'gender' => 'required',
+                'city' => 'required',
+                'street_01' => 'required',
+                'hours' => 'required',
+                'days' => 'required',
+                'street_02' => '',
+                'companyname' => '',
+                'experience' => '',
+                'website' => '',
+                'is_travelling' => 'required',
+                'is_police_record' => 'required'
+            ]);
+            $user->gender = $request->gender;
+            $user->city_id = $request->city;
+            $user->street_01 = $request->street_01;
+            $user->street_02 = $request->street_02;
+            $user->companyname = $request->companyname;
+            // $user->experience = $request->experience;
+            $user->website = $request->website;
+            $user->is_travelling = $request->is_travelling;
+            $user->hours = $request->hours;
+            $user->days = $request->days;
+            $user->is_police_record = $request->is_police_record;
+            if (request()
+                ->hasFile('profile_image'))
+            {
+                $tempPath = "";
+                $document = new Document();
+                if (!is_null(Document::where('user_id', $user->id)
+                    ->get()
+                    ->where('type', 'profile_picture')
+                    ->first()))
+                {
+                    $document = Document::where('user_id', $user->id)
+                        ->get()
+                        ->where('type', 'profile_picture')
+                        ->first();
+                    $tempPath = Document::where('user_id', $user->id)
+                        ->get()
+                        ->where('type', 'profile_picture')
+                        ->first()->path;
+                }
+                $document->path = request('profile_image')
+                    ->store('userprofile');
+                $document->type = 'profile_picture';
+                $document->user()
+                    ->associate($user->id);
+                $document->save();
+                if ($tempPath) Storage::delete($tempPath);
+            }
+            $user->save();
+            ToastHelper::showToast('Profile has been updated');
+        }
+        catch(Throwable $e)
+        {
+            ToastHelper::showToast('Profile cannot be updated.', 'error');
+            LogHelper::store('User', $e);
+        }
+        return redirect()->route('editUserProfile',$user->id);
+    }
     public function putEditSocial(Request $request)
     {
         $user = User::find(auth()->id());
@@ -701,42 +769,6 @@ class UserController extends Controller
             ToastHelper::showToast('Social Links be updated.', 'error');
             LogHelper::store('UserSocial', $e);
         }
-    }
-    public function editUserProfile($id)
-    {
-        if (User::find($id) == Auth::user())
-        {
-            return redirect()->route('editProfile');
-        }
-        $user = User::find($id);
-        $parishes = City::all();
-        return view('pages.editProfile', compact('user', 'parishes'));
-    }
-
-    public function putEditUserProfile(Request $request, $id)
-    {
-        $user = User::find($id);
-        try
-        {
-            $request->validate(['gender' => 'required', 'city_id' => 'required', 'street_01' => 'required', 'street_02' => '', 'companyname' => '', 'experience' => '', 'website' => '', 'is_travelling' => 'required', 'is_police_record' => 'required']);
-            $user->gender = $request->gender;
-            $user->city_id = $request->city_id;
-            $user->street_01 = $request->street_01;
-            $user->street_02 = $request->street_02;
-            $user->companyname = $request->companyname;
-            $user->experience = $request->experience;
-            $user->website = $request->website;
-            $user->is_travelling = $request->is_travelling;
-            $user->is_police_record = $request->is_police_record;
-            $user->save();
-            ToastHelper::showToast('Profile has been updated');
-        }
-        catch(Throwable $e)
-        {
-            ToastHelper::showToast('Profile cannot be updated.', 'error');
-            LogHelper::store('User', $e);
-        }
-        return redirect()->route('viewProfile');
     }
     public function emptyPage()
     {
@@ -765,14 +797,8 @@ class UserController extends Controller
         $user->phones()
             ->create(['phone' => $request->phone, 'primary' => true, ]);
         $token = Str::random(32);
-
         DB::table('password_resets')->insert(['email' => $request->email, 'token' => $token, 'created_at' => now() ]);
-
-        Mail::send('mail.adminAddUser', compact('token', 'user') , function ($message) use ($request)
-        {
-            $message->to($request->email, $request->name);
-            $message->subject('Account Created - FixitJA');
-        });
+        Mail::to($request->email, $request->name)->send(new AdminAddUser($user,$token));
         ToastHelper::showToast('User Account Created.');
         return redirect()
             ->route('viewUser', $user->id);
@@ -912,11 +938,7 @@ class UserController extends Controller
                 ->id();
             $refer->token = $token = Str::random(15);
             $refer->save();
-            Mail::send('mail.refer', compact('refer') , function ($message) use ($request)
-            {
-                $message->to($request->email)
-                    ->subject('Sign Up to FixitJA');
-            });
+            Mail::to($request->email)->send(new ReferralEmail($refer));
             return redirect()
                 ->route('referGet');
         }

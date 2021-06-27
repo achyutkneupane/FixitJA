@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Helpers\ToastHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MailController;
+use App\Mail\VerifyEmail;
 use App\Models\Email;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -12,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class VerificationController extends Controller
 {
@@ -59,9 +61,14 @@ class VerificationController extends Controller
     {
         $user = auth()->user();
         if ($user != null) {
-            MailController::sendVerifyEmail($user->name, $user->email(), $user->verification_code);
+            $data =  [
+                'name' => $user->name,
+                'verification_code' => $user->verification_code,
+                'email' => $user->email()
+            ];
+            Mail::to($data['email'])->send(new VerifyEmail($data));
             ToastHelper::showToast('Verification email sent successfully.');
-            return redirect()->back();
+            return redirect()->route('home');
         }
         return redirect()->route('resendEmail')->with(session()->flash('alert-danger', 'Something went wrong!'));
     }

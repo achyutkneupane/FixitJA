@@ -11,9 +11,9 @@
 
         {{-- Nav --}}
         <div class="nav nav-dark order-1 order-md-2">
-            <a href="/about" class="nav-link pr-3 pl-0">About</a>
-            <a href="/underconstruction" class="nav-link px-3">Terms & Conditions</a>
-            <a href="/contact" class="nav-link pl-3 pr-0">Contact Us</a>
+            <a href="{{ route('aboutUs') }}" class="nav-link pr-3 pl-0">About</a>
+            <a href="{{ route('termsandconditions') }}" class="nav-link px-3">Terms & Conditions</a>
+            <a href="{{ route('contactUs') }}" class="nav-link pl-3 pr-0">Contact Us</a>
         </div>
     </div>
 </div>

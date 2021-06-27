@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="card-website accordion-faq-item mt-4">
-                    <a class="card-website-header collapsed" id="FAQHeadingFour" data-toggle="collapse" data-target="#FAQCollapseFour" aria-expanded="true" aria-controls="FAQCollapseThree" href="javascript:void(0);">
+                    <a class="card-website-header collapsed" id="FAQHeadingFour" data-toggle="collapse" data-target="#FAQCollapseFour" aria-expanded="true" aria-controls="FAQCollapseFour" href="javascript:void(0);">
                         <div class="accordion-faq-item-heading">Why use FixItJA?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg></div>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="card-website accordion-faq-item mt-4">
-                    <a class="card-website-header collapsed" id="FAQHeadingFive" data-toggle="collapse" data-target="#FAQCollapseFive" aria-expanded="true" aria-controls="FAQCollapseThree" href="javascript:void(0);">
+                    <a class="card-website-header collapsed" id="FAQHeadingFive" data-toggle="collapse" data-target="#FAQCollapseFive" aria-expanded="true" aria-controls="FAQCollapseFive" href="javascript:void(0);">
                         <div class="accordion-faq-item-heading">Is there a cost to register to FixItJA?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg></div>
@@ -73,13 +73,29 @@
                     </div>
                 </div>
                 <div class="card-website accordion-faq-item mt-4">
-                    <a class="card-website-header collapsed" id="FAQHeadingSix" data-toggle="collapse" data-target="#FAQCollapseSix" aria-expanded="true" aria-controls="FAQCollapseThree" href="javascript:void(0);">
+                    <a class="card-website-header collapsed" id="FAQHeadingSix" data-toggle="collapse" data-target="#FAQCollapseSix" aria-expanded="true" aria-controls="FAQCollapseSix" href="javascript:void(0);">
                         <div class="accordion-faq-item-heading">Why Businesses?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg></div>
                     </a>
                     <div class="collapse" id="FAQCollapseSix" aria-labelledby="FAQHeadingSix" data-parent="#FAQAccordian">
                         <div class="card-website-body">Our goal is to cater our services to meet the needs of all consumers, “General Users”, “Businesses” and Trades Professionals. There are other services not suitable for “General Users” that will be added as options for businesses to subscribe for use in their operations.</div>
+                    </div>
+                </div>
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingSeven" data-toggle="collapse" data-target="#FAQCollapseSeven" aria-expanded="true" aria-controls="FAQCollapseSeven" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">What are some dangers of hiring a trades professional without researching their background?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg></div>
+                    </a>
+                    <div class="collapse" id="FAQCollapseSeven" aria-labelledby="FAQHeadingSeven" data-parent="#FAQAccordian">
+                        <div class="card-website-body">
+                            <ol>
+                                <li>Some jobs example Electrical wiring and installations require a licensed electrician to certify the work before one can successfully apply for electrification of ones premises.  Several electrical trades personal are not licensed and therefore unable to certify jobs. The result is often waiting for months to have your premises electrified.</li>
+                                <li>Some trades men pretend to have experience and performed work the have not. The result of hiring is often, poor workman ship in most cases and loss of money and other resources in other cases.</li>
+                            </ol>
+                            <b>Leave it to the professional team to do the vetting for you.</b>
+                        </div>
                     </div>
                 </div>
             </div>

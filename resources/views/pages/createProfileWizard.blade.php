@@ -870,14 +870,11 @@ $education = auth()->user()->educations->first();
                 </div>
                 
                 <div class="form-group fv-plugins-icon-container">
-                    <label>Street</label>
-                    <input type="text" name="street" class="form-control" placeholder="Enter your street"
+                    <label>Street Address</label>
+                    <input type="text" name="street_01" class="form-control my-1" placeholder="Street Address 1"
                         value="{{ auth()->user()->street_01}}" />
-                </div>
-                <div class="form-group fv-plugins-icon-container">
-                    <label>House Number or Unit (Optional)</label>
-                    <input type="text" name="house_number" class="form-control "
-                        placeholder="Enter your House number" value="{{ auth()->user()->street_02 ? : ''}}" />
+                    <input type="text" name="street_02" class="form-control my-1" placeholder="Street Address 2(Optional)"
+                            value="{{ auth()->user()->street_02}}" />
                 </div>
                 <div class="form-group fv-plugins-icon-container">
                     <label> Postal Code (Optional)</label>
@@ -898,7 +895,6 @@ $education = auth()->user()->educations->first();
                             <span class="font-weight-bold">Skills: </span>
                             <span class="text-muted" id='skill'></span>
                         </div>
-                       >
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-2 row">
                         <h3 class="col-md-12 my-3">Education</h3>

@@ -28,7 +28,7 @@ var cityId = {{ auth()->user()->city->id }};
         <div class="col-lg-8">
             <div class="card card-custom">
                 <div class="card-body">
-                    <form action="{{ route('putEditProfile') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('putEditUserProfile',$user->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group row">

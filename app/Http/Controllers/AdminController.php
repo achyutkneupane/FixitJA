@@ -26,7 +26,7 @@ class AdminController extends Controller
     }
     public function error_detail($id)
     {
-        $error = ErrorLog::find($id);
+        $error = ErrorLog::findorFail($id);
         return view('admin.viewError', compact('error'));
     }
     public function error_solved($id)

@@ -23,7 +23,7 @@ Auth::routes([
 Route::get('verify/{verification_code}/{email}', [App\Http\Controllers\Auth\VerificationController::class, 'verifyUser']);
 Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'getEmail'])->name('forget-password');
 Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'postEmail'])->name('forget-password');
-Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'getPassword']);
+Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'getPassword'])->name('resetPasswordWithToken');
 Route::post('/reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'updatePassword'])->name('updatePassword');
 Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 Route::put('/user/edit', [App\Http\Controllers\UserController::class, 'update']);
@@ -99,6 +99,7 @@ Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->mid
 Route::prefix('/user/{id}')->group(function () {
     Route::get('/', [App\Http\Controllers\UserController::class, 'show'])->middleware('auth')->name('viewUser');
     Route::get('/edit', [App\Http\Controllers\UserController::class, 'editUserProfile'])->middleware('auth')->name('editUserProfile');
+    Route::put('/edit', [App\Http\Controllers\UserController::class, 'putEditUserProfile'])->middleware('auth')->name('putEditUserProfile');
     Route::get('/skills', [App\Http\Controllers\UserController::class, 'userSkills'])->middleware('auth')->name('userSkills');
     Route::get('/documents', [App\Http\Controllers\UserController::class, 'userDocuments'])->middleware('auth')->name('viewUserDocuments');
     Route::get('/education', [App\Http\Controllers\UserController::class, 'userEducations'])->middleware('auth')->name('viewUserEducations');

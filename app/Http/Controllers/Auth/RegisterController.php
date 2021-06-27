@@ -18,9 +18,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Events\UserRegistered;
 use App\Helpers\LogHelper;
 use App\Helpers\ToastHelper;
+use App\Mail\VerifyEmail;
 use App\Models\Email;
 
 use App\Models\Refer;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 
@@ -131,12 +133,12 @@ class RegisterController extends Controller
             'phone' => $request->phone,
             'primary' => true
         ]);
-        // event(new UserRegistered($user));
-        try {
-            MailController::sendVerifyEmail($user->name, $request->email, $user->verification_code);
-        } catch (\Throwable $t) {
-            LogHelper::store('Register', $t);
-        }
+        $data =  [
+            'name' => $user->name,
+            'verification_code' => $user->verification_code,
+            'email' => $request->email
+        ];
+        Mail::to($request->email)->send(new VerifyEmail($data));
         Auth::login($user);
         return redirect('/home');
     }
