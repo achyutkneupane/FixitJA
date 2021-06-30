@@ -27,7 +27,7 @@
                                 <li class="mb-2"><a href="{{ route('aboutUs') }}">About the comapany</a></li>
                                 <li class="mb-2"><a href="/underconstruction">Fixician Directory</a></li>
                                 <li class="mb-2"><a href="{{ route('services') }}">Services</a></li>
-                                <li class="mb-2"><a href="/underconstruction">How it works</a></li>
+                                <li class="mb-2"><a href="{{ route('howItWorks') }}">How it works</a></li>
                                 <li class="mb-2"><a href="{{ route('hiringProcess') }}">Hiring Process</a></li>
                             </ul>
                         </div>

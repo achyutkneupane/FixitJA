@@ -157,6 +157,7 @@ Route::get('/privacy-policy', [App\Http\Controllers\MainController::class, 'priv
 Route::get('/hiring-process', [App\Http\Controllers\MainController::class, 'hiringProcess'])->name('hiringProcess');
 Route::get('/services', [App\Http\Controllers\MainController::class, 'services'])->name('services');
 Route::get('/faq', [App\Http\Controllers\MainController::class, 'faqs'])->name('faq');
+Route::get('/how-it-works', [App\Http\Controllers\MainController::class, 'howItWorks'])->name('howItWorks');
 //End routes by Achyut Neupane
 
 

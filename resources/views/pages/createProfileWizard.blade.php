@@ -559,7 +559,7 @@ $education = auth()->user()->educations->first();
 
                         <!--begin::Wizard Step 3-->
                         <div class="pb-5" data-wizard-type="step-content">
-                            <h3 class="mb-10 font-weight-bold text-dark">Add upto 3 of your education background</h3>
+                            <h3 class="mb-10 font-weight-bold text-dark">Enter your education background</h3>
 
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Name of School, College or University</label>
@@ -615,8 +615,7 @@ $education = auth()->user()->educations->first();
 
                         <!--begin::Wizard Step 4-->
                         <div class="pb-5" data-wizard-type="step-content">
-                            <h4 class="mb-10 font-weight-bold text-dark">Reference for each selected
-                                skills category</h4>
+                            <h4 class="mb-10 font-weight-bold text-dark">Reference for each selected skills category</h4>
                             <!--begin::Select-->
                             @if(auth()->user()->references->count() != 0)
                             @foreach (auth()->user()->references as $reference)
@@ -722,7 +721,7 @@ $education = auth()->user()->educations->first();
 
                         <!--begin::Wizard Step 5 -->
                         <div class="pb-5" data-wizard-type="step-content">
-                            <h4 class="mb-10 font-weight-bold text-dark">Please answer the question</h4>
+                            <h4 class="mb-10 font-weight-bold text-dark">Please answer these questions</h4>
                             <!--begin::Input-->
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="col-9 col-form-label">7. Are you willing to do a background check?</label>
@@ -886,7 +885,7 @@ $education = auth()->user()->educations->first();
 
             <!--begin::wizard step 8-->
             <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
-                <h3 class="mb-10 font-weight-bold text-dark">Plase Check all information before Submit</h3>
+                <h3 class="mb-10 font-weight-bold text-dark">Please check all the informations before submitting your application</h3>
                 <!--begin::Select-->
                 <div class="form-group fv-plugins-icon-container">
                     <div class="d-flex align-items-center justify-content-between mb-2 row">

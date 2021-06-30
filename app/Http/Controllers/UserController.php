@@ -311,6 +311,7 @@ class UserController extends Controller
             }
             catch(Throwable $e)
             {
+                dd($e);
                 LogHelper::storeMessage("Profile Wizard", $e->getMessage() , $user);
                 return redirect()->route('profileWizard')
                     ->withInput();
@@ -481,6 +482,7 @@ class UserController extends Controller
             }
             catch(Throwable $e)
             {
+                dd($e);
                 LogHelper::storeMessage("Profile Wizard", $e->getMessage() , $user);
                 return redirect()->route('profileWizard')
                     ->withInput();

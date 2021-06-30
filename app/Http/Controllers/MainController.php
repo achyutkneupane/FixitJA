@@ -64,7 +64,7 @@ class MainController extends Controller
     public function howItWorks()
     {
         $page_title = 'How It Works';
-        $page_description = 'This is description about how FixitJA Works';
+        $page_description = 'Working Process of FixitJA';
         $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
         return view('pages.howItWorks', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
