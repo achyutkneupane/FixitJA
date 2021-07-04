@@ -48,8 +48,8 @@
                     <li>First select your category from the options(General User, Business, Fixician).</li>
                     <li>Follow steps to create your user account.</li>
                     <li>After creating your account, you will be redirected to the dashboard.</li>
-                    <li>Go to profile, under Account & Privacy section select edit.</li>
-                    <li>Fill all fields, some are mandatory, provide details including profile picture and save.</li>
+                    <li>You will receive an activation email. Please verify your account.</li>
+                    <li>Complete application by filling out form, provide additional details some fields mandatory.</li>
                     <li>Congratulations, your profile is now ready to impress.</li>
                 </ul>
                 <hr class="my-5">
@@ -390,8 +390,7 @@
                                                     Upload an image for your profile picture.
                                                 </h4>
                                                 <div class="w-100 h-auto mt-5">
-                                                    <img src='{{ asset('images/how-it-works/step-10.png') }}' alt='FixitJA' class='w-25 w-md-100 img-thumbnail' data-toggle="modal" data-target="#step10Modal" role="button"><br>
-                                                    <i>Click to Enlarge</i>
+                                                    <img src='{{ asset('images/how-it-works/step-10.png') }}' alt='FixitJA' class='w-50 img-thumbnail' data-toggle="modal" data-target="#step10Modal" role="button"><br>
                                                 </div>
                                                 <div class="modal fade" id="step10Modal" tabindex="-1" role="dialog" aria-labelledby="step10ModalTitle" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">

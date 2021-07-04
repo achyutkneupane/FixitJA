@@ -26,7 +26,17 @@
                     <div class="card-website-body">
                         <h6>Here are some of the services listed below that we currently offer</h6>
                         <ul class="mb-0">
-                            <li class="text-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit?</li>
+                            <li class="text-italic"><a href='{{ route('createProjectWithCat',11) }}'>Auto Repairs</a></li>
+                            <li class="text-italic"><a href='{{ route('createProjectWithCat',12) }}'>Security Grills Design & Install</a></li>
+                            <li class="text-italic"><a href='{{ route('createProjectWithCat',13) }}'>Home Appliance Repairs</a></li>
+                            <li class="text-italic"><a href='{{ route('createProjectWithCat',14) }}'>Furniture Designs and Build</a></li>
+                            <li class="text-italic"><a href='{{ route('createProjectWithCat',5) }}'>Electrical And Computers</a></li>
+                            <li class="text-italic"><a href='{{ route('createProjectWithCat',10) }}'>Home Construction</a></li>
+                            <li class="text-italic"><a href='{{ route('createProjectWithCat',4) }}'>Painting</a></li>
+                            <li class="text-italic"><a href='{{ route('createProjectWithCat',3) }}'>Plumbing</a></li>
+                            <li class="text-italic"><a href='{{ route('createProjectWithCat',2) }}'>Carpentry</a></li>
+                            <li class="text-italic"><a href='{{ route('createProjectWithCat',9) }}'>Roofing</a></li>
+                            <li class="text-italic"><a href='{{ route('createProjectWithCat',8) }}'>Cleaning Services</a></li>
                         </ul>
                     </div>
                 </div>

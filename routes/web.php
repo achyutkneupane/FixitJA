@@ -169,7 +169,6 @@ Route::get('/contact', [App\Http\Controllers\MainController::class, 'contact'])-
 Route::post('/contact', [App\Http\Controllers\MainController::class, 'submitContact'])->name('submitContact');
 
 
-//Route for faqs page
 Route::get('/underconstruction', [App\Http\Controllers\MainController::class, 'underConstruction'])->name('under_construction');
 
 //Route for profile wizard

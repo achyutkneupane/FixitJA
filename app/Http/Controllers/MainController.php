@@ -36,9 +36,9 @@ class MainController extends Controller
             ->select('users.*', 'documents.path', 'documents.type')
             ->get();
             
-        $categories = Category::with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $categories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
         $navBarCategories = $categories;
-        // $navBarCategories = $categories->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        // $navBarCategories = $categories->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
 
 
         $page_title = 'Welcome';
@@ -51,35 +51,35 @@ class MainController extends Controller
         $content = StaticText::where('slug','about_fixitja')->first();
         $page_title = 'About Us';
         $page_description = 'Our company culture, and how we do things';
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
         return view('pages.about', compact('page_title', 'page_description', 'navBarCategories','content'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function services()
     {
         $page_title = 'Services';
         $page_description = 'What we offer';
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
         return view('pages.services', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function howItWorks()
     {
         $page_title = 'How It Works';
         $page_description = 'Working Process of FixitJA';
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
         return view('pages.howItWorks', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function hiringProcess()
     {
         $page_title = 'Hiring process';
         $page_description = 'This is page about Hiring Process';
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
         return view('pages.hiring_process', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function contact()
     {
         $page_title = 'Contact';
         $page_description = 'This is contact us page';
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
         return view('pages.contact', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function submitContact(Request $request){
@@ -94,7 +94,7 @@ class MainController extends Controller
     {
         $page_title = 'FAQs';
         $page_description = 'Here are some answers to some commonly asked questions';
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
         return view('pages.faqs', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
 
@@ -102,7 +102,7 @@ class MainController extends Controller
     {
         $page_title = 'Under Construction';
         $page_description = 'This is under construction page.';
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
         return view('pages.underConstruction', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => false]);
     }
 
@@ -111,14 +111,14 @@ class MainController extends Controller
         $content = StaticText::where('slug','terms_and_conditions')->first();
         $page_title = 'Terms & Conditions';
         $page_description = 'Our terms and conditions for all users.';
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
         return view('pages.termsAndConditions', compact('page_title', 'page_description', 'navBarCategories','content'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function privacypolicy()
     {
         $page_title = 'Privacy Policy';
         $page_description = 'Our privacy policy for all users.';
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
         return view('pages.privacy_policy', compact('page_title', 'page_description', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function categories()
@@ -126,7 +126,7 @@ class MainController extends Controller
         $categories = Category::with('sub_categories')->get();
         $page_title = 'Categories';
         $page_description = 'This is view all categories page';
-        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->whereBetween('id',[8,14]);}])->get();
+        $navBarCategories = Category::limit(6)->with(['sub_categories' => function($query){ return $query->limit(2);}])->get();
         return view('pages.categories', compact('page_title', 'page_description', 'categories', 'navBarCategories'), ["show_sidebar" => false, "show_navbar" => true]);
     }
     public function test()

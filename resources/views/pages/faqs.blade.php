@@ -98,6 +98,110 @@
                         </div>
                     </div>
                 </div>
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingEight" data-toggle="collapse" data-target="#FAQCollapseEight" aria-expanded="true" aria-controls="FAQCollapseEight" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">What does the commonly used terms represent?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg></div>
+                    </a>
+                    <div class="collapse" id="FAQCollapseEight" aria-labelledby="FAQHeadingEight" data-parent="#FAQAccordian">
+                        <div class="card-website-body">
+                            <p><b>General User</b> is the term used to refer to people who are interested in having work done at their personal home or any other personal space or properties.</p>
+                            <p><b>Fixician</b> is term used to describe trade professionals.</p>
+                            <p><b>Business</b> is the term used to refer to organizations using FixItJA platform to access one or more services offered by FixItJA.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingNine" data-toggle="collapse" data-target="#FAQCollapseNine" aria-expanded="true" aria-controls="FAQCollapseNine" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">Is there a cost to register on FixItJA platform?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg></div>
+                    </a>
+                    <div class="collapse" id="FAQCollapseNine" aria-labelledby="FAQHeadingNine" data-parent="#FAQAccordian">
+                        <div class="card-website-body">No, at the moment registering to our platform is free for all categories i.e. General Users, Businesses, Fixicians /Trade professionals.</div>
+                    </div>
+                </div>
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingTen" data-toggle="collapse" data-target="#FAQCollapseTen" aria-expanded="true" aria-controls="FAQCollapseTen" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">What services can be requested through FixItJA?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg></div>
+                    </a>
+                    <div class="collapse" id="FAQCollapseTen" aria-labelledby="FAQHeadingTen" data-parent="#FAQAccordian">
+                        <div class="card-website-body">Any project requiring trades professionals to work on these projects can be listed.</div>
+                    </div>
+                </div>
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingEleven" data-toggle="collapse" data-target="#FAQCollapseEleven" aria-expanded="true" aria-controls="FAQCollapseEleven" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">What if the categories section does not list the services required for my project?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg></div>
+                    </a>
+                    <div class="collapse" id="FAQCollapseEleven" aria-labelledby="FAQHeadingEleven" data-parent="#FAQAccordian">
+                        <div class="card-website-body">If required services are not currently listed, please provide us your project categoryand we will review and add to our list.</div>
+                    </div>
+                </div>
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingTwelve" data-toggle="collapse" data-target="#FAQCollapseTwelve" aria-expanded="true" aria-controls="FAQCollapseTwelve" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">Where can FixItJA service be accessed?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg></div>
+                    </a>
+                    <div class="collapse" id="FAQCollapseTwelve" aria-labelledby="FAQHeadingTwelve" data-parent="#FAQAccordian">
+                        <div class="card-website-body">The services can be accessed anywhere in Jamaica.</div>
+                    </div>
+                </div>
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingThirteen" data-toggle="collapse" data-target="#FAQCollapseThirteen" aria-expanded="true" aria-controls="FAQCollapseThirteen" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">Do I need to register to create a project?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg></div>
+                    </a>
+                    <div class="collapse" id="FAQCollapseThirteen" aria-labelledby="FAQHeadingThirteen" data-parent="#FAQAccordian">
+                        <div class="card-website-body">Businesses and General Users does not need to register to create a project request.</div>
+                    </div>
+                </div>
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingFourteen" data-toggle="collapse" data-target="#FAQCollapseFourteen" aria-expanded="true" aria-controls="FAQCollapseFourteen" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">How can we contact FixItJA representative?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg></div>
+                    </a>
+                    <div class="collapse" id="FAQCollapseFourteen" aria-labelledby="FAQHeadingFourteen" data-parent="#FAQAccordian">
+                        <div class="card-website-body">Through phone or email: <a href='tel:+18765270157'>876-527-0157</a> or <a href='mailto:service@fixitja.com'>service@fixitja.com</a></div>
+                    </div>
+                </div>
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingFifteen" data-toggle="collapse" data-target="#FAQCollapseFifteen" aria-expanded="true" aria-controls="FAQCollapseFifteen" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">Who can sign up as a Fixician?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg></div>
+                    </a>
+                    <div class="collapse" id="FAQCollapseFifteen" aria-labelledby="FAQHeadingFifteen" data-parent="#FAQAccordian">
+                        <div class="card-website-body">Any skilled experienced professional seeking to have their skills marketed to consumers island wide.</div>
+                    </div>
+                </div>
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingSixteen" data-toggle="collapse" data-target="#FAQCollapseSixteen" aria-expanded="true" aria-controls="FAQCollapseSixteen" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">Do I need to choose from professionals / Fixicians listed in my area to work on my project?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg></div>
+                    </a>
+                    <div class="collapse" id="FAQCollapseSixteen" aria-labelledby="FAQHeadingSixteen" data-parent="#FAQAccordian">
+                        <div class="card-website-body">No, you can request other referrals from FixItJA to work your project, if you choosenot to select from those presented.</div>
+                    </div>
+                </div>
+                <div class="card-website accordion-faq-item mt-4">
+                    <a class="card-website-header collapsed" id="FAQHeadingSeventeen" data-toggle="collapse" data-target="#FAQCollapseSeventeen" aria-expanded="true" aria-controls="FAQCollapseSeventeen" href="javascript:void(0);">
+                        <div class="accordion-faq-item-heading">Is there an age limit to sign up as a Fixician?<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down accordion-faq-item-heading-arrow">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg></div>
+                    </a>
+                    <div class="collapse" id="FAQCollapseSeventeen" aria-labelledby="FAQHeadingSeventeen" data-parent="#FAQAccordian">
+                        <div class="card-website-body">With the exception of minors, there is no limitations on who can sign up based on age, sex or religion.</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="svg-border-rounded text-light">

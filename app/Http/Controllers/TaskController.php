@@ -51,7 +51,7 @@ class TaskController extends Controller
         $parishes = Parish::all();
         $navBarCategories = Category::limit(6)->with([
             'sub_categories' => function($query){
-                return $query->whereBetween('id',[8,14]);
+                return $query->limit('4');
             }
             ])->get();
         if(!empty(auth()->user()))
